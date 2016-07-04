@@ -1,30 +1,44 @@
 import Vue from 'vue';
-import App from 'App';
-import Hello from './components/Hello';
-import Test from './components/Test';
-// import Signup from './components/Signup.vue'
-// import Login from './components/Login.vue'
+// import App from './App';
+// import Hello from './components/Hello';
 import VueRouter from 'vue-router';
-import VueResource from 'vue-resource';
-Vue.use(VueResource);
+
 Vue.use(VueRouter);
+const router = new VueRouter({
+  hashbang: false,
+});
 
-const router = new VueRouter();
+const Home = Vue.extend({
+  template: '<div>Home <br>' +
+            ' <a href="javascript:void(0);" v-link="{ path: \'/about\' }">About me</a></div>',
+});
 
-// Set up routing and match routes to components
+const About = Vue.extend({
+  template: '<div>About Me <br>' +
+            ' <a href="javascript:void(0);" v-link="{ path:  \'/home\' }">go home</a></div>',
+});
+
+router.redirect({
+  '/': '/home',
+});
+
 router.map({
   '/home': {
-    component: Hello,
+    component: Home,
   },
-  '/test': {
-    component: Test,
+  '/about': {
+    component: About,
   },
 });
 
-// Redirect to the home route if any routes are unmatched
-router.redirect({
-  '*': '/home',
-});
+// /* eslint-disable no-new */
+// new Vue({
+//   el: 'body',
+//   components: { App },
+// });
 
-// Start the app on the #app div
-router.start(App, '#app');
+// Declaring the app itself
+const newapp = Vue.extend();
+
+// Initializing the whole thing together
+router.start(newapp, '#app');

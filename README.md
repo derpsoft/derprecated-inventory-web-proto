@@ -1,4 +1,4 @@
-# vuetest
+# derprecated-inventory-web-proto
 
 > A Vue.js project
 
