@@ -1,17 +1,25 @@
-import Main from './views/Main.vue';
-import About from './views/About.vue';
+import Layout from './views/app.vue';
+import Dashboard from './views/dashboard/dashboard.vue';
+import Inventory from './views/inventory/inventory.vue';
+import Logistics from './views/Logistics/logistics.vue';
 
 export function routing(router) {
   router.redirect({
-    '/': '/home',
+    '/': '/dashboard',
   });
 
   router.map({
-    '/home': {
-      component: Main,
+    '/': {
+      component: Layout,
     },
-    '/about': {
-      component: About,
+    '/dashboard': {
+      component: Dashboard,
+    },
+    '/inventory': {
+      component: Inventory,
+    },
+    '/logistics': {
+      component: Logistics,
     },
   });
 }
