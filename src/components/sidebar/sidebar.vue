@@ -6,16 +6,16 @@
           Main
         </li>
         <li class="active">
-          <a href="index.html">Dashboard</a>
+          <a href="#" v-href="{ path: 'dashboard'}">Dashboard</a>
         </li>
         <li>
           <a href="#monitoring" data-toggle="collapse" aria-expanded="false">
             Monitoring<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
           </a>
           <ul id="monitoring" class="nav nav-second collapse">
-            <li><a href="metrics.html"> Metrics</a></li>
-            <li><a href="usage.html"> Usage</a></li>
-            <li><a href="activity.html"> Activity</a></li>
+            <li><a href="#"> Metrics</a></li>
+            <li><a href="#"> Usage</a></li>
+            <li><a href="#"> Activity</a></li>
           </ul>
         </li>
         <li class="nav-category">
@@ -26,15 +26,15 @@
             General<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
           </a>
           <ul id="uielements" class="nav nav-second collapse">
-            <li><a href="panels.html">Panels</a></li>
-            <li><a href="typography.html">Typography</a></li>
-            <li><a href="icons.html">Icons</a></li>
-            <li><a href="buttons.html">Buttons</a></li>
-            <li><a href="tabs.html">Tabs</a></li>
-            <li><a href="modals.html">Modals</a></li>
-            <li><a href="alerts.html">Alerts</a></li>
-            <li><a href="gridSystem.html">Grid system</a></li>
-            <li><a href="draggable.html">Draggable</a></li>
+            <li><a href="#">Panels</a></li>
+            <li><a href="#">Typography</a></li>
+            <li><a href="#">Icons</a></li>
+            <li><a href="#">Buttons</a></li>
+            <li><a href="#">Tabs</a></li>
+            <li><a href="#">Modals</a></li>
+            <li><a href="#">Alerts</a></li>
+            <li><a href="#">Grid system</a></li>
+            <li><a href="#">Draggable</a></li>
           </ul>
         </li>
         <li>
@@ -42,20 +42,20 @@
             Tables design<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
           </a>
           <ul id="tables" class="nav nav-second collapse">
-            <li><a href="tableStyles.html">Table styles</a></li>
-            <li><a href="dataTables.html">Data Tables</a></li>
+            <li><a href="#">Table styles</a></li>
+            <li><a href="#">Data Tables</a></li>
           </ul>
         </li>
         <li>
-          <a href="formElements.html"> Form elements </a>
+          <a href="#"> Form elements </a>
         </li>
         <li>
           <a href="#charts" data-toggle="collapse" aria-expanded="false">
             Charts and graphs<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
           </a>
           <ul id="charts" class="nav nav-second collapse">
-            <li><a href="flotCharts.html">Flot charts</a></li>
-            <li><a href="sparkline.html">Sparkline</a></li>
+            <li><a href="#">Flot charts</a></li>
+            <li><a href="#">Sparkline</a></li>
           </ul>
         </li>
         <li class="nav-category">
@@ -66,10 +66,10 @@
             Basic <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
           </a>
           <ul id="extras" class="nav nav-second collapse">
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="support.html">Support</a></li>
-            <li><a href="nestableList.html">List</a></li>
-            <li><a href="timeline.html">Timeline</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">List</a></li>
+            <li><a href="#">Timeline</a></li>
           </ul>
         </li>
         <li>
@@ -77,14 +77,14 @@
             Common <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
           </a>
           <ul id="common" class="nav nav-second collapse">
-            <li><a href="login.html">Login</a></li>
-            <li><a href="register.html">Register</a></li>
-            <li><a href="forgotPassword.html">Forgot password</a></li>
-            <li><a href="error.html">Error page</a></li>
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Register</a></li>
+            <li><a href="#">Forgot password</a></li>
+            <li><a href="#">Error page</a></li>
           </ul>
         </li>
         <li>
-          <a href="versions.html">
+          <a href="#">
             <span class="badge pull-right">2</span>
             Versions
           </a>
