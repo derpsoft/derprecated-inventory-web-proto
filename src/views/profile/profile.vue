@@ -1,4 +1,10 @@
 <template></template>
 <script>
-export default {};
+import Api from './services/api';
+
+Api.noop();
+
+export default {
+
+};
 </script>
