@@ -30,7 +30,7 @@
             </a>
           </li>
           <li class=" profil-link">
-            <a href="login.html">
+            <a href="#" v-link="{ path: 'profile' }">
               <span class="profile-address">luna@company.io</span>
               <!-- <img src="images/profile.jpg" class="img-circle" alt=""> -->
             </a>
@@ -42,10 +42,6 @@
 </template>
 
 <script>
-
-import $ from 'jquery';
-
-$(() => console.log('wat'));
 
 export default {};
 
