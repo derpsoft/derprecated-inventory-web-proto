@@ -42,8 +42,13 @@
 </template>
 
 <script>
-export default {
-};
+
+import $ from 'jquery';
+
+$(() => console.log('wat'));
+
+export default {};
+
 </script>
 
 <style scoped></style>
