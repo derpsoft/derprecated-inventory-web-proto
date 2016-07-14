@@ -7,6 +7,10 @@
   </div>
 </template>
 
+<style scoped>
+  @import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+</style>
+
 <script>
 import progress from '../../node_modules/vue-progressbar/vue-progressbar';
 import appHeader from '../components/header/header.vue';
