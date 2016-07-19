@@ -20,14 +20,25 @@
 import flot from '../../node_modules/flot';
 import appHeader from '../components/header/header.vue';
 import appSidebar from '../components/sidebar/sidebar.vue';
+import Auth from '../services/auth';
 
-export default {
-  components: {
-    flot,
-    appHeader,
-    appSidebar,
-  },
-};
+class App {
+  constructor() {
+    this.auth = new Auth({
+      login: '/login',
+    });
+
+    this.components = {
+      flot,
+      appHeader,
+      appSidebar,
+    };
+  }
+}
+
+const app = new App;
+
+export default app;
 
 // $(document).ready(function() {
 //     var data = [{
