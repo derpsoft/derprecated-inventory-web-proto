@@ -1,13 +1,10 @@
 <template>
   <section class="content">
     <div class="container-fluid">
-      Inventory
+      Reports
     </div>
   </section>
 </template>
 
-
 <script>
-  export default {
-  };
 </script>
