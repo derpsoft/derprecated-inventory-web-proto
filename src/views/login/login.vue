@@ -17,22 +17,7 @@
               </div>
               <div class="panel panel-filled">
                   <div class="panel-body">
-                      <form action="index.html" id="loginForm" novalidate>
-                          <div class="form-group">
-                              <label class="control-label" for="username">Username</label>
-                              <input v-model="username" type="text" placeholder="example@gmail.com" title="Please enter you username" required="" value="" name="username" id="username" class="form-control">
-                              <span class="help-block small">Your unique username to app</span>
-                          </div>
-                          <div class="form-group">
-                              <label class="control-label" for="password">Password</label>
-                              <input v-model="password" type="password" title="Please enter your password" placeholder="******" required="" value="" name="password" id="password" class="form-control">
-                              <span class="help-block small">Your strong password</span>
-                          </div>
-                          <div>
-                              <button class="btn btn-accent" @click="login($event)">Login</button>
-                              <a class="btn btn-default" href="register.html">Register</a>
-                          </div>
-                      </form>
+                    <login-form></login-form>
                   </div>
               </div>
           </div>
@@ -40,29 +25,15 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import $ from 'jquery';
-import Auth from '../../services/auth';
+import loginForm from '../../components/loginForm/loginForm.vue';
 
-$(() => {
-  const vm = new Vue({
-    el: '#loginForm',
-    data: {
-      username: '',
-      password: '',
-    },
-    methods: {
-      login: (evt) => {
-        evt.preventDefault();
+class Login {
+  constructor() {
+    this.components = {
+      loginForm,
+    };
+  }
+}
 
-        // console.log(this);
-        return new Auth()
-          .tryLogin(this.data.username, this.data.password);
-      },
-    },
-  });
-
-  return vm;
-});
-
+export default new Login();
 </script>
