@@ -5,6 +5,7 @@ import Logistics from './views/logistics/logistics.vue';
 import Profile from './views/profile/profile.vue';
 import Reports from './views/reports/reports.vue';
 import Register from './views/register/register.vue';
+import Login from './views/login/login.vue';
 
 export function routing(router) {
   router.redirect({
@@ -29,6 +30,9 @@ export function routing(router) {
     },
     '/reports': {
       component: Reports,
+    },
+    '/login': {
+      component: Login,
     },
     '/register': {
       component: Register,

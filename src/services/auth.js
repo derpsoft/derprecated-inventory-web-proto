@@ -50,10 +50,10 @@ class Auth {
   tryLogin(username, password) {
     this.onBeforeLogin();
 
-    $.post('/api/auth/credentials', {
+    return $.post('/api/auth/credentials', {
       username,
       password,
-    }).then(() => { /* todo */ });
+    });
   }
 
   isAuthenticated() {
