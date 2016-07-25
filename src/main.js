@@ -1,18 +1,39 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import VueResource from 'vue-resource';
 import Progress from 'vue-progressbar';
-import Main from './views/app.vue';
+import App from './views/app.vue';
 
 Vue.use(VueRouter);
 Vue.use(Progress);
 
 const router = new VueRouter({
-  hashbang: false,
+  history: true,
+  saveScrollPosition: true,
 });
 
 require('./router')(router);
 
-const App = Vue.extend(Main);
+Vue.use(VueResource);
+
+Vue.http.interceptors.push({
+  request(request) {
+    /*
+      Enable this when you have a backend that you authenticate against
+    var headers = request.headers
+    if (window.location.pathname !== '/login' && !headers.hasOwnProperty('Authorization')) {
+      headers.Authorization = this.$store.state.token
+    }
+    */
+    // console.log(headers)
+    return request;
+  },
+  response(response) {
+    return response;
+  },
+});
+
+const app = Vue.extend(App);
 
 // Initializing the whole thing together
-router.start(App, 'app');
+router.start(app, 'app');

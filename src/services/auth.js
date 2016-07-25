@@ -48,7 +48,7 @@ class Auth {
   }
 
   tryLogin(username, password) {
-    this.onBeforeLogin();
+    this.on('beforeLogin');
 
     return $.post('/api/auth/credentials', {
       username,
