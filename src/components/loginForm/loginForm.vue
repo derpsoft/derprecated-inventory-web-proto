@@ -32,7 +32,14 @@ const loginForm = Vue.extend({
   methods: {
     login() {
       return new Auth()
-        .tryLogin(this.username, this.password);
+        .tryLogin(this.username, this.password)
+        .then(user => {
+          if (user.isAuthenticated) {
+            window.location = '/';
+          } else {
+            // show error messaging?
+          }
+        });
     },
   },
 });

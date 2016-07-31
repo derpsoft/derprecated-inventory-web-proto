@@ -8,7 +8,7 @@ class Auth {
     }
     Auth.prototype.singleton = this;
 
-    this.currentUser = null;
+    this.user = {};
     this.loginUrl = args.login || '/login';
     this.handlers = {
       beforeLogin: [],
@@ -50,9 +50,34 @@ class Auth {
   tryLogin(username, password) {
     this.on('beforeLogin');
 
-    return $.post('/api/auth/credentials', {
-      username,
-      password,
+    const headers = new Headers();
+    headers.set('Accept', 'application/json');
+    headers.set('Content-Type', 'application/json');
+
+    return fetch('https://derprecated-inventory-api.azurewebsites.net/auth/credentials.json', {
+      method: 'POST',
+      mode: 'cors',
+      headers,
+      body: JSON.stringify({ username, password }),
+    })
+    .then(res => res.json())
+    .then(json => {
+      console.log(json);
+      if (json.sessionId) {
+        this.user.isAuthenticated = true;
+        this.user.userName = json.userName;
+        this.user.sessionId = json.sessionId;
+        this.user.userId = json.userId;
+
+        this.raise('change', {
+          changed: 'isAuthenticated',
+          from: false,
+          to: true,
+        });
+      } else {
+        this.user.isAuthenticated = false;
+      }
+      return this.currentUser();
     });
   }
 
@@ -62,14 +87,15 @@ class Auth {
 
   currentUser() {
     return {
-      name: this.currentUser.name,
-      email: this.currentUser.email,
-      avatar: this.currentUser.avatar,
-      isAuthenticated: this.currentUser.isAuthenticated,
+      name: this.user.name,
+      email: this.user.email,
+      avatar: this.user.avatar,
+      isAuthenticated: this.user.isAuthenticated,
     };
   }
 
   raise(e, arg) {
+    console.info('[event]', 'e', arg);
     if (this.handlers[e]) {
       this.handlers[e].map(fn => fn(arg));
     }
