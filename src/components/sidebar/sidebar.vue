@@ -6,7 +6,7 @@
           Main
         </li>
         <li class="active">
-          <a href="#" v-link="{ path: 'dashboard'}">Dashboard</a>
+          <a href="#" v-link="{ path: '/'}">Dashboard</a>
         </li>
         <li class="nav-category">
           Sub Sections
@@ -32,6 +32,5 @@
 </template>
 
 <script>
-export default {
-};
+  export default {};
 </script>

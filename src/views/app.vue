@@ -1,4 +1,4 @@
-<style lang="less" async>
+<style lang="less">
  @import '../../node_modules/bootstrap/less/bootstrap.less';
  @import '../assets/stylesheets/style.less';
 </style>

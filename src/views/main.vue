@@ -1,14 +1,7 @@
-<style lang="less" async>
- @import '../../node_modules/bootstrap/less/bootstrap.less';
- @import '../assets/stylesheets/style.less';
-</style>
-
 <template>
-    <div id="main" class="wrapper">
-        <app-header></app-header>
-        <app-sidebar></app-sidebar>
-        <router-view></router-view>
-    </div>
+    <app-header></app-header>
+    <app-sidebar></app-sidebar>
+    <router-view></router-view>
 </template>
 
 <script>
