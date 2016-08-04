@@ -6,7 +6,9 @@ import Profile from './views/profile/profile.vue';
 import Reports from './views/reports/reports.vue';
 import Register from './views/register/register.vue';
 import Login from './views/login/login.vue';
+import ForgotPassword from './views/forgotPassword/forgotpassword.vue';
 import NotFound from './views/notfound.vue';
+import Auth from './services/auth.js';
 
 export function routing(router) {
   router.map({
@@ -15,6 +17,9 @@ export function routing(router) {
     },
     '/register': {
       component: Register,
+    },
+    '/forgot-password': {
+      component: ForgotPassword,
     },
     '/': {
       component: Main,
@@ -43,12 +48,22 @@ export function routing(router) {
   });
 
   router.beforeEach((transition) => {
-    if (transition.to.auth && (transition.to.router.app.$store.state.token === 'null')) {
-      window.console.log('Not authenticated');
+    const isAuthenticated = new Auth().isAuthenticated();
+    console.log(isAuthenticated);
+    if (!isAuthenticated) {
+      transition.next();
       transition.redirect('/login');
     } else {
       transition.next();
     }
+
+    // if (transition.to.auth && (transition.to.router.app.$store.state.token === 'null')) {
+    // transition.to('/login');
+    //   window.console.log('Not authenticated');
+    //   transition.redirect('/login');
+    // } else {
+    //   transition.next();
+    // }
   });
 }
 

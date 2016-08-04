@@ -9,7 +9,7 @@
             </a>
           </div>
         </div>
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="#" v-link="{ path: '/' }">
           BAUS
           <span>v.1.0</span>
         </a>

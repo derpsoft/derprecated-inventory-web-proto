@@ -36,7 +36,7 @@
   export default new Register;
 </script>
 
-<style>
+<style scoped>
   .content {
     margin-left: auto;
     margin-right: auto;

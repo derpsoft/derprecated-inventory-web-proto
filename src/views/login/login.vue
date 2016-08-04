@@ -35,7 +35,7 @@ class Login {
 export default new Login();
 </script>
 
-<style>
+<style scoped>
   .content {
     margin-left: auto;
     margin-right: auto;

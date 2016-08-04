@@ -1,4 +1,4 @@
-<style lang="less" async>
+<style lang="less">
  @import '../../node_modules/bootstrap/less/bootstrap.less';
  @import '../assets/stylesheets/style.less';
 </style>
@@ -11,8 +11,12 @@
 
 <script>
 // import pace from 'pace';
+import Auth from '../services/auth.js';
 
 class App {
+  constructor() {
+    this.auth = new Auth();
+  }
 }
 // pace.start();
 
