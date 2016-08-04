@@ -8,14 +8,10 @@
 import appHeader from '../components/header/header.vue';
 import appSidebar from '../components/sidebar/sidebar.vue';
 // import pace from 'pace';
-import Auth from '../services/auth';
+// import Auth from '../services/auth';
 
 class Main {
   constructor() {
-    this.auth = new Auth({
-      login: '/login',
-    });
-
     this.components = {
       appHeader,
       appSidebar,

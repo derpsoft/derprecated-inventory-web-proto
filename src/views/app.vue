@@ -11,8 +11,12 @@
 
 <script>
 // import pace from 'pace';
+import Auth from '../services/auth.js';
 
 class App {
+  constructor() {
+    this.auth = new Auth();
+  }
 }
 // pace.start();
 

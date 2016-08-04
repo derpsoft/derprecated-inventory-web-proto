@@ -62,7 +62,6 @@ class Auth {
     })
     .then(res => res.json())
     .then(json => {
-      console.log(json);
       if (json.sessionId) {
         this.user.isAuthenticated = true;
         this.user.userName = json.userName;
