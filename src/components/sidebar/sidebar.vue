@@ -9,13 +9,13 @@
           <a href="#" v-link="{ path: '/'}">Dashboard</a>
         </li>
         <li class="nav-category">
-          Sub Sections
+          Inventory
         </li>
         <li>
-          <a href="#" v-link="{ path: 'inventory'}">Inventory</a>
+          <a href="#" v-link="{ path: 'products'}">Products</a>
         </li>
         <li>
-          <a href="#" v-link="{ path: 'logistics'}">Logistics</a>
+          <a href="#" v-link="{ path: 'warehouses'}">Warehouses</a>
         </li>
         <li>
           <a href="#" v-link="{ path: 'reports'}">Reports</a>

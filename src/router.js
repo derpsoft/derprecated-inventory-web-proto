@@ -1,7 +1,7 @@
 import Main from './views/main.vue';
 import Dashboard from './views/dashboard/dashboard.vue';
-import Inventory from './views/inventory/inventory.vue';
-import Logistics from './views/logistics/logistics.vue';
+import Products from './views/products/products.vue';
+import WareHouses from './views/warehouses/warehouses.vue';
 import Profile from './views/profile/profile.vue';
 import Reports from './views/reports/reports.vue';
 import Register from './views/register/register.vue';
@@ -28,11 +28,11 @@ export function routing(router) {
         '': {
           component: Dashboard,
         },
-        '/inventory': {
-          component: Inventory,
+        '/products': {
+          component: Products,
         },
-        '/logistics': {
-          component: Logistics,
+        '/warehouses': {
+          component: WareHouses,
         },
         '/profile': {
           component: Profile,
