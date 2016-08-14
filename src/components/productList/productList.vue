@@ -33,7 +33,7 @@ const productList = Vue.component('product-list', {
   },
   ready() {
     const self = this;
-    fetch('http://derprecated-inventory-api.azurewebsites.net/api/v1/products', {
+    fetch('https://derprecated-inventory-api.azurewebsites.net/api/v1/products', {
       method: 'get',
       mode: 'cors',
       headers: {
