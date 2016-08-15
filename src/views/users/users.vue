@@ -4,12 +4,15 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="view-header">
+          <div class="pull-right">
+              <button class="btn btn-w-md btn-accent" v-link="{path: '/test'}">Add New User</button>
+          </div>
           <div class="header-icon">
-            <i class="pe page-header-icon pe-7s-note2"></i>
+            <i class="pe page-header-icon pe-7s-users"></i>
           </div>
           <div class="header-title">
-            <h3>Reports</h3>
-            <small>View Reports</small>
+            <h3>Users</h3>
+            <small>Find all contacts</small>
           </div>
         </div>
         <hr>

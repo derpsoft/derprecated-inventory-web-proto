@@ -4,18 +4,14 @@
       <tr>
         <th>ID</th>
         <th>Title</th>
-        <th>Created At</th>
-        <th>Updated At</th>
-        <th>Version</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="product in products">
         <td>{{product.id}}</td>
         <td>{{product.title}}</td>
-        <td>{{product.createdAt}}</td>
-        <td>{{product.updatedAt}}</td>
-        <td>{{product.version}}</td>
+        <td>Edit</td>
       </tr>
     </tbody>
   </table>
@@ -24,6 +20,8 @@
 <script>
 
 import Vue from 'vue';
+import API_URL from '../../constants/constants.js';
+
 const productList = Vue.component('product-list', {
   name: 'product-list',
   data() {
@@ -33,7 +31,7 @@ const productList = Vue.component('product-list', {
   },
   ready() {
     const self = this;
-    fetch('https://derprecated-inventory-api.azurewebsites.net/api/v1/products', {
+    fetch(`${API_URL}products`, {
       method: 'get',
       mode: 'cors',
       headers: {

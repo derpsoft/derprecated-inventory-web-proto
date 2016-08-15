@@ -7,8 +7,6 @@
 <script>
 import appHeader from '../components/header/header.vue';
 import appSidebar from '../components/sidebar/sidebar.vue';
-// import pace from 'pace';
-// import Auth from '../services/auth';
 
 class Main {
   constructor() {

@@ -3,22 +3,25 @@
     <nav>
       <ul class="nav luna-nav">
         <li class="nav-category">
-          Main
+          General
         </li>
-        <li class="active">
-          <a href="#" v-link="{ path: '/'}">Dashboard</a>
+        <li v-link="{ path: '/', activeClass: 'active', exact: true}">
+          <a href="#">Dashboard</a>
+        </li>
+        <li v-link="{ path: '/users', activeClass: 'active'}">
+          <a href="#" >Users</a>
         </li>
         <li class="nav-category">
           Inventory
         </li>
-        <li>
-          <a href="#" v-link="{ path: 'products'}">Products</a>
+        <li v-link="{ path: '/products', activeClass: 'active'}">
+          <a href="#">Products</a>
         </li>
-        <li>
-          <a href="#" v-link="{ path: 'warehouses'}">Warehouses</a>
+        <li v-link="{ path: '/warehouses', activeClass: 'active'}">
+          <a href="#">Warehouses</a>
         </li>
-        <li>
-          <a href="#" v-link="{ path: 'reports'}">Reports</a>
+        <li v-link="{ path: '/reports', activeClass: 'active'}">
+          <a href="#" >Reports</a>
         </li>
         <li class="nav-info">
             <i class="pe pe-7s-shield text-accent"></i>
