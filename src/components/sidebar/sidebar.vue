@@ -17,6 +17,9 @@
         <li v-link="{ path: '/products', activeClass: 'active'}">
           <a href="#">Products</a>
         </li>
+        <li v-link="{ path: '/categories', activeClass: 'active'}">
+          <a href="#">Categories</a>
+        </li>
         <li v-link="{ path: '/warehouses', activeClass: 'active'}">
           <a href="#">Warehouses</a>
         </li>
