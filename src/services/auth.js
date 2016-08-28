@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import router from 'vue-router';
+import store from '../stores/store';
 
 class Auth {
   constructor(args = {}) {
@@ -67,6 +68,12 @@ class Auth {
         this.user.userName = json.userName;
         this.user.sessionId = json.sessionId;
         this.user.userId = json.userId;
+        store.dispatch('SET_USER', this.user);
+
+        // Save to local storage as well
+        if (window.localStorage) {
+          window.localStorage.setItem('user', JSON.stringify(this.user));
+        }
 
         this.raise('change', {
           changed: 'isAuthenticated',
@@ -84,17 +91,42 @@ class Auth {
     return this.currentUser() && this.currentUser().isAuthenticated;
   }
 
+  getUser() {
+    let user;
+    if (window.localStorage) {
+      user = JSON.parse(window.localStorage.getItem('user')) || {};
+    }
+    return user;
+  }
+
   currentUser() {
+    const user = this.getUser();
+
     return {
-      name: this.user.name,
-      email: this.user.email,
-      avatar: this.user.avatar,
-      isAuthenticated: this.user.isAuthenticated,
+      name: this.userName || user.userName,
+      email: this.user.email || user.email,
+      avatar: this.user.avatar || user.avatar,
+      isAuthenticated: this.user.isAuthenticated || user.isAuthenticated,
+      sessionId: this.user.sessionId || user.sessionId,
     };
   }
 
+  logout() {
+    const user = {
+      isAuthenticated: false,
+      userName: null,
+      sessionId: null,
+      userId: null,
+    };
+    store.dispatch('SET_USER', user);
+
+    if (window.localStorage) {
+      window.localStorage.removeItem('user');
+    }
+  }
+
   raise(e, arg) {
-    console.info('[event]', 'e', arg);
+    // console.info('[event]', 'e', arg);
     if (this.handlers[e]) {
       this.handlers[e].map(fn => fn(arg));
     }

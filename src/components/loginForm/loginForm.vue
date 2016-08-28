@@ -12,8 +12,11 @@
       <span class="help-block small">Your strong password</span>
     </div>
     <div>
-      <button type="button" class="btn btn-accent" @click="login()">Login</button>
-      <a class="btn btn-default" href="#" v-link="{path: 'register'}">Register</a>
+      <button type="submit" class="btn btn-accent" @click.stop.prevent="login()">Login</button>
+      <div class="pull-right">
+        <a class="btn btn-link" href="#" v-link="{path: '/register'}">Register</a>
+        <a class="btn btn-link" href="#" v-link="{path: '/forgot-password'}">Forgot Password?</a>
+      </div>
     </div>
   </form>
 </template>
@@ -31,11 +34,12 @@ const loginForm = Vue.extend({
   },
   methods: {
     login() {
+      const self = this;
       return new Auth()
-        .tryLogin(this.username, this.password)
+        .tryLogin(this.username, this.password, this.$store)
         .then(user => {
           if (user.isAuthenticated) {
-            window.location = '/';
+            self.$router.go('/');
           } else {
             // show error messaging?
           }

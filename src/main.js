@@ -1,13 +1,16 @@
 import Vue from 'vue';
+// import VueX from 'vuex';
 import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
 import Progress from 'vue-progressbar';
-// import VueX from 'vuex';
+import { sync } from 'vuex-router-sync';
+import store from './stores/store.js';
 import App from './views/app.vue';
 
 Vue.use(VueRouter);
 Vue.use(Progress);
 // Vue.use(VueX);
+Vue.use(VueResource);
 
 const router = new VueRouter({
   history: true,
@@ -16,7 +19,7 @@ const router = new VueRouter({
 
 require('./router')(router);
 
-Vue.use(VueResource);
+sync(store, router);
 
 Vue.http.interceptors.push({
   request(request) {

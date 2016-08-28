@@ -20,8 +20,8 @@
             <span class="help-block small">Your address email to sent new password</span>
           </div>
           <div>
-            <button class="btn btn-accent">Sent new password</button>
-            <a class="btn btn-default" href="#" v-link="{ path: '/' }">Cancel</a>
+            <button class="btn btn-accent">Send new password</button>
+            <a class="btn btn-default" href="#" v-link="{ path: '/login' }">Cancel</a>
           </div>
         </form>
       </div>

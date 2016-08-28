@@ -7,10 +7,11 @@ import Profile from './views/profile/profile.vue';
 import Reports from './views/reports/reports.vue';
 import Register from './views/register/register.vue';
 import Login from './views/login/login.vue';
+import Logout from './views/logout/logout.vue';
 import Users from './views/users/users.vue';
 import ForgotPassword from './views/forgotPassword/forgotpassword.vue';
 import NotFound from './views/notfound.vue';
-// import Auth from './services/auth.js';
+import Auth from './services/auth';
 
 export function routing(router) {
   router.map({
@@ -27,8 +28,11 @@ export function routing(router) {
       component: Main,
       auth: true,
       subRoutes: {
-        '': {
+        '/': {
           component: Dashboard,
+        },
+        '/logout': {
+          component: Logout,
         },
         '/users': {
           component: Users,
@@ -58,24 +62,17 @@ export function routing(router) {
     },
   });
 
-  // router.beforeEach((transition) => {
-  //   // const isAuthenticated = new Auth().isAuthenticated();
-  //   // console.log(isAuthenticated);
-  //   // if (!isAuthenticated) {
-  //   //   transition.next();
-  //   //   transition.redirect('/login');
-  //   // } else {
-  //   transition.next();
-  //   // }
-  //
-  //   // if (transition.to.auth && (transition.to.router.app.$store.state.token === 'null')) {
-  //   // transition.to('/login');
-  //   //   window.console.log('Not authenticated');
-  //   //   transition.redirect('/login');
-  //   // } else {
-  //   //   transition.next();
-  //   // }
-  // });
+  router.beforeEach((transition) => {
+    const user = new Auth().currentUser();
+
+    if (transition.to.auth && user && !user.sessionId) {
+      transition.redirect('/login');
+    } else if (transition.to.path.toLowerCase() === '/login' && user && user.sessionId) {
+      transition.redirect('/');
+    }
+
+    transition.next();
+  });
 }
 
 module.exports = routing;

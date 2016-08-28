@@ -24,7 +24,7 @@
     </div>
     <div>
         <button class="btn btn-accent">Register</button>
-        <a class="btn btn-default" href="#" v-link="{ path: 'login' }">Login</a>
+        <a class="btn btn-default pull-right" href="#" v-link="{ path: 'login' }">Login</a>
     </div>
 </form>
 </template>
