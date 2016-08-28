@@ -25,6 +25,7 @@
     "vue": "^1.0.21",
     "vue-progressbar": "^0.2.5",
     "vue-router": "^0.7.13",
+    "vuex-router-sync": "^2.1.0",
     "vuex": "^1.0.0-rc.2"
   },
   "devDependencies": {
@@ -81,7 +82,6 @@
     "vue-loader": "^8.3.0",
     "vue-resource": "^0.9.3",
     "vue-style-loader": "^1.0.0",
-    "vuex-router-sync": "^2.1.0",
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0",
