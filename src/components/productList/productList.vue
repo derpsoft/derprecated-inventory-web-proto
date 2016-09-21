@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="product in products">
+      <tr v-for="product in products" v-on:click="openProduct(product.id)">
         <td>{{product.id}}</td>
         <td>{{product.title}}</td>
         <td>Edit</td>
@@ -30,6 +30,11 @@ const productList = Vue.component('product-list', {
     return {
       products: [],
     };
+  },
+  methods: {
+    openProduct(id) {
+      this.$router.go(`/products/edit/${id}`);
+    },
   },
   ready() {
     const self = this;
