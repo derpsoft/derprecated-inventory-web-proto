@@ -69,12 +69,11 @@
         }
 
         const headers = new Headers();
-        headers.set('Accept', 'application/json');
         headers.set('Content-Type', 'application/json');
 
         fetch(`${API_ROOT}register`, {
-          method: 'PUT',
-          mode: 'cors',
+          method: 'POST',
+          mode: 'no-cors',
           headers,
           body: JSON.stringify(this.registration),
         })
