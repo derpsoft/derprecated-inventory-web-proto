@@ -12,23 +12,58 @@
       </div>
     </div>
     <div class="panel panel-filled">
-      <div class="panel-body">
-        <form action="index.html" id="loginForm" novalidate>
+      <div class="panel-body" v-if="resetRequested">
+        You will retrieve an email shortly with your password reset.
+      </div>
+      <div class="panel-body" v-if="!resetRequested">
+        <form id="loginForm">
           <div class="form-group">
-            <label class="control-label" for="email">Email adress</label>
-            <input type="text" placeholder="example@gmail.com" title="Please enter you username" required="" value="" name="email" id="email" class="form-control">
+            <label class="control-label" for="email">Email address</label>
+            <input type="email" placeholder="example@email.com" title="Please enter you username" required value="" name="email" id="email" class="form-control" tabindex="0" v-model="email">
             <span class="help-block small">Your address email to sent new password</span>
           </div>
           <div>
-            <button class="btn btn-accent">Send new password</button>
+            <button class="btn btn-accent" type="submit" v-on:click.prevent="retrievePassword()">Send new password</button>
             <a class="btn btn-default" href="#" v-link="{ path: '/login' }">Cancel</a>
           </div>
         </form>
       </div>
-    </div>
   </div>
 </template>
 
 <script>
-  export default {};
+  import API_ROOT from '../../constants/constants.js';
+  export default {
+    data() {
+      return {
+        resetRequested: false,
+        email: null,
+      };
+    },
+    methods: {
+      retrievePassword() {
+        if (!this.email) {
+          return;
+        }
+
+        const headers = new Headers();
+        headers.set('Content-Type', 'application/json');
+
+        fetch(`${API_ROOT}password/forgot`, {
+          method: 'POST',
+          mode: 'cors',
+          headers,
+          body: JSON.stringify({ email: this.email }),
+        })
+        .then(res => res.json())
+        .then(resp => {
+          if (resp.success) {
+            this.resetRequested = true;
+          } else {
+            console.log(resp.message);
+          }
+        });
+      },
+    },
+  };
 </script>
