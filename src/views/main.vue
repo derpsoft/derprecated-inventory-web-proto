@@ -16,7 +16,6 @@ class Main {
     };
   }
 }
-// pace.start();
 const main = new Main;
 export default main;
 </script>
