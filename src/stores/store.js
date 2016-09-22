@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 import _ from 'lodash';
-import {* as UserActions} from '../actions/user';
+import UserActions from '../actions/user';
 
 const state = _.merge({}, UserActions.INITIAL_STATE);
 const mutations = _.merge({}, UserActions.MUTATIONS);

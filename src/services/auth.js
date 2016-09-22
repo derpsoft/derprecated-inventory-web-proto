@@ -1,12 +1,15 @@
 import $ from 'jquery';
 import router from 'vue-router';
 import store from '../stores/store';
+import Fetchable from './fetchable';
 
-class Auth {
+class Auth extends Fetchable {
   constructor(args = {}) {
     if (Auth.prototype.singleton) {
       return Auth.prototype.singleton;
     }
+    super('https://derprecated-inventory-api.azurewebsites.net');
+
     Auth.prototype.singleton = this;
 
     this.user = {};
@@ -48,6 +51,15 @@ class Auth {
     router.go(this.loginUrl);
   }
 
+  login(username, password) {
+    const creds = {
+      username,
+      password
+    };
+    return super.post('/login', creds)
+      .then(res => res.json());
+  }
+
   tryLogin(username, password) {
     this.on('beforeLogin');
 
@@ -56,35 +68,38 @@ class Auth {
     headers.set('Content-Type', 'application/json');
 
     return fetch('https://derprecated-inventory-api.azurewebsites.net/auth/credentials.json', {
-      method: 'POST',
-      mode: 'cors',
-      headers,
-      body: JSON.stringify({ username, password }),
-    })
-    .then(res => res.json())
-    .then(json => {
-      if (json.sessionId) {
-        this.user.isAuthenticated = true;
-        this.user.userName = json.userName;
-        this.user.sessionId = json.sessionId;
-        this.user.userId = json.userId;
-        store.dispatch('SET_USER', this.user);
+        method: 'POST',
+        mode: 'cors',
+        headers,
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      })
+      .then(res => res.json())
+      .then(json => {
+        if (json.sessionId) {
+          this.user.isAuthenticated = true;
+          this.user.userName = json.userName;
+          this.user.sessionId = json.sessionId;
+          this.user.userId = json.userId;
+          store.dispatch('SET_USER', this.user);
 
-        // Save to local storage as well
-        if (window.localStorage) {
-          window.localStorage.setItem('user', JSON.stringify(this.user));
+          // Save to local storage as well
+          if (window.localStorage) {
+            window.localStorage.setItem('user', JSON.stringify(this.user));
+          }
+
+          this.raise('change', {
+            changed: 'isAuthenticated',
+            from: false,
+            to: true,
+          });
+        } else {
+          this.user.isAuthenticated = false;
         }
-
-        this.raise('change', {
-          changed: 'isAuthenticated',
-          from: false,
-          to: true,
-        });
-      } else {
-        this.user.isAuthenticated = false;
-      }
-      return this.currentUser();
-    });
+        return this.currentUser();
+      });
   }
 
   isAuthenticated() {
