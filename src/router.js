@@ -9,6 +9,7 @@ import Register from './views/register/register.vue';
 import Login from './views/login/login.vue';
 import Logout from './views/logout/logout.vue';
 import Users from './views/users/users.vue';
+import Categories from './views/categories/categories.vue';
 import ForgotPassword from './views/forgotPassword/forgotpassword.vue';
 import NotFound from './views/notfound.vue';
 import Auth from './services/auth';
@@ -36,6 +37,9 @@ export function routing(router) {
         },
         '/users': {
           component: Users,
+        },
+        '/categories': {
+          component: Categories,
         },
         '/products': {
           component: Products,
