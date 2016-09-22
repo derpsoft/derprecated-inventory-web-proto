@@ -1,40 +1,55 @@
-<template></template>
+<template>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover user-list">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>User Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="user in users" v-on:click="editUser(user.id)">
+          <td>{{user.id}}</td>
+          <td>{{user.firstName}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.userName}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<style lang="less" scoped>
+  table.user-list {
+    tr {
+      cursor: pointer;
+    }
+  }
+</style>
 
 <script>
   export default {
-    // Options / Data
-    data () {
-      return {}
+    data() {
+      return {
+        users:  null,
+      },
     },
-    props: [],
-    computed: {},
-    methods: {}// ,
-    // watch: {},
-    // Options / DOM
-    // el () {},
-    // replace: true,
-    // template: '',
-    // Options / Lifecycle Hooks
-    // init () {},
-    // crated () {},
-    // beforeCompile () {},
-    // compiled () {},
-    // ready () {},
-    // attached () {},
-    // detached () {},
-    // beforeDestroy () {},
-    // destroyed () {},
-    // Options / Assets
-    // directives: {},
-    // elementDirectives: {},
-    // filters: {},
-    // components: {},
-    // transitions: {},
-    // partials: {},
-    // Options / Misc
-    // parent: null,
-    // events: {},
-    // mixins: [],
-    // name: ''
-  }
+    created() {
+      const headers = new Headers();
+      headers.set('Accept', 'application/json');
+      headers.set('Content-Type', 'application/json');
+
+      fetch(`${API_ROOT}users`, {
+        method: 'GET',
+        mode: 'cors',
+        headers,
+      })
+      .then((res) => {
+        this.users = res.json().users;
+        console.log(this.users);
+      });
+    }
+  };
 </script>
