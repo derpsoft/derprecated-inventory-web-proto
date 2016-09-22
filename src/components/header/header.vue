@@ -10,7 +10,7 @@
           </div>
         </div>
         <a class="navbar-brand" href="#" v-link="{ path: '/' }">
-          BAUS
+          DERP
           <span>v.1.0</span>
         </a>
       </div>
@@ -20,13 +20,13 @@
             <i class="stroke-hamburgermenu"></i>
           </a>
         </div>
-        <form class="navbar-form navbar-left">
+        <!-- <form class="navbar-form navbar-left">
           <input type="text" class="form-control" placeholder="Search data for analysis" style="width: 175px">
-        </form>
+        </form> -->
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="versions.html" >Versions
-              <span class="label label-warning pull-right">3</span>
+              <span class="label label-warning pull-right">1</span>
             </a>
           </li>
           <li class=" profil-link">

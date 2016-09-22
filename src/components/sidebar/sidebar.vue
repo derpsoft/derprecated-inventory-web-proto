@@ -29,7 +29,7 @@
         <li class="nav-info">
             <i class="pe pe-7s-shield text-accent"></i>
             <div class="m-t-xs">
-                <span class="c-white">BAUS</span> Inventory System.
+                <span class="c-white">DERP</span> Inventory System.
             </div>
         </li>
       </ul>
