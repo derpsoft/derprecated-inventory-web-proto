@@ -106,10 +106,10 @@
             products: self.products,
           }),
         })
-        .then(res => res.json())
-        .then(json => {
-          console.log(json);
-        });
+        .then(res => res.json());
+        // .then(json => {
+        //   // console.log(json);
+        // });
       },
     },
     ready() {

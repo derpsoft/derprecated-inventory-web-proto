@@ -60,7 +60,7 @@
           if (resp.success) {
             this.resetRequested = true;
           } else {
-            console.log(resp.message);
+            // console.log(resp.message);
           }
         });
       },

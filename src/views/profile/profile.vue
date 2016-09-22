@@ -248,5 +248,28 @@
 </template>
 
 <script>
-export default {};
+import API_ROOT from '../../constants/constants.js';
+
+export default {
+  data() {
+    return {
+      user: null,
+    };
+  },
+  ready() {
+    const headers = new Headers();
+    headers.set('Accept', 'application/json');
+    headers.set('Content-Type', 'application/json');
+
+    fetch(`${API_ROOT}me`, {
+      method: 'GET',
+      mode: 'cors',
+      headers,
+    })
+    .then(res => res.json())
+    .then(json => {
+      this.user = json.user;
+    });
+  },
+};
 </script>
