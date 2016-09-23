@@ -19,11 +19,11 @@
         <form id="loginForm">
           <div class="form-group">
             <label class="control-label" for="email">Email address</label>
-            <input type="email" placeholder="example@email.com" title="Please enter you username" required value="" name="email" id="email" class="form-control" tabindex="0" v-model="email">
+            <input type="email" placeholder="example@email.com" title="Please enter you username" required value="" name="email" id="email" class="form-control" tabindex="0" autocomplete="off" v-model="email">
             <span class="help-block small">Your address email to sent new password</span>
           </div>
           <div>
-            <button class="btn btn-accent" type="submit" v-on:click.prevent="retrievePassword()">Send new password</button>
+            <button class="btn btn-accent" type="submit" v-on:click="retrievePassword">Send new password</button>
             <a class="btn btn-default" href="#" v-link="{ path: '/login' }">Cancel</a>
           </div>
         </form>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+  import toastr from 'toastr';
   import API_ROOT from '../../constants/constants.js';
   export default {
     data() {
@@ -41,8 +42,11 @@
       };
     },
     methods: {
-      retrievePassword() {
+      retrievePassword(event) {
+        event.preventDefault();
+
         if (!this.email) {
+          toastr.info('Please enter an email.');
           return;
         }
 
@@ -55,12 +59,17 @@
           headers,
           body: JSON.stringify({ email: this.email }),
         })
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) {
+            toastr.error('An error has occur please try again later.');
+          }
+          return res.json();
+        })
         .then(resp => {
           if (resp.success) {
             this.resetRequested = true;
-          } else {
-            // console.log(resp.message);
+          } else if (resp && resp.message) {
+            toastr.error(`${resp.message}.  Please try again.`);
           }
         });
       },

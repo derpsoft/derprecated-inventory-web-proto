@@ -7,6 +7,7 @@
 <script>
 import 'bootstrap/less/bootstrap.less';
 import 'font-awesome/css/font-awesome.css';
+import 'toastr/toastr.less';
 import '../assets/stylesheets/style.less';
 
 import Pace from 'pace-progress';
