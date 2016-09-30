@@ -1,17 +1,18 @@
 import Constants from '../constants';
 import Auth from '../services/auth';
-import SessionStore from '../services/sessionStore';
+import store from '../stores/stores';
+// import SessionStore from '../services/sessionStore';
 
 export function setUser({ dispatch }, user) {
   dispatch(Constants.SET_USER, user);
-};
-
-export function getUser({ dispatch }) {
-
 }
 
-export function login({ dispatch}, username, password) {
-  dispatch(Contants.REQUEST_LOGIN);
+// export function getUser({ dispatch }) {
+//
+// }
+
+export function login({ dispatch }, username, password) {
+  dispatch(Constants.REQUEST_LOGIN);
 
   Auth.login(username, password)
     .then(json => {
@@ -38,8 +39,7 @@ export function login({ dispatch}, username, password) {
         dispatch(Constants.REQUEST_LOGIN_FAILED);
       }
     })
-    .catch(dispatch(Constants.REQUEST_LOGIN_FAILED))
-
+    .catch(dispatch(Constants.REQUEST_LOGIN_FAILED));
 }
 
 export const INITIAL_STATE = {
@@ -58,5 +58,3 @@ export const MUTATIONS = {
     state.user = user;
   }
 };
-
-export { setUser };

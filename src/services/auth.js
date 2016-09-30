@@ -68,14 +68,14 @@ class Auth extends Fetchable {
     headers.set('Content-Type', 'application/json');
 
     return fetch('https://derprecated-inventory-api.azurewebsites.net/auth/credentials.json', {
-        method: 'POST',
-        mode: 'cors',
-        headers,
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-      })
+      method: 'POST',
+      mode: 'cors',
+      headers,
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    })
       .then(res => res.json())
       .then(json => {
         if (json.sessionId) {
