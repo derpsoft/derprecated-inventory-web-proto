@@ -29,7 +29,7 @@
     "vue-progressbar": "^0.2.5",
     "vue-router": "^0.7.13",
     "vue-strap": "^1.1.22",
-    "vuex": "^1.0.0-rc.2",
+    "vuex": "^2.0.0-rc.6",
     "vuex-router-sync": "^2.1.1",
     "webpack-strip-logs": "^0.1.2"
   },

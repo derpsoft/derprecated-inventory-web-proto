@@ -1,3 +1,4 @@
+
 export default class SessionStore {
   constructor() {
     if (SessionStore.prototype.singleton) {
@@ -7,15 +8,22 @@ export default class SessionStore {
     return this;
   }
 
+  clear() {
+    this.session = {};
+
+    if (localStorage) {
+      localStorage.setItem('session', JSON.stringify(this.session));
+    }
+  }
+
   set(session = {}) {
     if (!session) {
       throw new Error('Empty session');
     }
     this.session = session;
 
-    // Save to local storage as well
     if (localStorage) {
-      localStorage.setItem('user', JSON.stringify(this.user));
+      localStorage.setItem('session', JSON.stringify(this.session));
     }
   }
 

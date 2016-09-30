@@ -1,30 +1,27 @@
 import Constants from '../constants';
 import Auth from '../services/auth';
-import SessionStore from '../services/sessionStore';
 
-function setUser(dispatch, user) {
-  dispatch(Constants.SET_USER, user);
-}
+function login({
+  dispatch,
+  commit
+}, {
+  username,
+  password
+}) {
+  console.log('LOGIN ACTION');
+  // dispatch(Constants.REQUEST_LOGIN);
 
-function getUser() {
-
-}
-
-function login(dispatch, username, password) {
-  dispatch(Constants.REQUEST_LOGIN);
-
-  Auth.login(username, password)
+  new Auth().login(username, password)
     .then(json => {
       if (json.sessionId) {
-        new SessionStore().set(json);
-        dispatch(Constants.SET_USER, json);
-        dispatch(Constants.REQUEST_LOGIN_SUCCESS, json);
+        commit(Constants.SET_USER, json);
+        // dispatch(Constants.REQUEST_LOGIN_SUCCESS, json);
       } else {
-        // this.user.isAuthenticated = false;
-        dispatch(Constants.REQUEST_LOGIN_FAILED);
+        commit(Constants.CLEAR_USER);
+        // dispatch(Constants.REQUEST_LOGIN_FAILED);
       }
     })
-    .catch(dispatch(Constants.REQUEST_LOGIN_FAILED));
+    .catch(() => dispatch(Constants.REQUEST_LOGIN_FAILED));
 }
 
 const INITIAL_STATE = {
@@ -36,16 +33,30 @@ const INITIAL_STATE = {
   }
 };
 
+const ACTIONS = {
+  [Constants.LOGIN]: login
+};
+
 const MUTATIONS = {
   [Constants.SET_USER]: (state, user) => {
     state.user = user;
+  },
+  [Constants.CLEAR_USER]: (state) => {
+    state.user = { isAuthenticated: false };
   }
 };
 
-export default {
+const GETTERS = {
+  isAuthenticated: (state) => {
+    return state.user.isAuthenticated;
+  }
+};
+
+const UserActions = {
+  ACTIONS,
   MUTATIONS,
   INITIAL_STATE,
-  login,
-  setUser,
-  getUser
+  GETTERS
 };
+
+export default UserActions;

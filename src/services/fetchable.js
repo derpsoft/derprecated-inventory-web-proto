@@ -1,25 +1,6 @@
-import SessionStore from './sessionStore';
+import _ from 'lodash';
 
 const _fetch = function(url, options) {
-  const sessionId = new SessionStore().getSessionId();
-
-  options.headers = options.headers || new Headers();
-  options.headers.set('Accept', 'application/json');
-  options.headers.set('Content-Type', 'application/json');
-
-  if (sessionId) {
-    options.headers.set('X-ss-pid', sessionId);
-  }
-
-  // if (multipart) {
-  //   options.headers.set('Content-Type', 'multipart/form-data');
-  //
-  //   let formData  = new FormData();
-  //   formData.append('Asset', {...options.file, name: 'testimage.jpg', type: 'image/jpg'})
-  //   options.body = formData;
-  //
-  // }
-
   return fetch(url, options)
     .then(res => {
       return res.json()
@@ -44,12 +25,39 @@ const _fetch = function(url, options) {
 
 
 export default class Fetchable {
-  constructor(baseUrl) {
+  constructor(baseUrl, store) {
     if (!baseUrl) {
       throw new Error('baseUrl may not be empty');
     }
+    if (!store) {
+      throw new Error('store may not be empty');
+    }
 
     this.baseUrl = baseUrl;
+    this.store = store;
+  }
+
+  prepare(options) {
+    const sessionId = this.store.getters.sessionId;
+    const defaults = {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    };
+    options.headers = options.headers || new Headers();
+
+    _.each(defaults.headers, (v, k) => {
+      if (!options.headers.has(k)) {
+        options.headers.set(k, v);
+      }
+    });
+
+    if (sessionId) {
+      options.headers.set('X-ss-pid', sessionId);
+    }
+
+    return options;
   }
 
   get(url, options = {}) {
@@ -57,7 +65,7 @@ export default class Fetchable {
       throw new Error('url may not be empty');
     }
     options.method = 'GET';
-    return _fetch(this.baseUrl + url, options);
+    return _fetch(this.baseUrl + url, this.prepare(options));
   }
 
   post(url, options = {}) {
@@ -65,6 +73,6 @@ export default class Fetchable {
       throw new Error('url may not be empty');
     }
     options.method = 'POST';
-    return _fetch(this.baseUrl + url, options);
+    return _fetch(this.baseUrl + url, this.prepare(options));
   }
 }

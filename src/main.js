@@ -1,16 +1,16 @@
 import Vue from 'vue';
-// import VueX from 'vuex';
+import store from './stores/store.js';
 import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
 import Progress from 'vue-progressbar';
 import { sync } from 'vuex-router-sync';
-import store from './stores/store.js';
-import App from './views/app.vue';
 
 Vue.use(VueRouter);
 Vue.use(Progress);
-// Vue.use(VueX);
 Vue.use(VueResource);
+
+import App from './views/app.vue';
+
 
 const router = new VueRouter({
   history: true,
