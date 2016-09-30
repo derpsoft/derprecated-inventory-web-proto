@@ -12,7 +12,7 @@ import Users from './views/users/users.vue';
 import Categories from './views/categories/categories.vue';
 import ForgotPassword from './views/forgotPassword/forgotpassword.vue';
 import NotFound from './views/notfound.vue';
-import Auth from './services/auth';
+import store from './stores/store';
 
 export function routing(router) {
   router.map({
@@ -67,15 +67,18 @@ export function routing(router) {
   });
 
   router.beforeEach((transition) => {
-    const user = new Auth().currentUser();
-
-    if (transition.to.auth && user && !user.sessionId) {
+    const isAuthenticated = store.getters.isAuthenticated;
+    if (transition.to.auth && !isAuthenticated) {
       transition.redirect('/login');
-    } else if (transition.to.path.toLowerCase() === '/login' && user && user.sessionId) {
+    } else if (transition.to.path.toLowerCase() === '/login' && isAuthenticated) {
       transition.redirect('/');
     }
 
     transition.next();
+  });
+
+  store.watch(() => store.getters.isAuthenticated, (current) => {
+    router.replace(current ? '/' : '/login');
   });
 }
 

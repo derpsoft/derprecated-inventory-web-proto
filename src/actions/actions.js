@@ -1,5 +1,7 @@
+import Constants from '../constants';
+
 const setUser = ({ dispatch }, user) => {
-  dispatch('SET_USER', user);
+  dispatch(Constants.SET_USER, user);
 };
 
 export { setUser };

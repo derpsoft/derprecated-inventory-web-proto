@@ -1,24 +1,25 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import _ from 'lodash';
+import UserActions from '../actions/user';
 
 Vue.use(Vuex);
 
-/* eslint-disable no-param-reassign */
-const store = new Vuex.Store({
-  state: {
-    user: {
-      isAuthenticated: false,
-      userName: null,
-      sessionId: null,
-      userId: null,
-    },
-  },
+const state = _.merge({}, UserActions.INITIAL_STATE);
+const mutations = _.merge({}, UserActions.MUTATIONS);
+const getters = _.merge({}, UserActions.GETTERS);
+const actions = _.merge({}, UserActions.ACTIONS);
 
-  mutations: {
-    SET_USER: (state, user) => {
-      state.user = user;
-    },
-  },
-});
+const opts = {
+  strict: process.env.NODE_ENV !== 'production',
+  state,
+  mutations,
+  getters,
+  actions
+};
+
+console.log(opts);
+
+const store = new Vuex.Store(opts);
 
 export default store;
