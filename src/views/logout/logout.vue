@@ -1,13 +1,13 @@
 <template>
-  <div></div>
+<div>
+</div>
 </template>
 
 <script>
-  import Auth from '../../services/auth.js';
-  export default {
-    init() {
-      const auth = new Auth();
-      auth.logout();
-    },
-  };
+import Constants from '../../constants';
+export default {
+  init() {
+    this.$store.dispatch(Constants.LOGOUT);
+  }
+};
 </script>

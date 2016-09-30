@@ -41,7 +41,6 @@
 
 <script>
   import API_ROOT from '../../constants/constants.js';
-  // import Auth from '../../services/auth';
 
   export default {
     data() {

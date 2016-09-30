@@ -1,13 +1,17 @@
 import _ from 'lodash';
+import Constants from '../constants';
 
-const _fetch = function(url, options) {
+const _fetch = function(url, options, {
+  dispatch
+}) {
   return fetch(url, options)
     .then(res => {
-      if (res.statusCode === 401) {
+      if (res.status === 401) {
+        dispatch(Constants.LOGOUT);
         throw new Error('Unauthorized');
       }
 
-      if (res.statusCode >= 500) {
+      if (res.status >= 500) {
         throw new Error('Server Error');
       }
 
@@ -30,13 +34,13 @@ export default class Fetchable {
   }
 
   prepare(options) {
-    const sessionId = this.store.getters.sessionId;
     const defaults = {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       }
     };
+    options.credentials = 'include';
     options.headers = options.headers || new Headers();
 
     _.each(defaults.headers, (v, k) => {
@@ -44,10 +48,6 @@ export default class Fetchable {
         options.headers.set(k, v);
       }
     });
-
-    if (sessionId) {
-      options.headers.set('X-ss-pid', sessionId);
-    }
 
     return options;
   }
@@ -57,7 +57,7 @@ export default class Fetchable {
       throw new Error('url may not be empty');
     }
     options.method = 'GET';
-    return _fetch(this.baseUrl + url, this.prepare(options));
+    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
   }
 
   post(url, options = {}) {
@@ -65,6 +65,6 @@ export default class Fetchable {
       throw new Error('url may not be empty');
     }
     options.method = 'POST';
-    return _fetch(this.baseUrl + url, this.prepare(options));
+    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
   }
 }

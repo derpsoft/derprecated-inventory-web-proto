@@ -2,14 +2,14 @@
 import Fetchable from './fetchable';
 import store from '../stores/store';
 
-class Auth extends Fetchable {
+class AuthApi extends Fetchable {
   constructor() {
     super('https://derprecated-inventory-api.azurewebsites.net', store);
 
-    if (Auth.prototype.singleton) {
-      return Auth.prototype.singleton;
+    if (AuthApi.prototype.singleton) {
+      return AuthApi.prototype.singleton;
     }
-    Auth.prototype.singleton = this;
+    AuthApi.prototype.singleton = this;
 
     return this;
   }
@@ -49,4 +49,4 @@ class Auth extends Fetchable {
   }
 }
 
-export default Auth;
+export default AuthApi;
