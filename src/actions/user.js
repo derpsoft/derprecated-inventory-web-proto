@@ -15,13 +15,17 @@ function login({
     .then(json => {
       if (json.sessionId) {
         commit(Constants.SET_USER, json);
-        // dispatch(Constants.REQUEST_LOGIN_SUCCESS, json);
+        // dispatch(Constants.LOGIN)
       } else {
         commit(Constants.CLEAR_USER);
         // dispatch(Constants.REQUEST_LOGIN_FAILED);
       }
     })
-    .catch(() => dispatch(Constants.REQUEST_LOGIN_FAILED));
+    .catch((e) => {
+      console.error(e);
+      dispatch(Constants.REQUEST_LOGIN_FAILED, e);
+      throw e;
+    });
 }
 
 const INITIAL_STATE = {

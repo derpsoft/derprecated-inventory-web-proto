@@ -3,23 +3,15 @@ import _ from 'lodash';
 const _fetch = function(url, options) {
   return fetch(url, options)
     .then(res => {
-      return res.json()
-        .then((json) => {
-          const status = json.responseStatus || {};
-          if (status.errorCode) {
-            throw new Error(status.message);
-          }
+      if (res.statusCode === 401) {
+        throw new Error('Unauthorized');
+      }
 
-          if (res.status === 401) {
-            throw new Error('Unauthorized');
-          }
+      if (res.statusCode >= 500) {
+        throw new Error('Server Error');
+      }
 
-          if (res.status >= 500) {
-            throw new Error('Server Error');
-          }
-
-          return json;
-        });
+      return res;
     });
 };
 

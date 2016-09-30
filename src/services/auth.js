@@ -3,16 +3,13 @@ import Fetchable from './fetchable';
 import store from '../stores/store';
 
 class Auth extends Fetchable {
-  constructor(args = {}) {
+  constructor() {
     super('https://derprecated-inventory-api.azurewebsites.net', store);
 
     if (Auth.prototype.singleton) {
       return Auth.prototype.singleton;
     }
     Auth.prototype.singleton = this;
-
-    this.user = {};
-    this.loginUrl = args.login || '/login';
 
     return this;
   }
@@ -26,22 +23,24 @@ class Auth extends Fetchable {
       username,
       password
     };
-    return super.post('/login', creds)
-      .then(res => res.json())
-      .then(json => {
-        const isAuthenticated = !!json.sessionId;
-        const user = {
-          isAuthenticated
-        };
+    return super.post('/auth/credentials', {
+      body: JSON.stringify(creds)
+    })
+    .then(res => res.json())
+    .then(json => {
+      const isAuthenticated = !!json.sessionId;
+      const user = {
+        isAuthenticated
+      };
 
-        if (isAuthenticated) {
-          this.user.userName = json.userName;
-          this.user.sessionId = json.sessionId;
-          this.user.userId = json.userId;
-        }
+      if (isAuthenticated) {
+        user.userName = json.userName;
+        user.sessionId = json.sessionId;
+        user.userId = json.userId;
+      }
 
-        return user;
-      });
+      return user;
+    });
   }
 
   logout() {

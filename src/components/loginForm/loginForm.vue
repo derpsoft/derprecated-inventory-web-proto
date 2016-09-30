@@ -22,7 +22,6 @@
 
 <script>
 import Vue from 'vue';
-// import Auth from '../../services/auth';
 import Constants from '../../constants';
 
 const loginForm = Vue.extend({
@@ -31,11 +30,6 @@ const loginForm = Vue.extend({
       username: '',
       password: '',
     };
-  },
-  computed: {
-    isAuthenticated() {
-      return this.$store.getters.isAuthenticated;
-    }
   },
   methods: {
     login() {

@@ -76,6 +76,10 @@ export function routing(router) {
 
     transition.next();
   });
+
+  store.watch(() => store.getters.isAuthenticated, (current) => {
+    router.replace(current ? '/' : '/login');
+  });
 }
 
 module.exports = routing;

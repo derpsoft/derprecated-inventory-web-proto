@@ -11,6 +11,7 @@ const getters = _.merge({}, UserActions.GETTERS);
 const actions = _.merge({}, UserActions.ACTIONS);
 
 const opts = {
+  strict: process.env.NODE_ENV !== 'production',
   state,
   mutations,
   getters,
