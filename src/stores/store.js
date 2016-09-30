@@ -4,7 +4,9 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 import _ from 'lodash';
-import UserActions from '../actions/user';
+import {
+  default as UserActions
+} from '../actions/user';
 
 const state = _.merge({}, UserActions.INITIAL_STATE);
 const mutations = _.merge({}, UserActions.MUTATIONS);
@@ -19,7 +21,8 @@ const store = new Vuex.Store({
   //     userId: null,
   //   },
   // },
-  state, mutations
+  state,
+  mutations
 });
 
 export default store;

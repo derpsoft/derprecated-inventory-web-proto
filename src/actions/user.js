@@ -1,60 +1,51 @@
 import Constants from '../constants';
 import Auth from '../services/auth';
-import store from '../stores/stores';
-// import SessionStore from '../services/sessionStore';
+import SessionStore from '../services/sessionStore';
 
-export function setUser({ dispatch }, user) {
+function setUser(dispatch, user) {
   dispatch(Constants.SET_USER, user);
 }
 
-// export function getUser({ dispatch }) {
-//
-// }
+function getUser() {
 
-export function login({ dispatch }, username, password) {
+}
+
+function login(dispatch, username, password) {
   dispatch(Constants.REQUEST_LOGIN);
 
   Auth.login(username, password)
     .then(json => {
       if (json.sessionId) {
-        this.user.isAuthenticated = true;
-        this.user.userName = json.userName;
-        this.user.sessionId = json.sessionId;
-        this.user.userId = json.userId;
-        store.dispatch('SET_USER', this.user);
-
-        // Save to local storage as well
-        if (window.localStorage) {
-          window.localStorage.setItem('user', JSON.stringify(this.user));
-        }
-
-        this.raise('change', {
-          changed: 'isAuthenticated',
-          from: false,
-          to: true,
-        });
-        dispatch(Constants.REQUEST_LOGIN_SUCCESS);
+        new SessionStore().set(json);
+        dispatch(Constants.SET_USER, json);
+        dispatch(Constants.REQUEST_LOGIN_SUCCESS, json);
       } else {
-        this.user.isAuthenticated = false;
+        // this.user.isAuthenticated = false;
         dispatch(Constants.REQUEST_LOGIN_FAILED);
       }
     })
     .catch(dispatch(Constants.REQUEST_LOGIN_FAILED));
 }
 
-export const INITIAL_STATE = {
+const INITIAL_STATE = {
   user: {
-    user: {
-      isAuthenticated: false,
-      userName: null,
-      sessionId: null,
-      userId: null,
-    }
+    isAuthenticated: false,
+    userName: null,
+    sessionId: null,
+    userId: null,
   }
 };
 
-export const MUTATIONS = {
-  [SET_USER]: (state, user) => {
+const MUTATIONS = {
+  [Constants.SET_USER]: (state, user) => {
     state.user = user;
   }
+};
+
+export default {
+  MUTATIONS,
+  INITIAL_STATE,
+  login,
+  setUser,
+  getUser
 };

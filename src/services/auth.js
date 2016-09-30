@@ -5,11 +5,10 @@ import Fetchable from './fetchable';
 
 class Auth extends Fetchable {
   constructor(args = {}) {
+    super('https://derprecated-inventory-api.azurewebsites.net');
     if (Auth.prototype.singleton) {
       return Auth.prototype.singleton;
     }
-    super('https://derprecated-inventory-api.azurewebsites.net');
-
     Auth.prototype.singleton = this;
 
     this.user = {};
