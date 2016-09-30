@@ -80,6 +80,11 @@ export function routing(router) {
   store.watch(() => store.getters.isAuthenticated, (current) => {
     router.replace(current ? '/' : '/login');
   });
+
+  if (store.getters.isAuthenticated &&
+    router.currentRoute.path === '/login') {
+    router.replace('/');
+  }
 }
 
 module.exports = routing;
