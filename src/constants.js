@@ -1,5 +1,7 @@
 
 const Constants = {
+  API_ROOT: 'https://derprecated-inventory-api.azurewebsites.net',
+
   SET_SESSION: 'SET_SESSION',
   GET_SESSION: 'GET_SESSION',
   CLEAR_SESSION: 'CLEAR_SESSION',
@@ -12,6 +14,10 @@ const Constants = {
   LOGIN_SUCCESS: 'LOGIN_SUCCESS',
   LOGIN_FAILED: 'LOGIN_FAILED',
   LOGOUT: 'LOGOUT',
+
+  REGISTER: 'REGISTER',
+  REGISTATION_FAILED: 'REGISTRATION_FAILED',
+
 };
 
 export default Constants;

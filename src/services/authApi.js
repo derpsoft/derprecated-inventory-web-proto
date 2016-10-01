@@ -1,10 +1,11 @@
 // import router from 'vue-router';
 import Fetchable from './fetchable';
 import store from '../stores/store';
+import Constants from '../constants';
 
 class AuthApi extends Fetchable {
   constructor() {
-    super('https://derprecated-inventory-api.azurewebsites.net', store);
+    super(Constants.API_ROOT, store);
 
     if (AuthApi.prototype.singleton) {
       return AuthApi.prototype.singleton;
@@ -14,9 +15,22 @@ class AuthApi extends Fetchable {
     return this;
   }
 
-  // showLogin() {
-  //   router.go(this.loginUrl);
-  // }
+  register(userName, password, email, firstName, lastName) {
+    const info = {
+      userName,
+      password,
+      firstName,
+      lastName,
+      email,
+    };
+    return super.post('/register', {
+      body: JSON.stringify(info)
+    })
+      .then(res => res.json())
+      .then(json => {
+        return this.setUser(json);
+      });
+  }
 
   login(username, password) {
     const creds = {
@@ -28,24 +42,27 @@ class AuthApi extends Fetchable {
     })
     .then(res => res.json())
     .then(json => {
-      const isAuthenticated = !!json.sessionId;
-      const user = {
-        isAuthenticated
-      };
-
-      if (isAuthenticated) {
-        user.userName = json.userName;
-        user.sessionId = json.sessionId;
-        user.userId = json.userId;
-      }
-
-      return user;
+      return this.setUser(json);
     });
   }
 
   logout() {
     return super.post('/logout')
       .then(res => res.json());
+  }
+
+  setUser(response) {
+    const isAuthenticated = !!response.sessionId;
+    const user = {
+      isAuthenticated
+    };
+
+    if (isAuthenticated) {
+      user.userName = response.userName;
+      user.sessionId = response.sessionId;
+      user.userId = response.userId;
+    }
+    return user;
   }
 }
 

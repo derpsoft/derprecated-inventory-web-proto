@@ -45,6 +45,30 @@ function profile({
     });
 }
 
+function register({
+  commit,
+  dispatch,
+}, {
+  userName,
+  password,
+  firstName,
+  lastName,
+  email,
+}) {
+  new AuthApi().register(userName, password, email, firstName, lastName)
+    .then(json => {
+      if (json) {
+        commit(Constants.SET_SESSION, json);
+        dispatch(Constants.GET_USER);
+      } else {
+        commit(Constants.CLEAR_USER);
+      }
+    })
+    .catch((e) => {
+      dispatch(Constants.REGISTRATION_FAILED, e);
+    });
+}
+
 /*
 this is a temporary mechanism to keep the user logged in beyond
 just the current pageload. might be worth keeping around,
@@ -96,6 +120,9 @@ const ACTIONS = {
   [Constants.LOGIN]: login,
   [Constants.GET_USER]: profile,
   [Constants.LOGOUT]: logout,
+  [Constants.REGISTER]: register,
+  // [Constants.REGISTRATIONFAILED]:
+  // [Constants.LOGIN_FAILED]:
 };
 
 const MUTATIONS = {

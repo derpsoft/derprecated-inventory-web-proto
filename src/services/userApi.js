@@ -1,10 +1,11 @@
 import Fetchable from './fetchable';
 import store from '../stores/store';
+import Constants from '../constants';
 import _ from 'lodash';
 
 class UserApi extends Fetchable {
   constructor() {
-    super('https://derprecated-inventory-api.azurewebsites.net', store);
+    super(Constants.API_ROOT, store);
 
     if (UserApi.prototype.singleton) {
       return UserApi.prototype.singleton;
