@@ -19,44 +19,35 @@
 
 <style lang="less" scoped>
 .product-list {
-  tr {
-    cursor: pointer;
-  }
+    tr {
+        cursor: pointer;
+    }
 }
 </style>
 
 <script>
-
 import Vue from 'vue';
-import API_URL from '../../constants/constants.js';
+import Constants from '../../constants';
 
 const productList = Vue.component('product-list', {
   name: 'product-list',
-  data() {
-    return {
-      products: [],
-    };
+  computed: {
+    products() {
+      return this.$store.state.products.list;
+    }
   },
   methods: {
     openProduct(id) {
       this.$router.go(`/products/edit/${id}`);
-    },
+    }
   },
   ready() {
-    const self = this;
-    fetch(`${API_URL}products`, {
-      method: 'get',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-10',
-      },
-    }).then(res => res.json())
-    .then((response) => {
-      self.products = response.products;
+    this.$store.dispatch(Constants.GET_PRODUCTS, {
+      skip: 0,
+      take: 200
     });
   },
 });
 
 export default productList;
-
 </script>
