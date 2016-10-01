@@ -23,6 +23,8 @@
     "express": "^4.14.0",
     "font-awesome": "^4.6.3",
     "jquery": "^3.1.0",
+    "lodash": "https://registry.npmjs.org/lodash/-/lodash-4.13.1.tgz",
+    "pace": "0.0.4",
     "pace-progress": "^1.0.2",
     "shelljs": "^0.6.0",
     "vue": "^1.0.21",
