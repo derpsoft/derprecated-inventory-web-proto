@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import _ from 'lodash';
-import UserActions from '../actions/user';
+import Actions from '../actions';
 
 Vue.use(Vuex);
 
-const state = _.merge({}, UserActions.INITIAL_STATE);
-const mutations = _.merge({}, UserActions.MUTATIONS);
-const getters = _.merge({}, UserActions.GETTERS);
-const actions = _.merge({}, UserActions.ACTIONS);
+const state = _.merge({}, ..._.map(Actions, 'INITIAL_STATE'));
+const mutations = _.merge({}, ..._.map(Actions, 'MUTATIONS'));
+const getters = _.merge({}, ..._.map(Actions, 'GETTERS'));
+const actions = _.merge({}, ..._.map(Actions, 'ACTIONS'));
 
 const opts = {
   strict: process.env.NODE_ENV !== 'production',
