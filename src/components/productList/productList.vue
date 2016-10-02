@@ -9,8 +9,8 @@
     </thead>
     <tbody>
       <tr v-for="product in products" v-on:click="openProduct(product.id)">
-        <td>{{product.id}}</td>
-        <td>{{product.title}}</td>
+        <td class="id">{{product.id}}</td>
+        <td><img :src="product.images[0].source" width="50" height="50"> {{product.title}}</td>
       </tr>
     </tbody>
   </table>
@@ -19,8 +19,18 @@
 
 <style lang="less" scoped>
 .product-list {
+    td {
+      vertical-align: middle;
+    }
     tr {
         cursor: pointer;
+    }
+    td.id {
+      padding-left: 15px;
+      width: 25px;
+    }
+    img {
+      margin-right: 20px;
     }
 }
 </style>

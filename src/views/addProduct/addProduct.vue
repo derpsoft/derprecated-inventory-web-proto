@@ -11,8 +11,8 @@
                         <i class="pe page-header-icon pe-7s-plus"></i>
                     </div>
                     <div class="header-title">
-                        <h3>Add Product</h3>
-                        <small>Create a new product</small>
+                        <h3>{{ isEdit ? 'Edit' : 'Add' }} Product</h3>
+                        <small>{{ isEdit ? 'Make modifications' : 'Create a product' }}</small>
                     </div>
                 </div>
                 <hr>
@@ -29,8 +29,16 @@
 <script>
   import ProductEdit from '../../components/productEdit/productEdit.vue';
   export default {
+    data() {
+      return {
+        isEdit: false,
+      };
+    },
     components: {
       ProductEdit,
+    },
+    created() {
+      this.isEdit = this.$route.params.id > 0;
     },
   };
 </script>
