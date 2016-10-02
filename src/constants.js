@@ -1,4 +1,3 @@
-
 const Constants = {
   API_ROOT: 'https://derprecated-inventory-api.azurewebsites.net',
 
@@ -14,6 +13,7 @@ const Constants = {
   LOGIN_SUCCESS: 'LOGIN_SUCCESS',
   LOGIN_FAILED: 'LOGIN_FAILED',
   LOGOUT: 'LOGOUT',
+  FORGOT_PASSWORD: 'FORGOT_PASSWORD',
 
   REGISTER: 'REGISTER',
   REGISTATION_FAILED: 'REGISTRATION_FAILED',

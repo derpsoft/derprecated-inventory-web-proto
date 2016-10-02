@@ -28,6 +28,16 @@ class UserApi extends Fetchable {
         return profile;
       });
   }
+
+  forgotPassword(email) {
+    return super.post('/api/v1/password/reset', {
+      email,
+    })
+      .then(res => res.json())
+      .then(json => {
+        return json;
+      });
+  }
 }
 
 export default UserApi;
