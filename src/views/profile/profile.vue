@@ -248,7 +248,6 @@
 </template>
 
 <script>
-import API_ROOT from '../../constants/constants.js';
 
 export default {
   data() {
@@ -257,19 +256,19 @@ export default {
     };
   },
   ready() {
-    const headers = new Headers();
-    headers.set('Accept', 'application/json');
-    headers.set('Content-Type', 'application/json');
-
-    fetch(`${API_ROOT}me`, {
-      method: 'GET',
-      mode: 'cors',
-      headers,
-    })
-    .then(res => res.json())
-    .then(json => {
-      this.user = json.user;
-    });
+    // const headers = new Headers();
+    // headers.set('Accept', 'application/json');
+    // headers.set('Content-Type', 'application/json');
+    //
+    // fetch(`${API_ROOT}me`, {
+    //   method: 'GET',
+    //   mode: 'cors',
+    //   headers,
+    // })
+    // .then(res => res.json())
+    // .then(json => {
+    //   this.user = json.user;
+    // });
   },
 };
 </script>

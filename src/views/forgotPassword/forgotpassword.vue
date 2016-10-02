@@ -33,7 +33,7 @@
 
 <script>
   import toastr from 'toastr';
-  import API_ROOT from '../../constants/constants.js';
+  import Constants from '../../constants.js';
   export default {
     data() {
       return {
@@ -53,7 +53,7 @@
         const headers = new Headers();
         headers.set('Content-Type', 'application/json');
 
-        fetch(`${API_ROOT}password/forgot`, {
+        fetch(`${Constants.API_ROOT}password/forgot`, {
           method: 'POST',
           mode: 'cors',
           headers,
