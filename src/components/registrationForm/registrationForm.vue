@@ -40,46 +40,29 @@
 </template>
 
 <script>
-  import API_ROOT from '../../constants/constants.js';
+  import Constants from '../../constants.js';
 
   export default {
     data() {
       return {
         registration: {
-          displayName: null,
           username: null,
           password: null,
           repeatPassword: null,
+          firstName: null,
+          lastName: null,
           email: null,
-          autoLogin: null,
-          continue: null,
         },
       };
     },
     methods: {
       register() {
-        if (!(this.registration ||
-            this.registration.userName ||
-            this.registration.password ||
-            this.registration.firstName ||
-            this.registration.lastName ||
-            this.registration.email)) {
-          return;
-        }
-
-        const headers = new Headers();
-        headers.set('Accept', 'application/json');
-        headers.set('Content-Type', 'application/json');
-
-        fetch(`${API_ROOT}register`, {
-          method: 'PUT',
-          mode: 'cors',
-          headers,
-          body: JSON.stringify(this.registration),
-        })
-        .then(res => res.json())
-        .then(json => {
-          console.log(json);
+        this.$store.dispatch(Constants.REGISTER, {
+          username: this.registration.username,
+          password: this.registration.password,
+          email: this.registration.email,
+          firstName: this.registration.firstName,
+          lastName: this.registration.lastName,
         });
       },
     },

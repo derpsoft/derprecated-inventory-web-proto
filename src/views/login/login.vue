@@ -24,15 +24,11 @@
 <script>
 import loginForm from '../../components/loginForm/loginForm.vue';
 
-class Login {
-  constructor() {
-    this.components = {
-      loginForm,
-    };
-  }
-}
-
-export default new Login();
+export default {
+  components: {
+    loginForm,
+  },
+};
 </script>
 
 <style scoped>

@@ -1,12 +1,10 @@
 <template>
-<div>
-</div>
 </template>
 
 <script>
 import Constants from '../../constants';
 export default {
-  init() {
+  created() {
     this.$store.dispatch(Constants.LOGOUT);
   }
 };

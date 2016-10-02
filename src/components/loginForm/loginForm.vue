@@ -21,10 +21,9 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import Constants from '../../constants';
 
-const loginForm = Vue.extend({
+export default {
   data() {
     return {
       username: '',
@@ -37,18 +36,7 @@ const loginForm = Vue.extend({
         username: this.username,
         password: this.password
       });
-
-      // return new Auth()
-      //   .login(this.username, this.password)
-      //   .then(user => {
-      //     if (user.isAuthenticated) {
-      //       this.$router.go('/');
-      //     } else {
-      //       // show error messaging?
-      //     }
-      //   });
     },
   },
-});
-export default Vue.component('login-form', loginForm);
+};
 </script>
