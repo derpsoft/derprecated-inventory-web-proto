@@ -20,8 +20,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <div class="table-responsive">
-        </div>
+        <user-list></user-list>
       </div>
     </div>
   </div>
@@ -29,40 +28,14 @@
 </template>
 
 <script>
+  import UserList from '../../components/userList/userList.vue';
+
   export default {
-    // Options / Data
     data() {
       return {};
     },
-    props: [],
-    computed: {},
-    methods: {},
-    // watch: {},
-    // Options / DOM
-    // el () {},
-    // replace: true,
-    // template: '',
-    // Options / Lifecycle Hooks
-    // init () {},
-    // crated () {},
-    // beforeCompile () {},
-    // compiled () {},
-    // ready () {},
-    // attached () {},
-    // detached () {},
-    // beforeDestroy () {},
-    // destroyed () {},
-    // Options / Assets
-    // directives: {},
-    // elementDirectives: {},
-    // filters: {},
-    // components: {},
-    // transitions: {},
-    // partials: {},
-    // Options / Misc
-    // parent: null,
-    // events: {},
-    // mixins: [],
-    // name: ''
+    components: {
+      UserList,
+    },
   };
 </script>
