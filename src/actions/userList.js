@@ -19,13 +19,14 @@ function getUserList({
 
 
 const INITIAL_STATE = {
-  usersList: {
+  userList: {
     search: {
       query: {},
       results: {}
     },
     list: [],
     user: {},
+    total: 25,
   }
 };
 
@@ -38,7 +39,7 @@ const MUTATIONS = {
     state.userList.search.query = query;
   },
   [Constants.SET_USER_LIST_SEARCH_RESULTS]: (state, results) => {
-    state.usersList.search.results = results;
+    state.userList.search.results = results;
   },
   [Constants.CLEAR_USER_LIST_SEARCH]: (state) => {
     state.userList.search = {
@@ -47,7 +48,7 @@ const MUTATIONS = {
     };
   },
   [Constants.SET_USER_LIST]: (state, results) => {
-    state.usersList.list = results;
+    state.userList.list = results;
   },
 };
 

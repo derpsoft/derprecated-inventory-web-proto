@@ -1,4 +1,7 @@
 <template>
+  <div class="col-md-12">
+    <user-search></user-search>
+  </div>
   <div class="col-xs-6 text-left">
     <page-size :callback="setPageSize" :page-size="25"></page-size>
   </div>
@@ -13,16 +16,14 @@
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>User Name</th>
             <th>Email</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in users" v-on:click="editUser(user.id)">
+          <tr v-for="user in users" v-on:click.prevent="editUser(user.id)">
             <td>{{user.id}}</td>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
-            <td>{{user.userName}}</td>
             <td>{{user.email}}</td>
           </tr>
         </tbody>
@@ -42,8 +43,11 @@
 <script>
   import Constants from '../../constants';
   import PageSize from '../../components/pageSize/pageSize.vue';
+  import UserSearch from '../../components/userSearch/userSearch';
   import Pagination from 'vue-bootstrap-pagination';
   import store from '../../stores/store';
+
+  const defaultPageCount = 25;
 
   export default {
     data() {
@@ -51,32 +55,41 @@
         users: null,
         items: [],
         pagination: {
-          per_page: 25,    // required
+          per_page: defaultPageCount,    // required
           current_page: 1, // required
-          last_page: 2,    // required
-          to: 25           // required
+          last_page: 1,    // required
+          to: defaultPageCount           // required
         },
       };
     },
     components: {
       Pagination,
       PageSize,
+      UserSearch,
     },
     created() {
-      this.$store.dispatch(Constants.GET_USER_LIST, { skip: 0, take: 25 });
+      this.$store.dispatch(Constants.GET_USER_LIST, { skip: 0, take: defaultPageCount });
     },
     computed: {
       users() {
-        return store.state.usersList.list;
+        // TODO: Calculate Total Page Size
+        this.pagination.last_page = store.state.userList.list;
+        return store.state.userList.list;
       },
     },
     methods: {
       editUser() {
       },
       getPage() {
-        this.$store.dispatch(Constants.GET_USER_LIST, { skip: 0, take: 25 });
+        const skip = this.pagination.per_page * (this.pagination.current_page - 1);
+        this.$store.dispatch(Constants.GET_USER_LIST, {
+          skip,
+          take: this.pagination.per_page
+        });
       },
       setPageSize(pageSize) {
+        this.pagination.per_page = pageSize;
+
         this.$store.dispatch(Constants.GET_USER_LIST, {
           skip: 0,
           take: pageSize,
