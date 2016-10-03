@@ -13,6 +13,7 @@ function login({
   new AuthApi().login(username, password)
     .then(json => {
       if (json.sessionId) {
+        commit(Constants.SET_USER, json.user);
         commit(Constants.SET_SESSION, json);
         dispatch(Constants.GET_USER);
       } else {
@@ -38,7 +39,7 @@ function profile({
   new UserApi().profile()
     .then(json => {
       if (json) {
-        commit(Constants.SET_USER, json);
+        commit(Constants.SET_USER, json.user);
       } else {
         commit(Constants.CLEAR_USER);
       }
@@ -66,6 +67,14 @@ function register({
     })
     .catch((e) => {
       dispatch(Constants.REGISTRATION_FAILED, e);
+    });
+}
+
+function forgotPassword({
+  email
+}) {
+  new UserApi().forgotPassword(email)
+    .then(() => {
     });
 }
 
@@ -121,6 +130,7 @@ const ACTIONS = {
   [Constants.GET_USER]: profile,
   [Constants.LOGOUT]: logout,
   [Constants.REGISTER]: register,
+  [Constants.FORGOT_PASSWORD]: forgotPassword,
   // [Constants.REGISTRATIONFAILED]:
   // [Constants.LOGIN_FAILED]:
 };

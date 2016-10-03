@@ -20,7 +20,7 @@
           <div class="form-group">
             <label class="control-label" for="email">Email address</label>
             <input type="email" placeholder="example@email.com" title="Please enter you username" required value="" name="email" id="email" class="form-control" tabindex="0" autocomplete="off" v-model="email">
-            <span class="help-block small">Your address email to sent new password</span>
+            <span class="help-block small">Your address email to retrieve new password.</span>
           </div>
           <div>
             <button class="btn btn-accent" type="submit" v-on:click="retrievePassword">Send new password</button>
@@ -33,7 +33,8 @@
 
 <script>
   import toastr from 'toastr';
-  import Constants from '../../constants.js';
+  import Constants from '../../constants';
+
   export default {
     data() {
       return {
@@ -50,27 +51,8 @@
           return;
         }
 
-        const headers = new Headers();
-        headers.set('Content-Type', 'application/json');
-
-        fetch(`${Constants.API_ROOT}password/forgot`, {
-          method: 'POST',
-          mode: 'cors',
-          headers,
-          body: JSON.stringify({ email: this.email }),
-        })
-        .then(res => {
-          if (!res.ok) {
-            toastr.error('An error has occur please try again later.');
-          }
-          return res.json();
-        })
-        .then(resp => {
-          if (resp.success) {
-            this.resetRequested = true;
-          } else if (resp && resp.message) {
-            toastr.error(`${resp.message}.  Please try again.`);
-          }
+        this.$store.dispatch(Constants.FORGOT_PASSWORD, {
+          email: this.email,
         });
       },
     },

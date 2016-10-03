@@ -10,8 +10,8 @@
       <form>
         <div class="media">
           <div class="media-left">
-            <a href="#">
-            <img class="media-object" src="http://placehold.it/250x250">
+            <a href="#" @on:click.prevent="">
+            <img class="media-object" :src="product.images[0].source" width="250" height="250" src="http://placehold.it/250x250">
             </a>
           </div>
           <div class="media-body">
