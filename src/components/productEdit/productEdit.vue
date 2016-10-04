@@ -118,7 +118,7 @@
 
 <script>
   import Vue from 'vue';
-  import API_ROOT from '../../constants/constants.js';
+  import Constants from '../../constants.js';
   import { tabset, tab } from 'vue-strap';
 
   const productEdit = Vue.extend({
@@ -138,7 +138,7 @@
         headers.set('Accept', 'application/json');
         headers.set('Content-Type', 'application/json');
 
-        fetch(`${API_ROOT}products/${this.$route.params.id}`, {
+        fetch(`${Constants.API_ROOT}products/${this.$route.params.id}`, {
           method: 'PUT',
           mode: 'cors',
           headers,
@@ -165,7 +165,7 @@
         headers.set('Accept', 'application/json');
         headers.set('Content-Type', 'application/json');
 
-        fetch(`${API_ROOT}products/${this.$route.params.id}`, {
+        fetch(`${Constants.API_ROOT}products/${this.$route.params.id}`, {
           method: 'GET',
           mode: 'cors',
           headers,
