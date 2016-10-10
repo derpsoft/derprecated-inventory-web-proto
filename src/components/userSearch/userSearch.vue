@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Constants from '../../constants';
+// import Constants from '../../constants';
 
 export default {
   data() {
@@ -15,7 +15,6 @@ export default {
   },
   methods: {
     search() {
-      console.log(Constants.USER_SEARCH);
     },
   },
 };

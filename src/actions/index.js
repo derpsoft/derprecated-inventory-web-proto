@@ -1,9 +1,9 @@
 import UserActions from '../actions/user';
 import ProductActions from '../actions/product';
-import UserListActions from '../actions/userList';
+import UsersActions from '../actions/users';
 
 module.exports = [
   UserActions,
   ProductActions,
-  UserListActions,
+  UsersActions,
 ];

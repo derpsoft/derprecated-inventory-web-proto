@@ -18,7 +18,7 @@ const opts = {
   actions
 };
 
-console.log(opts);
+// console.log(opts);
 
 const store = new Vuex.Store(opts);
 

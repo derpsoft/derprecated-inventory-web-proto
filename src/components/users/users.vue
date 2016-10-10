@@ -68,7 +68,7 @@
       UserSearch,
     },
     created() {
-      this.$store.dispatch(Constants.GET_USERS, { skip: 0, take: defaultPageCount });
+      this.$store.dispatch(Constants.GET_USER, { skip: 0, take: defaultPageCount });
     },
     computed: {
       users() {
@@ -82,7 +82,7 @@
       },
       getPage() {
         const skip = this.pagination.per_page * (this.pagination.current_page - 1);
-        this.$store.dispatch(Constants.GET_USERS, {
+        this.$store.dispatch(Constants.GET_USER, {
           skip,
           take: this.pagination.per_page
         });
@@ -90,7 +90,7 @@
       setPageSize(pageSize) {
         this.pagination.per_page = pageSize;
 
-        this.$store.dispatch(Constants.GET_USERS, {
+        this.$store.dispatch(Constants.GET_USER, {
           skip: 0,
           take: pageSize,
         });

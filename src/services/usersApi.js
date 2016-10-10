@@ -2,14 +2,14 @@ import Fetchable from './fetchable';
 import store from '../stores/store';
 import Constants from '../constants';
 
-class UserListApi extends Fetchable {
+class UsersApi extends Fetchable {
   constructor() {
     super(Constants.API_ROOT, store);
 
-    if (UserListApi.prototype.singleton) {
-      return UserListApi.prototype.singleton;
+    if (UsersApi.prototype.singleton) {
+      return UsersApi.prototype.singleton;
     }
-    UserListApi.prototype.singleton = this;
+    UsersApi.prototype.singleton = this;
 
     return this;
   }
@@ -27,4 +27,4 @@ class UserListApi extends Fetchable {
   }
 }
 
-export default UserListApi;
+export default UsersApi;
