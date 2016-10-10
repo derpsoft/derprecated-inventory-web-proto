@@ -1,6 +1,6 @@
+import log from 'loglevel';
 import Constants from '../constants';
 import ProductApi from '../services/productApi';
-// import _ from 'lodash';
 
 function getProduct({
   commit
@@ -12,7 +12,7 @@ function getProduct({
     commit(Constants.SET_PRODUCT, product);
   })
   .catch(e => {
-    console.error(e);
+    log.error(e);
   });
 }
 
@@ -28,7 +28,7 @@ function getProducts({
     commit(Constants.SET_PRODUCT_LIST, products);
   })
   .catch(e => {
-    console.error(e);
+    log.error(e);
   });
 }
 

@@ -14,7 +14,6 @@ function getUsers({
   });
 }
 
-
 const INITIAL_STATE = {
   users: {
     search: {

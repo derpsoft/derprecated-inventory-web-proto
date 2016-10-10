@@ -1,7 +1,7 @@
 <template>
   <div class="row control-row">
     <div class="col-md-12">
-      <button class="btn btn-primary pull-right" v-on:click="save()">Save</button>
+      <!-- <button class="btn btn-primary pull-right" v-on:click="save()">Save</button> -->
       <h4>Product Details</h4>
     </div>
   </div>
@@ -25,6 +25,16 @@
               <textarea class="form-control" placeholder="Enter a description..." v-model="product.description"></textarea>
             </div>
           </div>
+        </div>
+        <div class="row" v-if="product.images">
+          <div class="col-lg-12">
+            <h5>Gallery</h5>
+          </div>
+          <div class="col-lg-1 thumb" v-for="image in product.images">
+             <a class="thumbnail" href="#" v-on:click.prevent="">
+               <img class="img-responsive" :src="image.source" alt="">
+             </a>
+           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
@@ -121,6 +131,14 @@
       .panel-body {
         background-color: transparent;
       }
+    }
+  }
+  a.thumbnail {
+    border: 2px solid transparent;
+
+    &:hover {
+      border-color: #f6a821;
+      transition: 300ms ease-in-out;
     }
   }
 </style>
