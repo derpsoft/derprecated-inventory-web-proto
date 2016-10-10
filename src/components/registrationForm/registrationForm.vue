@@ -33,8 +33,8 @@
         </div>
     </div>
     <div>
-        <button type="submit" class="btn btn-accent" v-on:click.prevent="register()">Register</button>
-        <a class="btn btn-default pull-right" href="#" v-link="{ path: 'login' }">Back to Login</a>
+        <a class="btn btn-default" href="#" v-link="{ path: 'login' }">Back to Login</a>
+        <button type="submit" class="btn btn-accent pull-right" v-on:click.prevent="register()">Register</button>
     </div>
 </form>
 </template>
