@@ -1,7 +1,8 @@
+import _ from 'lodash';
+// import log from 'loglevel';
 import Constants from '../constants';
 import AuthApi from '../services/authApi';
 import UserApi from '../services/userApi';
-import _ from 'lodash';
 
 function login({
   dispatch,

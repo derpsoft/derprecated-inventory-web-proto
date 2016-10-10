@@ -47,8 +47,7 @@ class AuthApi extends Fetchable {
   }
 
   logout() {
-    return super.post('/logout')
-      .then(res => res.json());
+    return super.post('/logout');
   }
 
   setUser(response) {
