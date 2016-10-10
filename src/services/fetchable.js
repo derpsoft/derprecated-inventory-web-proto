@@ -65,7 +65,6 @@ export default class Fetchable {
       throw new Error('url may not be empty');
     }
     options.method = 'POST';
-    options.mode = 'no-cors';
     return _fetch(this.baseUrl + url, this.prepare(options), this.store);
   }
 }
