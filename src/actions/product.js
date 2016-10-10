@@ -2,6 +2,20 @@ import Constants from '../constants';
 import ProductApi from '../services/productApi';
 // import _ from 'lodash';
 
+function getProduct({
+  commit
+}, {
+  id
+}) {
+  new ProductApi().retrieve(id)
+  .then(product => {
+    commit(Constants.SET_PRODUCT, product);
+  })
+  .catch(e => {
+    console.error(e);
+  });
+}
+
 function getProducts({
   dispatch,
   commit
@@ -34,6 +48,7 @@ const INITIAL_STATE = {
 };
 
 const ACTIONS = {
+  [Constants.GET_PRODUCT]: getProduct,
   [Constants.GET_PRODUCTS]: getProducts,
   [Constants.SEARCH_PRODUCTS]: search,
   [Constants.UPDATE_PRODUCT_FIELD]: updateProductField,
@@ -54,6 +69,9 @@ const MUTATIONS = {
   },
   [Constants.SET_PRODUCT_LIST]: (state, results) => {
     state.products.list = results;
+  },
+  [Constants.SET_PRODUCT]: (state, results) => {
+    state.products.product = results;
   },
 };
 

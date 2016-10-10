@@ -11,7 +11,8 @@
         <div class="media">
           <div class="media-left">
             <a href="#" @on:click.prevent="">
-            <img class="media-object" :src="product.images[0].source" width="250" height="250" src="http://placehold.it/250x250">
+            <img class="media-object" :src="product.images[0].source" width="250" height="250" src="http://placehold.it/250x250" v-if="product.images">
+            <img class="media-object" width="250" height="250" src="http://placehold.it/250x250" v-if="!product.images">
             </a>
           </div>
           <div class="media-body">
@@ -22,6 +23,14 @@
             <div class="form-group">
               <label>Product Description</label>
               <textarea class="form-control" placeholder="Enter a description..." v-model="product.description"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Categories</label>
+              <input type="text" class="form-control" placeholder="Categories" tabindex="0">
             </div>
           </div>
         </div>
@@ -118,7 +127,8 @@
 
 <script>
   import Vue from 'vue';
-  import Constants from '../../constants.js';
+  import Constants from '../../constants';
+  import store from '../../stores/store';
   import { tabset, tab } from 'vue-strap';
 
   const productEdit = Vue.extend({
@@ -131,25 +141,30 @@
       tabs: tabset,
       tab,
     },
+    computed: {
+      product: () => {
+        return store.state.products.product;
+      }
+    },
     methods: {
       save() {
-        const self = this;
-        const headers = new Headers();
-        headers.set('Accept', 'application/json');
-        headers.set('Content-Type', 'application/json');
-
-        fetch(`${Constants.API_ROOT}products/${this.$route.params.id}`, {
-          method: 'PUT',
-          mode: 'cors',
-          headers,
-          body: JSON.stringify({
-            products: self.products,
-          }),
-        })
-        .then(res => res.json());
-        // .then(json => {
-        //   // console.log(json);
-        // });
+        // const self = this;
+        // const headers = new Headers();
+        // headers.set('Accept', 'application/json');
+        // headers.set('Content-Type', 'application/json');
+        //
+        // fetch(`${Constants.API_ROOT}/api/v1/products/${this.$route.params.id}`, {
+        //   method: 'PUT',
+        //   mode: 'cors',
+        //   headers,
+        //   body: JSON.stringify({
+        //     products: self.products,
+        //   }),
+        // })
+        // .then(res => res.json());
+        // // .then(json => {
+        // //   // console.log(json);
+        // // });
       },
       addVariant() {
         this.product.variants.push({
@@ -158,21 +173,9 @@
       },
     },
     ready() {
-      const self = this;
-
       if (this.$route.params && this.$route.params.id) {
-        const headers = new Headers();
-        headers.set('Accept', 'application/json');
-        headers.set('Content-Type', 'application/json');
-
-        fetch(`${Constants.API_ROOT}products/${this.$route.params.id}`, {
-          method: 'GET',
-          mode: 'cors',
-          headers,
-        })
-        .then(res => res.json())
-        .then(json => {
-          self.product = json.product;
+        this.$store.dispatch(Constants.GET_PRODUCT, {
+          id: this.$route.params.id,
         });
       }
     },

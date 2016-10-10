@@ -25,6 +25,14 @@ class ProductApi extends Fetchable {
     });
   }
 
+  retrieve(id) {
+    return super.get(`/api/v1/products/${id}`)
+    .then(res => res.json())
+    .then(json => {
+      return json.product;
+    });
+  }
+
   search() {
     const body = new URLSearchParams();
     return super.get('/api/v1/products/search', {
