@@ -25,15 +25,15 @@ export function routing(router) {
     '/forgot-password': {
       component: ForgotPassword,
     },
+    '/logout': {
+      component: Logout,
+    },
     '/': {
       component: Main,
       auth: true,
       subRoutes: {
         '/': {
           component: Dashboard,
-        },
-        '/logout': {
-          component: Logout,
         },
         '/users': {
           component: Users,
