@@ -78,7 +78,8 @@
       },
     },
     methods: {
-      editUser() {
+      editUser(id) {
+        this.$router.go(`/users/edit/${id}`);
       },
       getPage() {
         const skip = this.pagination.per_page * (this.pagination.current_page - 1);

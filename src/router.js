@@ -9,6 +9,7 @@ import Register from './views/register/register.vue';
 import Login from './views/login/login.vue';
 import Logout from './views/logout/logout.vue';
 import Users from './views/users/users.vue';
+import ModifyUser from './views/modifyUser/modifyUser.vue';
 import Categories from './views/categories/categories.vue';
 import ForgotPassword from './views/forgotPassword/forgotpassword.vue';
 import NotFound from './views/notfound.vue';
@@ -37,6 +38,12 @@ export function routing(router) {
         },
         '/users': {
           component: Users,
+        },
+        '/users/add': {
+          component: ModifyUser,
+        },
+        '/users/edit/:id': {
+          component: ModifyUser,
         },
         '/categories': {
           component: Categories,
