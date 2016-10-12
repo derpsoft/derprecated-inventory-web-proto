@@ -12,7 +12,7 @@ import Users from './views/users/users.vue';
 import ModifyUser from './views/modifyUser/modifyUser.vue';
 import Categories from './views/categories/categories.vue';
 import ForgotPassword from './views/forgotPassword/forgotpassword.vue';
-import NotFound from './views/notfound.vue';
+// import NotFound from './views/notfound.vue';
 import store from './stores/store';
 
 export function routing(router) {
@@ -69,7 +69,7 @@ export function routing(router) {
       },
     },
     '*': {
-      component: NotFound,
+      component: Main,
     },
   });
 
