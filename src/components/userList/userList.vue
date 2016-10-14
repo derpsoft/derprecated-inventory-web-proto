@@ -52,13 +52,13 @@
   export default {
     data() {
       return {
+        count: null,
         users: null,
-        items: [],
         pagination: {
           per_page: defaultPageCount,    // required
           current_page: 1, // required
           last_page: 1,    // required
-          to: defaultPageCount           // required
+          to: 0,     // required
         },
       };
     },
@@ -72,8 +72,9 @@
     },
     computed: {
       users() {
-        // TODO: Calculate Total Page Size
-        this.pagination.last_page = store.state.users.list;
+        this.pagination.last_page = Math.ceil(store.state.users.count / this.pagination.per_page);
+        this.pagination.to = store.state.users.count;
+
         return store.state.users.list;
       },
     },
@@ -90,6 +91,7 @@
       },
       setPageSize(pageSize) {
         this.pagination.per_page = pageSize;
+        this.pagination.current_page = 1;
 
         this.$store.dispatch(Constants.GET_USERS, {
           skip: 0,

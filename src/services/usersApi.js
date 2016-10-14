@@ -22,7 +22,7 @@ class UsersApi extends Fetchable {
     return super.get(`/api/v1/users?${body}`)
     .then(res => res.json())
     .then(json => {
-      return json.users;
+      return json;
     });
   }
 }

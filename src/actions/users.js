@@ -22,7 +22,7 @@ const INITIAL_STATE = {
     },
     list: [],
     user: {},
-    total: 25,
+    count: 0,
   }
 };
 
@@ -44,7 +44,8 @@ const MUTATIONS = {
     };
   },
   [Constants.SET_USERS]: (state, results) => {
-    state.users.list = results;
+    state.users.list = results.users;
+    state.users.count = results.count;
   },
 };
 
