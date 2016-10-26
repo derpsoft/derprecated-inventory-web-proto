@@ -15,7 +15,7 @@ import App from './views/app.vue';
 import Constants from './constants';
 
 const router = new VueRouter({
-  history: false,
+  history: true,
   hashbang: false,
   saveScrollPosition: true,
 });
