@@ -4,7 +4,7 @@ var history = require('connect-history-api-fallback');
 
 var hist = history({
   rewrites: [
-    { from: /\*/, to: '/index.html'}
+    { from: '*', to: '/index.html'}
   ]
 });
 
