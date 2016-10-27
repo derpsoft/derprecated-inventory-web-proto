@@ -38,6 +38,7 @@ class UserApi extends Fetchable {
         return json;
       });
   }
+
 }
 
 export default UserApi;

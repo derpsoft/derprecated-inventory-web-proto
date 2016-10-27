@@ -1,7 +1,10 @@
 module.exports = {
   root: true,
   parserOptions: {
-    sourceType: 'module'
+    sourceType: 'module',
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
   },
   extends: 'airbnb-base',
   // required to lint *.vue files
@@ -23,5 +26,5 @@ module.exports = {
   },
   globals: {
     'store': true
-  }
+  },
 }

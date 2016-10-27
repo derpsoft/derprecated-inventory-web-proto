@@ -25,6 +25,32 @@ class UsersApi extends Fetchable {
       return json;
     });
   }
+
+  updateFirstName(id, firstName) {
+    const fields = {
+      value: firstName,
+    };
+    return super.post(`/api/v1/user/${id}/firstName`, {
+      body: JSON.stringify(fields)
+    })
+      .then(res => res.json())
+      .then(json => {
+        return json;
+      });
+  }
+
+  updateLastName(id, lastName) {
+    const fields = {
+      value: lastName,
+    };
+    return super.post(`/api/v1/user/${id}/lastName`, {
+      body: JSON.stringify(fields)
+    })
+      .then(res => res.json())
+      .then(json => {
+        return json;
+      });
+  }
 }
 
 export default UsersApi;

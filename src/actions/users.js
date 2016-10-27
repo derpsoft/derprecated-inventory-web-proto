@@ -14,6 +14,32 @@ function getUsers({
   });
 }
 
+function updateFirstName({
+  dispatch,
+  commit
+}, {
+  id,
+  firstName
+}) {
+  new UsersApi().updateFirstName(id, firstName)
+    .then(json => {
+      console.log(json);
+    });
+}
+
+function updateLastName({
+  dispatch,
+  commit
+}, {
+  id,
+  lastName
+}) {
+  new UsersApi().updateLastName(id, lastName)
+    .then(json => {
+      console.log(json);
+    });
+}
+
 const INITIAL_STATE = {
   users: {
     search: {
@@ -28,6 +54,8 @@ const INITIAL_STATE = {
 
 const ACTIONS = {
   [Constants.GET_USERS]: getUsers,
+  [Constants.UPDATE_USER_FIRST_NAME]: updateFirstName,
+  [Constants.UPDATE_USER_LAST_NAME]: updateLastName,
 };
 
 const MUTATIONS = {
