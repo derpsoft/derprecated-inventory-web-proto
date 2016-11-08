@@ -33,10 +33,12 @@ class ProductApi extends Fetchable {
     });
   }
 
-  search() {
-    const body = new URLSearchParams();
-    return super.get('/api/v1/products/search', {
-      body
+  search(query) {
+    const q = {
+      query,
+    };
+    return super.post('/api/v1/products/search', {
+      body: JSON.stringify(q)
     })
     .then(res => res.json());
   }
