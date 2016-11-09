@@ -11,8 +11,8 @@
       <tr v-for="product in products" v-on:click="openProduct(product.id)">
         <td class="id">{{product.id}}</td>
         <td>
-          <img v-if="product.images.length" :src="product.images[0].source" width="50" height="50">
-          <img src="http://placehold.it/50x50" v-if="!product.images.length">
+          <img v-if="product.images && product.images.length" :src="product.images[0].source" width="50" height="50">
+          <img src="http://placehold.it/50x50" v-if="!product.images || !product.images.length">
           {{product.title}}
         </td>
       </tr>
@@ -40,15 +40,18 @@
 </style>
 
 <script>
-import Vue from 'vue';
 import Constants from '../../constants';
 
-const productList = Vue.component('product-list', {
-  name: 'product-list',
+export default {
+  data() {
+    return {
+      products: null,
+    };
+  },
   computed: {
     products() {
-      return this.$store.state.products.list;
-    }
+      return this.$store.getters.productList;
+    },
   },
   methods: {
     openProduct(id) {
@@ -61,7 +64,5 @@ const productList = Vue.component('product-list', {
       take: 200
     });
   },
-});
-
-export default productList;
+};
 </script>

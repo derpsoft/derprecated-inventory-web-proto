@@ -1,45 +1,28 @@
 <template>
   <form>
     <div class="form-group">
-      <input class="form-control" type="text" placeholder="Search for a product" autocomplete="false">
+      <input class="form-control" type="text" v-model="searchTerm" placeholder="Search for a product" autocomplete="false" v-on:keyup="searchProducts">
     </div>
   </form>
 </template>
 <script>
+  import Constants from '../../constants';
+
   export default {
-    // Options / Data
     data() {
-      return {};
+      return {
+        searchTerm: null,
+      };
     },
-    props: [],
-    computed: {},
-    methods: {},
-    // watch: {},
-    // Options / DOM
-    // el () {},
-    // replace: true,
-    // template: '',
-    // Options / Lifecycle Hooks
-    // init () {},
-    // crated () {},
-    // beforeCompile () {},
-    // compiled () {},
-    // ready () {},
-    // attached () {},
-    // detached () {},
-    // beforeDestroy () {},
-    // destroyed () {},
-    // Options / Assets
-    // directives: {},
-    // elementDirectives: {},
-    // filters: {},
-    // components: {},
-    // transitions: {},
-    // partials: {},
-    // Options / Misc
-    // parent: null,
-    // events: {},
-    // mixins: [],
-    // name: ''
+    methods: {
+      searchProducts() {
+        if (this.searchTerm.length < 2) {
+          return;
+        }
+        this.$store.dispatch(Constants.SEARCH_PRODUCTS, {
+          query: this.searchTerm,
+        });
+      },
+    },
   };
 </script>

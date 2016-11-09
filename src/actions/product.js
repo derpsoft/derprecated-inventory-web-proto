@@ -32,7 +32,20 @@ function getProducts({
   });
 }
 
-function search() {}
+function search({
+  dispatch,
+  commit,
+}, {
+  query
+}) {
+  new ProductApi().search(query)
+  .then(products => {
+    commit(Constants.SET_PRODUCT_LIST, products.products);
+  })
+  .catch(e => {
+    log.error(e);
+  });
+}
 
 function updateProductField() {}
 
@@ -75,7 +88,11 @@ const MUTATIONS = {
   },
 };
 
-const GETTERS = {};
+const GETTERS = {
+  productList(state) {
+    return state.products.list;
+  },
+};
 
 const ProductActions = {
   ACTIONS,
