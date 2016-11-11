@@ -195,6 +195,8 @@
         this.$store.dispatch(Constants.GET_PRODUCT, {
           id: this.$route.params.id,
         });
+      } else {
+        this.$store.dispatch(Constants.CLEAR_PRODUCT);
       }
     },
   });
