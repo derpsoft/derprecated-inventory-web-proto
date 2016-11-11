@@ -47,6 +47,12 @@ function search({
   });
 }
 
+function clearProduct({
+  commit
+}) {
+  commit(Constants.CLEAR_PRODUCT);
+}
+
 function updateProductField() {}
 
 const INITIAL_STATE = {
@@ -65,6 +71,7 @@ const ACTIONS = {
   [Constants.GET_PRODUCTS]: getProducts,
   [Constants.SEARCH_PRODUCTS]: search,
   [Constants.UPDATE_PRODUCT_FIELD]: updateProductField,
+  [Constants.CLEAR_PRODUCT]: clearProduct,
 };
 
 const MUTATIONS = {
@@ -85,6 +92,9 @@ const MUTATIONS = {
   },
   [Constants.SET_PRODUCT]: (state, results) => {
     state.products.product = results;
+  },
+  [Constants.CLEAR_PRODUCT]: (state) => {
+    state.products.product = {};
   },
 };
 
