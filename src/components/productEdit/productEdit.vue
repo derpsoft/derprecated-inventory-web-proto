@@ -11,7 +11,7 @@
         <div class="media">
           <div class="media-left">
             <a href="#" @on:click.prevent="">
-            <img class="media-object" :src="product.images[0].source" width="250" height="250" src="http://placehold.it/250x250" v-if="product.images">
+            <img class="media-object" :src="displayImage || product.images[0].source" width="250" height="250" src="http://placehold.it/250x250" v-if="product.images">
             <img class="media-object" width="250" height="250" src="http://placehold.it/250x250" v-if="!product.images">
             </a>
           </div>
@@ -31,7 +31,7 @@
             <h5>Gallery</h5>
           </div>
           <div class="col-lg-1 thumb" v-for="image in product.images">
-             <a class="thumbnail" href="#" v-on:click.prevent="">
+             <a class="thumbnail" href="#" v-on:click.prevent="updateImage(image.source)">
                <img class="img-responsive" :src="image.source" alt="">
              </a>
            </div>
@@ -153,6 +153,7 @@
     data() {
       return {
         product: {},
+        displayImage: null,
       };
     },
     components: {
@@ -188,6 +189,9 @@
         this.product.variants.push({
           weightUnit: 'lb',
         });
+      },
+      updateImage(img) {
+        this.displayImage = img;
       },
     },
     ready() {
