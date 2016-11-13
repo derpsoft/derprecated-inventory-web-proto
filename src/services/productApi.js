@@ -37,7 +37,7 @@ class ProductApi extends Fetchable {
     const q = {
       query,
     };
-    return super.post('/api/v1/products/search', {
+    return super.post('/api/v1/products/typeahead', {
       body: JSON.stringify(q)
     })
     .then(res => res.json());

@@ -37,7 +37,7 @@ export default class Fetchable {
     const defaults = {
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/json'
       }
     };
     options.credentials = 'include';

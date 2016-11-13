@@ -40,7 +40,7 @@ function search({
 }) {
   new ProductApi().search(query)
   .then(products => {
-    commit(Constants.SET_PRODUCT_LIST, products.products);
+    commit(Constants.SET_PRODUCT_LIST, products.results);
   })
   .catch(e => {
     log.error(e);
