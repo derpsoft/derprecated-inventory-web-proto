@@ -26,6 +26,13 @@ class UsersApi extends Fetchable {
     });
   }
 
+  search(query) {
+    return super.post('/api/v1/users/search', {
+      body: this.toForm({ query })
+    })
+    .then(res => res.json());
+  }
+
   updateFirstName(id, firstName) {
     const fields = {
       value: firstName,
