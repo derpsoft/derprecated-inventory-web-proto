@@ -15,16 +15,15 @@ class AuthApi extends Fetchable {
     return this;
   }
 
-  register(userName, password, email, firstName, lastName) {
-    const info = {
-      userName,
-      password,
-      firstName,
-      lastName,
-      email,
-    };
+  register(username, password, email, firstName, lastName) {
     return super.post('/register', {
-      body: JSON.stringify(info)
+      body: this.toForm({
+        username,
+        password,
+        email,
+        firstName,
+        lastName
+      })
     })
       .then(res => res.json())
       .then(json => {

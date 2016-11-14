@@ -51,13 +51,13 @@ function register({
   commit,
   dispatch,
 }, {
-  userName,
+  username,
   password,
   firstName,
   lastName,
   email,
 }) {
-  new AuthApi().register(userName, password, email, firstName, lastName)
+  new AuthApi().register(username, password, email, firstName, lastName)
     .then(json => {
       if (json) {
         commit(Constants.SET_SESSION, json);
