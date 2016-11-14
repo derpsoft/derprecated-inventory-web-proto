@@ -4,6 +4,7 @@ import Constants from '../constants';
 const _fetch = function(url, options, {
   dispatch
 }) {
+  console.log(url, options);
   return fetch(url, options)
     .then(res => {
       if (res.status === 401) {
@@ -33,6 +34,14 @@ export default class Fetchable {
     this.store = store;
   }
 
+  toForm(body) {
+    const form = new FormData();
+    _.each(body, (v, k) => {
+      form.append(k, v);
+    });
+    return form;
+  }
+
   prepare(options) {
     const defaults = {
       headers: {
@@ -42,6 +51,7 @@ export default class Fetchable {
     };
     options.credentials = 'include';
     options.headers = options.headers || new Headers();
+    options.mode = 'cors';
 
     _.each(defaults.headers, (v, k) => {
       if (!options.headers.has(k)) {
