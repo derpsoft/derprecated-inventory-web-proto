@@ -32,12 +32,11 @@ class AuthApi extends Fetchable {
   }
 
   login(username, password) {
-    const creds = {
-      username,
-      password
-    };
     return super.post('/auth/credentials', {
-      body: JSON.stringify(creds)
+      body: this.toForm({
+        username,
+        password
+      })
     })
     .then(res => res.json())
     .then(json => {
