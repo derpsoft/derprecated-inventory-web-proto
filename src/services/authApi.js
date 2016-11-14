@@ -45,7 +45,7 @@ class AuthApi extends Fetchable {
   }
 
   logout() {
-    return super.post('/logout', { mode: 'no-cors' });
+    return super.post('/logout');
   }
 
   setUser(response) {
