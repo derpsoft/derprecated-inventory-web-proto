@@ -71,7 +71,7 @@ function register({
     });
 }
 
-function forgotPassword({
+function forgotPassword(state, {
   email
 }) {
   new UserApi().forgotPassword(email)

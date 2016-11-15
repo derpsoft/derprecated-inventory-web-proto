@@ -23,7 +23,7 @@
             <span class="help-block small">Your address email to retrieve new password.</span>
           </div>
           <div>
-            <button class="btn btn-accent" type="submit" v-on:click="retrievePassword">Send new password</button>
+            <button class="btn btn-accent" type="submit" v-on:click.prevent="retrievePassword">Send new password</button>
             <a class="btn btn-default" href="#" v-link="{ path: '/login' }">Cancel</a>
           </div>
         </form>
@@ -43,9 +43,7 @@
       };
     },
     methods: {
-      retrievePassword(event) {
-        event.preventDefault();
-
+      retrievePassword() {
         if (!this.email) {
           toastr.info('Please enter an email.');
           return;

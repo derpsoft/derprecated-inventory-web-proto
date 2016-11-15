@@ -30,7 +30,7 @@ class UserApi extends Fetchable {
   }
 
   forgotPassword(email) {
-    return super.post('/api/v1/password/reset', {
+    return super.post('/api/v1/password/forgot', {
       body: this.toForm({ email })
     })
       .then(res => res.json())
