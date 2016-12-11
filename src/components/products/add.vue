@@ -10,7 +10,7 @@
       <form>
         <div class="media">
           <div class="media-left">
-            <a href="#" @on:click.prevent="">
+            <a href="#" @click.prevent="">
             <img class="media-object" :src="displayImage || product.images[0].sourceUrl" width="250" height="250" src="http://placehold.it/250x250" v-if="product.images">
             <img class="media-object" width="250" height="250" src="http://placehold.it/250x250" v-if="!product.images">
             </a>
