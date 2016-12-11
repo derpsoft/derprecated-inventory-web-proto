@@ -1,7 +1,7 @@
 <template>
   <div class="row control-row">
     <div class="col-md-12">
-      <!-- <button class="btn btn-primary pull-right" v-on:click="save()">Save</button> -->
+      <button class="btn btn-primary pull-right" v-on:click="save()">Save</button>
       <h4>Product Details</h4>
     </div>
   </div>

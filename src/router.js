@@ -1,7 +1,8 @@
 import Main from './views/main.vue';
 import Dashboard from './views/dashboard/dashboard.vue';
 import Products from './views/products/products.vue';
-import AddProducts from './views/addProduct/addProduct.vue';
+import AddProduct from './views/addProduct/addProduct.vue';
+import EditProduct from './views/editProduct/editProduct.vue';
 import WareHouses from './views/warehouses/warehouses.vue';
 import Profile from './views/profile/profile.vue';
 import Reports from './views/reports/reports.vue';
@@ -52,10 +53,10 @@ export function routing(router) {
           component: Products,
         },
         '/products/add': {
-          component: AddProducts,
+          component: AddProduct,
         },
         '/products/edit/:id': {
-          component: AddProducts,
+          component: EditProduct,
         },
         '/warehouses': {
           component: WareHouses,

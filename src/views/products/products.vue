@@ -35,8 +35,8 @@
 
 <script>
 import Vue from 'vue';
-import productList from '../../components/productList/productList.vue';
-import productSearch from '../../components/productSearch/productSearch.vue';
+import productList from '../../components/products/list.vue';
+import productSearch from '../../components/products/search.vue';
 
 const Inventory = Vue.extend({
   components: {
