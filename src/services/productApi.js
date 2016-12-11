@@ -43,5 +43,13 @@ class ProductApi extends Fetchable {
   update() {
 
   }
+
+  create(product) {
+    console.log(product);
+    return super.post('/api/v1/products/save', {
+      body: this.toForm(product)
+    })
+    .then(res => res.json());
+  }
 }
 export default ProductApi;

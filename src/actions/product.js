@@ -16,6 +16,22 @@ function getProduct({
   });
 }
 
+function createProduct({
+  dispatch,
+  commit
+}, {
+  product
+}) {
+  new ProductApi()
+    .create(product)
+    .then(res => {
+      commit(Constants.SET_PRODUCT, res.product);
+    })
+    .catch(e => {
+      log.error(e);
+    });
+}
+
 function getProducts({
   dispatch,
   commit
@@ -72,6 +88,7 @@ const ACTIONS = {
   [Constants.SEARCH_PRODUCTS]: search,
   [Constants.UPDATE_PRODUCT_FIELD]: updateProductField,
   [Constants.CLEAR_PRODUCT]: clearProduct,
+  [Constants.CREATE_PRODUCT]: createProduct,
 };
 
 const MUTATIONS = {
