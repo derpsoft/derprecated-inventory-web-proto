@@ -1,7 +1,7 @@
 <template>
   <div class="row control-row">
     <div class="col-md-12">
-      <button class="btn btn-primary pull-right" v-on:click="save()">Save</button>
+      <button class="btn btn-primary pull-right" @click="save()">Save</button>
       <h4>Product Details</h4>
     </div>
   </div>
@@ -10,7 +10,7 @@
       <form>
         <div class="media">
           <div class="media-left">
-            <a href="#" @on:click.prevent="">
+            <a href="#" @click.prevent="">
             <img class="media-object" :src="displayImage || product.images[0].sourceUrl" width="250" height="250" src="http://placehold.it/250x250" v-if="product.images">
             <img class="media-object" width="250" height="250" src="http://placehold.it/250x250" v-if="!product.images">
             </a>
@@ -31,7 +31,7 @@
             <h5>Gallery</h5>
           </div>
           <div class="col-lg-1 thumb" v-for="image in product.images">
-             <a class="thumbnail" href="#" v-on:click.prevent="updateImage(image.sourceUrl)">
+             <a class="thumbnail" href="#" @click.prevent="updateImage(image.sourceUrl)">
                <img class="img-responsive" :src="image.sourceUrl" alt="">
              </a>
            </div>
@@ -162,43 +162,24 @@
       tabs: tabset,
       tab,
     },
-    computed: {
-      product: () => {
-        return store.state.products.product;
-      }
-    },
     methods: {
       save() {
-        // const self = this;
-        // const headers = new Headers();
-        // headers.set('Accept', 'application/json');
-        // headers.set('Content-Type', 'application/json');
-        //
-        // fetch(`${Constants.API_ROOT}/api/v1/products/${this.$route.params.id}`, {
-        //   method: 'PUT',
-        //   mode: 'cors',
-        //   headers,
-        //   body: JSON.stringify({
-        //     products: self.products,
-        //   }),
-        // })
-        // .then(res => res.json());
-        // // .then(json => {
-        // //   // console.log(json);
-        // // });
+        const product = JSON.parse(JSON.stringify(this.product));
+        this.$store.dispatch(Constants.SAVE_PRODUCT, {
+          product
+        });
       },
       updateImage(img) {
         this.displayImage = img;
       },
     },
     ready() {
-      if (this.$route.params && this.$route.params.id) {
-        this.$store.dispatch(Constants.GET_PRODUCT, {
-          id: this.$route.params.id,
-        });
-      } else {
-        this.$store.dispatch(Constants.CLEAR_PRODUCT);
-      }
+      this.$store.watch(() => store.getters.products.product, (current) => {
+        this.product = Object.assign({}, this.product, current);
+      });
+      this.$store.dispatch(Constants.GET_PRODUCT, {
+        id: this.$route.params.id,
+      });
     },
   };
 </script>

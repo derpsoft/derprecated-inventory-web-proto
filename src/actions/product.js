@@ -17,7 +17,6 @@ function getProduct({
 }
 
 function createProduct({
-  dispatch,
   commit
 }, {
   product
@@ -30,6 +29,17 @@ function createProduct({
     .catch(e => {
       log.error(e);
     });
+}
+
+function saveProduct({
+  commit
+}, {
+  product
+}) {
+  new ProductApi()
+    .save(product)
+    .then(res => commit(Constants.SET_PRODUCT, res.product))
+    .catch(e => log.error(e));
 }
 
 function getProducts({
@@ -89,6 +99,7 @@ const ACTIONS = {
   [Constants.UPDATE_PRODUCT_FIELD]: updateProductField,
   [Constants.CLEAR_PRODUCT]: clearProduct,
   [Constants.CREATE_PRODUCT]: createProduct,
+  [Constants.SAVE_PRODUCT]: saveProduct,
 };
 
 const MUTATIONS = {
@@ -119,6 +130,9 @@ const GETTERS = {
   productList(state) {
     return state.products.list;
   },
+  product(state) {
+    return state.products.product;
+  }
 };
 
 const ProductActions = {
