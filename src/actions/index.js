@@ -1,9 +1,9 @@
-import UserActions from '../actions/user';
+import AuthActions from '../actions/auth';
 import ProductActions from '../actions/product';
-import UsersActions from '../actions/users';
+import UserActions from '../actions/user';
 
 module.exports = [
-  UserActions,
+  AuthActions,
   ProductActions,
-  UsersActions,
+  UserActions,
 ];

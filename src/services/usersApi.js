@@ -26,6 +26,14 @@ class UsersApi extends Fetchable {
     });
   }
 
+  singleById(id) {
+    return super.get(`/api/v1/users/${id}`)
+    .then(res => res.json())
+    .then(json => {
+      return json;
+    });
+  }
+
   search(query) {
     return super.post('/api/v1/users/search', {
       body: this.toForm({ query })
@@ -33,24 +41,12 @@ class UsersApi extends Fetchable {
     .then(res => res.json());
   }
 
-  updateFirstName(id, firstName) {
+  save({ id, firstName, lastName }) {
     const fields = {
-      value: firstName,
+      firstName,
+      lastName
     };
-    return super.post(`/api/v1/user/${id}/firstName`, {
-      body: JSON.stringify(fields)
-    })
-      .then(res => res.json())
-      .then(json => {
-        return json;
-      });
-  }
-
-  updateLastName(id, lastName) {
-    const fields = {
-      value: lastName,
-    };
-    return super.post(`/api/v1/user/${id}/lastName`, {
+    return super.patch(`/api/v1/users/${id}`, {
       body: JSON.stringify(fields)
     })
       .then(res => res.json())

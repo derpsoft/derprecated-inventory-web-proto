@@ -1,175 +1,112 @@
-import _ from 'lodash';
-// import log from 'loglevel';
+import log from 'loglevel';
 import Constants from '../constants';
-import AuthApi from '../services/authApi';
-import UserApi from '../services/userApi';
+import UsersApi from '../services/usersApi';
 
-function login({
+function getUsers({
   dispatch,
   commit
 }, {
-  username,
-  password
+  skip = 0,
+  take = 25
 }) {
-  new AuthApi().login(username, password)
-    .then(json => {
-      if (json.sessionId) {
-        commit(Constants.SET_USER, json.user);
-        commit(Constants.SET_SESSION, json);
-        dispatch(Constants.GET_USER);
-      } else {
-        commit(Constants.CLEAR_SESSION);
-      }
-    })
-    .catch((e) => {
-      dispatch(Constants.LOGIN_FAILED, e);
-    });
+  new UsersApi().list(skip, take)
+  .then(users => {
+    commit(Constants.SET_USERS, users);
+  });
 }
 
-function logout({
-  commit
-}) {
-  new AuthApi().logout();
-  commit(Constants.CLEAR_SESSION);
-  commit(Constants.CLEAR_USER);
-}
-
-function profile({
-  commit
-}) {
-  new UserApi().profile()
-    .then(json => {
-      if (json) {
-        commit(Constants.SET_USER, json.user);
-      } else {
-        commit(Constants.CLEAR_USER);
-      }
-    });
-}
-
-function register({
-  commit,
+function getUser({
   dispatch,
+  commit
 }, {
-  username,
-  password,
-  firstName,
-  lastName,
-  email,
+  id
 }) {
-  new AuthApi().register(username, password, email, firstName, lastName)
+  new UsersApi().singleById(id)
+    .then(response => commit(Constants.SET_USER, response.user))
+    .catch(e => log.error(e));
+}
+
+function updateFirstName({
+  dispatch,
+  commit
+}, {
+  id,
+  firstName
+}) {
+  new UsersApi().updateFirstName(id, firstName)
     .then(json => {
-      if (json) {
-        commit(Constants.SET_SESSION, json);
-        dispatch(Constants.GET_USER);
-      } else {
-        commit(Constants.CLEAR_USER);
-      }
-    })
-    .catch((e) => {
-      dispatch(Constants.REGISTRATION_FAILED, e);
+      console.log(json);
     });
 }
 
-function forgotPassword(state, {
-  email
+function updateLastName({
+  dispatch,
+  commit
+}, {
+  id,
+  lastName
 }) {
-  new UserApi().forgotPassword(email)
-    .then(() => {
+  new UsersApi().updateLastName(id, lastName)
+    .then(json => {
+      console.log(json);
     });
-}
-
-/*
-this is a temporary mechanism to keep the user logged in beyond
-just the current pageload. might be worth keeping around,
-but it'd be better to rely on the existence of the session cookie.
-*/
-/* TODO this should be split into separate module for reuse */
-function read(k) {
-  const disk = window.localStorage;
-  let user = {};
-
-  if (disk) {
-    try {
-      user = JSON.parse(disk.getItem(`@derprecated:${k}`));
-    } catch (e) {
-      // ignore
-    }
-  }
-
-  return user;
-}
-
-/*
-this is a temporary mechanism to keep the user logged in beyond
-just the current pageload. might be worth keeping around,
-but it'd be better to rely on the existence of the session cookie.
-*/
-/* TODO this should be split into separate module for reuse */
-function save(k, v) {
-  const disk = window.localStorage;
-
-  if (disk) {
-    disk.setItem(`@derprecated:${k}`, JSON.stringify(v));
-  }
 }
 
 const INITIAL_STATE = {
-  user: {
-    userName: '',
-    displayName: '',
-    email: ''
-  },
-  session: _.merge({
-    isAuthenticated: false,
-    sessionId: null,
-  }, read('session'))
-};
-
-const ACTIONS = {
-  [Constants.LOGIN]: login,
-  [Constants.GET_USER]: profile,
-  [Constants.LOGOUT]: logout,
-  [Constants.REGISTER]: register,
-  [Constants.FORGOT_PASSWORD]: forgotPassword,
-  // [Constants.REGISTRATIONFAILED]:
-  // [Constants.LOGIN_FAILED]:
-};
-
-const MUTATIONS = {
-  [Constants.SET_SESSION]: (state, session) => {
-    state.session = session;
-    save('session', session);
-  },
-  [Constants.SET_USER]: (state, user) => {
-    state.user = user;
-  },
-  [Constants.CLEAR_SESSION]: (state) => {
-    const session = {
-      isAuthenticated: false,
-    };
-    state.session = session;
-    save('session', session);
-  },
-  [Constants.CLEAR_USER]: (state) => {
-    state.user = {};
-  },
-};
-
-const GETTERS = {
-  isAuthenticated: (state) => {
-    return state.session.isAuthenticated;
-  },
-  profile: (state) => {
-    return state.user;
+  users: {
+    search: {
+      query: {},
+      results: {}
+    },
+    list: [],
+    user: {},
+    count: 0,
   }
 };
 
-const UserActions = {
+const ACTIONS = {
+  [Constants.GET_USERS]: getUsers,
+  [Constants.GET_USER]: getUser,
+  [Constants.UPDATE_USER_FIRST_NAME]: updateFirstName,
+  [Constants.UPDATE_USER_LAST_NAME]: updateLastName,
+};
+
+const MUTATIONS = {
+  [Constants.SET_USERS_SEARCH_QUERY]: (state, query) => {
+    state.users.search.query = query;
+  },
+  [Constants.SET_USERS_SEARCH_RESULTS]: (state, results) => {
+    state.users.search.results = results;
+  },
+  [Constants.CLEAR_USERS_SEARCH]: (state) => {
+    state.users.search = {
+      query: {},
+      results: {},
+    };
+  },
+  [Constants.SET_USERS]: (state, results) => {
+    state.users.list = results.users;
+    state.users.count = results.count;
+  },
+  [Constants.SET_USER]: (state, result) => {
+    state.users.user = result.user;
+  }
+};
+
+const GETTERS = {
+  users: state => {
+    return state.users.list;
+  },
+  user: state => {
+    return state.users.user;
+  }
+};
+
+const UsersActions = {
   ACTIONS,
   MUTATIONS,
   INITIAL_STATE,
   GETTERS
 };
 
-export default UserActions;
+export default UsersActions;

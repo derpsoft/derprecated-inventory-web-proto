@@ -11,8 +11,8 @@
               <i class="pe page-header-icon pe-7s-plus"></i>
             </div>
             <div class="header-title">
-              <h3>{{ isEdit ? 'Edit' : 'Add' }} User</h3>
-              <small>{{ isEdit ? 'Modify User' : 'Create a user' }}</small>
+              <h3>Edit User</h3>
+              <small>Modify User</small>
             </div>
           </div>
             <hr>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import userEdit from '../../components/userEdit/userEdit.vue';
+import userEdit from '../../components/users/edit.vue';
 
 export default {
   data () {
@@ -40,6 +40,6 @@ export default {
   methods: {},
   components: {
     userEdit,
-  },
+  }
 };
 </script>

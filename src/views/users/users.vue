@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import UserList from '../../components/userList/userList.vue';
+  import UserList from '../../components/users/list.vue';
 
   export default {
     data() {
