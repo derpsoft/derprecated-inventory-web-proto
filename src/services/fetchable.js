@@ -77,4 +77,20 @@ export default class Fetchable {
     options.method = 'POST';
     return _fetch(this.baseUrl + url, this.prepare(options), this.store);
   }
+
+  put(url, options = {}) {
+    if (!url) {
+      throw new Error('url may not be empty');
+    }
+    options.method = 'PUT';
+    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
+  }
+
+  patch(url, options = {}) {
+    if (!url) {
+      throw new Error('url may not be empty');
+    }
+    options.method = 'PATCH';
+    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
+  }
 }
