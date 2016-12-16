@@ -188,7 +188,7 @@
     },
     created() {
       store.watch(() => store.getters.product, (current) => {
-        this.product = current;
+        this.product = Object.assign({}, current);
       });
       this.load();
     },
