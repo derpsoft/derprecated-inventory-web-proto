@@ -162,7 +162,20 @@
       tabs: tabset,
       tab,
     },
+    computed: {
+      id() {
+        return parseInt(this.$route.params.id, 10);
+      }
+    },
+    watch: {
+      $route: 'load'
+    },
     methods: {
+      load() {
+        store.dispatch(Constants.GET_PRODUCT, {
+          id: this.id,
+        });
+      },
       save() {
         const product = JSON.parse(JSON.stringify(this.product));
         this.$store.dispatch(Constants.SAVE_PRODUCT, {
@@ -173,13 +186,11 @@
         this.displayImage = img;
       },
     },
-    ready() {
-      this.$store.watch(() => store.getters.products.product, (current) => {
-        this.product = Object.assign({}, this.product, current);
+    created() {
+      store.watch(() => store.getters.product, (current) => {
+        this.product = current;
       });
-      this.$store.dispatch(Constants.GET_PRODUCT, {
-        id: this.$route.params.id,
-      });
+      this.load();
     },
   };
 </script>
