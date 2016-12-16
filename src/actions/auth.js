@@ -3,6 +3,13 @@ import Constants from '../constants';
 import AuthApi from '../services/authApi';
 // import log from 'loglevel';
 
+function clear({
+  commit
+}) {
+  commit(Constants.CLEAR_PROFILE);
+  commit(Constants.CLEAR_SESSION);
+}
+
 function login({
   dispatch,
   commit
@@ -13,14 +20,19 @@ function login({
   new AuthApi().login(username, password)
     .then(json => {
       if (json.sessionId) {
-        commit(Constants.SET_USER, json.user);
+        commit(Constants.SET_PROFILE, json.user);
         commit(Constants.SET_SESSION, json);
-        dispatch(Constants.GET_USER);
       } else {
-        commit(Constants.CLEAR_SESSION);
+        clear({
+          dispatch,
+          commit
+        });
       }
     })
     .catch((e) => {
+      clear({
+        commit
+      });
       dispatch(Constants.LOGIN_FAILED, e);
     });
 }
@@ -28,20 +40,23 @@ function login({
 function logout({
   commit
 }) {
+  clear({
+    commit
+  });
   new AuthApi().logout();
-  commit(Constants.CLEAR_SESSION);
-  commit(Constants.CLEAR_USER);
 }
 
-function profile({
+function getProfile({
   commit
 }) {
   new AuthApi().profile()
     .then(json => {
       if (json) {
-        commit(Constants.SET_USER, json.user);
+        commit(Constants.SET_PROFILE, json.user);
       } else {
-        commit(Constants.CLEAR_USER);
+        clear({
+          commit
+        });
       }
     });
 }
@@ -60,9 +75,11 @@ function register({
     .then(json => {
       if (json) {
         commit(Constants.SET_SESSION, json);
-        dispatch(Constants.GET_USER);
+        dispatch(Constants.GET_PROFILE);
       } else {
-        commit(Constants.CLEAR_USER);
+        clear({
+          commit
+        });
       }
     })
     .catch((e) => {
@@ -74,8 +91,7 @@ function forgotPassword(state, {
   email
 }) {
   new AuthApi().forgotPassword(email)
-    .then(() => {
-    });
+    .then(() => {});
 }
 
 /*
@@ -114,7 +130,7 @@ function save(k, v) {
 }
 
 const INITIAL_STATE = {
-  user: {
+  profile: {
     userName: '',
     displayName: '',
     email: ''
@@ -127,7 +143,7 @@ const INITIAL_STATE = {
 
 const ACTIONS = {
   [Constants.LOGIN]: login,
-  [Constants.GET_USER]: profile,
+  [Constants.GET_PROFILE]: getProfile,
   [Constants.LOGOUT]: logout,
   [Constants.REGISTER]: register,
   [Constants.FORGOT_PASSWORD]: forgotPassword,
@@ -140,8 +156,8 @@ const MUTATIONS = {
     state.session = session;
     save('session', session);
   },
-  [Constants.SET_USER]: (state, user) => {
-    state.user = user;
+  [Constants.SET_PROFILE]: (state, profile) => {
+    state.profile = profile;
   },
   [Constants.CLEAR_SESSION]: (state) => {
     const session = {
@@ -150,8 +166,8 @@ const MUTATIONS = {
     state.session = session;
     save('session', session);
   },
-  [Constants.CLEAR_USER]: (state) => {
-    state.user = {};
+  [Constants.CLEAR_PROFILE]: (state) => {
+    state.profile = {};
   },
 };
 
@@ -164,11 +180,11 @@ const GETTERS = {
   }
 };
 
-const UserActions = {
+const AuthActions = {
   ACTIONS,
   MUTATIONS,
   INITIAL_STATE,
   GETTERS
 };
 
-export default UserActions;
+export default AuthActions;
