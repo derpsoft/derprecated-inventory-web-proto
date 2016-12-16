@@ -40,8 +40,14 @@ class ProductApi extends Fetchable {
     .then(res => res.json());
   }
 
-  update() {
-
+  save(product) {
+    const headers = new Headers();
+    headers.set('content-type', 'application/json');
+    return super.post('/api/v1/products/save', {
+      body: this.toJson({ product }),
+      headers
+    })
+    .then(res => res.json());
   }
 
   create(product) {

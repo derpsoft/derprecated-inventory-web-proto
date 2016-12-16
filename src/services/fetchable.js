@@ -12,6 +12,10 @@ const _fetch = function(url, options, {
         throw new Error('Unauthorized');
       }
 
+      if (res.status === 403) {
+        // Eventually handle a missing permissions error.
+      }
+
       if (res.status >= 500) {
         throw new Error('Server Error');
       }
@@ -42,6 +46,11 @@ export default class Fetchable {
     return form;
   }
 
+  toJson(body) {
+    const json = JSON.stringify(body);
+    return json;
+  }
+
   prepare(options) {
     const defaults = {
       headers: {
@@ -49,8 +58,8 @@ export default class Fetchable {
         // 'Content-Type': 'application/json'
       }
     };
-    options.credentials = 'include';
     options.headers = options.headers || new Headers();
+    options.credentials = 'include';
     options.mode = 'cors';
 
     _.each(defaults.headers, (v, k) => {

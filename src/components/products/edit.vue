@@ -1,7 +1,7 @@
 <template>
   <div class="row control-row">
     <div class="col-md-12">
-      <button class="btn btn-primary pull-right" @click="save()">Save</button>
+      <button class="btn btn-primary pull-right" @click="save">Save</button>
       <h4>Product Details</h4>
     </div>
   </div>
@@ -178,7 +178,8 @@
       },
       save() {
         const product = JSON.parse(JSON.stringify(this.product));
-        this.$store.dispatch(Constants.SAVE_PRODUCT, {
+        product.id = this.id;
+        store.dispatch(Constants.SAVE_PRODUCT, {
           product
         });
       },
@@ -188,7 +189,7 @@
     },
     created() {
       store.watch(() => store.getters.product, (current) => {
-        this.product = current;
+        this.product = Object.assign({}, current);
       });
       this.load();
     },
