@@ -26,6 +26,12 @@ function getUser({
     .catch(e => log.error(e));
 }
 
+function saveUser({ dispatch, commit }, { user }) {
+  new UsersApi().save(user)
+    .then(response => commit(Constants.SET_USER, response.user))
+    .catch(e => log.error(e));
+}
+
 function updateFirstName({
   dispatch,
   commit
@@ -69,6 +75,7 @@ const ACTIONS = {
   [Constants.GET_USER]: getUser,
   [Constants.UPDATE_USER_FIRST_NAME]: updateFirstName,
   [Constants.UPDATE_USER_LAST_NAME]: updateLastName,
+  [Constants.SAVE_USER]: saveUser,
 };
 
 const MUTATIONS = {
@@ -88,16 +95,16 @@ const MUTATIONS = {
     state.users.list = results.users;
     state.users.count = results.count;
   },
-  [Constants.SET_USER]: (state, result) => {
-    state.users.user = result.user;
+  [Constants.SET_USER]: (state, user) => {
+    state.users.user = user;
   }
 };
 
 const GETTERS = {
-  users: state => {
+  users(state) {
     return state.users.list;
   },
-  user: state => {
+  user(state) {
     return state.users.user;
   }
 };

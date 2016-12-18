@@ -1,28 +1,26 @@
 <template>
-  <div class="row control-row">
-    <div class="col-md-12">
-      <button class="btn btn-primary pull-right" @click="save()">Save</button>
-      <h4>User Details</h4>
-    </div>
+<div class="row control-row">
+  <div class="col-md-12">
+    <button class="btn btn-primary pull-right" @click="save">Save</button>
+    <h4>User Details</h4>
   </div>
-  <div class="panel panel-filled">
-    <div class="panel-body">
-      <div v-if="user">
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" class="form-control" placeholder="Email" tabindex="0" v-model="user.email" readonly>
-        </div>
+</div>
+<div class="panel panel-filled panel-main">
+  <div class="panel-body">
+    <form>
+      <div class="media">
         <div class="form-group">
           <label>First Name</label>
-          <input type="text" class="form-control" placeholder="First Name" tabindex="0" v-model="user.firstName">
+          <input type="text" class="form-control" placeholder="First Name" v-model="user.firstName">
         </div>
         <div class="form-group">
           <label>Last Name</label>
-          <input type="text" class="form-control" placeholder="Last Name" tabindex="0" v-model="user.lastName">
+          <input type="text" class="form-control" placeholder="Last Name" v-model="user.lastName">
         </div>
       </div>
-    </div>
+    </form>
   </div>
+</div>
 </template>
 
 <script>
@@ -32,12 +30,7 @@ import store from '../../stores/store';
 export default {
   data() {
     return {
-      user: {
-        firstName: null,
-        lastName: null,
-        email: null,
-      },
-      users: {}
+      user: {},
     };
   },
   computed: {
@@ -48,25 +41,25 @@ export default {
   watch: {
     $route: 'load'
   },
-  created() {
-    this.$store.watch(() => store.getters.users.user, (current) => {
-      this.user = Object.assign({}, this.user, current);
-    });
-    this.load();
-  },
   methods: {
     load() {
-      this.$store.dispatch(Constants.GET_USER, {
+      store.dispatch(Constants.GET_USER, {
         id: this.id,
       });
     },
     save() {
-      this.$store.dispatch(Constants.SAVE_USER, {
-        id: this.id,
-        firstName: this.user.firstName,
-        lastName: this.user.lastName,
+      const user = JSON.parse(JSON.stringify(this.user));
+      user.id = this.id;
+      store.dispatch(Constants.SAVE_USER, {
+        user
       });
     }
   },
+  created() {
+    store.watch(() => store.getters.user, (current) => {
+      this.user = Object.assign({}, current);
+    });
+    this.load();
+  }
 };
 </script>
