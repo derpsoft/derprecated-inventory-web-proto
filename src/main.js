@@ -46,4 +46,4 @@ const app = Vue.extend(App);
 // Initializing the whole thing together
 router.start(app, 'app');
 
-store.dispatch(Constants.GET_USER);
+store.dispatch(Constants.GET_PROFILE);
