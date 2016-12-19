@@ -1,18 +1,29 @@
 import Main from './views/main.vue';
 import Dashboard from './views/dashboard/dashboard.vue';
-import Products from './views/products/products.vue';
-import AddProduct from './views/addProduct/addProduct.vue';
-import EditProduct from './views/editProduct/editProduct.vue';
-import WareHouses from './views/warehouses/warehouses.vue';
+import ForgotPassword from './views/forgotPassword/forgotpassword.vue';
 import Profile from './views/profile/profile.vue';
-import Reports from './views/reports/reports.vue';
 import Register from './views/register/register.vue';
 import Login from './views/login/login.vue';
 import Logout from './views/logout/logout.vue';
+import Reports from './views/reports/reports.vue';
+
+import Products from './views/products/products.vue';
+import AddProduct from './views/addProduct/addProduct.vue';
+import EditProduct from './views/editProduct/editProduct.vue';
+
+import WareHouses from './views/warehouses/warehouses.vue';
+
 import Users from './views/users/users.vue';
-import ModifyUser from './views/modifyUser/modifyUser.vue';
+import EditUser from './views/modifyUser/modifyUser.vue';
+const AddUser = EditUser; // temp
+// import AddUser from './views/modifyUser/modifyUser.vue';
+
 import Categories from './views/categories/categories.vue';
-import ForgotPassword from './views/forgotPassword/forgotpassword.vue';
+
+import Vendors from './views/vendors/index.vue';
+import AddVendor from './views/vendors/add.vue';
+import EditVendor from './views/vendors/edit.vue';
+
 // import NotFound from './views/notfound.vue';
 import store from './stores/store';
 
@@ -41,10 +52,10 @@ export function routing(router) {
           component: Users,
         },
         '/users/add': {
-          component: ModifyUser,
+          component: AddUser,
         },
         '/users/edit/:id': {
-          component: ModifyUser,
+          component: EditUser,
         },
         '/categories': {
           component: Categories,
@@ -67,6 +78,15 @@ export function routing(router) {
         '/reports': {
           component: Reports,
         },
+        '/vendors': {
+          component: Vendors,
+        },
+        '/vendors/add': {
+          component: AddVendor,
+        },
+        '/vendors/edit/:id': {
+          components: EditVendor,
+        }
       },
     },
     '*': {
