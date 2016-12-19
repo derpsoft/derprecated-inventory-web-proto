@@ -11,7 +11,9 @@ import Products from './views/products/products.vue';
 import AddProduct from './views/addProduct/addProduct.vue';
 import EditProduct from './views/editProduct/editProduct.vue';
 
-import WareHouses from './views/warehouses/warehouses.vue';
+import Warehouses from './views/warehouses/index.vue';
+import EditWarehouse from './views/warehouses/edit.vue';
+import AddWarehouse from './views/warehouses/add.vue';
 
 import Users from './views/users/users.vue';
 import EditUser from './views/modifyUser/modifyUser.vue';
@@ -70,7 +72,13 @@ export function routing(router) {
           component: EditProduct,
         },
         '/warehouses': {
-          component: WareHouses,
+          component: Warehouses,
+        },
+        '/warehouses/add': {
+          component: AddWarehouse,
+        },
+        '/warehouses/edit/:id': {
+          component: EditWarehouse,
         },
         '/profile': {
           component: Profile,
@@ -85,7 +93,7 @@ export function routing(router) {
           component: AddVendor,
         },
         '/vendors/edit/:id': {
-          components: EditVendor,
+          component: EditVendor,
         }
       },
     },
