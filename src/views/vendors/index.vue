@@ -5,7 +5,7 @@
       <div class="col-lg-12">
         <div class="view-header">
           <div class="pull-right">
-              <button class="btn btn-w-md btn-accent" v-link="{path: './add'}">Add New Vendor</button>
+              <button class="btn btn-w-md btn-accent" v-link="{path: '/vendors/add'}">Add New Vendor</button>
           </div>
           <div class="header-icon">
             <i class="pe page-header-icon pe-7s-vendors"></i>
