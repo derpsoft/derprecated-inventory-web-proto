@@ -33,7 +33,6 @@ Vue.http.interceptors.push({
       headers.Authorization = this.$store.state.token
     }
     */
-    // console.log(headers)
     return request;
   },
   response(response) {

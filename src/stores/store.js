@@ -18,8 +18,6 @@ const opts = {
   actions
 };
 
-// console.log(opts);
-
 const store = new Vuex.Store(opts);
 
 export default store;

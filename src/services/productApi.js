@@ -19,23 +19,25 @@ class ProductApi extends Fetchable {
     body.set('take', take);
 
     return super.get(`/api/v1/products?${body}`)
-    .then(res => res.json())
-    .then(json => {
-      return json.products;
-    });
+      .then(res => res.json())
+      .then(json => {
+        return json.products;
+      });
   }
 
   retrieve(id) {
     return super.get(`/api/v1/products/${id}`)
-    .then(res => res.json())
-    .then(json => {
-      return json.product;
-    });
+      .then(res => res.json())
+      .then(json => {
+        return json.product;
+      });
   }
 
   search(query) {
     return super.post('/api/v1/products/typeahead', {
-      body: this.toForm({ query })
+      body: this.toForm({
+        query
+      })
     })
     .then(res => res.json());
   }
@@ -44,14 +46,15 @@ class ProductApi extends Fetchable {
     const headers = new Headers();
     headers.set('content-type', 'application/json');
     return super.post('/api/v1/products/save', {
-      body: this.toJson({ product }),
+      body: this.toJson({
+        product
+      }),
       headers
     })
     .then(res => res.json());
   }
 
   create(product) {
-    console.log(product);
     return super.post('/api/v1/products/save', {
       body: this.toForm(product)
     })
