@@ -20,6 +20,9 @@
         <li v-link="{ path: '/warehouses', activeClass: 'active'}">
           <a href="#">Warehouses</a>
         </li>
+        <li v-link="{ path: '/vendors', activeClass: 'active'}">
+          <a href="#">Vendors</a>
+        </li>
         <li v-link="{ path: '/reports', activeClass: 'active'}">
           <a href="#" >Reports</a>
         </li>
