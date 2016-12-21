@@ -39,7 +39,7 @@
             </a>
           </li> -->
         <li class="profil-link">
-          <dropdown>
+          <!-- <dropdown>
             <button type="button" class="btn btn-link" slot="button">
                 <span class="profile-address">{{ userSession.userName }}</span>
                 <img src="/static/img/avatar.png" class="img-circle" alt="">
@@ -56,7 +56,7 @@
                   </router-link>
                     <li>
             </ul>
-          </dropdown>
+          </dropdown> -->
           </li>
       </ul>
     </div>

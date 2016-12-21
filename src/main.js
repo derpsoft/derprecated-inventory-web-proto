@@ -9,21 +9,11 @@ import store from './stores/store';
 import App from './views/app.vue';
 import Constants from './constants';
 
+import router from './router';
+
 Vue.use(VueRouter);
 Vue.use(Progress);
 Vue.use(VueResource);
-
-const router = new VueRouter({
-  history: false,
-  scrollBehavior: (to, from, savedPosition) => {
-    return savedPosition || {
-      x: 0,
-      y: 0
-    };
-  },
-});
-
-require('./router')(router);
 
 sync(store, router);
 

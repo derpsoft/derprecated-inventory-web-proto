@@ -32,7 +32,7 @@
     "vue-progressbar": "latest",
     "vue-resource": "latest",
     "vue-router": "latest",
-    "vue-strap": "latest",
+    "vue-strap": "yuche/vue-strap#v2",
     "vuex": "latest",
     "vuex-router-sync": "latest"
   },
@@ -46,7 +46,6 @@
     "babel-preset-stage-2": "^6.0.0",
     "chai": "^3.5.0",
     "chromedriver": "^2.21.2",
-    "connect-history-api-fallback": "^1.1.0",
     "cross-spawn": "latest",
     "css-loader": "^0.23.0",
     "eslint": "latest",
