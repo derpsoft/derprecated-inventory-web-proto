@@ -34,18 +34,17 @@
 
 
 <script>
-import Vue from 'vue';
 import productList from '../../components/products/list.vue';
 import productSearch from '../../components/products/search.vue';
 
-const Inventory = Vue.extend({
+export default {
+  name: 'productsView',
   components: {
     productList,
     productSearch,
   },
-});
+};
 
-export default Inventory;
 </script>
 
 <style scoped>

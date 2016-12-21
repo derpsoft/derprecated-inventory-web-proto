@@ -31,6 +31,7 @@
 import UserList from '../../components/users/list.vue';
 
 export default {
+  name: 'usersView',
   data() {
     return {};
   },

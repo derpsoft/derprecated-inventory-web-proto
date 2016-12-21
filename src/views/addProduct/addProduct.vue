@@ -30,6 +30,7 @@
 import ProductAdd from '../../components/products/add.vue';
 
 export default {
+  name: 'addProductView',
   data() {
     return {};
   },

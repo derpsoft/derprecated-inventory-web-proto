@@ -11,6 +11,7 @@ import appHeader from '../components/header/header.vue';
 import appSidebar from '../components/sidebar/sidebar.vue';
 
 export default {
+  name: 'mainView',
   components: {
     appHeader,
     appSidebar,

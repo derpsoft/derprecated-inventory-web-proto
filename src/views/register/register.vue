@@ -27,10 +27,8 @@
 import RegistrationForm from '../../components/registrationForm/registrationForm.vue';
 
 export default {
-  constructor() {
-    this.components = {
-      RegistrationForm,
-    };
+  components: {
+    RegistrationForm,
   }
 };
 </script>

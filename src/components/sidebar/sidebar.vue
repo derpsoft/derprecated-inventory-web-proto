@@ -32,6 +32,15 @@
       <li>
         <router-link :to="{ path: '/users', activeClass: 'active'}">Manage Users</router-link>
       </li>
+      <li class="nav-category">
+        Account
+      </li>
+      <li>
+        <router-link :to="{ path: '/profile', activeClass: 'active'}">Profile</router-link>
+      </li>
+      <li>
+        <router-link :to="{ path: '/logout', activeClass: 'active'}">Logout</router-link>
+      </li>
       <li class="nav-info">
         <i class="pe pe-7s-shield text-accent"></i>
         <div class="m-t-xs">

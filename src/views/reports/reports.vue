@@ -27,6 +27,7 @@
 
 <script>
   export default {
+    name: 'reportView',
     // Options / Data
     data() {
       return {};

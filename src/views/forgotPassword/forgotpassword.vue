@@ -36,6 +36,7 @@ import toastr from 'toastr';
 import Constants from '../../constants';
 
 export default {
+  name: 'forgotPasswordView',
   data() {
     return {
       resetRequested: false,

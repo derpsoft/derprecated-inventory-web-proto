@@ -28,7 +28,6 @@
                       <td>
                         <strong class="c-white">42</strong> Active project
                       </td>
-
                     </tr>
                     <tr>
                       <td>
@@ -249,6 +248,7 @@ import Constants from '../../constants';
 import store from '../../stores/store';
 
 export default {
+  name: 'profileView',
   data() {
     return {
       user: null,

@@ -20,7 +20,7 @@
         </div> -->
       <router-link class="navbar-brand" href="#" :to="{ path: '/' }">
         DERP
-        <span>v.2.0</span>
+        <span>v0.2.0</span>
       </router-link>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -39,11 +39,11 @@
             </a>
           </li> -->
         <li class="profil-link">
-          <!-- <dropdown>
-            <button type="button" class="btn btn-link" slot="button">
+          <button type="button" class="btn btn-link" slot="button">
                 <span class="profile-address">{{ userSession.userName }}</span>
                 <img src="/static/img/avatar.png" class="img-circle" alt="">
               </button>
+          <!-- <dropdown>
             <ul class="dropdown-menu" slot="dropdown-menu">
               <li>
                 <router-link href="#dropdown" :to="{ path: 'profile' }" title="Profile">
@@ -57,7 +57,7 @@
                     <li>
             </ul>
           </dropdown> -->
-          </li>
+        </li>
       </ul>
     </div>
   </div>

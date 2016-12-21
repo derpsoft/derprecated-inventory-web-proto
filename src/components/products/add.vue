@@ -131,6 +131,7 @@ import Constants from '../../constants';
 // import store from '../../stores/store';
 
 export default {
+  name: 'productsAdd',
   data() {
     return {
       product: {},

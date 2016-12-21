@@ -30,6 +30,7 @@
 import ProductEdit from '../../components/products/edit.vue';
 
 export default {
+  name: 'editProductView',
   data() {
     return {};
   },

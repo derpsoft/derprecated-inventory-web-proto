@@ -10,14 +10,14 @@
         <small>
             Please enter your credentials to login.
         </small>
+      </div>
+    </div>
+    <div class="panel panel-filled">
+      <div class="panel-body">
+        <login-form></login-form>
+      </div>
     </div>
   </div>
-  <div class="panel panel-filled">
-    <div class="panel-body">
-      <login-form></login-form>
-    </div>
-  </div>
-</div>
 </section>
 </template>
 
@@ -25,6 +25,7 @@
 import loginForm from '../../components/loginForm/loginForm.vue';
 
 export default {
+  name: 'loginView',
   components: {
     loginForm,
   },
@@ -32,8 +33,8 @@ export default {
 </script>
 
 <style scoped>
-  .content {
-    margin-left: auto;
-    margin-right: auto;
-  }
+.content {
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>

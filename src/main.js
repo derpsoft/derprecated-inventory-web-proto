@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
-import Progress from 'vue-progressbar';
+// import Progress from 'vue-progressbar';
 import {
   sync
 } from 'vuex-router-sync';
@@ -12,7 +12,7 @@ import Constants from './constants';
 import router from './router';
 
 Vue.use(VueRouter);
-Vue.use(Progress);
+// Vue.use(Progress);
 Vue.use(VueResource);
 
 sync(store, router);

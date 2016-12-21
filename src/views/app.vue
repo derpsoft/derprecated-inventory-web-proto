@@ -14,6 +14,7 @@ import store from '../stores/store';
 import '../assets/stylesheets/style.less';
 
 export default {
+  name: 'appView',
   store,
   mounted() {
     Pace.start();
