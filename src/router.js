@@ -17,7 +17,6 @@ import AddWarehouse from './views/warehouses/add.vue';
 
 import Users from './views/users/users.vue';
 import EditUser from './views/modifyUser/modifyUser.vue';
-const AddUser = EditUser; // temp
 // import AddUser from './views/modifyUser/modifyUser.vue';
 
 import Categories from './views/categories/categories.vue';
@@ -29,8 +28,10 @@ import EditVendor from './views/vendors/edit.vue';
 // import NotFound from './views/notfound.vue';
 import store from './stores/store';
 
-export function routing(router) {
-  router.map({
+const AddUser = EditUser; // temp
+
+export default function routing(router) {
+  router.routes = [{
     '/login': {
       component: Login,
     },
@@ -46,8 +47,8 @@ export function routing(router) {
     '/': {
       component: Main,
       auth: true,
-      subRoutes: {
-        '/': {
+      children: {
+        '': {
           component: Dashboard,
         },
         '/users': {
@@ -98,19 +99,19 @@ export function routing(router) {
       },
     },
     '*': {
-      component: Main,
+      redirect: '/'
     },
-  });
+  }];
 
-  router.beforeEach((transition) => {
+  router.beforeEach((to, from, next) => {
     const isAuthenticated = store.getters.isAuthenticated;
-    if (transition.to.auth && !isAuthenticated) {
-      transition.redirect('/login');
-    } else if (transition.to.path.toLowerCase() === '/login' && isAuthenticated) {
-      transition.redirect('/');
+    if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
+      next('/login');
+    } else if (to.path.toLowerCase() === '/login' && isAuthenticated) {
+      next('/');
     }
 
-    transition.next();
+    next();
   });
 
   store.watch(() => store.getters.isAuthenticated, (current) => {

@@ -21,7 +21,7 @@ class UsersApi extends Fetchable {
 
     return super.get(`/api/v1/users?${body}`)
     .then(res => res.json())
-    .then(json => {
+    .then((json) => {
       return json;
     });
   }
@@ -29,7 +29,7 @@ class UsersApi extends Fetchable {
   singleById(id) {
     return super.get(`/api/v1/users/${id}`)
     .then(res => res.json())
-    .then(json => {
+    .then((json) => {
       return json;
     });
   }
@@ -53,7 +53,7 @@ class UsersApi extends Fetchable {
       headers,
     })
       .then(res => res.json())
-      .then(json => {
+      .then((json) => {
         return json;
       });
   }

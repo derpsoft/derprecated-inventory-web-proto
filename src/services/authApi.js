@@ -1,8 +1,7 @@
-// import router from 'vue-router';
+import _ from 'lodash';
 import Fetchable from './fetchable';
 import store from '../stores/store';
 import Constants from '../constants';
-import _ from 'lodash';
 
 class AuthApi extends Fetchable {
   constructor() {
@@ -27,7 +26,7 @@ class AuthApi extends Fetchable {
       })
     })
       .then(res => res.json())
-      .then(json => {
+      .then((json) => {
         return this.setUser(json);
       });
   }
@@ -40,7 +39,7 @@ class AuthApi extends Fetchable {
       })
     })
     .then(res => res.json())
-    .then(json => {
+    .then((json) => {
       return this.setUser(json);
     });
   }
@@ -66,7 +65,7 @@ class AuthApi extends Fetchable {
   profile() {
     return super.get('/api/v1/me')
       .then(res => res.json())
-      .then(json => {
+      .then((json) => {
         let profile = {};
 
         if (json) {
@@ -82,7 +81,7 @@ class AuthApi extends Fetchable {
       body: this.toForm({ email })
     })
       .then(res => res.json())
-      .then(json => {
+      .then((json) => {
         return json;
       });
   }

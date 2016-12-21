@@ -21,7 +21,7 @@ class VendorApi extends Fetchable {
 
     return super.get(`/api/v1/vendors?${body}`)
     .then(res => res.json())
-    .then(json => {
+    .then((json) => {
       return json.vendors;
     });
   }
@@ -29,7 +29,7 @@ class VendorApi extends Fetchable {
   single(id) {
     return super.get(`/api/v1/vendors/${id}`)
     .then(res => res.json())
-    .then(json => {
+    .then((json) => {
       return json.vendor;
     });
   }

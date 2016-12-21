@@ -8,10 +8,10 @@ function getProduct({
   id
 }) {
   new ProductApi().retrieve(id)
-  .then(product => {
+  .then((product) => {
     commit(Constants.SET_PRODUCT, product);
   })
-  .catch(e => {
+  .catch((e) => {
     log.error(e);
   });
 }
@@ -23,10 +23,10 @@ function createProduct({
 }) {
   new ProductApi()
     .create(product)
-    .then(res => {
+    .then((res) => {
       commit(Constants.SET_PRODUCT, res.product);
     })
-    .catch(e => {
+    .catch((e) => {
       log.error(e);
     });
 }
@@ -50,10 +50,10 @@ function getProducts({
   take = 25
 }) {
   new ProductApi().list(skip, take)
-  .then(products => {
+  .then((products) => {
     commit(Constants.SET_PRODUCT_LIST, products);
   })
-  .catch(e => {
+  .catch((e) => {
     log.error(e);
   });
 }
@@ -65,10 +65,10 @@ function search({
   query
 }) {
   new ProductApi().search(query)
-  .then(products => {
+  .then((products) => {
     commit(Constants.SET_PRODUCT_LIST, products.results);
   })
-  .catch(e => {
+  .catch((e) => {
     log.error(e);
   });
 }

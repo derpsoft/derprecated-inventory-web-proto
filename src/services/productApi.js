@@ -20,7 +20,7 @@ class ProductApi extends Fetchable {
 
     return super.get(`/api/v1/products?${body}`)
       .then(res => res.json())
-      .then(json => {
+      .then((json) => {
         return json.products;
       });
   }
@@ -28,7 +28,7 @@ class ProductApi extends Fetchable {
   retrieve(id) {
     return super.get(`/api/v1/products/${id}`)
       .then(res => res.json())
-      .then(json => {
+      .then((json) => {
         return json.product;
       });
   }

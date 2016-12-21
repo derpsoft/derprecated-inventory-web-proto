@@ -13,8 +13,8 @@
   <div>
     <button type="submit" class="btn btn-accent" @click.stop.prevent="login()">Login</button>
     <div class="pull-right">
-      <a class="btn btn-link" href="#" v-link="{path: '/register'}">Register</a>
-      <a class="btn btn-link" href="#" v-link="{path: '/forgot-password'}">Forgot Password?</a>
+      <router-link class="btn btn-link" :to="{path: '/register'}">Register</router-link>
+      <router-link class="btn btn-link" :to="{path: '/forgot-password'}">Forgot Password?</router-link>
     </div>
   </div>
 </form>

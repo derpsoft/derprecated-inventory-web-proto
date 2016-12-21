@@ -1,20 +1,22 @@
 <template>
-<div class="row control-row">
-  <div class="col-md-12">
-    <button class="btn btn-primary pull-right" @click="save">Save</button>
-    <h4>New Warehouse Details</h4>
+<div>
+  <div class="row control-row">
+    <div class="col-md-12">
+      <button class="btn btn-primary pull-right" @click="save">Save</button>
+      <h4>New Warehouse Details</h4>
+    </div>
   </div>
-</div>
-<div class="panel panel-filled panel-main">
-  <div class="panel-body">
-    <form>
-      <div class="media">
-        <div class="form-group">
-          <label>Name</label>
-          <input type="text" class="form-control" placeholder="Name" v-model="warehouse.name">
+  <div class="panel panel-filled panel-main">
+    <div class="panel-body">
+      <form>
+        <div class="media">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" placeholder="Name" v-model="warehouse.name">
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
 </template>

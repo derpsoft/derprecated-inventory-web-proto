@@ -10,7 +10,7 @@ function getUsers({
   take = 25
 }) {
   new UsersApi().list(skip, take)
-  .then(users => {
+  .then((users) => {
     commit(Constants.SET_USERS, users);
   });
 }
@@ -40,7 +40,7 @@ function updateFirstName({
   firstName
 }) {
   new UsersApi().updateFirstName(id, firstName)
-    .then(json => {
+    .then((json) => {
       console.log(json);
     });
 }
@@ -53,7 +53,7 @@ function updateLastName({
   lastName
 }) {
   new UsersApi().updateLastName(id, lastName)
-    .then(json => {
+    .then((json) => {
       console.log(json);
     });
 }

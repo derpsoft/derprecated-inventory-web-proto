@@ -1,24 +1,26 @@
 <template>
-<div class="row control-row">
-  <div class="col-md-12">
-    <button class="btn btn-primary pull-right" @click="save">Save</button>
-    <h4>User Details</h4>
+<div>
+  <div class="row control-row">
+    <div class="col-md-12">
+      <button class="btn btn-primary pull-right" @click="save">Save</button>
+      <h4>User Details</h4>
+    </div>
   </div>
-</div>
-<div class="panel panel-filled panel-main">
-  <div class="panel-body">
-    <form>
-      <div class="media">
-        <div class="form-group">
-          <label>First Name</label>
-          <input type="text" class="form-control" placeholder="First Name" v-model="user.firstName">
+  <div class="panel panel-filled panel-main">
+    <div class="panel-body">
+      <form>
+        <div class="media">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" class="form-control" placeholder="First Name" v-model="user.firstName">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" class="form-control" placeholder="Last Name" v-model="user.lastName">
+          </div>
         </div>
-        <div class="form-group">
-          <label>Last Name</label>
-          <input type="text" class="form-control" placeholder="Last Name" v-model="user.lastName">
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
 </template>

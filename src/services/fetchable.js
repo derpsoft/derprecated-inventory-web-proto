@@ -4,9 +4,9 @@ import Constants from '../constants';
 const _fetch = function(url, options, {
   dispatch
 }) {
-  console.log(url, options);
+  // console.log(url, options);
   return fetch(url, options)
-    .then(res => {
+    .then((res) => {
       if (res.status === 401) {
         dispatch(Constants.LOGOUT);
         throw new Error('Unauthorized');
@@ -47,8 +47,7 @@ export default class Fetchable {
   }
 
   toJson(body) {
-    const json = JSON.stringify(body);
-    return json;
+    return JSON.stringify(body);
   }
 
   prepare(options) {

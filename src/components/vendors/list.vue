@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="col-md-12">
     <vendor-search></vendor-search>
   </div>
@@ -6,7 +7,7 @@
     <page-size :callback="setPageSize" :page-size="25"></page-size>
   </div>
   <div class="col-xs-6 text-right">
-     <pagination :pagination="pagination" :callback="getPage"></pagination>
+    <pagination :pagination="pagination" :callback="getPage"></pagination>
   </div>
   <div class="col-md-12">
     <div class="table-responsive">
@@ -26,75 +27,79 @@
       </table>
     </div>
   </div>
+</div>
 </template>
 
 <style lang="less" scoped>
-  table.vendor-list {
+table.vendor-list {
     tr {
-      cursor: pointer;
+        cursor: pointer;
     }
-  }
+}
 </style>
 
 <script>
-  import Constants from '../../constants';
-  import PageSize from '../../components/pageSize/pageSize.vue';
-  import vendorSearch from './search';
-  import Pagination from 'vue-bootstrap-pagination';
-  import store from '../../stores/store';
+import Pagination from 'vue-bootstrap-pagination';
+import vendorSearch from './search.vue';
+import Constants from '../../constants';
+import PageSize from '../../components/pageSize/pageSize.vue';
+import store from '../../stores/store';
 
-  const defaultPageCount = 25;
+const defaultPageCount = 25;
 
-  export default {
-    data() {
-      return {
-        count: null,
-        vendors: null,
-        pagination: {
-          per_page: defaultPageCount,
-          current_page: 1,
-          last_page: 1,
-          to: 0,
-        },
-      };
-    },
-    components: {
-      Pagination,
-      PageSize,
-      vendorSearch,
-    },
-    created() {
-      store.dispatch(Constants.GET_VENDORS, { skip: 0, take: defaultPageCount });
-    },
-    computed: {
-      vendors() {
-        this.pagination.last_page =
-          Math.ceil(store.getters.vendorList.count / this.pagination.per_page);
-        this.pagination.to = store.getters.vendorList.count;
+export default {
+  data() {
+    return {
+      count: null,
+      vendors: null,
+      pagination: {
+        per_page: defaultPageCount,
+        current_page: 1,
+        last_page: 1,
+        to: 0,
+      },
+    };
+  },
+  components: {
+    Pagination,
+    PageSize,
+    vendorSearch,
+  },
+  created() {
+    store.dispatch(Constants.GET_VENDORS, {
+      skip: 0,
+      take: defaultPageCount
+    });
+  },
+  computed: {
+    vendors() {
+      this.pagination.last_page =
+        Math.ceil(store.getters.vendorList.count / this.pagination.per_page);
+      this.pagination.to = store.getters.vendorList.count;
 
-        return store.getters.vendorList;
-      },
+      return store.getters.vendorList;
     },
-    methods: {
-      edit(id) {
-        this.$router.go(`/vendors/edit/${id}`);
-      },
-      getPage() {
-        const skip = this.pagination.per_page * (this.pagination.current_page - 1);
-        store.dispatch(Constants.GET_VENDORS, {
-          skip,
-          take: this.pagination.per_page
-        });
-      },
-      setPageSize(pageSize) {
-        this.pagination.per_page = pageSize;
-        this.pagination.current_page = 1;
+  },
+  methods: {
+    edit(id) {
+      this.$router.push(`/vendors/edit/${id}`);
+    },
+    getPage() {
+      const skip = this.pagination.per_page * (this.pagination.current_page - 1);
+      store.dispatch(Constants.GET_VENDORS, {
+        skip,
+        take: this.pagination.per_page
+      });
+    },
+    setPageSize(pageSize) {
+      this.pagination.per_page = pageSize;
+      this.pagination.current_page = 1;
 
-        this.$store.dispatch(Constants.GET_VENDORS, {
-          skip: 0,
-          take: pageSize,
-        });
-      },
+      this.$store.dispatch(Constants.GET_VENDORS, {
+        skip: 0,
+        take: pageSize,
+      });
     },
-  };
+  },
+};
 </script>

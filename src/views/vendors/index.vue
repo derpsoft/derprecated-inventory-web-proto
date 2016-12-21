@@ -5,7 +5,7 @@
       <div class="col-lg-12">
         <div class="view-header">
           <div class="pull-right">
-              <button class="btn btn-w-md btn-accent" v-link="{path: '/vendors/add'}">Add New Vendor</button>
+            <router-link class="btn btn-w-md btn-accent" :to="{path: '/vendors/add'}">Add New Vendor</router-link>
           </div>
           <div class="header-icon">
             <i class="pe page-header-icon pe-7s-vendors"></i>
@@ -28,14 +28,14 @@
 </template>
 
 <script>
-  import VendorList from '../../components/vendors/list.vue';
+import VendorList from '../../components/vendors/list.vue';
 
-  export default {
-    data() {
-      return {};
-    },
-    components: {
-      VendorList,
-    },
-  };
+export default {
+  data() {
+    return {};
+  },
+  components: {
+    VendorList,
+  },
+};
 </script>

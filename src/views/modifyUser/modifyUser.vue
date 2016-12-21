@@ -5,7 +5,7 @@
         <div class="col-lg-12">
           <div class="view-header">
             <div class="pull-right">
-              <button class="btn btn-w-md btn-accent btn-return" v-link="{path: '/users'}">Back to Users</button>
+              <router-link class="btn btn-w-md btn-accent btn-return" :to="{path: '/users'}">Back to Users</router-link>
             </div>
             <div class="header-icon">
               <i class="pe page-header-icon pe-7s-plus"></i>
