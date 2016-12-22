@@ -45,8 +45,8 @@ table.user-list {
 <script>
 import Pagination from 'vue-bootstrap-pagination';
 import Constants from '../../constants';
-import PageSize from '../../components/pageSize/pageSize.vue';
-import UserSearch from '../../components/userSearch/userSearch.vue';
+import PageSize from '../pageSize/pageSize.vue';
+import UserSearch from './search.vue';
 import store from '../../stores/store';
 
 const defaultPageCount = 25;

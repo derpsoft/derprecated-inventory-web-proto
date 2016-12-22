@@ -43,6 +43,7 @@
 import Constants from '../../constants';
 
 export default {
+  name: 'registrationForm',
   data() {
     return {
       registration: {

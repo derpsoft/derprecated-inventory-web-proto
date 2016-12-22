@@ -9,6 +9,7 @@
   import Constants from '../../constants';
 
   export default {
+    name: 'productSearch',
     data() {
       return {
         searchTerm: null,
@@ -16,9 +17,14 @@
     },
     methods: {
       searchProducts() {
-        if (this.searchTerm.length < 2) {
+        if (this.searchTerm.length === 0) {
+          this.$store.dispatch(Constants.SEARCH_PRODUCTS, {
+            query: '',
+          });
+        } else if (this.searchTerm.length < 2) {
           return;
         }
+
         this.$store.dispatch(Constants.SEARCH_PRODUCTS, {
           query: this.searchTerm,
         });

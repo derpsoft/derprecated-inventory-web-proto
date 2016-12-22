@@ -50,6 +50,7 @@
 import Constants from '../../constants';
 
 export default {
+  name: 'productList',
   data() {
     return {
       products: null,

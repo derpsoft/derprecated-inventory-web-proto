@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import appHeader from '../components/header/header.vue';
-import appSidebar from '../components/sidebar/sidebar.vue';
+import appHeader from '../components/header/index.vue';
+import appSidebar from '../components/sidebar/index.vue';
 
 export default {
   name: 'mainView',

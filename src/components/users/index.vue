@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import UserList from '../../components/users/list.vue';
+import UserList from './list.vue';
 
 export default {
   name: 'usersView',

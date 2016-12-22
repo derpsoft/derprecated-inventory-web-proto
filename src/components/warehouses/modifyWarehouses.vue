@@ -11,8 +11,8 @@
             <i class="pe page-header-icon pe-7s-plus"></i>
           </div>
           <div class="header-title">
-            <h3>Add Warehouse</h3>
-            <small>Create a warehouse</small>
+            <h3>Edit Warehouse</h3>
+            <small>Make modifications</small>
           </div>
         </div>
         <hr>
@@ -20,29 +20,40 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <warehouse-add></warehouse-add>
+        <warehouse-add v-if="isAdd"></warehouse-add>
+        <warehouse-edit v-else></warehouse-edit>
       </div>
     </div>
   </div>
 </section>
 </template>
+<script>
+import WarehouseAdd from './add.vue';
+import WarehouseEdit from './edit.vue';
+
+export default {
+  name: 'modifyWarehouseView',
+  data() {
+    return {
+      isAdd: false,
+    };
+  },
+  components: {
+    WarehouseAdd,
+    WarehouseEdit,
+  },
+  mounted() {
+    if (this.$route && this.$route.path.indexOf('add') > -1) {
+      this.isAdd = true;
+    } else {
+      this.isAdd = false;
+    }
+  },
+};
+</script>
 
 <style scope>
 .btn-return {
   margin-right: -15px;
 }
 </style>
-
-<script>
-import WarehouseAdd from '../../components/warehouses/add.vue';
-
-export default {
-  data() {
-    return {};
-  },
-  components: {
-    WarehouseAdd,
-  },
-  created() {},
-};
-</script>
