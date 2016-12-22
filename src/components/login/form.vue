@@ -24,6 +24,7 @@
 import Constants from '../../constants';
 
 export default {
+  name: 'loginForm',
   data() {
     return {
       username: '',

@@ -71,6 +71,7 @@ import {
 import store from '../../stores/store';
 
 export default {
+  name: 'header',
   data() {
     return {
       userSession: null,

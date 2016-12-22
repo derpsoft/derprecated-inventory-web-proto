@@ -31,7 +31,6 @@
     "vue-bootstrap-pagination": "latest",
     "vue-hot-reload-api": "latest",
     "vue-loader": "latest",
-    "vue-progressbar": "latest",
     "vue-resource": "latest",
     "vue-router": "latest",
     "vue-strap": "yuche/vue-strap#v2",

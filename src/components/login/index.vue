@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import loginForm from '../../components/loginForm/loginForm.vue';
+import loginForm from './form.vue';
 
 export default {
   name: 'loginView',

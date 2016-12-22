@@ -1,33 +1,30 @@
 /* eslint-disable no-unused-vars */
 import VueRouter from 'vue-router';
-import Main from './views/main.vue';
-import Dashboard from './views/dashboard/dashboard.vue';
+import Main from './components/main.vue';
+import Dashboard from './components/dashboard/index.vue';
 
-import ForgotPassword from './views/forgotPassword/forgotpassword.vue';
-import Profile from './views/profile/profile.vue';
-import Register from './views/register/register.vue';
-import Login from './views/login/login.vue';
-import Logout from './views/logout/logout.vue';
+import ForgotPassword from './components/forgotPassword/index.vue';
+import Profile from './components/profile/index.vue';
+import Register from './components/registration/index.vue';
+import Login from './components/login/index.vue';
+import Logout from './components/logout/index.vue';
 
-import Reports from './views/reports/reports.vue';
+import Reports from './components/reports/reports.vue';
 
-import Products from './views/products/products.vue';
-import AddProduct from './views/addProduct/addProduct.vue';
-import EditProduct from './views/editProduct/editProduct.vue';
+import Products from './components/products/index.vue';
+import ModifyProducts from './components/products/modifyProduct.vue';
 
-import Warehouses from './views/warehouses/index.vue';
-import EditWarehouse from './views/warehouses/edit.vue';
-import AddWarehouse from './views/warehouses/add.vue';
+import Warehouses from './components/warehouses/index.vue';
+import ModifyWarehouses from './components/warehouses/modifyWarehouses.vue';
 
-import Users from './views/users/users.vue';
-import EditUser from './views/modifyUser/modifyUser.vue';
+import Users from './components/users/index.vue';
+import EditUser from './components/users/modifyUser.vue';
 // import AddUser from './views/modifyUser/modifyUser.vue';
 
-import Categories from './views/categories/categories.vue';
+import Categories from './components/categories/index.vue';
 
-import Vendors from './views/vendors/index.vue';
-import AddVendor from './views/vendors/add.vue';
-import EditVendor from './views/vendors/edit.vue';
+import Vendors from './components/vendors/index.vue';
+import ModifyVendors from './components/vendors/modifyVendors.vue';
 
 // import NotFound from './views/notfound.vue';
 import store from './stores/store';
@@ -76,11 +73,11 @@ const routes = [{
     meta: { requiresAuth: true },
   }, {
     path: '/products/add',
-    component: AddProduct,
+    component: ModifyProducts,
     meta: { requiresAuth: true },
   }, {
     path: '/products/edit/:id',
-    component: EditProduct,
+    component: ModifyProducts,
     meta: { requiresAuth: true },
   }, {
     path: '/warehouses',
@@ -88,11 +85,11 @@ const routes = [{
     meta: { requiresAuth: true },
   }, {
     path: '/warehouses/add',
-    component: AddWarehouse,
+    component: ModifyWarehouses,
     meta: { requiresAuth: true },
   }, {
     path: '/warehouses/edit/:id',
-    component: EditWarehouse,
+    component: ModifyWarehouses,
     meta: { requiresAuth: true },
   }, {
     path: '/profile',
@@ -108,11 +105,11 @@ const routes = [{
     meta: { requiresAuth: true },
   }, {
     path: '/vendors/add',
-    component: AddVendor,
+    component: ModifyVendors,
     meta: { requiresAuth: true },
   }, {
     path: '/vendors/edit/:id',
-    component: EditVendor,
+    component: ModifyVendors,
     meta: { requiresAuth: true },
   }]
 }, {

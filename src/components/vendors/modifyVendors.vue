@@ -11,7 +11,7 @@
             <i class="pe page-header-icon pe-7s-plus"></i>
           </div>
           <div class="header-title">
-            <h3>Add Vendor</h3>
+            <h3>{{ isAdd ? 'Add' : 'Edit' }} Vendor</h3>
             <small>Create a vendor</small>
           </div>
         </div>
@@ -20,7 +20,8 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <vendor-add></vendor-add>
+        <vendor-add v-if="isAdd"></vendor-add>
+        <vendor-edit v-else></vendor-edit>
       </div>
     </div>
   </div>
@@ -34,15 +35,25 @@
 </style>
 
 <script>
-import VendorAdd from '../../components/vendors/add.vue';
+import VendorAdd from './add.vue';
+import VendorEdit from './edit.vue';
 
 export default {
   data() {
-    return {};
+    return {
+      isAdd: false,
+    };
   },
   components: {
     VendorAdd,
+    VendorEdit,
   },
-  created() {},
+  mounted() {
+    if (this.$route && this.$route.path.indexOf('add') > -1) {
+      this.isAdd = true;
+    } else {
+      this.isAdd = false;
+    }
+  },
 };
 </script>

@@ -34,8 +34,8 @@
 
 
 <script>
-import productList from '../../components/products/list.vue';
-import productSearch from '../../components/products/search.vue';
+import productList from './list.vue';
+import productSearch from './search.vue';
 
 export default {
   name: 'productsView',
