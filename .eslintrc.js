@@ -1,9 +1,14 @@
 module.exports = {
   root: true,
+  env: {
+    es6: true,
+    browser: true,
+    node: true,
+  },
   parserOptions: {
     sourceType: 'module',
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true
     }
   },
   extends: 'airbnb-base',
@@ -22,9 +27,11 @@ module.exports = {
     'arrow-body-style': 0,
     'space-before-function-paren': 0,
     'no-param-reassign': 0,
-    'comma-dangle': 0
+    'comma-dangle': 0,
+    'class-methods-use-this': 0
   },
   globals: {
-    'store': true
+    'store': true,
+    'window': true,
   },
 }

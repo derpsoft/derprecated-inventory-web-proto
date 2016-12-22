@@ -1,48 +1,57 @@
 <template>
-  <aside class="navigation">
-    <nav>
-      <ul class="nav luna-nav">
-        <li class="nav-category">
-          General
-        </li>
-        <li v-link="{ path: '/', activeClass: 'active', exact: true}">
-          <a href="#">Dashboard</a>
-        </li>
-        <li class="nav-category">
-          Inventory
-        </li>
-        <li v-link="{ path: '/products', activeClass: 'active'}">
-          <a href="#">Products</a>
-        </li>
-        <li v-link="{ path: '/categories', activeClass: 'active'}">
-          <a href="#">Categories</a>
-        </li>
-        <li v-link="{ path: '/warehouses', activeClass: 'active'}">
-          <a href="#">Warehouses</a>
-        </li>
-        <li v-link="{ path: '/vendors', activeClass: 'active'}">
-          <a href="#">Vendors</a>
-        </li>
-        <li v-link="{ path: '/reports', activeClass: 'active'}">
-          <a href="#" >Reports</a>
-        </li>
-        <li class="nav-category">
-          Admin
-        </li>
-        <li v-link="{ path: '/users', activeClass: 'active'}">
-          <a href="javascript:void(0);">Manage Users</a>
-        </li>
-        <li class="nav-info">
-            <i class="pe pe-7s-shield text-accent"></i>
-            <div class="m-t-xs">
-                <span class="c-white">DERP</span> Inventory System.
-            </div>
-        </li>
-      </ul>
-    </nav>
-  </aside>
+<aside class="navigation">
+  <nav>
+    <ul class="nav luna-nav">
+      <li class="nav-category">
+        General
+      </li>
+      <li>
+        <router-link :to="{ path: '/', activeClass: 'active', exact: true}">Dashboard</router-link>
+      </li>
+      <li class="nav-category">
+        Inventory
+      </li>
+      <li>
+        <router-link :to="{ path: '/products', activeClass: 'active'}">Products</router-link>
+      </li>
+      <li>
+        <router-link :to="{ path: '/categories', activeClass: 'active'}">Categories</router-link>
+      </li>
+      <li>
+        <router-link :to="{ path: '/warehouses', activeClass: 'active'}">Warehouses</router-link>
+      </li>
+      <li>
+        <router-link :to="{ path: '/vendors', activeClass: 'active'}">Vendors</router-link>
+      </li>
+      <li>
+        <router-link :to="{ path: '/reports', activeClass: 'active'}">Reports</router-link>
+      </li>
+      <li class="nav-category">
+        Admin
+      </li>
+      <li>
+        <router-link :to="{ path: '/users', activeClass: 'active'}">Manage Users</router-link>
+      </li>
+      <li class="nav-category">
+        Account
+      </li>
+      <li>
+        <router-link :to="{ path: '/profile', activeClass: 'active'}">Profile</router-link>
+      </li>
+      <li>
+        <router-link :to="{ path: '/logout', activeClass: 'active'}">Logout</router-link>
+      </li>
+      <li class="nav-info">
+        <i class="pe pe-7s-shield text-accent"></i>
+        <div class="m-t-xs">
+          <span class="c-white">DERP</span> Inventory System.
+        </div>
+      </li>
+    </ul>
+  </nav>
+</aside>
 </template>
 
 <script>
-  export default {};
+export default {};
 </script>

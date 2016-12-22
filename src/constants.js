@@ -1,5 +1,5 @@
 const Constants = {
-  API_ROOT: 'https://derprecated-inventory-api.azurewebsites.net',
+  API_ROOT: 'https://inventory-api-dev.azurewebsites.net',
 
   SET_PROFILE: 'SET_PROFILE',
   GET_PROFILE: 'GET_PROFILE',

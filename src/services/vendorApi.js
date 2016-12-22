@@ -1,10 +1,11 @@
 import Fetchable from './fetchable';
 import store from '../stores/store';
+import Constants from '../constants';
 
 class VendorApi extends Fetchable {
 
   constructor() {
-    super('https://derprecated-inventory-api.azurewebsites.net', store);
+    super(Constants.API_ROOT, store);
 
     if (VendorApi.prototype.singleton) {
       return VendorApi.prototype.singleton;
@@ -21,7 +22,7 @@ class VendorApi extends Fetchable {
 
     return super.get(`/api/v1/vendors?${body}`)
     .then(res => res.json())
-    .then(json => {
+    .then((json) => {
       return json.vendors;
     });
   }
@@ -29,7 +30,7 @@ class VendorApi extends Fetchable {
   single(id) {
     return super.get(`/api/v1/vendors/${id}`)
     .then(res => res.json())
-    .then(json => {
+    .then((json) => {
       return json.vendor;
     });
   }

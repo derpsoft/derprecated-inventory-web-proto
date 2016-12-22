@@ -5,7 +5,7 @@
       <div class="col-lg-12">
         <div class="view-header">
           <div class="pull-right">
-              <button class="btn btn-w-md btn-accent" v-link="{path: '/test'}">Add New User</button>
+            <router-link class="btn btn-w-md btn-accent" :to="{path: '/test'}">Add New User</router-link>
           </div>
           <div class="header-icon">
             <i class="pe page-header-icon pe-7s-users"></i>
@@ -28,14 +28,15 @@
 </template>
 
 <script>
-  import UserList from '../../components/users/list.vue';
+import UserList from '../../components/users/list.vue';
 
-  export default {
-    data() {
-      return {};
-    },
-    components: {
-      UserList,
-    },
-  };
+export default {
+  name: 'usersView',
+  data() {
+    return {};
+  },
+  components: {
+    UserList,
+  },
+};
 </script>

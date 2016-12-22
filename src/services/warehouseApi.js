@@ -1,10 +1,11 @@
 import Fetchable from './fetchable';
 import store from '../stores/store';
+import Constants from '../constants';
 
 class WarehouseApi extends Fetchable {
 
   constructor() {
-    super('https://derprecated-inventory-api.azurewebsites.net', store);
+    super(Constants.API_ROOT, store);
 
     if (WarehouseApi.prototype.singleton) {
       return WarehouseApi.prototype.singleton;
@@ -21,7 +22,7 @@ class WarehouseApi extends Fetchable {
 
     return super.get(`/api/v1/warehouses?${body}`)
     .then(res => res.json())
-    .then(json => {
+    .then((json) => {
       return json.warehouses;
     });
   }
@@ -29,7 +30,7 @@ class WarehouseApi extends Fetchable {
   single(id) {
     return super.get(`/api/v1/warehouses/${id}`)
     .then(res => res.json())
-    .then(json => {
+    .then((json) => {
       return json.warehouse;
     });
   }

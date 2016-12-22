@@ -1,7 +1,7 @@
 import _ from 'lodash';
+import log from 'loglevel';
 import Constants from '../constants';
 import AuthApi from '../services/authApi';
-// import log from 'loglevel';
 
 function clear({
   commit
@@ -18,7 +18,7 @@ function login({
   password
 }) {
   new AuthApi().login(username, password)
-    .then(json => {
+    .then((json) => {
       if (json.sessionId) {
         commit(Constants.SET_PROFILE, json.user);
         commit(Constants.SET_SESSION, json);
@@ -43,14 +43,14 @@ function logout({
   clear({
     commit
   });
-  new AuthApi().logout();
+  new AuthApi().logout().catch(e => log.error(e));
 }
 
 function getProfile({
   commit
 }) {
   new AuthApi().profile()
-    .then(json => {
+    .then((json) => {
       if (json) {
         commit(Constants.SET_PROFILE, json.user);
       } else {
@@ -72,7 +72,7 @@ function register({
   email,
 }) {
   new AuthApi().register(username, password, email, firstName, lastName)
-    .then(json => {
+    .then((json) => {
       if (json) {
         commit(Constants.SET_SESSION, json);
         dispatch(Constants.GET_PROFILE);

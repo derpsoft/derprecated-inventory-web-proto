@@ -1,8 +1,8 @@
 <template>
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <!-- <div id="mobile-menu">
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <!-- <div id="mobile-menu">
           <div class="left-nav-toggle">
             <dropdown>
               <a slot="button" class="btn btn-link btn-xs">
@@ -10,91 +10,91 @@
               </a>
               <ul slot="dropdown-menu" class="dropdown-menu">
                 <li>
-                  <a href="#dropdown" v-link="{ path: 'profile' }" title="Profile">
+                  <router-link href="#dropdown" :to="{ path: 'profile' }" title="Profile">
                     Profile
-                  </a>
+                  </router-link>
                 <li>
               </ul>
             </dropdown>
           </div>
         </div> -->
-        <a class="navbar-brand" href="#" v-link="{ path: '/' }">
-          DERP
-          <span>v.1.0</span>
-        </a>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <!-- <div class="left-nav-toggle">
+      <router-link class="navbar-brand" href="#" :to="{ path: '/' }">
+        DERP
+        <span>v0.2.0</span>
+      </router-link>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <!-- <div class="left-nav-toggle">
           <a href="">
             <i class="stroke-hamburgermenu"></i>
           </a>
         </div> -->
-        <!-- <form class="navbar-form navbar-left">
+      <!-- <form class="navbar-form navbar-left">
           <input type="text" class="form-control" placeholder="Search data for analysis" style="width: 175px">
         </form> -->
-        <ul class="nav navbar-nav navbar-right">
-          <!-- <li class="dropdown">
+      <ul class="nav navbar-nav navbar-right">
+        <!-- <li class="dropdown">
             <a href="versions.html" >Versions
               <span class="label label-warning pull-right">1</span>
             </a>
           </li> -->
-          <li class="profil-link">
-            <dropdown>
-              <button type="button" class="btn btn-link" slot="button">
+        <li class="profil-link">
+          <button type="button" class="btn btn-link" slot="button">
                 <span class="profile-address">{{ userSession.userName }}</span>
                 <img src="/static/img/avatar.png" class="img-circle" alt="">
               </button>
-              <ul class="dropdown-menu" slot="dropdown-menu">
-                <li>
-                  <a href="#dropdown" v-link="{ path: 'profile' }" title="Profile">
+          <!-- <dropdown>
+            <ul class="dropdown-menu" slot="dropdown-menu">
+              <li>
+                <router-link href="#dropdown" :to="{ path: 'profile' }" title="Profile">
                     Profile
-                  </a>
+                  </router-link>
                 <li>
-                <li>
-                  <a href="#dropdown" v-link="{ path: 'logout' }" title="Logout">
+                  <li>
+                    <router-link href="#dropdown" :to="{ path: 'logout' }" title="Logout">
                     Logout
-                  </a>
-                <li>
-              </ul>
-            </dropdown>
-          </li>
-        </ul>
-      </div>
+                  </router-link>
+                    <li>
+            </ul>
+          </dropdown> -->
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
 </template>
 
 <script>
-  import store from '../../stores/store';
-  import { dropdown } from 'vue-strap';
+import {
+  dropdown
+} from 'vue-strap';
+import store from '../../stores/store';
 
-  export default {
-    data() {
-      return {
-        userSession: null,
-      };
-    },
-    components: {
-      dropdown,
-    },
-    computed: {
-      userSession: () => {
-        return store.state.session;
-      }
-    },
-  };
-
+export default {
+  data() {
+    return {
+      userSession: null,
+    };
+  },
+  components: {
+    dropdown,
+  },
+  computed: {
+    userSession: () => {
+      return store.state.session;
+    }
+  },
+};
 </script>
 
 <style lang="less" scoped>
-
 .profil-link {
-  .btn {
-    &:active,
-    &:focus {
-      color: #000;
+    .btn {
+        &:active,
+        &:focus {
+            color: #000;
+        }
+        outline: none;
     }
-    outline: none;
-  }
 }
 </style>

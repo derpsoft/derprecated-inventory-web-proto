@@ -1,11 +1,11 @@
 <template>
-  <section class="content">
+<section class="content">
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
         <div class="view-header">
           <div class="pull-right">
-              <button class="btn btn-w-md btn-accent add-control" v-link="{path: '/products/add'}">Add New Product</button>
+            <router-link class="btn btn-w-md btn-accent add-control" :to="{path: '/products/add'}">Add New Product</router-link>
           </div>
           <div class="header-icon">
             <i class="pe  page-header-icon pe-7s-search"></i>
@@ -30,26 +30,25 @@
     </div>
   </div>
 </section>
- </template>
+</template>
 
 
 <script>
-import Vue from 'vue';
 import productList from '../../components/products/list.vue';
 import productSearch from '../../components/products/search.vue';
 
-const Inventory = Vue.extend({
+export default {
+  name: 'productsView',
   components: {
     productList,
     productSearch,
   },
-});
+};
 
-export default Inventory;
 </script>
 
 <style scoped>
-  .add-control {
-    margin-right: -15px;
-  }
+.add-control {
+  margin-right: -15px;
+}
 </style>

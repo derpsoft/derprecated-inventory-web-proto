@@ -16,8 +16,7 @@
         <td class="id">{{product.id}}</td>
         <td>
           <img v-if="product.images && product.images.length" :src="product.images[0].sourceUrl" width="50" height="50">
-          <img src="http://placehold.it/50x50" v-if="!product.images || !product.images.length">
-          {{product.title}}
+          <img src="http://placehold.it/50x50" v-if="!product.images || !product.images.length"> {{product.title}}
         </td>
         <td>{{product.quantity}}</td>
         <td>{{product.productType}}</td>
@@ -32,17 +31,17 @@
 <style lang="less" scoped>
 .product-list {
     td {
-      vertical-align: middle;
+        vertical-align: middle;
     }
     tr {
         cursor: pointer;
     }
     td.id {
-      padding-left: 15px;
-      width: 25px;
+        padding-left: 15px;
+        width: 25px;
     }
     img {
-      margin-right: 20px;
+        margin-right: 20px;
     }
 }
 </style>
@@ -63,10 +62,10 @@ export default {
   },
   methods: {
     openProduct(id) {
-      this.$router.go(`/products/edit/${id}`);
+      this.$router.push(`/products/edit/${id}`);
     }
   },
-  ready() {
+  mounted() {
     this.$store.dispatch(Constants.GET_PRODUCTS, {
       skip: 0,
       take: 200

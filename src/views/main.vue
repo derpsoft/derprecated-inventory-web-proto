@@ -1,21 +1,20 @@
 <template>
+  <div>
     <app-header></app-header>
     <app-sidebar></app-sidebar>
     <router-view></router-view>
+  </div>
 </template>
 
 <script>
 import appHeader from '../components/header/header.vue';
 import appSidebar from '../components/sidebar/sidebar.vue';
 
-class Main {
-  constructor() {
-    this.components = {
-      appHeader,
-      appSidebar,
-    };
+export default {
+  name: 'mainView',
+  components: {
+    appHeader,
+    appSidebar,
   }
-}
-const main = new Main;
-export default main;
+};
 </script>
