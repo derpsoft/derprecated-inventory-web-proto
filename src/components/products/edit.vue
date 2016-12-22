@@ -12,8 +12,7 @@
         <div class="media">
           <div class="media-left">
             <a href="#" @click.prevent="">
-              <img class="media-object" :src="displayImage || product.images[0].sourceUrl" width="250" height="250" src="http://placehold.it/250x250" v-if="product.images">
-              <img class="media-object" width="250" height="250" src="http://placehold.it/250x250" v-if="!product.images">
+              <img class="media-object" :src="displayImage" width="250" height="250">
             </a>
           </div>
           <div class="media-body">
@@ -152,7 +151,7 @@ export default {
   data() {
     return {
       product: {},
-      displayImage: null,
+      displayImage: 'http://placehold.it/250x250',
     };
   },
   components: {
@@ -168,11 +167,6 @@ export default {
     $route: 'load'
   },
   methods: {
-    load() {
-      store.dispatch(Constants.GET_PRODUCT, {
-        id: this.id,
-      });
-    },
     save() {
       const product = JSON.parse(JSON.stringify(this.product));
       product.id = this.id;
@@ -184,11 +178,16 @@ export default {
       this.displayImage = img;
     },
   },
-  created() {
+  mounted() {
     store.watch(() => store.getters.product, (current) => {
       this.product = Object.assign({}, current);
+      if (this.product.images && this.product.images[0] && this.product.images[0].sourceUrl) {
+        this.displayImage = this.product.images[0].sourceUrl;
+      }
     });
-    this.load();
-  },
+    store.dispatch(Constants.GET_PRODUCT, {
+      id: this.id,
+    });
+  }
 };
 </script>

@@ -12,7 +12,6 @@
         <div class="media">
           <div class="media-left">
             <a href="#" @click.prevent="">
-              <img class="media-object" :src="displayImage || product.images[0].sourceUrl" width="250" height="250" src="http://placehold.it/250x250" v-if="product.images">
               <img class="media-object" width="250" height="250" src="http://placehold.it/250x250" v-if="!product.images">
             </a>
           </div>
@@ -53,7 +52,7 @@
           </div>
         </div>
 
-        <div class="row" v-if="product.images">
+        <!-- <div class="row" v-if="product.images">
           <div class="col-lg-12">
             <h5>Gallery</h5>
           </div>
@@ -62,7 +61,7 @@
               <img class="img-responsive" :src="image.sourceUrl" alt="">
             </a>
           </div>
-        </div>
+        </div> -->
       </form>
     </div>
   </div>
@@ -135,7 +134,7 @@ export default {
   data() {
     return {
       product: {},
-      displayImage: null,
+      // displayImage: null,
     };
   },
   components: {
@@ -149,9 +148,9 @@ export default {
         product
       });
     },
-    updateImage(img) {
-      this.displayImage = img;
-    },
+    // updateImage(img) {
+    //   // this.displayImage = img;
+    // },
   },
 };
 </script>
