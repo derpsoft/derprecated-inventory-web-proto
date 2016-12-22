@@ -18,7 +18,7 @@
           <img v-if="product.images && product.images.length" :src="product.images[0].sourceUrl" width="50" height="50">
           <img src="http://placehold.it/50x50" v-if="!product.images || !product.images.length"> {{product.title}}
         </td>
-        <td>{{product.quantity}}</td>
+        <td>{{product.quantityOnHand}}</td>
         <td>{{product.productType}}</td>
         <td>{{product.upc}}</td>
         <td>{{product.sku}}</td>
