@@ -36,16 +36,18 @@ class WarehouseApi extends Fetchable {
   }
 
   search(query) {
-    return super.post('/api/v1/warehouses/typeahead', {
+    return super.post('/api/v1/warehouses/search', {
       body: this.toForm({ query })
     })
     .then(res => res.json());
   }
 
   save(warehouse) {
+    const id = warehouse.id;
     const headers = new Headers();
     headers.set('content-type', 'application/json');
-    return super.post('/api/v1/warehouses/save', {
+    delete warehouse.id;
+    return super.put(`/api/v1/warehouses/${id}`, {
       body: this.toJson({ warehouse }),
       headers
     })
@@ -56,7 +58,7 @@ class WarehouseApi extends Fetchable {
     const headers = new Headers();
     headers.set('content-type', 'application/json');
     delete warehouse.id;
-    return super.post('/api/v1/warehouses/save', {
+    return super.post('/api/v1/warehouses', {
       body: this.toJson({ warehouse }),
       headers
     })

@@ -36,16 +36,18 @@ class VendorApi extends Fetchable {
   }
 
   search(query) {
-    return super.post('/api/v1/vendors/typeahead', {
+    return super.post('/api/v1/vendors/search', {
       body: this.toForm({ query })
     })
     .then(res => res.json());
   }
 
   save(vendor) {
+    const id = vendor.id;
     const headers = new Headers();
     headers.set('content-type', 'application/json');
-    return super.post('/api/v1/vendors/save', {
+    delete vendor.id;
+    return super.put(`/api/v1/vendors/${id}`, {
       body: this.toJson({ vendor }),
       headers
     })
@@ -53,8 +55,11 @@ class VendorApi extends Fetchable {
   }
 
   create(vendor) {
-    return super.post('/api/v1/vendors/save', {
-      body: this.toForm(vendor)
+    const headers = new Headers();
+    headers.set('content-type', 'application/json');
+    return super.post('/api/v1/vendors', {
+      body: this.toJson({ vendor }),
+      headers
     })
     .then(res => res.json());
   }
