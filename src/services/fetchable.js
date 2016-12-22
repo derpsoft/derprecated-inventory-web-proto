@@ -7,6 +7,10 @@ const _fetch = function(url, options, {
   // console.log(url, options);
   return fetch(url, options)
     .then((res) => {
+      if (res.status === 302) {
+        throw new Error('Redirect');
+      }
+
       if (res.status === 401) {
         dispatch(Constants.LOGOUT);
         throw new Error('Unauthorized');
@@ -14,6 +18,7 @@ const _fetch = function(url, options, {
 
       if (res.status === 403) {
         // Eventually handle a missing permissions error.
+        throw new Error('Forbidden');
       }
 
       if (res.status >= 500) {
@@ -54,7 +59,6 @@ export default class Fetchable {
     const defaults = {
       headers: {
         Accept: 'application/json',
-        // 'Content-Type': 'application/json'
       }
     };
     options.headers = options.headers || new Headers();
@@ -99,6 +103,14 @@ export default class Fetchable {
       throw new Error('url may not be empty');
     }
     options.method = 'PATCH';
+    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
+  }
+
+  delete(url, options = {}) {
+    if (!url) {
+      throw new Error('url may not be empty');
+    }
+    options.method = 'DELETE';
     return _fetch(this.baseUrl + url, this.prepare(options), this.store);
   }
 }

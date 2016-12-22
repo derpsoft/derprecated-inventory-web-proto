@@ -1,7 +1,7 @@
 import _ from 'lodash';
+import log from 'loglevel';
 import Constants from '../constants';
 import AuthApi from '../services/authApi';
-// import log from 'loglevel';
 
 function clear({
   commit
@@ -43,7 +43,7 @@ function logout({
   clear({
     commit
   });
-  new AuthApi().logout();
+  new AuthApi().logout().catch(e => log.error(e));
 }
 
 function getProfile({

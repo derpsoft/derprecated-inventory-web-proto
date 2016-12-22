@@ -45,7 +45,7 @@ class AuthApi extends Fetchable {
   }
 
   logout() {
-    return super.post('/logout');
+    return super.delete('/auth/credentials');
   }
 
   setUser(response) {

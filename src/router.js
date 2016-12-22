@@ -49,55 +49,71 @@ const routes = [{
 }, {
   path: '/',
   component: Main,
-  auth: true,
+  meta: { requiresAuth: true },
   children: [{
     path: '',
     component: Dashboard,
+    meta: { requiresAuth: true },
   }, {
     path: '/users',
     component: Users,
+    meta: { requiresAuth: true },
   }, {
     path: '/users/add',
     component: AddUser,
+    meta: { requiresAuth: true },
   }, {
     path: '/users/edit/:id',
     component: EditUser,
+    meta: { requiresAuth: true },
   }, {
     path: '/categories',
     component: Categories,
+    meta: { requiresAuth: true },
   }, {
     path: '/products',
     component: Products,
+    meta: { requiresAuth: true },
   }, {
     path: '/products/add',
     component: AddProduct,
+    meta: { requiresAuth: true },
   }, {
     path: '/products/edit/:id',
     component: EditProduct,
+    meta: { requiresAuth: true },
   }, {
     path: '/warehouses',
     component: Warehouses,
+    meta: { requiresAuth: true },
   }, {
     path: '/warehouses/add',
     component: AddWarehouse,
+    meta: { requiresAuth: true },
   }, {
     path: '/warehouses/edit/:id',
     component: EditWarehouse,
+    meta: { requiresAuth: true },
   }, {
     path: '/profile',
     component: Profile,
+    meta: { requiresAuth: true },
   }, {
     path: '/reports',
     component: Reports,
+    meta: { requiresAuth: true },
   }, {
     path: '/vendors',
     component: Vendors,
+    meta: { requiresAuth: true },
   }, {
     path: '/vendors/add',
     component: AddVendor,
+    meta: { requiresAuth: true },
   }, {
     path: '/vendors/edit/:id',
     component: EditVendor,
+    meta: { requiresAuth: true },
   }]
 }, {
   path: '*',
