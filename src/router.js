@@ -18,8 +18,7 @@ import Warehouses from './components/warehouses/index.vue';
 import ModifyWarehouses from './components/warehouses/modifyWarehouses.vue';
 
 import Users from './components/users/index.vue';
-import EditUser from './components/users/modifyUser.vue';
-// import AddUser from './views/modifyUser/modifyUser.vue';
+import ModifyUsers from './components/users/modifyUser.vue';
 
 import Categories from './components/categories/index.vue';
 
@@ -29,7 +28,6 @@ import ModifyVendors from './components/vendors/modifyVendors.vue';
 // import NotFound from './views/notfound.vue';
 import store from './stores/store';
 
-const AddUser = EditUser; // temp
 
 const routes = [{
   path: '/login',
@@ -57,11 +55,11 @@ const routes = [{
     meta: { requiresAuth: true },
   }, {
     path: '/users/add',
-    component: AddUser,
+    component: ModifyUsers,
     meta: { requiresAuth: true },
   }, {
     path: '/users/edit/:id',
-    component: EditUser,
+    component: ModifyUsers,
     meta: { requiresAuth: true },
   }, {
     path: '/categories',

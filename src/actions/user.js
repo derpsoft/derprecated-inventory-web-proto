@@ -2,6 +2,18 @@ import log from 'loglevel';
 import Constants from '../constants';
 import UsersApi from '../services/usersApi';
 
+function searchUsers({
+  dispatch,
+  commit
+}, {
+  searchTerm
+}) {
+  new UsersApi().search(searchTerm)
+  .then((users) => {
+    commit(Constants.SET_USERS, users);
+  });
+}
+
 function getUsers({
   dispatch,
   commit
@@ -76,6 +88,7 @@ const ACTIONS = {
   [Constants.UPDATE_USER_FIRST_NAME]: updateFirstName,
   [Constants.UPDATE_USER_LAST_NAME]: updateLastName,
   [Constants.SAVE_USER]: saveUser,
+  [Constants.SEARCH_USERS]: searchUsers,
 };
 
 const MUTATIONS = {

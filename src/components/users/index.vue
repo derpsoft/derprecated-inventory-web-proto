@@ -5,7 +5,7 @@
       <div class="col-lg-12">
         <div class="view-header">
           <div class="pull-right">
-            <router-link class="btn btn-w-md btn-accent" :to="{path: '/test'}">Add New User</router-link>
+            <router-link class="btn btn-w-md btn-accent" :to="{path: '/users/add'}">Add New User</router-link>
           </div>
           <div class="header-icon">
             <i class="pe page-header-icon pe-7s-users"></i>

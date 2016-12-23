@@ -44,11 +44,6 @@ export default {
     $route: 'load'
   },
   methods: {
-    load() {
-      store.dispatch(Constants.GET_USER, {
-        id: this.id,
-      });
-    },
     save() {
       const user = JSON.parse(JSON.stringify(this.user));
       user.id = this.id;
@@ -57,11 +52,13 @@ export default {
       });
     }
   },
-  created() {
+  mounted() {
     store.watch(() => store.getters.user, (current) => {
       this.user = Object.assign({}, current);
     });
-    this.load();
+    store.dispatch(Constants.GET_USER, {
+      id: this.id,
+    });
   }
 };
 </script>
