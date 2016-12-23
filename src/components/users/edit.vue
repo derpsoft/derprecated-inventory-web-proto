@@ -11,12 +11,31 @@
       <form>
         <div class="media">
           <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" placeholder="Email" v-model="user.email" disabled>
+          </div>
+          <div class="form-group">
             <label>First Name</label>
             <input type="text" class="form-control" placeholder="First Name" v-model="user.firstName">
           </div>
           <div class="form-group">
             <label>Last Name</label>
             <input type="text" class="form-control" placeholder="Last Name" v-model="user.lastName">
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" class="form-control" placeholder="Phone Number" v-model="user.phone">
+          </div>
+          <div>
+            <h4>Permissions</h4>
+            <template v-for="permission in allPermissions">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" v-bind:id="permission" v-bind:value="permission" @change="togglePermission(permission)">
+                  {{ permission }}
+                </label>
+              </div>
+            </template>
           </div>
         </div>
       </form>
@@ -26,6 +45,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import Constants from '../../constants';
 import store from '../../stores/store';
 
@@ -33,11 +53,15 @@ export default {
   data() {
     return {
       user: {},
+      permissions: [],
     };
   },
   computed: {
     id() {
       return parseInt(this.$route.params.id, 10);
+    },
+    allPermissions() {
+      return Constants.permissions.sort();
     }
   },
   watch: {
@@ -50,15 +74,31 @@ export default {
       store.dispatch(Constants.SAVE_USER, {
         user
       });
+    },
+    togglePermission(permission) {
+      const user = JSON.parse(JSON.stringify(this.user));
+      const permissions = JSON.parse(JSON.stringify(this.permissions));
+      const hasPerm = ~permissions.indexOf(permission);
+      const action = hasPerm ? Constants.UNSET_USER_PERMISSION : Constants.SET_USER_PERMISSION;
+      store.dispatch(action, { user, permission });
+
+      if (hasPerm) {
+        this.permissions = _.without(permissions, permission);
+      } else {
+        this.permissions.push(permission);
+      }
+    },
+    load() {
+      store.dispatch(Constants.GET_USER, {
+        id: this.id,
+      });
     }
   },
   mounted() {
     store.watch(() => store.getters.user, (current) => {
       this.user = Object.assign({}, current);
     });
-    store.dispatch(Constants.GET_USER, {
-      id: this.id,
-    });
+    this.load();
   }
 };
 </script>

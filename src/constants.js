@@ -1,6 +1,5 @@
 const Constants = {
   API_ROOT: 'https://inventory-api-dev.azurewebsites.net',
-
   SET_PROFILE: 'SET_PROFILE',
   GET_PROFILE: 'GET_PROFILE',
   CLEAR_PROFILE: 'CLEAR_PROFILE',
@@ -36,6 +35,7 @@ const Constants = {
   SET_USER: 'SET_USER',
   GET_USER: 'GET_USER',
   CLEAR_USER: 'CLEAR_USER',
+  CREATE_USER: 'CREATE_USER',
 
   GET_USERS: 'GET_USERS',
   SET_USERS: 'SET_USERS',
@@ -66,6 +66,40 @@ const Constants = {
   SET_WAREHOUSE_SEARCH_RESULTS: 'SET_WAREHOUSE_SEARCH_RESULTS',
   CLEAR_WAREHOUSE_SEARCH: 'CLEAR_WAREHOUSE_SEARCH',
   SET_WAREHOUSE_LIST: 'SET_WAREHOUSE_LIST',
+
+  SET_USER_PERMISSIONS: 'SET_PERMISSIONS',
+  SET_USER_PERMISSION: 'SET_PERMISSION',
+  UNSET_USER_PERMISSIONS: 'UNSET_PERMISSIONS',
+  UNSET_USER_PERMISSION: 'UNSET_PERMISSION',
+  GET_PERMISSIONS: 'GET_PERMISSIONS',
+
+  permissions: [
+    'manageLocations',
+    'readLocations',
+    'upsertLocations',
+    'deleteLocations',
+    'everything',
+    'manageProducts',
+    'readProducts',
+    'upsertProducts',
+    'deleteProducts',
+    'receiveInventory',
+    'releaseInventory',
+    'manageInventory',
+    'manageVendors',
+    'readVendors',
+    'upsertVendors',
+    'deleteVendors',
+    'manageUsers',
+    'readUsers',
+    'upsertUsers',
+    'deleteUsers',
+    'manageWarehouses',
+    'readWarehouses',
+    'upsertWarehouses',
+    'deleteWarehouses',
+    'readReports'
+  ]
 };
 
 export default Constants;

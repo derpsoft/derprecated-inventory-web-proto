@@ -11,12 +11,31 @@
       <form>
         <div class="media">
           <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" placeholder="Email" v-model="user.email">
+          </div>
+          <div class="form-group">
             <label>First Name</label>
             <input type="text" class="form-control" placeholder="First Name" v-model="user.firstName">
           </div>
           <div class="form-group">
             <label>Last Name</label>
             <input type="text" class="form-control" placeholder="Last Name" v-model="user.lastName">
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" class="form-control" placeholder="Phone Number" v-model="user.phone">
+          </div>
+          <div>
+            <h4>Permissions</h4>
+            <template v-for="permission in allPermissions">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" v-bind:id="permission" v-bind:value="permission" v-model="permissions">
+                  {{ permission }}
+                </label>
+              </div>
+            </template>
           </div>
         </div>
       </form>
@@ -33,22 +52,24 @@ export default {
   data() {
     return {
       user: {},
+      permissions: [],
     };
   },
   computed: {
     id() {
       return parseInt(this.$route.params.id, 10);
+    },
+    allPermissions() {
+      return Constants.permissions.sort();
     }
-  },
-  watch: {
-    $route: 'load'
   },
   methods: {
     save() {
       const user = JSON.parse(JSON.stringify(this.user));
-      user.id = this.id;
-      store.dispatch(Constants.SAVE_USER, {
-        user
+      const permissions = JSON.parse(JSON.stringify(this.permissions));
+
+      store.dispatch(Constants.CREATE_USER, {
+        user, permissions
       });
     }
   },

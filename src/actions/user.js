@@ -38,36 +38,22 @@ function getUser({
     .catch(e => log.error(e));
 }
 
-function saveUser({ dispatch, commit }, { user }) {
+function saveUser({ dispatch, commit }, { user, permissions }) {
   new UsersApi().save(user)
-    .then(response => commit(Constants.SET_USER, response.user))
+    .then((response) => {
+      dispatch(Constants.SET_PERMISSIONS, { user: response.user, permissions });
+      commit(Constants.SET_USER, response.user);
+    })
     .catch(e => log.error(e));
 }
 
-function updateFirstName({
-  dispatch,
-  commit
-}, {
-  id,
-  firstName
-}) {
-  new UsersApi().updateFirstName(id, firstName)
-    .then((json) => {
-      console.log(json);
-    });
-}
-
-function updateLastName({
-  dispatch,
-  commit
-}, {
-  id,
-  lastName
-}) {
-  new UsersApi().updateLastName(id, lastName)
-    .then((json) => {
-      console.log(json);
-    });
+function createUser({ dispatch, commit }, { user, permissions }) {
+  new UsersApi().create(user)
+    .then((response) => {
+      dispatch(Constants.SET_PERMISSIONS, { user: response.user, permissions });
+      commit(Constants.SET_USER, response.user);
+    })
+    .catch(e => log.error(e));
 }
 
 const INITIAL_STATE = {
@@ -85,10 +71,9 @@ const INITIAL_STATE = {
 const ACTIONS = {
   [Constants.GET_USERS]: getUsers,
   [Constants.GET_USER]: getUser,
-  [Constants.UPDATE_USER_FIRST_NAME]: updateFirstName,
-  [Constants.UPDATE_USER_LAST_NAME]: updateLastName,
   [Constants.SAVE_USER]: saveUser,
   [Constants.SEARCH_USERS]: searchUsers,
+  [Constants.CREATE_USER]: createUser,
 };
 
 const MUTATIONS = {
