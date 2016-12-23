@@ -11,7 +11,7 @@
             <i class="pe page-header-icon pe-7s-plus"></i>
           </div>
           <div class="header-title">
-            <h3>Edit User</h3>
+            <h3>{{ isAdd ? 'Add' : 'Edit' }} User</h3>
             <small>Modify User</small>
           </div>
         </div>
@@ -20,7 +20,8 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <user-edit></user-edit>
+        <user-add v-if="isAdd"></user-add>
+        <user-edit v-else></user-edit>
       </div>
     </div>
   </div>
@@ -28,17 +29,26 @@
 </template>
 
 <script>
+import userAdd from './add.vue';
 import userEdit from './edit.vue';
 
 export default {
   name: 'modifyUserView',
   data() {
     return {
-      isEdit: true,
+      isAdd: true,
     };
   },
   components: {
+    userAdd,
     userEdit,
+  },
+  mounted() {
+    if (this.$route && this.$route.path.indexOf('add') > -1) {
+      this.isAdd = true;
+    } else {
+      this.isAdd = false;
+    }
   }
 };
 </script>
