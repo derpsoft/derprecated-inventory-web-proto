@@ -28,11 +28,11 @@
           </div>
           <div>
             <h4>Permissions</h4>
-            <template v-for="permission in allPermissions">
+            <template v-for="p in allPermissions">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" v-bind:id="permission" v-bind:value="permission" @change="togglePermission(permission)">
-                  {{ permission }}
+                  <input type="checkbox" v-model="permissions" :value="p">
+                  {{ p }}
                 </label>
               </div>
             </template>
@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import _ from 'lodash';
 import Constants from '../../constants';
 import store from '../../stores/store';
 
@@ -70,23 +69,11 @@ export default {
   methods: {
     save() {
       const user = JSON.parse(JSON.stringify(this.user));
+      const permissions = JSON.parse(JSON.stringify(this.permissions));
       user.id = this.id;
       store.dispatch(Constants.SAVE_USER, {
-        user
+        user, permissions
       });
-    },
-    togglePermission(permission) {
-      const user = JSON.parse(JSON.stringify(this.user));
-      const permissions = JSON.parse(JSON.stringify(this.permissions));
-      const hasPerm = ~permissions.indexOf(permission);
-      const action = hasPerm ? Constants.UNSET_USER_PERMISSION : Constants.SET_USER_PERMISSION;
-      store.dispatch(action, { user, permission });
-
-      if (hasPerm) {
-        this.permissions = _.without(permissions, permission);
-      } else {
-        this.permissions.push(permission);
-      }
     },
     load() {
       store.dispatch(Constants.GET_USER, {
@@ -97,6 +84,7 @@ export default {
   mounted() {
     store.watch(() => store.getters.user, (current) => {
       this.user = Object.assign({}, current);
+      this.permissions = current.permissions;
     });
     this.load();
   }
