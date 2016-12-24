@@ -15,18 +15,8 @@ class PermissionApi extends Fetchable {
   }
 
   set(user, permissions) {
-    return super.post('/assignroles', {
+    return super.patch(`/api/users/${user.id}/permissions`, {
       body: this.toForm({
-        username: user.email,
-        permissions
-      })
-    });
-  }
-
-  unset(user, permissions) {
-    return super.post('/unassignroles', {
-      body: this.toForm({
-        username: user.email,
         permissions
       })
     });
