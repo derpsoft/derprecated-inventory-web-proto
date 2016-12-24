@@ -15,6 +15,12 @@ function searchUsers({
   });
 }
 
+function searchUsersWithTypeahead({ dispatch, commit }, { query }) {
+  new UsersApi().typeahead(query)
+  .then(response => commit(Constants.SET_USERS_SEARCH_RESULTS, response.users))
+  .catch(e => log.error(e));
+}
+
 function getUsers({
   dispatch,
   commit
@@ -80,6 +86,7 @@ const ACTIONS = {
   [Constants.SAVE_USER]: saveUser,
   [Constants.SEARCH_USERS]: searchUsers,
   [Constants.CREATE_USER]: createUser,
+  [Constants.SEARCH_USERS_WITH_TYPEAHEAD]: searchUsersWithTypeahead,
 };
 
 const MUTATIONS = {
