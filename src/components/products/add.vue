@@ -57,7 +57,7 @@
             <h5>Gallery</h5>
           </div>
           <div class="col-lg-1 thumb" v-for="image in product.images">
-            <a class="thumbnail" href="#" @click.prevent="updateImage(image.sourceUrl)">
+            <a class="thumbnail" href="#" @click.prevent="updateImage(image.source)">
               <img class="img-responsive" :src="image.sourceUrl" alt="">
             </a>
           </div>

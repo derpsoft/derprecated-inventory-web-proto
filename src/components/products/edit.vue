@@ -31,8 +31,8 @@
             <h5>Gallery</h5>
           </div>
           <div class="col-lg-1 thumb" v-for="image in product.images">
-            <a class="thumbnail" href="#" @click.prevent="updateImage(image.sourceUrl)">
-              <img class="img-responsive" :src="image.sourceUrl" alt="">
+            <a class="thumbnail" href="#" @click.prevent="updateImage(image.source)">
+              <img class="img-responsive" :src="image.source" alt="">
             </a>
           </div>
         </div>
@@ -163,9 +163,6 @@ export default {
       return parseInt(this.$route.params.id, 10);
     }
   },
-  watch: {
-    $route: 'load'
-  },
   methods: {
     save() {
       const product = JSON.parse(JSON.stringify(this.product));
@@ -181,8 +178,8 @@ export default {
   mounted() {
     store.watch(() => store.getters.product, (current) => {
       this.product = Object.assign({}, current);
-      if (this.product.images && this.product.images[0] && this.product.images[0].sourceUrl) {
-        this.displayImage = this.product.images[0].sourceUrl;
+      if (this.product.images && this.product.images[0] && this.product.images[0].source) {
+        this.displayImage = this.product.images[0].source;
       }
     });
     store.dispatch(Constants.GET_PRODUCT, {
