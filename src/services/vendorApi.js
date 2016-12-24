@@ -42,6 +42,14 @@ class VendorApi extends Fetchable {
     .then(res => res.json());
   }
 
+  typeahead(query) {
+    const body = new URLSearchParams();
+    body.set('query', query);
+
+    return super.get(`/api/v1/vendors/typeahead?${body}`)
+    .then(res => res.json());
+  }
+
   save(vendor) {
     const id = vendor.id;
     const headers = new Headers();

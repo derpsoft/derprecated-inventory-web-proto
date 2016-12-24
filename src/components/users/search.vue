@@ -17,16 +17,9 @@ export default {
   },
   methods: {
     search() {
-      if (this.searchTerm.length === 0) {
-        this.$store.dispatch(Constants.GET_USERS, {
-          skip: 0,
-          take: 25
-        });
-      } else {
-        this.$store.dispatch(Constants.SEARCH_PRODUCTS, {
-          query: this.searchTerm,
-        });
-      }
+      this.$store.dispatch(Constants.SEARCH_USERS_WITH_TYPEAHEAD, {
+        query: this.searchTerm,
+      });
     },
   },
 };

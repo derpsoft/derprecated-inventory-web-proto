@@ -35,11 +35,19 @@ class ProductApi extends Fetchable {
   }
 
   search(query) {
-    return super.post('/api/v1/products/typeahead', {
+    return super.post('/api/v1/products/search', {
       body: this.toForm({
         query
       })
     })
+    .then(res => res.json());
+  }
+
+  typeahead(query) {
+    const body = new URLSearchParams();
+    body.set('query', query);
+
+    return super.get(`/api/v1/products/typeahead?${body}`)
     .then(res => res.json());
   }
 
