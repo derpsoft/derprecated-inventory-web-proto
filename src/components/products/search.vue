@@ -26,7 +26,7 @@ export default {
         return;
       }
 
-      this.$store.dispatch(Constants.SEARCH_PRODUCTS, {
+      this.$store.dispatch(Constants.SEARCH_PRODUCTS_WITH_TYPEAHEAD, {
         query: this.searchTerm,
       });
     },
