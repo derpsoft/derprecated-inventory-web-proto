@@ -73,6 +73,12 @@ function search({
   });
 }
 
+function searchProductsWithTypeahead({ dispatch, commit }, { query }) {
+  new ProductApi().typeahead(query)
+  .then(response => commit(Constants.SET_PRODUCT_LIST, response.products))
+  .catch(e => log.error(e));
+}
+
 function clearProduct({
   commit
 }) {
@@ -96,6 +102,7 @@ const ACTIONS = {
   [Constants.GET_PRODUCT]: getProduct,
   [Constants.GET_PRODUCTS]: getProducts,
   [Constants.SEARCH_PRODUCTS]: search,
+  [Constants.SEARCH_PRODUCTS_WITH_TYPEAHEAD]: searchProductsWithTypeahead,
   [Constants.UPDATE_PRODUCT_FIELD]: updateProductField,
   [Constants.CLEAR_PRODUCT]: clearProduct,
   [Constants.CREATE_PRODUCT]: createProduct,
