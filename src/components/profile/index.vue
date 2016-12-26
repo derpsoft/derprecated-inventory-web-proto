@@ -255,7 +255,7 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch(Constants.GET_USER);
+    this.$store.dispatch(Constants.GET_PROFILE);
   },
   computed: {
     user: () => {
