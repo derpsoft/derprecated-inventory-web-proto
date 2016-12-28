@@ -59,14 +59,14 @@ function locateInventory({ commit }, {
 function getInventoryLogs({ commit }, { skip, take }) {
   new InventoryApi()
     .getLogs(skip, take)
-    .then(response => commit(Constants.SET_INVENTORY_TRANSACTION_LOGS, response.logs))
+    .then(response => commit(Constants.SET_INVENTORY_TRANSACTION_LOGS, response.results))
     .catch(e => log.error(e));
 }
 
 function searchInventoryLogs({ commit }, { query }) {
   new InventoryApi()
     .searchLogs(query)
-    .then(response => commit(Constants.SET_INVENTORY_TRANSACTION_LOGS, response.logs))
+    .then(response => commit(Constants.SET_INVENTORY_TRANSACTION_LOGS, response.results))
     .catch(e => log.error(e));
 }
 

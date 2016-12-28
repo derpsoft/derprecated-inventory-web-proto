@@ -54,7 +54,7 @@ class InventoryApi extends Fetchable {
     body.set('take', take);
     body.set('query', query);
 
-    return super.get(`/api/v1/inventory-transaction/history?${body}`)
+    return super.get(`/api/v1/inventory-transactions/search?${body}`)
     .then(res => res.json());
   }
 }
