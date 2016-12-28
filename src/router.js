@@ -10,6 +10,7 @@ import Login from './components/login/index.vue';
 import Logout from './components/logout/index.vue';
 
 import Reports from './components/reports/reports.vue';
+import Inventory from './components/inventory/index.vue';
 
 import Products from './components/products/index.vue';
 import ModifyProducts from './components/products/modifyProduct.vue';
@@ -109,6 +110,10 @@ const routes = [{
     path: '/vendors/edit/:id',
     component: ModifyVendors,
     meta: { requiresAuth: true },
+  }, {
+    path: '/inventory',
+    component: Inventory,
+    meta: { requiresAuth: true }
   }]
 }, {
   path: '*',

@@ -8,8 +8,14 @@
       <li>
         <router-link :to="{ path: '/', activeClass: 'active', exact: true}">Dashboard</router-link>
       </li>
+      <li>
+        <router-link :to="{ path: '/inventory', activeClass: 'active', exact: true }">Inventory</router-link>
+      </li>
+      <li>
+        <router-link :to="{ path: '/reports', activeClass: 'active', exact: true }">Reports</router-link>
+      </li>
       <li class="nav-category">
-        Inventory
+        Admin
       </li>
       <li>
         <router-link :to="{ path: '/products', activeClass: 'active'}">Products</router-link>
@@ -24,13 +30,7 @@
         <router-link :to="{ path: '/vendors', activeClass: 'active'}">Vendors</router-link>
       </li>
       <li>
-        <router-link :to="{ path: '/reports', activeClass: 'active'}">Reports</router-link>
-      </li>
-      <li class="nav-category">
-        Admin
-      </li>
-      <li>
-        <router-link :to="{ path: '/users', activeClass: 'active'}">Manage Users</router-link>
+        <router-link :to="{ path: '/users', activeClass: 'active'}">Users</router-link>
       </li>
       <li class="nav-category">
         Account
