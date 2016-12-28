@@ -19,7 +19,7 @@ function createWarehouse({
 }) {
   new WarehouseApi()
     .create(warehouse)
-    .then(res => commit(Constants.SET_WAREHOUSE, res.warehouse))
+    .then(w => commit(Constants.SET_WAREHOUSE, w))
     .catch(e => log.error(e));
 }
 
@@ -30,7 +30,7 @@ function saveWarehouse({
 }) {
   new WarehouseApi()
     .save(warehouse)
-    .then(res => commit(Constants.SET_WAREHOUSE, res.warehouse))
+    .then(w => commit(Constants.SET_WAREHOUSE, w))
     .catch(e => log.error(e));
 }
 
@@ -41,9 +41,10 @@ function getWarehouses({
   skip = 0,
   take = 25
 }) {
-  new WarehouseApi().list(skip, take)
-  .then(warehouses => commit(Constants.SET_WAREHOUSE_LIST, warehouses))
-  .catch(e => log.error(e));
+  new WarehouseApi()
+    .list(skip, take)
+    .then(warehouses => commit(Constants.SET_WAREHOUSE_LIST, warehouses))
+    .catch(e => log.error(e));
 }
 
 function search({
@@ -52,15 +53,16 @@ function search({
 }, {
   query
 }) {
-  new WarehouseApi().search(query)
-  .then(warehouses => commit(Constants.SET_WAREHOUSE_LIST, warehouses.results))
-  .catch(e => log.error(e));
+  new WarehouseApi()
+    .search(query)
+    .then(warehouses => commit(Constants.SET_WAREHOUSE_LIST, warehouses.results))
+    .catch(e => log.error(e));
 }
 
 function typeahead({ dispatch, commit }, { query }) {
   new WarehouseApi()
     .typeahead(query)
-    .then(warehouses => commit(Constants.SET_WAREHOUSE_LIST, warehouses.results))
+    .then(warehouses => commit(Constants.SET_WAREHOUSE_LIST, warehouses))
     .catch(e => log.error(e));
 }
 
@@ -70,16 +72,18 @@ function clearWarehouse({
   commit(Constants.CLEAR_WAREHOUSE);
 }
 
+function countWarehouses({ commit }) {
+  new WarehouseApi()
+    .count()
+    .then(count => commit(Constants.SET_WAREHOUSE_COUNT, count))
+    .catch(e => log.error(e));
+}
+
 
 const INITIAL_STATE = {
   warehouses: {
-    search: {
-      query: {},
-      results: {}
-    },
-    list: {
-      count: 0
-    },
+    list: [],
+    count: 0,
     warehouse: {},
   }
 };
@@ -92,21 +96,10 @@ const ACTIONS = {
   [Constants.CREATE_WAREHOUSE]: createWarehouse,
   [Constants.SAVE_WAREHOUSE]: saveWarehouse,
   [Constants.SEARCH_WAREHOUSES_WITH_TYPEAHEAD]: typeahead,
+  [Constants.COUNT_WAREHOUSES]: countWarehouses,
 };
 
 const MUTATIONS = {
-  [Constants.SET_WAREHOUSE_SEARCH_QUERY]: (state, query) => {
-    state.warehouses.search.query = query;
-  },
-  [Constants.SET_WAREHOUSE_SEARCH_RESULTS]: (state, results) => {
-    state.warehouses.search.results = results;
-  },
-  [Constants.CLEAR_WAREHOUSE_SEARCH]: (state) => {
-    state.warehouses.search = {
-      query: {},
-      results: {},
-    };
-  },
   [Constants.SET_WAREHOUSE_LIST]: (state, results) => {
     state.warehouses.list = results;
   },
@@ -116,11 +109,17 @@ const MUTATIONS = {
   [Constants.CLEAR_WAREHOUSE]: (state) => {
     state.warehouses.warehouse = {};
   },
+  [Constants.SET_WAREHOUSE_COUNT]: (state, count) => {
+    state.warehouses.count = count;
+  },
 };
 
 const GETTERS = {
   warehouseList(state) {
     return state.warehouses.list;
+  },
+  warehouseCount(state) {
+    return state.warehouses.count;
   },
   warehouse(state) {
     return state.warehouses.warehouse;

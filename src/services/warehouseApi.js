@@ -15,6 +15,12 @@ class WarehouseApi extends Fetchable {
     return this;
   }
 
+  count() {
+    return super.get('/api/v1/warehouses/count')
+    .then(res => res.json())
+    .then(json => json.count);
+  }
+
   list(skip = 0, take = 25) {
     const body = new URLSearchParams();
     body.set('skip', skip);
@@ -47,7 +53,8 @@ class WarehouseApi extends Fetchable {
     body.set('query', query);
 
     return super.get(`/api/v1/warehouses/typeahead?${body}`)
-    .then(res => res.json());
+    .then(res => res.json())
+    .then(json => json.warehouses);
   }
 
   save(warehouse) {
@@ -59,7 +66,8 @@ class WarehouseApi extends Fetchable {
       body: this.toJson({ warehouse }),
       headers
     })
-    .then(res => res.json());
+    .then(res => res.json())
+    .then(json => json.warehouse);
   }
 
   create(warehouse) {
@@ -70,7 +78,8 @@ class WarehouseApi extends Fetchable {
       body: this.toJson({ warehouse }),
       headers
     })
-    .then(res => res.json());
+    .then(res => res.json())
+    .then(json => json.warehouse);
   }
 }
 
