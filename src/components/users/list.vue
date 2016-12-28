@@ -67,7 +67,7 @@ export default {
     PageSize,
     UserSearch,
   },
-  created() {
+  mounted() {
     this.$store.dispatch(Constants.GET_USERS, {
       skip: 0,
       take: defaultPageCount
@@ -75,10 +75,13 @@ export default {
   },
   computed: {
     users() {
-      this.pagination.last_page = Math.ceil(store.state.users.count / this.pagination.per_page);
-      this.pagination.to = store.state.users.count;
+      const list = store.getters.users;
+      const count = list.length;
 
-      return store.state.users.list;
+      this.pagination.last_page = Math.ceil(count / this.pagination.per_page);
+      this.pagination.to = count;
+
+      return list;
     },
   },
   methods: {

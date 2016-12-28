@@ -22,7 +22,7 @@ class InventoryApi extends Fetchable {
       productId,
       quantity
     };
-    return super.post('/api/v1/inventory-transaction', {
+    return super.post('/api/v1/inventory-transactions', {
       body: this.toJson({ ...xact }),
       headers
     })
@@ -46,6 +46,11 @@ class InventoryApi extends Fetchable {
 
   getLogs(skip = 0, take = 25) {
     return this.searchLogs('', skip, take);
+  }
+
+  countLogs() {
+    return super.get('/api/v1/inventory-transactions/count')
+    .then(res => res.json());
   }
 
   searchLogs(query, skip = 0, take = 25) {

@@ -9,14 +9,14 @@ function searchUsers({
   searchTerm
 }) {
   new UsersApi().search(searchTerm)
-  .then((users) => {
-    commit(Constants.SET_USERS, users);
+  .then((response) => {
+    commit(Constants.SET_USERS, response.users);
   });
 }
 
 function searchUsersWithTypeahead({ dispatch, commit }, { query }) {
   new UsersApi().typeahead(query)
-  .then(response => commit(Constants.SET_USERS_SEARCH_RESULTS, response.users))
+  .then(response => commit(Constants.SET_USERS, response.users))
   .catch(e => log.error(e));
 }
 
@@ -28,8 +28,8 @@ function getUsers({
   take = 25
 }) {
   new UsersApi().list(skip, take)
-  .then((users) => {
-    commit(Constants.SET_USERS, users);
+  .then((response) => {
+    commit(Constants.SET_USERS, response.users);
   });
 }
 
@@ -61,13 +61,8 @@ function createUser({ dispatch, commit }, { user }) {
 
 const INITIAL_STATE = {
   users: {
-    search: {
-      query: {},
-      results: {}
-    },
     list: [],
     user: {},
-    count: 0,
   }
 };
 
@@ -81,21 +76,8 @@ const ACTIONS = {
 };
 
 const MUTATIONS = {
-  [Constants.SET_USERS_SEARCH_QUERY]: (state, query) => {
-    state.users.search.query = query;
-  },
-  [Constants.SET_USERS_SEARCH_RESULTS]: (state, results) => {
-    state.users.search.results = results;
-  },
-  [Constants.CLEAR_USERS_SEARCH]: (state) => {
-    state.users.search = {
-      query: {},
-      results: {},
-    };
-  },
   [Constants.SET_USERS]: (state, results) => {
-    state.users.list = results.users;
-    state.users.count = results.count;
+    state.users.list = results;
   },
   [Constants.SET_USER]: (state, user) => {
     state.users.user = user;

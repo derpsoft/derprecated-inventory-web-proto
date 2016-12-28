@@ -19,10 +19,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="vendor in vendors" @click.prevent="edit(vendor.id)">
-            <td>{{vendor.id}}</td>
-            <td>{{vendor.name}}</td>
-          </tr>
+          <template v-for="vendor in vendors">
+            <tr @click.prevent="edit(vendor.id)">
+              <td>{{vendor.id}}</td>
+              <td>{{vendor.name}}</td>
+            </tr>
+          </template>
         </tbody>
       </table>
     </div>
@@ -63,19 +65,22 @@ export default {
     PageSize,
     vendorSearch,
   },
-  created() {
+  mounted() {
     store.dispatch(Constants.GET_VENDORS, {
       skip: 0,
       take: defaultPageCount
     });
+    store.dispatch(Constants.COUNT_VENDORS);
   },
   computed: {
+    count() {
+      return store.getters.vendorCount;
+    },
     vendors() {
-      const vendors = store.getters.vendorList;
-      const count = vendors.length;
+      const vendors = store.getters.vendors;
 
-      this.pagination.last_page = Math.ceil(count / this.pagination.per_page);
-      this.pagination.to = count;
+      this.pagination.last_page = Math.ceil(this.count / this.pagination.per_page);
+      this.pagination.to = this.count;
 
       return vendors;
     },

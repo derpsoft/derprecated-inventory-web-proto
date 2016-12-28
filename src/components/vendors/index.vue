@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import VendorList from '../../components/vendors/list.vue';
+import VendorList from './list.vue';
 
 export default {
   data() {

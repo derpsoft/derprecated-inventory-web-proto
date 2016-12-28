@@ -15,6 +15,11 @@ class VendorApi extends Fetchable {
     return this;
   }
 
+  count() {
+    return super.get('/api/v1/vendors/count')
+    .then(res => res.json());
+  }
+
   list(skip = 0, take = 25) {
     const body = new URLSearchParams();
     body.set('skip', skip);
@@ -47,7 +52,8 @@ class VendorApi extends Fetchable {
     body.set('query', query);
 
     return super.get(`/api/v1/vendors/typeahead?${body}`)
-    .then(res => res.json());
+    .then(res => res.json())
+    .then(json => json.vendors);
   }
 
   save(vendor) {
