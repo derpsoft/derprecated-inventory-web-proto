@@ -12,7 +12,7 @@
     <span class="help-block small">Your strong password</span>
   </div>
   <div>
-    <button type="submit" class="btn btn-accent" @click.stop.prevent="login()">Login</button>
+    <button type="submit" class="btn btn-accent" @click.stop.prevent="login">Login</button>
     <div class="pull-right">
       <router-link class="btn btn-link" :to="{path: '/register'}">Register</router-link>
       <router-link class="btn btn-link" :to="{path: '/forgot-password'}">Forgot Password?</router-link>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+// import Toastr from 'toastr';
 import Constants from '../../constants';
 
 export default {
@@ -34,7 +35,7 @@ export default {
   },
   computed: {
     error() {
-      // this.showError();
+      this.showError();
       return this.$store.getters.loginError;
     }
   },
@@ -46,7 +47,16 @@ export default {
       });
     },
     showError() {
-      this.$parent.$refs.toastr.e('Incorrect user name and/or password.');
+      this.$parent.$refs.toast.e('test');
+      // Toastr.error('Incorrect user name and/or password.');
+      // this.$parent.$parent.$refs.toastr.Add({
+      //   msg: 'Incorrect user name and/or password.',
+      //   clickClose: true,
+      //   timeout: 2000,
+      //   position: 'toast-top-full-width',
+      //   type: 'error'
+      // });
+      // this.$parent.$parent.$refs.toastr.e();
     }
   },
 };

@@ -1,6 +1,5 @@
 <template>
   <div id="app" class="wrapper">
-    <vue-toastr ref="toastr"></vue-toastr>
     <router-view></router-view>
   </div>
 </template>
