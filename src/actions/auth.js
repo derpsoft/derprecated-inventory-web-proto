@@ -34,7 +34,7 @@ function login({
       clear({
         commit
       });
-      dispatch(Constants.LOGIN_FAILED, e);
+      commit(Constants.LOGIN_FAILED, e);
     });
 }
 

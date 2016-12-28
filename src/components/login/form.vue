@@ -1,5 +1,6 @@
 <template>
 <form action="index.html" id="loginForm" novalidate>
+  <div v-if="error">ERROR</div>
   <div class="form-group">
     <label class="control-label" for="username">Username</label>
     <input v-model="username" type="text" placeholder="Email" title="User Name" value="" name="username" id="username" class="form-control">
@@ -29,12 +30,11 @@ export default {
     return {
       username: '',
       password: '',
-      error: null,
     };
   },
   computed: {
     error() {
-      this.showError();
+      // this.showError();
       return this.$store.getters.loginError;
     }
   },
