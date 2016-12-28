@@ -49,13 +49,13 @@ class UsersApi extends Fetchable {
     .then(res => res.json());
   }
 
-  save({ id, firstName, lastName, phone, permissions }) {
+  save({ id, firstName, lastName, phoneNumber, permissions }) {
     const headers = new Headers();
     headers.set('content-type', 'application/json');
     const fields = {
       firstName,
       lastName,
-      phone,
+      phoneNumber,
       permissions
     };
     return super.patch(`/api/v1/users/${id}`, {
@@ -68,14 +68,14 @@ class UsersApi extends Fetchable {
       });
   }
 
-  create({ firstName, lastName, email, phone, permissions }) {
+  create({ firstName, lastName, email, phoneNumber, permissions }) {
     const headers = new Headers();
     headers.set('content-type', 'application/json');
     const fields = {
       firstName,
       lastName,
       email,
-      phone,
+      phoneNumber,
       permissions
     };
     return super.post('/api/v1/users', {

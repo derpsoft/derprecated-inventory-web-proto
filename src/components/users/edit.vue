@@ -24,7 +24,7 @@
           </div>
           <div class="form-group">
             <label>Phone Number</label>
-            <input type="tel" class="form-control" placeholder="Phone Number" v-model="user.phone">
+            <input type="tel" class="form-control" placeholder="Phone Number" v-model="user.phoneNumber">
           </div>
           <div>
             <h4>Permissions</h4>
