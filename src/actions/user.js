@@ -1,7 +1,6 @@
 import log from 'loglevel';
 import Constants from '../constants';
 import UsersApi from '../services/usersApi';
-import PermissionApi from '../services/permissionApi';
 
 function searchUsers({
   dispatch,
@@ -45,24 +44,16 @@ function getUser({
     .catch(e => log.error(e));
 }
 
-function saveUser({ dispatch, commit }, { user, permissions }) {
-  Promise.all([
-    new UsersApi().save(user),
-    new PermissionApi().set(user, permissions)
-  ])
-    .then((responses) => {
-      const u = responses[0].user;
-      u.permissions = responses[1].permissions;
-
-      commit(Constants.SET_USER, u);
-    })
+function saveUser({ dispatch, commit }, { user }) {
+  new UsersApi()
+    .save(user)
+    .then(response => commit(Constants.SET_USER, response.user))
     .catch(e => log.error(e));
 }
 
-function createUser({ dispatch, commit }, { user, permissions }) {
+function createUser({ dispatch, commit }, { user }) {
   new UsersApi().create(user)
     .then((response) => {
-      dispatch(Constants.SET_PERMISSIONS, { user: response.user, permissions });
       commit(Constants.SET_USER, response.user);
     })
     .catch(e => log.error(e));

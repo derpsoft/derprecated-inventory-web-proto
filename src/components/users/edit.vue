@@ -31,7 +31,7 @@
             <template v-for="p in allPermissions">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" v-model="permissions" :value="p">
+                  <input type="checkbox" v-model="user.permissions" :value="p">
                   {{ p }}
                 </label>
               </div>
@@ -51,8 +51,9 @@ import store from '../../stores/store';
 export default {
   data() {
     return {
-      user: {},
-      permissions: [],
+      user: {
+        permissions: [],
+      },
     };
   },
   computed: {
@@ -69,10 +70,10 @@ export default {
   methods: {
     save() {
       const user = JSON.parse(JSON.stringify(this.user));
-      const permissions = JSON.parse(JSON.stringify(this.permissions));
+
       user.id = this.id;
       store.dispatch(Constants.SAVE_USER, {
-        user, permissions
+        user
       });
     },
     load() {
@@ -84,7 +85,6 @@ export default {
   mounted() {
     store.watch(() => store.getters.user, (current) => {
       this.user = Object.assign({}, current);
-      this.permissions = current.permissions;
     });
     this.load();
   }
