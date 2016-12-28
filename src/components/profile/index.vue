@@ -249,11 +249,6 @@ import store from '../../stores/store';
 
 export default {
   name: 'profileView',
-  data() {
-    return {
-      user: null,
-    };
-  },
   mounted() {
     this.$store.dispatch(Constants.GET_PROFILE);
   },
