@@ -82,6 +82,7 @@
     "ora": "latest",
     "phantomjs-prebuilt": "latest",
     "selenium-server": "latest",
+    "serve-static": "^1.11.1",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
     "url-loader": "^0.5.7",

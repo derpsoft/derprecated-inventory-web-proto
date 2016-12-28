@@ -1,13 +1,7 @@
 var express = require('express');
 var app = express();
-var history = require('connect-history-api-fallback');
+var serveStatic = require('serve-static');
 
-// var hist = history({
-//   rewrites: [
-//     { from: */, to: '/index.html'}
-//   ]
-// });
-
-app.use(express.static(__dirname + '/dist'));
-app.use(history());
+app.use(serveStatic(__dirname + '/dist'));
+// app.use(express.static(__dirname + '/dist'));
 app.listen(process.env.PORT || 3000);
