@@ -57,6 +57,13 @@ function search({
   .catch(e => log.error(e));
 }
 
+function typeahead({ dispatch, commit }, { query }) {
+  new WarehouseApi()
+    .typeahead(query)
+    .then(warehouses => commit(Constants.SET_WAREHOUSE_LIST, warehouses.results))
+    .catch(e => log.error(e));
+}
+
 function clearWarehouse({
   commit
 }) {
@@ -84,6 +91,7 @@ const ACTIONS = {
   [Constants.CLEAR_WAREHOUSE]: clearWarehouse,
   [Constants.CREATE_WAREHOUSE]: createWarehouse,
   [Constants.SAVE_WAREHOUSE]: saveWarehouse,
+  [Constants.SEARCH_WAREHOUSES_WITH_TYPEAHEAD]: typeahead,
 };
 
 const MUTATIONS = {

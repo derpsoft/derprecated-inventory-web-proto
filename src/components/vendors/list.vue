@@ -50,8 +50,6 @@ const defaultPageCount = 25;
 export default {
   data() {
     return {
-      count: null,
-      vendors: null,
       pagination: {
         per_page: defaultPageCount,
         current_page: 1,
@@ -73,11 +71,13 @@ export default {
   },
   computed: {
     vendors() {
-      this.pagination.last_page =
-        Math.ceil(store.getters.vendorList.count / this.pagination.per_page);
-      this.pagination.to = store.getters.vendorList.count;
+      const vendors = store.getters.vendorList;
+      const count = vendors.length;
 
-      return store.getters.vendorList;
+      this.pagination.last_page = Math.ceil(count / this.pagination.per_page);
+      this.pagination.to = count;
+
+      return vendors;
     },
   },
   methods: {

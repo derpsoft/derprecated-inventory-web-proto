@@ -54,8 +54,6 @@ const defaultPageCount = 25;
 export default {
   data() {
     return {
-      count: null,
-      users: null,
       pagination: {
         per_page: defaultPageCount, // required
         current_page: 1, // required

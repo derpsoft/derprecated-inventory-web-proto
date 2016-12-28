@@ -66,10 +66,6 @@ function clearVendor({
 
 const INITIAL_STATE = {
   vendors: {
-    search: {
-      query: {},
-      results: {}
-    },
     list: [],
     vendor: {},
   }
@@ -85,18 +81,6 @@ const ACTIONS = {
 };
 
 const MUTATIONS = {
-  [Constants.SET_VENDOR_SEARCH_QUERY]: (state, query) => {
-    state.vendors.search.query = query;
-  },
-  [Constants.SET_VENDOR_SEARCH_RESULTS]: (state, results) => {
-    state.vendors.search.results = results;
-  },
-  [Constants.CLEAR_VENDOR_SEARCH]: (state) => {
-    state.vendors.search = {
-      query: {},
-      results: {},
-    };
-  },
   [Constants.SET_VENDOR_LIST]: (state, results) => {
     state.vendors.list = results;
   },
