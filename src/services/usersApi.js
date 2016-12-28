@@ -1,4 +1,3 @@
-import toastr from 'toastr';
 import Fetchable from './fetchable';
 import store from '../stores/store';
 import Constants from '../constants';
@@ -24,9 +23,6 @@ class UsersApi extends Fetchable {
     .then(res => res.json())
     .then((json) => {
       return json;
-    })
-    .catch(() => {
-
     });
   }
 

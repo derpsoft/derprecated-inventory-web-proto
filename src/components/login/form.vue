@@ -29,7 +29,14 @@ export default {
     return {
       username: '',
       password: '',
+      error: null,
     };
+  },
+  computed: {
+    error() {
+      this.showError();
+      return this.$store.getters.loginError;
+    }
   },
   methods: {
     login() {
@@ -38,6 +45,9 @@ export default {
         password: this.password
       });
     },
+    showError() {
+      this.$parent.$refs.toastr.e('Incorrect user name and/or password.');
+    }
   },
 };
 </script>

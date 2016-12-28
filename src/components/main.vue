@@ -1,5 +1,6 @@
 <template>
   <div>
+    <vue-toastr ref="toastr"></vue-toastr>
     <app-header></app-header>
     <app-sidebar></app-sidebar>
     <router-view></router-view>

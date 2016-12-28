@@ -23,6 +23,7 @@ function login({
         commit(Constants.SET_PROFILE, json.user);
         commit(Constants.SET_SESSION, json);
       } else {
+        commit(Constants.LOGIN_FAILED);
         clear({
           dispatch,
           commit
@@ -130,6 +131,9 @@ function save(k, v) {
 }
 
 const INITIAL_STATE = {
+  login: {
+    error: false,
+  },
   profile: {
     userName: '',
     displayName: '',
@@ -148,7 +152,6 @@ const ACTIONS = {
   [Constants.REGISTER]: register,
   [Constants.FORGOT_PASSWORD]: forgotPassword,
   // [Constants.REGISTRATIONFAILED]:
-  // [Constants.LOGIN_FAILED]:
 };
 
 const MUTATIONS = {
@@ -169,6 +172,9 @@ const MUTATIONS = {
   [Constants.CLEAR_PROFILE]: (state) => {
     state.profile = {};
   },
+  [Constants.LOGIN_FAILED]: (state) => {
+    state.login.error = true;
+  },
 };
 
 const GETTERS = {
@@ -177,6 +183,9 @@ const GETTERS = {
   },
   profile: (state) => {
     return state.user;
+  },
+  loginError: (state) => {
+    return state.login.error;
   }
 };
 
