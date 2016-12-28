@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="col-md-12">
-    <vendor-search></vendor-search>
+    <log-search></log-search>
   </div>
   <div class="col-xs-6 text-left">
     <page-size :callback="setPageSize" :page-size="25"></page-size>
@@ -11,20 +11,22 @@
   </div>
   <div class="col-md-12">
     <div class="table-responsive">
-      <table class="table table-striped table-hover vendor-list">
+      <table class="table table-striped table-hover log-list">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
+            <th>Product ID</th>
+            <th>Quantity</th>
+            <th>Type</th>
+            <th>Unit of Measure ID</th>
+            <th>User ID </th>
           </tr>
         </thead>
         <tbody>
-          <template v-for="vendor in vendors">
-            <tr @click.prevent="edit(vendor.id)">
-              <td>{{vendor.id}}</td>
-              <td>{{vendor.name}}</td>
-            </tr>
-          </template>
+          <tr v-for="log in logs">
+            <td>{{log.id}}</td>
+            <td>{{log.name}}</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -33,7 +35,7 @@
 </template>
 
 <style lang="less" scoped>
-table.vendor-list {
+table.log-list {
     tr {
         cursor: pointer;
     }
@@ -42,9 +44,9 @@ table.vendor-list {
 
 <script>
 import Pagination from 'vue-bootstrap-pagination';
-import vendorSearch from './search.vue';
+import LogSearch from './search.vue';
 import Constants from '../../constants';
-import PageSize from '../../components/pageSize/pageSize.vue';
+import PageSize from '../pageSize/pageSize.vue';
 import store from '../../stores/store';
 
 const defaultPageCount = 25;
@@ -63,35 +65,30 @@ export default {
   components: {
     Pagination,
     PageSize,
-    vendorSearch,
+    LogSearch,
   },
   mounted() {
-    store.dispatch(Constants.GET_VENDORS, {
+    store.dispatch(Constants.GET_INVENTORY_TRANSACTION_LOGS, {
       skip: 0,
       take: defaultPageCount
     });
-    store.dispatch(Constants.COUNT_VENDORS);
+    store.dispatch(Constants.COUNT_INVENTORY_LOGS);
   },
   computed: {
     count() {
-      return store.getters.vendorCount;
+      return store.getters.logCount;
     },
-    vendors() {
-      const vendors = store.getters.vendors;
-
+    logs() {
       this.pagination.last_page = Math.ceil(this.count / this.pagination.per_page);
       this.pagination.to = this.count;
 
-      return vendors;
+      return store.getters.logs;
     },
   },
   methods: {
-    edit(id) {
-      this.$router.push(`/vendors/edit/${id}`);
-    },
     getPage() {
       const skip = this.pagination.per_page * (this.pagination.current_page - 1);
-      store.dispatch(Constants.GET_VENDORS, {
+      store.dispatch(Constants.GET_INVENTORY_TRANSACTION_LOGS, {
         skip,
         take: this.pagination.per_page
       });
@@ -100,7 +97,7 @@ export default {
       this.pagination.per_page = pageSize;
       this.pagination.current_page = 1;
 
-      this.$store.dispatch(Constants.GET_VENDORS, {
+      store.dispatch(Constants.GET_INVENTORY_TRANSACTION_LOGS, {
         skip: 0,
         take: pageSize,
       });

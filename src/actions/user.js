@@ -1,7 +1,6 @@
 import log from 'loglevel';
 import Constants from '../constants';
 import UsersApi from '../services/usersApi';
-import PermissionApi from '../services/permissionApi';
 
 function searchUsers({
   dispatch,
@@ -10,14 +9,14 @@ function searchUsers({
   searchTerm
 }) {
   new UsersApi().search(searchTerm)
-  .then((users) => {
-    commit(Constants.SET_USERS, users);
+  .then((response) => {
+    commit(Constants.SET_USERS, response.users);
   });
 }
 
 function searchUsersWithTypeahead({ dispatch, commit }, { query }) {
   new UsersApi().typeahead(query)
-  .then(response => commit(Constants.SET_USERS_SEARCH_RESULTS, response.users))
+  .then(response => commit(Constants.SET_USERS, response.users))
   .catch(e => log.error(e));
 }
 
@@ -29,8 +28,8 @@ function getUsers({
   take = 25
 }) {
   new UsersApi().list(skip, take)
-  .then((users) => {
-    commit(Constants.SET_USERS, users);
+  .then((response) => {
+    commit(Constants.SET_USERS, response.users);
   });
 }
 
@@ -45,24 +44,16 @@ function getUser({
     .catch(e => log.error(e));
 }
 
-function saveUser({ dispatch, commit }, { user, permissions }) {
-  Promise.all([
-    new UsersApi().save(user),
-    new PermissionApi().set(user, permissions)
-  ])
-    .then((responses) => {
-      const u = responses[0].user;
-      u.permissions = responses[1].permissions;
-
-      commit(Constants.SET_USER, u);
-    })
+function saveUser({ dispatch, commit }, { user }) {
+  new UsersApi()
+    .save(user)
+    .then(response => commit(Constants.SET_USER, response.user))
     .catch(e => log.error(e));
 }
 
-function createUser({ dispatch, commit }, { user, permissions }) {
+function createUser({ dispatch, commit }, { user }) {
   new UsersApi().create(user)
     .then((response) => {
-      dispatch(Constants.SET_PERMISSIONS, { user: response.user, permissions });
       commit(Constants.SET_USER, response.user);
     })
     .catch(e => log.error(e));
@@ -70,13 +61,8 @@ function createUser({ dispatch, commit }, { user, permissions }) {
 
 const INITIAL_STATE = {
   users: {
-    search: {
-      query: {},
-      results: {}
-    },
     list: [],
     user: {},
-    count: 0,
   }
 };
 
@@ -90,21 +76,8 @@ const ACTIONS = {
 };
 
 const MUTATIONS = {
-  [Constants.SET_USERS_SEARCH_QUERY]: (state, query) => {
-    state.users.search.query = query;
-  },
-  [Constants.SET_USERS_SEARCH_RESULTS]: (state, results) => {
-    state.users.search.results = results;
-  },
-  [Constants.CLEAR_USERS_SEARCH]: (state) => {
-    state.users.search = {
-      query: {},
-      results: {},
-    };
-  },
   [Constants.SET_USERS]: (state, results) => {
-    state.users.list = results.users;
-    state.users.count = results.count;
+    state.users.list = results;
   },
   [Constants.SET_USER]: (state, user) => {
     state.users.user = user;
