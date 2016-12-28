@@ -70,10 +70,18 @@ function searchInventoryLogs({ commit }, { query }) {
     .catch(e => log.error(e));
 }
 
+function countInventoryLogs({ commit }) {
+  new InventoryApi()
+    .countLogs()
+    .then(count => commit(Constants.SET_INVENTORY_TRANSACTION_LOG_COUNT, count))
+    .catch(e => log.error(e));
+}
+
 const INITIAL_STATE = {
   inventory: {
     quantity: {},
     logs: [],
+    logCount: 0,
   }
 };
 
@@ -84,6 +92,7 @@ const ACTIONS = {
   [Constants.LOCATE_INVENTORY]: locateInventory,
   [Constants.GET_INVENTORY_TRANSACTION_LOGS]: getInventoryLogs,
   [Constants.SEARCH_INVENTORY_TRANSACTION_LOGS]: searchInventoryLogs,
+  [Constants.COUNT_INVENTORY_LOGS]: countInventoryLogs,
 };
 
 const MUTATIONS = {
@@ -96,13 +105,20 @@ const MUTATIONS = {
 
   [Constants.SET_INVENTORY_TRANSACTION_LOGS]: (state, logs) => {
     state.inventory.logs = logs;
+  },
+
+  [Constants.SET_INVENTORY_TRANSACTION_LOG_COUNT]: (state, count) => {
+    state.inventory.logCount = count;
   }
 };
 
 const GETTERS = {
   logs(state) {
     return state.inventory.logs;
-  }
+  },
+  logCount(state) {
+    return state.inventory.logCount;
+  },
 };
 
 const InventoryActions = {

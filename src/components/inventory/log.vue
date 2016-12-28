@@ -54,8 +54,6 @@ const defaultPageCount = 25;
 export default {
   data() {
     return {
-      count: null,
-      logs: null,
       pagination: {
         per_page: defaultPageCount,
         current_page: 1,
@@ -74,16 +72,17 @@ export default {
       skip: 0,
       take: defaultPageCount
     });
+    store.dispatch(Constants.COUNT_INVENTORY_LOGS);
   },
   computed: {
+    count() {
+      return store.getters.logCount;
+    },
     logs() {
-      const logs = store.getters.logs;
-      const count = logs.length;
+      this.pagination.last_page = Math.ceil(this.count / this.pagination.per_page);
+      this.pagination.to = this.count;
 
-      this.pagination.last_page = Math.ceil(count / this.pagination.per_page);
-      this.pagination.to = count;
-
-      return logs;
+      return store.getters.logs;
     },
   },
   methods: {

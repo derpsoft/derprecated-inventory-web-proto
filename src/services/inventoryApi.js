@@ -50,7 +50,8 @@ class InventoryApi extends Fetchable {
 
   countLogs() {
     return super.get('/api/v1/inventory-transactions/count')
-    .then(res => res.json());
+    .then(res => res.json())
+    .then(json => json.count);
   }
 
   searchLogs(query, skip = 0, take = 25) {

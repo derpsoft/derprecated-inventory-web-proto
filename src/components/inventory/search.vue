@@ -17,9 +17,16 @@ export default {
   },
   methods: {
     search() {
-      this.$store.dispatch(Constants.SEARCH_INVENTORY_TRANSACTION_LOGS, {
-        query: this.searchTerm
-      });
+      if (this.searchTerm.length) {
+        this.$store.dispatch(Constants.SEARCH_INVENTORY_TRANSACTION_LOGS, {
+          query: this.searchTerm
+        });
+      } else {
+        this.$store.dispatch(Constants.GET_INVENTORY_TRANSACTION_LOGS, {
+          skip: 0,
+          take: 25,
+        });
+      }
     },
   },
 };
