@@ -3,6 +3,8 @@ import log from 'loglevel';
 import Constants from '../constants';
 import AuthApi from '../services/authApi';
 
+const Permissions = Constants.permissions;
+
 function clear({
   commit
 }) {
@@ -133,7 +135,8 @@ const INITIAL_STATE = {
   profile: {
     userName: '',
     displayName: '',
-    email: ''
+    email: '',
+    permissions: []
   },
   session: _.merge({
     isAuthenticated: false,
@@ -177,7 +180,43 @@ const GETTERS = {
   },
   profile: (state) => {
     return state.user;
-  }
+  },
+
+  canReadUsers: (state) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_USERS,
+      Permissions.READ_USERS,
+    ];
+    return !!_.intersection(state.session.permissions, allowed);
+  },
+
+  canUpsertUsers: (state) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_USERS,
+      Permissions.UPSERT_USERS,
+    ];
+    return !!_.intersection(state.session.permissions, allowed);
+  },
+
+  canReadVendors: (state) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_VENDORS,
+      Permissions.READ_VENDORS,
+    ];
+    return !!_.intersection(state.session.permissions, allowed);
+  },
+
+  canUpsertVendors: (state) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_VENDORS,
+      Permissions.UPSERT_VENDORS,
+    ];
+    return !!_.intersection(state.session.permissions, allowed);
+  },
 };
 
 const AuthActions = {

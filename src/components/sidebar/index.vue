@@ -26,10 +26,10 @@
       <li>
         <router-link :to="{ path: '/warehouses', activeClass: 'active'}">Warehouses</router-link>
       </li>
-      <li>
+      <li v-canReadVendors>
         <router-link :to="{ path: '/vendors', activeClass: 'active'}">Vendors</router-link>
       </li>
-      <li>
+      <li v-canReadUsers>
         <router-link :to="{ path: '/users', activeClass: 'active'}">Users</router-link>
       </li>
       <li class="nav-category">
