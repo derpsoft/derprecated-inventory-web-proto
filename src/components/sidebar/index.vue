@@ -17,13 +17,13 @@
       <li class="nav-category">
         Admin
       </li>
-      <li>
+      <li v-canReadProducts>
         <router-link :to="{ path: '/products', activeClass: 'active'}">Products</router-link>
       </li>
-      <li>
+      <li v-canReadCategories>
         <router-link :to="{ path: '/categories', activeClass: 'active'}">Categories</router-link>
       </li>
-      <li>
+      <li v-canReadWarehouses>
         <router-link :to="{ path: '/warehouses', activeClass: 'active'}">Warehouses</router-link>
       </li>
       <li v-canReadVendors>

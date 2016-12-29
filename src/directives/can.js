@@ -6,6 +6,15 @@ const guards = [
 
   'canReadVendors',
   'canUpsertVendors',
+
+  'canReadProducts',
+  'canUpsertProducts',
+
+  'canReadWarehouses',
+  'canUpsertWarehouses',
+
+  'canReadCategories',
+  'canUpsertCategories',
 ];
 
 export default (Vue) => {
