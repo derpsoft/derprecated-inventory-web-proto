@@ -5,7 +5,7 @@
       <div class="col-lg-12">
         <div class="view-header">
           <div class="header-icon">
-            <i class="pe page-header-icon pe-7s-note2"></i>
+            <i class="pe page-header-icon pe-7s-graph1"></i>
           </div>
           <div class="header-title">
             <h3>Reports</h3>
