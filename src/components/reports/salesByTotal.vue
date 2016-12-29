@@ -17,8 +17,8 @@ export default Bar.extend({
       this.renderChart({
         labels: this.labels,
         datasets: [{
-          label: 'GitHub Commits',
-          backgroundColor: '#f87979',
+          label: 'Sales By Total',
+          backgroundColor: '#f6a821',
           data: this.data,
         }]
       });

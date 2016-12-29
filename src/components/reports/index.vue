@@ -22,23 +22,23 @@
       </div>
     </div>
     <div class="row">
-      <!-- <div class="col-md-6">
+      <div class="col-md-6">
         <div class="chart">
           <sales-by-total :labels="salesByTotal.labels" :data="salesByTotal.data"></sales-by-total>
         </div>
-      </div> -->
-      <div class="col-md-6">
-        <div class="chart">
-          <sales-by-product></sales-by-product>
-        </div>
       </div>
+        <!-- <div class="col-md-6">
+          <div class="chart">
+            <sales-by-product></sales-by-product>
+          </div>
+        </div> -->
     </div>
   </div>
 </section>
 </template>
 
 <script>
-// import Constants from '../../constants';
+import Constants from '../../constants';
 import SalesByTotal from './salesByTotal.vue';
 import SalesByProduct from './salesByProduct.vue';
 
@@ -54,9 +54,9 @@ export default {
     SalesByProduct,
   },
   mounted() {
-    // this.$store.dispatch(Constants.GET_SALES_BY_TOTAL, {
-    //   groupBy: 'month'
-    // });
+    this.$store.dispatch(Constants.GET_SALES_BY_TOTAL, {
+      groupBy: 'day'
+    });
   }
 };
 </script>
