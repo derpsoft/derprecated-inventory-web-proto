@@ -55,7 +55,6 @@ const routes = [{
     component: Dashboard,
     meta: {
       requiresAuth: true,
-      requiresAnyPermission: [],
     },
   }, {
     path: '/users',
