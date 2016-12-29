@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import Constants from '../../constants';
 import store from '../../stores/store';
 
@@ -60,7 +61,7 @@ export default {
       return parseInt(this.$route.params.id, 10);
     },
     allPermissions() {
-      return Constants.permissions.sort();
+      return _.values(Constants.permissions);
     }
   },
   methods: {

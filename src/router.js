@@ -26,9 +26,11 @@ import Categories from './components/categories/index.vue';
 import Vendors from './components/vendors/index.vue';
 import ModifyVendors from './components/vendors/modifyVendors.vue';
 
+import Constants from './constants';
 // import NotFound from './views/notfound.vue';
 import store from './stores/store';
 
+const Permissions = Constants.permissions;
 
 const routes = [{
   path: '/login',
@@ -45,75 +47,111 @@ const routes = [{
 }, {
   path: '/',
   component: Main,
-  meta: { requiresAuth: true },
+  meta: {
+    requiresAuth: true
+  },
   children: [{
     path: '',
     component: Dashboard,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+    },
   }, {
     path: '/users',
     component: Users,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+    },
   }, {
     path: '/users/add',
     component: ModifyUsers,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+    },
   }, {
     path: '/users/edit/:id',
     component: ModifyUsers,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+    },
   }, {
     path: '/categories',
     component: Categories,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+    },
   }, {
     path: '/products',
     component: Products,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+    },
   }, {
     path: '/products/add',
     component: ModifyProducts,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+    },
   }, {
     path: '/products/edit/:id',
     component: ModifyProducts,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+    },
   }, {
     path: '/warehouses',
     component: Warehouses,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+    },
   }, {
     path: '/warehouses/add',
     component: ModifyWarehouses,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+    },
   }, {
     path: '/warehouses/edit/:id',
     component: ModifyWarehouses,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+    },
   }, {
     path: '/profile',
     component: Profile,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+    },
   }, {
     path: '/reports',
     component: Reports,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+    },
   }, {
     path: '/vendors',
     component: Vendors,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+    },
   }, {
     path: '/vendors/add',
     component: ModifyVendors,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+    },
   }, {
     path: '/vendors/edit/:id',
     component: ModifyVendors,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+    },
   }, {
     path: '/inventory',
     component: Inventory,
-    meta: { requiresAuth: true }
+    meta: {
+      requiresAuth: true,
+    }
   }]
 }, {
   path: '*',

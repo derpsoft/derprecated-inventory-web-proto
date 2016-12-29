@@ -3,6 +3,8 @@ import log from 'loglevel';
 import Constants from '../constants';
 import AuthApi from '../services/authApi';
 
+const Permissions = Constants.permissions;
+
 function clear({
   commit
 }) {
@@ -133,7 +135,8 @@ const INITIAL_STATE = {
   profile: {
     userName: '',
     displayName: '',
-    email: ''
+    email: '',
+    permissions: []
   },
   session: _.merge({
     isAuthenticated: false,
@@ -177,7 +180,97 @@ const GETTERS = {
   },
   profile: (state) => {
     return state.user;
-  }
+  },
+
+  canReadUsers: (state) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_USERS,
+      Permissions.READ_USERS,
+    ];
+    return !!_.intersection(state.session.permissions, allowed);
+  },
+
+  canUpsertUsers: (state) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_USERS,
+      Permissions.UPSERT_USERS,
+    ];
+    return !!_.intersection(state.session.permissions, allowed);
+  },
+
+  canReadVendors: (state) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_VENDORS,
+      Permissions.READ_VENDORS,
+    ];
+    return !!_.intersection(state.session.permissions, allowed);
+  },
+
+  canUpsertVendors: (state) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_VENDORS,
+      Permissions.UPSERT_VENDORS,
+    ];
+    return !!_.intersection(state.session.permissions, allowed);
+  },
+
+  canReadProducts: (state) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_PRODUCTS,
+      Permissions.READ_PRODUCTS,
+    ];
+    return !!_.intersection(state.session.permissions, allowed);
+  },
+
+  canUpsertProducts: (state) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_PRODUCTS,
+      Permissions.UPSERT_PRODUCTS,
+    ];
+    return !!_.intersection(state.session.permissions, allowed);
+  },
+
+  canReadWarehouses: (state) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_WAREHOUSES,
+      Permissions.READ_WAREHOUSES,
+    ];
+    return !!_.intersection(state.session.permissions, allowed);
+  },
+
+  canUpsertWarehouses: (state) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_WAREHOUSES,
+      Permissions.UPSERT_WAREHOUSES,
+    ];
+    return !!_.intersection(state.session.permissions, allowed);
+  },
+
+  canReadCategories: (state) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_CATEGORIES,
+      Permissions.READ_CATEGORIES,
+    ];
+    return !!_.intersection(state.session.permissions, allowed);
+  },
+
+  canUpsertCategories: (state) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_CATEGORIES,
+      Permissions.UPSERT_CATEGORIES,
+    ];
+    return !!_.intersection(state.session.permissions, allowed);
+  },
 };
 
 const AuthActions = {
