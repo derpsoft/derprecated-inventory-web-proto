@@ -20,7 +20,7 @@
         </div> -->
       <router-link class="navbar-brand" href="#" :to="{ path: '/' }">
         DERP
-        <span>v0.2.0</span>
+        <span>v{{appVersion}}</span>
       </router-link>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -68,13 +68,16 @@
 import {
   dropdown
 } from 'vue-strap';
+import {
+  version
+} from '../../../package.json';
 import store from '../../stores/store';
 
 export default {
   name: 'header',
   data() {
     return {
-      userSession: null,
+      appVersion: version,
     };
   },
   components: {

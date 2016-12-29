@@ -17,19 +17,20 @@
       <li class="nav-category">
         Admin
       </li>
-      <li>
+
+      <li v-canReadProducts>
         <router-link :to="{ path: '/products', activeClass: 'active'}" active-class="active">Products</router-link>
       </li>
-      <li>
+      <li v-canReadCategories>
         <router-link :to="{ path: '/categories', activeClass: 'active'}" active-class="active">Categories</router-link>
       </li>
-      <li>
+      <li v-canReadWarehouses>
         <router-link :to="{ path: '/warehouses', activeClass: 'active'}" active-class="active">Warehouses</router-link>
       </li>
-      <li>
+      <li v-canReadVendors>
         <router-link :to="{ path: '/vendors', activeClass: 'active'}" active-class="active">Vendors</router-link>
       </li>
-      <li>
+      <li v-canReadUsers>
         <router-link :to="{ path: '/users', activeClass: 'active'}" active-class="active">Users</router-link>
       </li>
       <li class="nav-category">
