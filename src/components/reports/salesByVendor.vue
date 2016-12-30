@@ -4,7 +4,7 @@ import {
 } from 'vue-chartjs';
 
 export default Line.extend({
-  name: 'salesByTotalReport',
+  name: 'salesByVendorReport',
   props: ['labels', 'data'],
   watch: {
     data: {
@@ -18,9 +18,8 @@ export default Line.extend({
       this.renderChart({
         labels: this.labels,
         datasets: [{
-          label: 'Sales By Total',
+          label: 'Sales By Vendor',
           backgroundColor: '#edc240',
-          showLine: true,
           data: this.data,
         }]
       }, {

@@ -1,7 +1,4 @@
 <style scoped lang="less">
-.chart canvas {
-    height: 500px !important;
-}
 </style>
 
 <template>
@@ -22,16 +19,27 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
-        <div class="chart">
-          <sales-by-total :labels="salesByTotal.labels" :data="salesByTotal.data"></sales-by-total>
+      <div class="col-md-4">
+        <div class="panel">
+          <div class="panel-body">
+            <sales-by-total :labels="salesByTotal.labels" :data="salesByTotal.data"></sales-by-total>
+          </div>
         </div>
       </div>
-        <!-- <div class="col-md-6">
-          <div class="chart">
-            <sales-by-product></sales-by-product>
+      <div class="col-md-4">
+        <div class="panel">
+          <div class="panel-body">
+            <sales-by-product :labels="salesByProduct.labels" :data="salesByProduct.data"></sales-by-product>
           </div>
-        </div> -->
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="panel">
+          <div class="panel-body">
+            <sales-by-vendor :labels="salesByVendor.labels" :data="salesByVendor.data"></sales-by-vendor>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -41,10 +49,17 @@
 import Constants from '../../constants';
 import SalesByTotal from './salesByTotal.vue';
 import SalesByProduct from './salesByProduct.vue';
+import SalesByVendor from './salesByVendor.vue';
 
 export default {
   name: 'reportView',
   computed: {
+    salesByProduct() {
+      return this.$store.getters.salesByProduct;
+    },
+    salesByVendor() {
+      return this.$store.getters.salesByVendor;
+    },
     salesByTotal() {
       return this.$store.getters.salesByTotal;
     }
@@ -52,10 +67,19 @@ export default {
   components: {
     SalesByTotal,
     SalesByProduct,
+    SalesByVendor,
   },
   mounted() {
     this.$store.dispatch(Constants.GET_SALES_BY_TOTAL, {
-      groupBy: 'day'
+      groupBy: 'week'
+    });
+    this.$store.dispatch(Constants.GET_SALES_BY_VENDOR, {
+      groupBy: 'week',
+      vendorId: 1,
+    });
+    this.$store.dispatch(Constants.GET_SALES_BY_PRODUCT, {
+      groupBy: 'week',
+      productId: 1,
     });
   }
 };
