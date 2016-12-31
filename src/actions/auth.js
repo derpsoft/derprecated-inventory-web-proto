@@ -22,8 +22,8 @@ function login({
   new AuthApi().login(username, password)
     .then((json) => {
       if (json.sessionId) {
-        commit(Constants.SET_PROFILE, json.user);
         commit(Constants.SET_SESSION, json);
+        dispatch(Constants.GET_PROFILE);
       } else {
         clear({
           dispatch,
@@ -54,7 +54,7 @@ function getProfile({
   new AuthApi().profile()
     .then((json) => {
       if (json) {
-        commit(Constants.SET_PROFILE, json.user);
+        commit(Constants.SET_PROFILE, json.profile);
       } else {
         clear({
           commit
@@ -179,97 +179,100 @@ const GETTERS = {
     return state.session.isAuthenticated;
   },
   profile: (state) => {
-    return state.user;
+    return state.profile;
+  },
+  currentUserPermissions: (state) => {
+    return (state.profile || {}).permissions;
   },
 
-  canReadUsers: (state) => {
+  canReadUsers: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING,
       Permissions.MANAGE_USERS,
       Permissions.READ_USERS,
     ];
-    return !!_.intersection(state.session.permissions, allowed);
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canUpsertUsers: (state) => {
+  canUpsertUsers: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING,
       Permissions.MANAGE_USERS,
       Permissions.UPSERT_USERS,
     ];
-    return !!_.intersection(state.session.permissions, allowed);
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canReadVendors: (state) => {
+  canReadVendors: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING,
       Permissions.MANAGE_VENDORS,
       Permissions.READ_VENDORS,
     ];
-    return !!_.intersection(state.session.permissions, allowed);
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canUpsertVendors: (state) => {
+  canUpsertVendors: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING,
       Permissions.MANAGE_VENDORS,
       Permissions.UPSERT_VENDORS,
     ];
-    return !!_.intersection(state.session.permissions, allowed);
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canReadProducts: (state) => {
+  canReadProducts: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING,
       Permissions.MANAGE_PRODUCTS,
       Permissions.READ_PRODUCTS,
     ];
-    return !!_.intersection(state.session.permissions, allowed);
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canUpsertProducts: (state) => {
+  canUpsertProducts: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING,
       Permissions.MANAGE_PRODUCTS,
       Permissions.UPSERT_PRODUCTS,
     ];
-    return !!_.intersection(state.session.permissions, allowed);
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canReadWarehouses: (state) => {
+  canReadWarehouses: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING,
       Permissions.MANAGE_WAREHOUSES,
       Permissions.READ_WAREHOUSES,
     ];
-    return !!_.intersection(state.session.permissions, allowed);
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canUpsertWarehouses: (state) => {
+  canUpsertWarehouses: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING,
       Permissions.MANAGE_WAREHOUSES,
       Permissions.UPSERT_WAREHOUSES,
     ];
-    return !!_.intersection(state.session.permissions, allowed);
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canReadCategories: (state) => {
+  canReadCategories: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING,
       Permissions.MANAGE_CATEGORIES,
       Permissions.READ_CATEGORIES,
     ];
-    return !!_.intersection(state.session.permissions, allowed);
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canUpsertCategories: (state) => {
+  canUpsertCategories: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING,
       Permissions.MANAGE_CATEGORIES,
       Permissions.UPSERT_CATEGORIES,
     ];
-    return !!_.intersection(state.session.permissions, allowed);
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 };
 
