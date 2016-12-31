@@ -14,23 +14,23 @@
       <li>
         <router-link :to="{ path: '/reports', activeClass: 'active', exact: true }" active-class="active">Reports</router-link>
       </li>
-      <li class="nav-category">
+      <li class="nav-category" v-can-read-products v-can-read-categories v-can-read-warehouses v-can-read-vendors v-can-read-users>
         Admin
       </li>
 
-      <li v-canReadProducts>
+      <li v-can-read-products>
         <router-link :to="{ path: '/products', activeClass: 'active'}" active-class="active">Products</router-link>
       </li>
-      <li v-canReadCategories>
+      <li v-can-read-categories>
         <router-link :to="{ path: '/categories', activeClass: 'active'}" active-class="active">Categories</router-link>
       </li>
-      <li v-canReadWarehouses>
+      <li v-can-read-warehouses>
         <router-link :to="{ path: '/warehouses', activeClass: 'active'}" active-class="active">Warehouses</router-link>
       </li>
-      <li v-canReadVendors>
+      <li v-can-read-vendors>
         <router-link :to="{ path: '/vendors', activeClass: 'active'}" active-class="active">Vendors</router-link>
       </li>
-      <li v-canReadUsers>
+      <li v-can-read-users>
         <router-link :to="{ path: '/users', activeClass: 'active'}" active-class="active">Users</router-link>
       </li>
       <li class="nav-category">
