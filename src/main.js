@@ -23,5 +23,3 @@ new Vue({
   router,
   render: h => h(App)
 });
-
-store.dispatch(Constants.GET_PROFILE);
