@@ -20,16 +20,19 @@ function receiveInventory({
   commit
 }, {
   productId,
-  quantity
+  locationId,
+  quantity,
 }) {
   new InventoryApi()
     .receiveInventory({
       productId,
-      quantity
+      locationId,
+      quantity,
     })
     .then(q => commit(Constants.SET_QUANTITY_ON_HAND, {
       quantity: q.quantity,
-      productId
+      productId,
+      locationId,
     }))
     .catch(e => log.error(e));
 }
