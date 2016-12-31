@@ -6,7 +6,6 @@ import {
 } from 'vuex-router-sync';
 import store from './stores/store';
 import App from './components/app.vue';
-import Constants from './constants';
 import Directives from './directives';
 import router from './router';
 
