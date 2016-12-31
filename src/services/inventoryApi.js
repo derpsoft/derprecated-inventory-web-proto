@@ -22,7 +22,6 @@ class InventoryApi extends Fetchable {
       productId,
       quantity
     };
-    console.log(xact);
     return super.post('/api/v1/inventory-transactions', {
       body: this.toJson({ ...xact }),
       headers
