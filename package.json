@@ -32,8 +32,6 @@
     "vue-bootstrap-pagination": "latest",
     "vue-chartjs": "^2.3.2",
     "vue-hot-reload-api": "latest",
-    "vue-loader": "latest",
-    "vue-resource": "latest",
     "vue-router": "latest",
     "vue-strap": "yuche/vue-strap#v2",
     "vue-template-compiler": "^2.1.8",
