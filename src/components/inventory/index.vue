@@ -5,14 +5,15 @@
       <div class="col-lg-12">
         <div class="view-header">
           <div class="pull-right">
-            <router-link class="btn btn-w-md btn-accent" :to="{path: '/warehouses/add'}">Add New Warehouse</router-link>
+            <router-link class="btn btn-w-md btn-accent" :to="{path: '/inventory/receive'}">Receive</router-link>
+            <router-link class="btn btn-w-md btn-accent" :to="{path: '/inventory/dispatch'}">Dispatch</router-link>
           </div>
           <div class="header-icon">
-            <i class="pe page-header-icon pe-7s-home"></i>
+            <i class="pe page-header-icon pe-7s-box2"></i>
           </div>
           <div class="header-title">
-            <h3>Warehouses</h3>
-            <small>Find all warehouses</small>
+            <h3>Inventory</h3>
+            <small>Manage Inventory</small>
           </div>
         </div>
         <hr>
@@ -20,7 +21,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <warehouse-list></warehouse-list>
+        <inventory-log></inventory-log>
       </div>
     </div>
   </div>
@@ -28,14 +29,14 @@
 </template>
 
 <script>
-import WarehouseList from '../../components/warehouses/list.vue';
+import InventoryLog from './log.vue';
 
 export default {
   data() {
     return {};
   },
   components: {
-    WarehouseList,
+    InventoryLog,
   },
 };
 </script>

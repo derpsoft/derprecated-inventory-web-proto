@@ -1,13 +1,12 @@
 var express = require('express');
 var app = express();
-var history = require('connect-history-api-fallback');
-
-// var hist = history({
-//   rewrites: [
-//     { from: */, to: '/index.html'}
-//   ]
-// });
 
 app.use(express.static(__dirname + '/dist'));
-app.use(history());
-app.listen(process.env.PORT || 3000);
+
+app.set('port', (process.env.PORT || 3000))
+
+console.log(__dirname + '/dist');
+
+app.listen(app.get('port'), function() {
+  console.log("Derp is running at localhost:" + app.get('port'))
+})

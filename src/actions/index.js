@@ -4,6 +4,8 @@ import UserActions from './user';
 import VendorActions from './vendor';
 import WarehouseActions from './warehouse';
 import PermissionActions from './permission';
+import InventoryActions from './inventory';
+import ReportActions from './report';
 
 module.exports = [
   AuthActions,
@@ -12,4 +14,6 @@ module.exports = [
   VendorActions,
   WarehouseActions,
   PermissionActions,
+  InventoryActions,
+  ReportActions,
 ];

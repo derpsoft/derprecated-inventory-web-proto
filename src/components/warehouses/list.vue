@@ -50,8 +50,6 @@ const defaultPageCount = 25;
 export default {
   data() {
     return {
-      count: null,
-      warehouses: null,
       pagination: {
         per_page: defaultPageCount,
         current_page: 1,
@@ -65,17 +63,21 @@ export default {
     PageSize,
     warehouseSearch,
   },
-  created() {
+  mounted() {
     store.dispatch(Constants.GET_WAREHOUSES, {
       skip: 0,
       take: defaultPageCount
     });
+    store.dispatch(Constants.COUNT_WAREHOUSES);
   },
   computed: {
+    count() {
+      return store.getters.warehouseCount;
+    },
     warehouses() {
       this.pagination.last_page =
-        Math.ceil(store.getters.warehouseList.count / this.pagination.per_page);
-      this.pagination.to = store.getters.warehouseList.count;
+        Math.ceil(this.count / this.pagination.per_page);
+      this.pagination.to = this.count;
 
       return store.getters.warehouseList;
     },

@@ -1,5 +1,6 @@
-const Constants = {
+export default {
   API_ROOT: 'https://inventory-api-dev.azurewebsites.net',
+
   SET_PROFILE: 'SET_PROFILE',
   GET_PROFILE: 'GET_PROFILE',
   CLEAR_PROFILE: 'CLEAR_PROFILE',
@@ -55,6 +56,9 @@ const Constants = {
   SET_VENDOR_SEARCH_RESULTS: 'SET_VENDOR_SEARCH_RESULTS',
   CLEAR_VENDOR_SEARCH: 'CLEAR_VENDOR_SEARCH',
   SET_VENDOR_LIST: 'SET_VENDOR_LIST',
+  SET_VENDOR_COUNT: 'SET_VENDOR_COUNT',
+  COUNT_VENDORS: 'COUNT_VENDORS',
+  SEARCH_VENDORS_WITH_TYPEAHEAD: 'SEARCH_VENDORS_WITH_TYPEAHEAD',
 
   GET_WAREHOUSE: 'GET_WAREHOUSE',
   GET_WAREHOUSES: 'GET_WAREHOUSES',
@@ -63,10 +67,13 @@ const Constants = {
   SAVE_WAREHOUSE: 'SAVE_WAREHOUSE',
   CLEAR_WAREHOUSE: 'CLEAR_WAREHOUSE',
   SEARCH_WAREHOUSES: 'SEARCH_WAREHOUSES',
+  SEARCH_WAREHOUSES_WITH_TYPEAHEAD: 'SEARCH_WAREHOUSES_WITH_TYPEAHEAD',
   SET_WAREHOUSE_SEARCH_QUERY: 'SET_WAREHOUSE_SEARCH_QUERY',
   SET_WAREHOUSE_SEARCH_RESULTS: 'SET_WAREHOUSE_SEARCH_RESULTS',
   CLEAR_WAREHOUSE_SEARCH: 'CLEAR_WAREHOUSE_SEARCH',
   SET_WAREHOUSE_LIST: 'SET_WAREHOUSE_LIST',
+  COUNT_WAREHOUSES: 'COUNT_WAREHOUSES',
+  SET_WAREHOUSE_COUNT: 'SET_WAREHOUSE_COUNT',
 
   SET_USER_PERMISSIONS: 'SET_PERMISSIONS',
   SET_USER_PERMISSION: 'SET_PERMISSION',
@@ -74,33 +81,54 @@ const Constants = {
   UNSET_USER_PERMISSION: 'UNSET_PERMISSION',
   GET_PERMISSIONS: 'GET_PERMISSIONS',
 
-  permissions: [
-    'manageLocations',
-    'readLocations',
-    'upsertLocations',
-    'deleteLocations',
-    'everything',
-    'manageProducts',
-    'readProducts',
-    'upsertProducts',
-    'deleteProducts',
-    'receiveInventory',
-    'releaseInventory',
-    'manageInventory',
-    'manageVendors',
-    'readVendors',
-    'upsertVendors',
-    'deleteVendors',
-    'manageUsers',
-    'readUsers',
-    'upsertUsers',
-    'deleteUsers',
-    'manageWarehouses',
-    'readWarehouses',
-    'upsertWarehouses',
-    'deleteWarehouses',
-    'readReports'
-  ]
-};
+  SET_QUANTITY_ON_HAND: 'SET_QUANTITY_ON_HAND',
+  GET_QUANTITY_ON_HAND: 'GET_QUANTITY_ON_HAND',
+  RECEIVE_INVENTORY: 'RECEIVE_INVENTORY',
+  LOCATE_INVENTORY: 'LOCATE_INVENTORY',
+  DISPATCH_INVENTORY: 'DISPATCH_INVENTORY',
+  GET_INVENTORY_TRANSACTION_LOGS: 'GET_INVENTORY_TRANSACTION_LOGS',
+  SET_INVENTORY_TRANSACTION_LOGS: 'SET_INVENTORY_TRANSACTION_LOGS',
+  SEARCH_INVENTORY_TRANSACTION_LOGS: 'SEARCH_INVENTORY_TRANSACTION_LOGS',
+  COUNT_INVENTORY_LOGS: 'COUNT_INVENTORY_LOGS',
+  SET_INVENTORY_TRANSACTION_LOG_COUNT: 'SET_INVENTORY_TRANSACTION_LOG_COUNT',
 
-export default Constants;
+  GET_SALES_BY_PRODUCT: 'GET_SALES_BY_PRODUCT',
+  SET_SALES_BY_PRODUCT: 'SET_SALES_BY_PRODUCT',
+  GET_SALES_BY_TOTAL: 'GET_SALES_BY_TOTAL',
+  SET_SALES_BY_TOTAL: 'SET_SALES_BY_TOTAL',
+  GET_SALES_BY_VENDOR: 'GET_SALES_BY_VENDOR',
+  SET_SALES_BY_VENDOR: 'SET_SALES_BY_VENDOR',
+
+  permissions: {
+    EVERYTHING: 'everything',
+
+    MANAGE_INVENTORY: 'manageInventory',
+    MANAGE_LOCATIONS: 'manageLocations',
+    MANAGE_PRODUCTS: 'manageProducts',
+    MANAGE_USERS: 'manageUsers',
+    MANAGE_VENDORS: 'manageVendors',
+    MANAGE_WAREHOUSES: 'manageWarehouses',
+
+    READ_LOCATIONS: 'readLocations',
+    READ_PRODUCTS: 'readProducts',
+    READ_REPORTS: 'readReports',
+    READ_USERS: 'readUsers',
+    READ_VENDORS: 'readVendors',
+    READ_WAREHOUSES: 'readWarehouses',
+
+    UPSERT_LOCATIONS: 'upsertLocations',
+    UPSERT_PRODUCTS: 'upsertProducts',
+    UPSERT_USERS: 'upsertUsers',
+    UPSERT_VENDORS: 'upsertVendors',
+    UPSERT_WAREHOUSES: 'upsertWarehouses',
+
+    DELETE_LOCATIONS: 'deleteLocations',
+    DELETE_PRODUCTS: 'deleteProducts',
+    DELETE_USERS: 'deleteUsers',
+    DELETE_VENDORS: 'deleteVendors',
+    DELETE_WAREHOUSES: 'deleteWarehouses',
+
+    RECEIVE_INVENTORY: 'receiveInventory',
+    RELEASE_INVENTORY: 'releaseInventory',
+  }
+};
