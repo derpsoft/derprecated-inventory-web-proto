@@ -34,5 +34,6 @@ module.exports = {
   globals: {
     'store': true,
     'window': true,
+    moment: true,
   },
 }
