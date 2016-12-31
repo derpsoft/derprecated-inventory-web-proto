@@ -51,11 +51,6 @@ import Constants from '../../constants';
 
 export default {
   name: 'productList',
-  data() {
-    return {
-      products: null,
-    };
-  },
   computed: {
     products() {
       return this.$store.getters.productList;

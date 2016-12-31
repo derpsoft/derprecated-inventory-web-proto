@@ -74,6 +74,16 @@
                       <input type="number" class="form-control" placeholder="Weight" v-model="product.weight" tabindex="0">
                     </div>
                   </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>Vendor</label>
+                      <select class="form-control" v-model="product.vendorId">
+                        <template v-for="vendor in vendors">
+                          <option :value="vendor.id">{{ vendor.name }}</option>
+                        </template>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -86,56 +96,56 @@
 </template>
 
 <style lang="less" scope>
-.panel-main {
-    padding-top: 15px;
-}
-.tabs-container {
-    margin-top: 20px;
-}
-textarea.form-control {
-    resize: none;
-    height: 152px;
-}
-.nav-tabs {
-    margin-bottom: 0 !important;
-}
-.control-row {
-    margin-bottom: 20px;
-}
+  .panel-main {
+      padding-top: 15px;
+  }
+  .tabs-container {
+      margin-top: 20px;
+  }
+  textarea.form-control {
+      resize: none;
+      height: 152px;
+  }
+  .nav-tabs {
+      margin-bottom: 0 !important;
+  }
+  .control-row {
+      margin-bottom: 20px;
+  }
 
-.tab-content {
-    margin-top: 1px;
-}
-.tab-pane {
-    padding: 10px 15px;
-    background-color: rgba(68, 70, 79, 0.5);
+  .tab-content {
+      margin-top: 1px;
+  }
+  .tab-pane {
+      padding: 10px 15px;
+      background-color: rgba(68, 70, 79, 0.5);
 
-    .panel {
-        &:first-child {
-            margin-top: 4px;
-        }
-        background-color: transparent;
-        border: 1px solid rgba(116, 124, 158, 0.2);
+      .panel {
+          &:first-child {
+              margin-top: 4px;
+          }
+          background-color: transparent;
+          border: 1px solid rgba(116, 124, 158, 0.2);
 
-        .panel-filled {
-            background-color: transparent;
-        }
-        .panel-heading {
-            background-color: transparent;
-            font-weight: bold;
-        }
-        .panel-body {
-            background-color: transparent;
-        }
-    }
-}
-a.thumbnail {
-    border: 2px solid transparent;
-    &:hover {
-        border-color: #f6a821;
-        transition: 300ms ease-in-out;
-    }
-}
+          .panel-filled {
+              background-color: transparent;
+          }
+          .panel-heading {
+              background-color: transparent;
+              font-weight: bold;
+          }
+          .panel-body {
+              background-color: transparent;
+          }
+      }
+  }
+  a.thumbnail {
+      border: 2px solid transparent;
+      &:hover {
+          border-color: #f6a821;
+          transition: 300ms ease-in-out;
+      }
+  }
 </style>
 
 <script>
@@ -159,6 +169,9 @@ export default {
     tab,
   },
   computed: {
+    vendors() {
+      return store.getters.vendors;
+    },
     id() {
       return parseInt(this.$route.params.id, 10);
     }
@@ -184,6 +197,10 @@ export default {
     });
     store.dispatch(Constants.GET_PRODUCT, {
       id: this.id,
+    });
+    store.dispatch(Constants.GET_VENDORS, {
+      skip: 0,
+      take: 1000,
     });
   }
 };

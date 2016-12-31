@@ -1,4 +1,4 @@
-const Constants = {
+export default {
   API_ROOT: 'https://inventory-api-dev.azurewebsites.net',
 
   SET_PROFILE: 'SET_PROFILE',
@@ -92,33 +92,43 @@ const Constants = {
   COUNT_INVENTORY_LOGS: 'COUNT_INVENTORY_LOGS',
   SET_INVENTORY_TRANSACTION_LOG_COUNT: 'SET_INVENTORY_TRANSACTION_LOG_COUNT',
 
-  permissions: [
-    'manageLocations',
-    'readLocations',
-    'upsertLocations',
-    'deleteLocations',
-    'everything',
-    'manageProducts',
-    'readProducts',
-    'upsertProducts',
-    'deleteProducts',
-    'receiveInventory',
-    'releaseInventory',
-    'manageInventory',
-    'manageVendors',
-    'readVendors',
-    'upsertVendors',
-    'deleteVendors',
-    'manageUsers',
-    'readUsers',
-    'upsertUsers',
-    'deleteUsers',
-    'manageWarehouses',
-    'readWarehouses',
-    'upsertWarehouses',
-    'deleteWarehouses',
-    'readReports'
-  ]
-};
+  GET_SALES_BY_PRODUCT: 'GET_SALES_BY_PRODUCT',
+  SET_SALES_BY_PRODUCT: 'SET_SALES_BY_PRODUCT',
+  GET_SALES_BY_TOTAL: 'GET_SALES_BY_TOTAL',
+  SET_SALES_BY_TOTAL: 'SET_SALES_BY_TOTAL',
+  GET_SALES_BY_VENDOR: 'GET_SALES_BY_VENDOR',
+  SET_SALES_BY_VENDOR: 'SET_SALES_BY_VENDOR',
 
-export default Constants;
+  permissions: {
+    EVERYTHING: 'everything',
+
+    MANAGE_INVENTORY: 'manageInventory',
+    MANAGE_LOCATIONS: 'manageLocations',
+    MANAGE_PRODUCTS: 'manageProducts',
+    MANAGE_USERS: 'manageUsers',
+    MANAGE_VENDORS: 'manageVendors',
+    MANAGE_WAREHOUSES: 'manageWarehouses',
+
+    READ_LOCATIONS: 'readLocations',
+    READ_PRODUCTS: 'readProducts',
+    READ_REPORTS: 'readReports',
+    READ_USERS: 'readUsers',
+    READ_VENDORS: 'readVendors',
+    READ_WAREHOUSES: 'readWarehouses',
+
+    UPSERT_LOCATIONS: 'upsertLocations',
+    UPSERT_PRODUCTS: 'upsertProducts',
+    UPSERT_USERS: 'upsertUsers',
+    UPSERT_VENDORS: 'upsertVendors',
+    UPSERT_WAREHOUSES: 'upsertWarehouses',
+
+    DELETE_LOCATIONS: 'deleteLocations',
+    DELETE_PRODUCTS: 'deleteProducts',
+    DELETE_USERS: 'deleteUsers',
+    DELETE_VENDORS: 'deleteVendors',
+    DELETE_WAREHOUSES: 'deleteWarehouses',
+
+    RECEIVE_INVENTORY: 'receiveInventory',
+    RELEASE_INVENTORY: 'releaseInventory',
+  }
+};
