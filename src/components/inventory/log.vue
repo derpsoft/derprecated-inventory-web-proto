@@ -20,12 +20,18 @@
             <th>Type</th>
             <th>Unit of Measure ID</th>
             <th>User ID </th>
+            <th>Date</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="log in logs">
             <td>{{log.id}}</td>
-            <td>{{log.name}}</td>
+            <td>{{log.productId}}</td>
+            <td>{{log.quantity}}</td>
+            <td>{{log.transactionType}}</td>
+            <td>{{log.unitOfMeasureId}}</td>
+            <td>{{log.userId}}</td>
+            <td>{{log.createDate | formatCreateDate}}</td>
           </tr>
         </tbody>
       </table>
@@ -43,6 +49,7 @@ table.log-list {
 </style>
 
 <script>
+import moment from 'moment';
 import Pagination from 'vue-bootstrap-pagination';
 import LogSearch from './search.vue';
 import Constants from '../../constants';
@@ -102,6 +109,11 @@ export default {
         take: pageSize,
       });
     },
+  },
+  filters: {
+    formatCreateDate(date) {
+      return moment(date).format('lll');
+    }
   },
 };
 </script>
