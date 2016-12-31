@@ -36,7 +36,8 @@
     "vue-strap": "yuche/vue-strap#v2",
     "vue-template-compiler": "^2.1.8",
     "vuex": "latest",
-    "vuex-router-sync": "latest"
+    "vuex-router-sync": "latest",
+    "webpack-merge": "latest",
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
@@ -92,7 +93,6 @@
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "latest",
     "webpack-hot-middleware": "latest",
-    "webpack-merge": "latest",
     "webpack-strip-logs": "latest"
   }
 }
