@@ -8,7 +8,7 @@
             <router-link class="btn btn-w-md btn-accent" :to="{path: '/warehouses/add'}">Add New Warehouse</router-link>
           </div>
           <div class="header-icon">
-            <i class="pe page-header-icon pe-7s-warehouses"></i>
+            <i class="pe page-header-icon pe-7s-home"></i>
           </div>
           <div class="header-title">
             <h3>Warehouses</h3>

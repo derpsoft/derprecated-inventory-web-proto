@@ -9,7 +9,7 @@
             <router-link class="btn btn-w-md btn-accent" :to="{path: '/inventory/dispatch'}">Dispatch</router-link>
           </div>
           <div class="header-icon">
-            <i class="pe page-header-icon pe-7s-inventory"></i>
+            <i class="pe page-header-icon pe-7s-box2"></i>
           </div>
           <div class="header-title">
             <h3>Inventory</h3>

@@ -8,7 +8,7 @@
             <router-link class="btn btn-w-md btn-accent" :to="{path: '/vendors/add'}">Add New Vendor</router-link>
           </div>
           <div class="header-icon">
-            <i class="pe page-header-icon pe-7s-vendors"></i>
+            <i class="pe page-header-icon pe-7s-culture"></i>
           </div>
           <div class="header-title">
             <h3>Vendors</h3>

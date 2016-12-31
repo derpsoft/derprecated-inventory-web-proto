@@ -48,7 +48,8 @@
     color: lighten(@color-placeholder, 8%);
   }
 
-  li.active a {
+  // vue 2.0 router work around (router-link)
+  li a.active {
     border-left: 6px solid @color-accent;
     padding-left: 19px;
     color: lighten(@color-placeholder, 30%);
@@ -77,5 +78,3 @@
 
 
 }
-
-
