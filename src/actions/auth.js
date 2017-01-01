@@ -257,6 +257,24 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
+  canReadLocations: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_LOCATIONS,
+      Permissions.READ_LOCATIONS,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
+  canUpsertLocations: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_LOCATIONS,
+      Permissions.UPSERT_LOCATIONS,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
   canReadCategories: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING,

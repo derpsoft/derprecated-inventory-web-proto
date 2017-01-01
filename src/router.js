@@ -20,6 +20,9 @@ import ModifyProducts from './components/products/modifyProduct.vue';
 import Warehouses from './components/warehouses/index.vue';
 import ModifyWarehouses from './components/warehouses/modifyWarehouses.vue';
 
+import Locations from './components/locations/index.vue';
+import SaveLocation from './components/locations/save.vue';
+
 import Users from './components/users/index.vue';
 import ModifyUsers from './components/users/modifyUser.vue';
 
@@ -166,6 +169,24 @@ const routes = [{
     meta: {
       requiresAuth: true,
     }
+  }, {
+    path: '/locations',
+    component: Locations,
+    meta: {
+      requiresAuth: true
+    },
+  }, {
+    path: '/locations/add',
+    component: SaveLocation,
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/locations/edit/:id',
+    component: SaveLocation,
+    meta: {
+      requiresAuth: true,
+    },
   }]
 }, {
   path: '*',

@@ -13,6 +13,9 @@ const guards = [
   'canReadWarehouses',
   'canUpsertWarehouses',
 
+  'canReadLocations',
+  'canUpsertLocations',
+
   'canReadCategories',
   'canUpsertCategories',
 ];
