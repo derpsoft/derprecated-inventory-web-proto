@@ -14,11 +14,7 @@
               <div class="form-group">
                 <label>Product</label>
 
-                <select class="form-control" v-model="productId">
-                  <template v-for="product in products">
-                    <option :value="product.id">{{ product.title }}</option>
-                  </template>
-                </select>
+                <autocomplete :suggestions="products" :key-selector="(v) => v.title" @change="setProductId"></autocomplete>
               </div>
 
               <div class="form-group">
@@ -41,8 +37,10 @@
 <script>
 import Constants from '../../constants';
 import store from '../../stores/store';
+import Autocomplete from '../autocomplete.vue';
 
 export default {
+  components: { Autocomplete },
   data() {
     return {
       productId: 0,
@@ -66,7 +64,10 @@ export default {
         locationId: this.locationId,
       };
       store.dispatch(Constants.DISPATCH_INVENTORY, xact);
-    }
+    },
+    setProductId(selected) {
+      this.productId = selected;
+    },
   },
 };
 </script>
