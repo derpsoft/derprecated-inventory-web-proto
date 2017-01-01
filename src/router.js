@@ -12,6 +12,7 @@ import Logout from './components/logout/index.vue';
 import Reports from './components/reports/index.vue';
 import Inventory from './components/inventory/index.vue';
 import ReceiveInventory from './components/inventory/receiveInventory.vue';
+import DispatchInventory from './components/inventory/dispatchInventory.vue';
 
 import Products from './components/products/index.vue';
 import ModifyProducts from './components/products/modifyProduct.vue';
@@ -156,6 +157,12 @@ const routes = [{
   }, {
     path: '/inventory/receive',
     component: ReceiveInventory,
+    meta: {
+      requiresAuth: true,
+    }
+  }, {
+    path: '/inventory/dispatch',
+    component: DispatchInventory,
     meta: {
       requiresAuth: true,
     }
