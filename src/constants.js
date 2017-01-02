@@ -143,5 +143,6 @@ export default {
 
     RECEIVE_INVENTORY: 'receiveInventory',
     RELEASE_INVENTORY: 'releaseInventory',
+    DISPATCH_INVENTORY: 'dispatchInventory',
   }
 };

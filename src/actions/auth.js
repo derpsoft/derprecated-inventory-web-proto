@@ -281,7 +281,7 @@ const GETTERS = {
       Permissions.MANAGE_CATEGORIES,
       Permissions.READ_CATEGORIES,
     ];
-    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+    return !!_.intersection(getters.currentUserPermissions, allowed).length && false;
   },
 
   canUpsertCategories: (state, getters) => {
@@ -289,6 +289,25 @@ const GETTERS = {
       Permissions.EVERYTHING,
       Permissions.MANAGE_CATEGORIES,
       Permissions.UPSERT_CATEGORIES,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length && false;
+  },
+
+  canReceiveInventory: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_INVENTORY,
+      Permissions.RECEIVE_INVENTORY,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
+  canDispatchInventory: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING,
+      Permissions.MANAGE_INVENTORY,
+      Permissions.DISPATCH_INVENTORY,
+      Permissions.RELEASE_INVENTORY,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
