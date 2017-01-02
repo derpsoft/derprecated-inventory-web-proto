@@ -17,18 +17,27 @@
                 <autocomplete
                   :suggestions="products"
                   :key-selector="(v) => `${v.sku} ${v.title} ${v.description} ${v.color}`"
+                  :value-selector="(v) => v"
                   :display-selector="(v) => `${v.sku}: ${v.title}`"
-                  @change="setProductId">
+                  @change="setProduct">
                 </autocomplete>
               </div>
 
               <div class="form-group">
                 <label>Quantity</label>
-                <input type="text" class="form-control" placeholder="Quantity" v-model="quantity">
+                <input type="number" class="form-control" placeholder="Quantity" v-model.number.lazy="quantity">
               </div>
 
               <div class="form-group">
-                <label>Location</label>
+                <label>Prices</label>
+                <template v-for="i in quantity">
+                  <input type="text" class="form-control" placeholder="Price" v-model.number.lazy="prices[i-1]">
+                </template>
+              </div>
+              </template>
+
+              <div class="form-group hide">
+                <label>From Location</label>
                 <input type="text" class="form-control" placeholder="Location" value="Shipping" disabled="disabled">
               </div>
             </div>
@@ -51,6 +60,8 @@ export default {
       productId: 0,
       locationId: 2,
       quantity: 0,
+      prices: [],
+      product: {},
     };
   },
   computed: {
@@ -64,14 +75,16 @@ export default {
   methods: {
     save() {
       const xact = {
-        quantity: -Math.abs(this.quantity),
-        productId: this.productId,
+        quantity: this.quantity,
+        productId: this.product.id,
         locationId: this.locationId,
+        prices: JSON.parse(JSON.stringify(this.prices)),
+        vendorId: 1,
       };
       store.dispatch(Constants.DISPATCH_INVENTORY, xact);
     },
-    setProductId(selected) {
-      this.productId = selected;
+    setProduct(selected) {
+      this.product = selected;
     },
   },
 };
