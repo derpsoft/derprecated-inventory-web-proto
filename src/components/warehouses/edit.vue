@@ -53,7 +53,7 @@ export default {
       });
     }
   },
-  created() {
+  mounted() {
     store.watch(() => store.getters.warehouse, (current) => {
       this.warehouse = Object.assign({}, current);
     });

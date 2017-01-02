@@ -40,20 +40,16 @@ import VendorEdit from './edit.vue';
 
 export default {
   data() {
-    return {
-      isAdd: false,
-    };
+    return {};
+  },
+  computed: {
+    isAdd() {
+      return this.$route && ~this.$route.path.indexOf('add');
+    },
   },
   components: {
     VendorAdd,
     VendorEdit,
-  },
-  mounted() {
-    if (this.$route && this.$route.path.indexOf('add') > -1) {
-      this.isAdd = true;
-    } else {
-      this.isAdd = false;
-    }
   },
 };
 </script>

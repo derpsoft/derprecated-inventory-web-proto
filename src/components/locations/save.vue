@@ -34,16 +34,16 @@ import LocationEdit from './edit.vue';
 export default {
   name: 'saveLocationView',
   data() {
-    return {
-      isAdd: false,
-    };
+    return {};
+  },
+  computed: {
+    isAdd() {
+      return this.$route && ~this.$route.path.indexOf('add');
+    },
   },
   components: {
     LocationAdd,
     LocationEdit,
-  },
-  mounted() {
-    this.isAdd = this.$route && ~this.$route.path.indexOf('add');
   },
 };
 </script>
