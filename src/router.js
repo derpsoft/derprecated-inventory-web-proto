@@ -12,12 +12,16 @@ import Logout from './components/logout/index.vue';
 import Reports from './components/reports/index.vue';
 import Inventory from './components/inventory/index.vue';
 import ReceiveInventory from './components/inventory/receiveInventory.vue';
+import DispatchInventory from './components/inventory/dispatchInventory.vue';
 
 import Products from './components/products/index.vue';
 import ModifyProducts from './components/products/modifyProduct.vue';
 
 import Warehouses from './components/warehouses/index.vue';
 import ModifyWarehouses from './components/warehouses/modifyWarehouses.vue';
+
+import Locations from './components/locations/index.vue';
+import SaveLocation from './components/locations/save.vue';
 
 import Users from './components/users/index.vue';
 import ModifyUsers from './components/users/modifyUser.vue';
@@ -32,6 +36,16 @@ import Constants from './constants';
 import store from './stores/store';
 
 const Permissions = Constants.permissions;
+
+const guard = (g) => {
+  return (to, from, next) => {
+    if (store.getters[g]) {
+      return next();
+    }
+    // do something to tell the user that they're not allowed;
+    return next(false);
+  };
+};
 
 const routes = [{
   path: '/login',
@@ -60,18 +74,21 @@ const routes = [{
   }, {
     path: '/users',
     component: Users,
+    beforeEnter: guard('canReadUsers'),
     meta: {
       requiresAuth: true,
     },
   }, {
     path: '/users/add',
     component: ModifyUsers,
+    beforeEnter: guard('canUpsertUsers'),
     meta: {
       requiresAuth: true,
     },
   }, {
     path: '/users/edit/:id',
     component: ModifyUsers,
+    beforeEnter: guard('canUpsertUsers'),
     meta: {
       requiresAuth: true,
     },
@@ -84,36 +101,42 @@ const routes = [{
   }, {
     path: '/products',
     component: Products,
+    beforeEnter: guard('canReadProducts'),
     meta: {
       requiresAuth: true,
     },
   }, {
     path: '/products/add',
     component: ModifyProducts,
+    beforeEnter: guard('canUpsertProducts'),
     meta: {
       requiresAuth: true,
     },
   }, {
     path: '/products/edit/:id',
     component: ModifyProducts,
+    beforeEnter: guard('canUpsertProducts'),
     meta: {
       requiresAuth: true,
     },
   }, {
     path: '/warehouses',
     component: Warehouses,
+    beforeEnter: guard('canReadWarehouses'),
     meta: {
       requiresAuth: true,
     },
   }, {
     path: '/warehouses/add',
     component: ModifyWarehouses,
+    beforeEnter: guard('canUpsertWarehouses'),
     meta: {
       requiresAuth: true,
     },
   }, {
     path: '/warehouses/edit/:id',
     component: ModifyWarehouses,
+    beforeEnter: guard('canUpsertWarehouses'),
     meta: {
       requiresAuth: true,
     },
@@ -132,18 +155,21 @@ const routes = [{
   }, {
     path: '/vendors',
     component: Vendors,
+    beforeEnter: guard('canReadVendors'),
     meta: {
       requiresAuth: true,
     },
   }, {
     path: '/vendors/add',
     component: ModifyVendors,
+    beforeEnter: guard('canUpsertVendors'),
     meta: {
       requiresAuth: true,
     },
   }, {
     path: '/vendors/edit/:id',
     component: ModifyVendors,
+    beforeEnter: guard('canUpsertVendors'),
     meta: {
       requiresAuth: true,
     },
@@ -156,9 +182,38 @@ const routes = [{
   }, {
     path: '/inventory/receive',
     component: ReceiveInventory,
+    beforeEnter: guard('canReceiveInventory'),
     meta: {
       requiresAuth: true,
     }
+  }, {
+    path: '/inventory/dispatch',
+    component: DispatchInventory,
+    beforeEnter: guard('canDispatchInventory'),
+    meta: {
+      requiresAuth: true,
+    }
+  }, {
+    path: '/locations',
+    component: Locations,
+    beforeEnter: guard('canReadLocations'),
+    meta: {
+      requiresAuth: true
+    },
+  }, {
+    path: '/locations/add',
+    component: SaveLocation,
+    beforeEnter: guard('canUpsertLocations'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/locations/edit/:id',
+    component: SaveLocation,
+    beforeEnter: guard('canUpsertLocations'),
+    meta: {
+      requiresAuth: true,
+    },
   }]
 }, {
   path: '*',

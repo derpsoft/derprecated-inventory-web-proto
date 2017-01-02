@@ -39,14 +39,20 @@ function receiveInventory({
 
 function dispatchInventory({ commit }, {
   productId,
+  locationId,
   quantity
 }) {
   new InventoryApi()
     .dispatchInventory({
       productId,
+      locationId,
       quantity
     })
-    .then(() => {})
+    .then(q => commit(Constants.SET_QUANTITY_ON_HAND, {
+      quantity: q.quantity,
+      productId,
+      locationId,
+    }))
     .catch(e => log.error(e));
 }
 

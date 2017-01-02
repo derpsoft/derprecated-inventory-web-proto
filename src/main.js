@@ -8,6 +8,7 @@ import store from './stores/store';
 import App from './components/app.vue';
 import Directives from './directives';
 import router from './router';
+import Constants from './constants';
 
 Vue.use(VueRouter);
 
@@ -24,3 +25,5 @@ new Vue({
   router,
   render: h => h(App)
 });
+
+store.dispatch(Constants.GET_PROFILE);
