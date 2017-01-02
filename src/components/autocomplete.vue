@@ -2,7 +2,7 @@
 <div style="position:relative" :class="{'open':openSuggestion}">
   <input class="form-control" type="text" v-model="query" @keydown.enter='enter' @keydown.down='down' @keydown.up='up' @input='change' />
   <ul class="dropdown-menu" style="width:100%">
-    <li v-for="(suggestion, index) in keys" :class="{'active': isActive(index)}" @click="suggestionClick(index)">
+    <li v-for="(suggestion, index) in displays" :class="{'active': isActive(index)}" @click="suggestionClick(index)">
       <a>{{ suggestion }}</a>
     </li>
   </ul>
@@ -26,13 +26,19 @@ export default {
     keySelector: {
       type: Function,
       required: false,
-      default: (v, k) => k,
+      default: JSON.stringify,
     },
 
     valueSelector: {
       type: Function,
       required: false,
       default: v => v.id,
+    },
+
+    displaySelector: {
+      type: Function,
+      required: false,
+      default: JSON.stringify,
     },
 
     suggestions: {
@@ -52,6 +58,10 @@ export default {
 
     values() {
       return this.matches.map(this.valueSelector);
+    },
+
+    displays() {
+      return this.matches.map(this.displaySelector);
     },
 
     openSuggestion() {
@@ -88,10 +98,10 @@ export default {
     },
 
     suggestionClick(index) {
-      const key = this.keys[index];
       const value = this.values[index];
+      const display = this.displays[index];
       this.open = false;
-      this.query = key;
+      this.query = display;
       this.$emit('change', value);
     },
   }

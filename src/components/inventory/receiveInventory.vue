@@ -14,7 +14,12 @@
               <div class="form-group">
                 <label>Product</label>
 
-                <autocomplete :suggestions="products" :key-selector="(v) => v.title" @change="setProductId"></autocomplete>
+                <autocomplete
+                  :suggestions="products"
+                  :key-selector="(v) => `${v.sku} ${v.title} ${v.description} ${v.color}`"
+                  :display-selector="(v) => `${v.sku}: ${v.title}`"
+                  @change="setProductId">
+                </autocomplete>
               </div>
 
               <div class="form-group">
