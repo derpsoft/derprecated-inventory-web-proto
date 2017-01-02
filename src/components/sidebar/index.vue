@@ -15,7 +15,7 @@
         <router-link :to="{ path: '/reports', activeClass: 'active' }" active-class="active">Reports</router-link>
       </li>
 
-      <li class="nav-category" v-can-read-products v-can-read-categories v-can-read-warehouses v-can-read-vendors v-can-read-users>
+      <li class="nav-category" v-can-any="{ term: 'or', guards: ['canReadProducts', 'canReadCategories', 'canReadWarehouses', 'canReadLocations', 'canReadVendors', 'canReadUsers'] }">
         Admin
       </li>
       <li v-can-read-products>
