@@ -7,9 +7,10 @@ function getWarehouse({
 }, {
   id
 }) {
-  new WarehouseApi().retrieve(id)
-  .then(warehouse => commit(Constants.SET_WAREHOUSE, warehouse))
-  .catch(e => log.error(e));
+  new WarehouseApi()
+    .single(id)
+    .then(warehouse => commit(Constants.SET_WAREHOUSE, warehouse))
+    .catch(e => log.error(e));
 }
 
 function createWarehouse({

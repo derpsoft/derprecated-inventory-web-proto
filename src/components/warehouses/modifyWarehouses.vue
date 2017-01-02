@@ -34,20 +34,16 @@ import WarehouseEdit from './edit.vue';
 export default {
   name: 'modifyWarehouseView',
   data() {
-    return {
-      isAdd: false,
-    };
+    return {};
+  },
+  computed: {
+    isAdd() {
+      return this.$route && ~this.$route.path.indexOf('add');
+    },
   },
   components: {
     WarehouseAdd,
     WarehouseEdit,
-  },
-  mounted() {
-    if (this.$route && this.$route.path.indexOf('add') > -1) {
-      this.isAdd = true;
-    } else {
-      this.isAdd = false;
-    }
   },
 };
 </script>

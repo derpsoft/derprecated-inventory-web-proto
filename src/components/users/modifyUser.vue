@@ -35,20 +35,16 @@ import userEdit from './edit.vue';
 export default {
   name: 'modifyUserView',
   data() {
-    return {
-      isAdd: true,
-    };
+    return {};
+  },
+  computed: {
+    isAdd() {
+      return this.$route && ~this.$route.path.indexOf('add');
+    },
   },
   components: {
     userAdd,
     userEdit,
   },
-  mounted() {
-    if (this.$route && this.$route.path.indexOf('add') > -1) {
-      this.isAdd = true;
-    } else {
-      this.isAdd = false;
-    }
-  }
 };
 </script>
