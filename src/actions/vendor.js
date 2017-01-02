@@ -8,7 +8,7 @@ function getVendor({
   id
 }) {
   new VendorApi()
-    .retrieve(id)
+    .single(id)
     .then(vendor => commit(Constants.SET_VENDOR, vendor))
     .catch(e => log.error(e));
 }
