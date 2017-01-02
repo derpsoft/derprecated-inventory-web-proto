@@ -111,6 +111,7 @@ export default {
   SET_SALES_BY_TOTAL: 'SET_SALES_BY_TOTAL',
   GET_SALES_BY_VENDOR: 'GET_SALES_BY_VENDOR',
   SET_SALES_BY_VENDOR: 'SET_SALES_BY_VENDOR',
+  LOG_SALE: 'LOG_SALE',
 
   permissions: {
     EVERYTHING: 'everything',
