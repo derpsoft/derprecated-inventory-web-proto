@@ -41,7 +41,8 @@ class InventoryApi extends Fetchable {
     if (xact.quantity >= 0) {
       throw new Error('quantity must be <= 0');
     }
-    return this._createTransaction(xact);
+    return this._createTransaction(xact)
+    .then(res => res.inventoryTransaction);
   }
 
   getLogs(skip = 0, take = 25) {

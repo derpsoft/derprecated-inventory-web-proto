@@ -58,7 +58,7 @@ function dispatchInventory({ commit, dispatch }, {
           locationId,
           vendorId,
           inventoryTransactionId: q.id,
-          price: prices[i]
+          total: prices[i]
         });
       }
       commit(Constants.SET_QUANTITY_ON_HAND, {
