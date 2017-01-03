@@ -34,7 +34,7 @@
     "vue-router": "latest",
     "vue-strap": "yuche/vue-strap#v2",
     "vue-template-compiler": "latest",
-    "vue-toastr": "^2.0.5",
+    "vue-toastr": "allentong/vue-toastr",
     "vuex": "latest",
     "vuex-router-sync": "latest"
   },

@@ -1,6 +1,6 @@
 <template>
 <form action="index.html" id="loginForm" novalidate>
-  <div v-if="error">ERROR</div>
+  <div v-if="error"></div>
   <div class="form-group">
     <label class="control-label" for="username">Username</label>
     <input v-model="username" type="text" placeholder="Email" title="User Name" value="" name="username" id="username" class="form-control">
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-// import Toastr from 'toastr';
 import Constants from '../../constants';
 
 export default {
@@ -47,16 +46,8 @@ export default {
       });
     },
     showError() {
-      this.$parent.$refs.toast.e('test');
-      // Toastr.error('Incorrect user name and/or password.');
-      // this.$parent.$parent.$refs.toastr.Add({
-      //   msg: 'Incorrect user name and/or password.',
-      //   clickClose: true,
-      //   timeout: 2000,
-      //   position: 'toast-top-full-width',
-      //   type: 'error'
-      // });
-      // this.$parent.$parent.$refs.toastr.e();
+      this.$toastr.error('Incorrect username/password combination.');
+      this.$store.dispatch(Constants.CLEAR_LOGIN_ERROR);
     }
   },
 };

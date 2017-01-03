@@ -12,6 +12,12 @@ function clear({
   commit(Constants.CLEAR_SESSION);
 }
 
+function clearLoginError({
+  commit
+}) {
+  commit(Constants.LOGIN_FAILED, false);
+}
+
 function login({
   dispatch,
   commit
@@ -25,18 +31,18 @@ function login({
         commit(Constants.SET_SESSION, json);
         dispatch(Constants.GET_PROFILE);
       } else {
-        commit(Constants.LOGIN_FAILED);
+        commit(Constants.LOGIN_FAILED, true);
         clear({
           dispatch,
           commit
         });
       }
     })
-    .catch((e) => {
+    .catch(() => {
       clear({
         commit
       });
-      commit(Constants.LOGIN_FAILED, e);
+      commit(Constants.LOGIN_FAILED, true);
     });
 }
 
@@ -154,6 +160,7 @@ const ACTIONS = {
   [Constants.LOGOUT]: logout,
   [Constants.REGISTER]: register,
   [Constants.FORGOT_PASSWORD]: forgotPassword,
+  [Constants.CLEAR_LOGIN_ERROR]: clearLoginError,
   // [Constants.REGISTRATIONFAILED]:
 };
 
@@ -175,8 +182,8 @@ const MUTATIONS = {
   [Constants.CLEAR_PROFILE]: (state) => {
     state.profile = {};
   },
-  [Constants.LOGIN_FAILED]: (state) => {
-    state.login.error = true;
+  [Constants.LOGIN_FAILED]: (state, value) => {
+    state.login.error = value;
   },
 };
 
@@ -185,17 +192,14 @@ const GETTERS = {
     return state.session.isAuthenticated;
   },
   profile: (state) => {
-    return state.user;
+    return state.profile;
   },
   loginError: (state) => {
     return state.login.error;
-  }
-    return state.profile;
   },
   currentUserPermissions: (state) => {
     return (state.profile || {}).permissions;
   },
-
   canReadUsers: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING,

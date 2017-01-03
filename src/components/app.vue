@@ -5,10 +5,9 @@
 </template>
 
 <script>
-// import Toastr from 'vue-toastr';
 import Pace from 'pace-progress';
-import 'vue-toastr/src/vue-toastr.less';
 import 'bootstrap/less/bootstrap.less';
+import 'toastr/toastr.less';
 import 'font-awesome/css/font-awesome.css';
 import '../assets/stylesheets/style.less';
 

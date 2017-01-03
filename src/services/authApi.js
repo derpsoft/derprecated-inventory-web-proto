@@ -40,14 +40,7 @@ class AuthApi extends Fetchable {
     })
     .then(res => res.json())
     .then((json) => {
-      let user = {};
-
-      if (json.errors && json.errors.length) {
-        user = this.setUser(json).push({ isError: true });
-      } else {
-        user = this.setUser(json);
-      }
-      return user;
+      return this.setUser(json);
     });
   }
 

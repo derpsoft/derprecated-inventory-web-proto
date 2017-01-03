@@ -1,6 +1,5 @@
 <template>
 <section class="content" id="login">
-  <vue-toastr ref="toast"></vue-toastr>
   <div class="container-center animated slideInDown">
     <div class="view-header">
       <div class="header-icon">
