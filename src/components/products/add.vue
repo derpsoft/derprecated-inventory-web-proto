@@ -144,7 +144,7 @@ export default {
   methods: {
     save() {
       const product = JSON.parse(JSON.stringify(this.product));
-      this.$store.dispatch(Constants.CREATE_PRODUCT, {
+      this.$store.dispatch(Constants.SAVE_PRODUCT, {
         product
       });
     },
