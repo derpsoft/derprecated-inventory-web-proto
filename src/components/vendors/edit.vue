@@ -7,14 +7,10 @@
         <h4>Vendor Details</h4>
       </div>
     </div>
-    <div class="panel panel-filled panel-main">
-      <div class="panel-body">
-        <div class="form-group" :class="{'has-error': errors.has('vendorName')}">
-          <label>Name</label>
-          <input type="text" class="form-control" placeholder="Name" name="vendorName" v-model="vendor.name" v-validate.initial="vendor.name" data-vv-rules="required">
-          <span v-show="errors.has('vendorName')" class="help-block">{{ errors.first('vendorName') }}</span>
-        </div>
-      </div>
+  </div>
+  <div class="panel panel-filled panel-main">
+    <div class="panel-body">
+      <vendor-form :vendor="vendor" @change="setVendor"></vendor-form>
     </div>
   </form>
 </div>
@@ -22,11 +18,15 @@
 
 <script>
 import Constants from '../../constants';
+import store from '../../stores/store';
+import VendorForm from './form.vue';
 
 export default {
+  components: { VendorForm },
   data() {
     return {
       vendor: {},
+      isValid: false,
     };
   },
   computed: {
@@ -43,26 +43,27 @@ export default {
         id: this.id,
       });
     },
-    validate() {
-      this.$validator.validateAll().then((success) => {
-        if (!success) {
-          return;
-        }
-        this.save();
-      });
-    },
     save() {
-      const vendor = JSON.parse(JSON.stringify(this.vendor));
-      vendor.id = this.id;
-      this.$store.dispatch(Constants.SAVE_VENDOR, {
-        vendor
-      });
-    }
+      if(this.isValid) {
+        const vendor = JSON.parse(JSON.stringify(this.vendor));
+        vendor.id = this.id;
+        this.$store.dispatch(Constants.SAVE_VENDOR, {
+          vendor
+        });
+      }
+    },
+    setVendor(v) {
+      this.vendor = Object.assign({}, this.vendor, v);
+    },
+    setValid(flag) {
+      this.isValid = flag;
+    },
   },
-  created() {
-    this.$store.watch(() => this.$store.getters.vendor, (current) => {
-      this.vendor = Object.assign({}, current);
-    });
+  mounted() {
+    store.watch(
+      () => store.getters.vendor,
+      v => this.setVendor(v)
+    );
     this.load();
   }
 };
