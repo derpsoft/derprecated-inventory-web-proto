@@ -44,10 +44,10 @@ export default {
   },
   computed: {
     email() {
-      return this.$route.query.email;
+      return this.$route.params.email;
     },
     token() {
-      return this.$route.query.token;
+      return this.$route.params.token;
     }
   },
   watch: {
