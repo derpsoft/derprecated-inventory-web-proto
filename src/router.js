@@ -3,7 +3,9 @@ import VueRouter from 'vue-router';
 import Main from './components/main.vue';
 import Dashboard from './components/dashboard/index.vue';
 
-import ForgotPassword from './components/forgotPassword/index.vue';
+import ForgotPassword from './components/password/forgot.vue';
+import ResetPassword from './components/password/reset.vue';
+
 import Profile from './components/profile/index.vue';
 import Register from './components/registration/index.vue';
 import Login from './components/login/index.vue';
@@ -56,6 +58,9 @@ const routes = [{
 }, {
   path: '/forgot-password',
   component: ForgotPassword,
+}, {
+  path: '/reset-password',
+  component: ResetPassword,
 }, {
   path: '/logout',
   component: Logout,

@@ -96,6 +96,16 @@ function forgotPassword(state, {
     .then(() => {});
 }
 
+function resetPassword(state, {
+  email,
+  password,
+  passwordRepeat,
+  token
+}) {
+  new AuthApi().resetPassword(email, token, password, passwordRepeat)
+    .then(() => {});
+}
+
 /*
 this is a temporary mechanism to keep the user logged in beyond
 just the current pageload. might be worth keeping around,
@@ -150,6 +160,7 @@ const ACTIONS = {
   [Constants.LOGOUT]: logout,
   [Constants.REGISTER]: register,
   [Constants.FORGOT_PASSWORD]: forgotPassword,
+  [Constants.RESET_PASSWORD]: resetPassword,
   // [Constants.REGISTRATIONFAILED]:
   // [Constants.LOGIN_FAILED]:
 };

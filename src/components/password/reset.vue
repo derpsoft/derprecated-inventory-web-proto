@@ -1,0 +1,70 @@
+<template>
+<div class="container-center animated slideInDown">
+  <div class="view-header">
+    <div class="header-icon">
+      <i class="pe page-header-icon pe-7s-id"></i>
+    </div>
+    <div class="header-title">
+      <h2>Reset password</h2>
+      <small>
+        Please enter your new password.
+      </small>
+    </div>
+  </div>
+  <div class="panel panel-filled">
+    <div class="panel-body">
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="control-label" for="email">New Password</label>
+          <input type="password" placeholder="Password" title="Please enter your new password" required value="" name="password" id="password" class="form-control" tabindex="0" autocomplete="off" v-model="password">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="email">Repeat New Password</label>
+          <input type="password" placeholder="Repeat" title="Please reenter your new password" required value="" name="password-repeat" id="password-repeat" class="form-control" tabindex="0" autocomplete="off" v-model="passwordRepeat">
+        </div>
+        <div>
+          <button class="btn btn-accent" type="submit" v-on:click.prevent="save">Save password</button>
+          <router-link class="btn btn-default" :to="{ path: '/login' }">Cancel</router-link>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+import Constants from '../../constants';
+
+export default {
+  name: 'resetPasswordView',
+  data() {
+    return {
+      password: '',
+      passwordRepeat: '',
+    };
+  },
+  computed: {
+    email() {
+      return this.$route.query.email;
+    },
+    token() {
+      return this.$route.query.token;
+    }
+  },
+  watch: {
+    $route: 'load'
+  },
+  methods: {
+    load() {
+
+    },
+    save() {
+      this.$store.dispatch(Constants.RESET_PASSWORD, {
+        email: this.email,
+        password: this.password,
+        passwordRepeat: this.passwordRepeat,
+        token: this.token,
+      });
+    },
+  },
+};
+</script>
