@@ -51,17 +51,6 @@
             </div>
           </div>
         </div>
-
-        <!-- <div class="row" v-if="product.images">
-          <div class="col-lg-12">
-            <h5>Gallery</h5>
-          </div>
-          <div class="col-lg-1 thumb" v-for="image in product.images">
-            <a class="thumbnail" href="#" @click.prevent="updateImage(image.source)">
-              <img class="img-responsive" :src="image.sourceUrl" alt="">
-            </a>
-          </div>
-        </div> -->
       </form>
     </div>
   </div>
@@ -127,14 +116,12 @@ import {
   tab
 } from 'vue-strap';
 import Constants from '../../constants';
-// import store from '../../stores/store';
 
 export default {
   name: 'productsAdd',
   data() {
     return {
       product: {},
-      // displayImage: null,
     };
   },
   components: {
@@ -148,9 +135,6 @@ export default {
         product
       });
     },
-    // updateImage(img) {
-    //   // this.displayImage = img;
-    // },
   },
 };
 </script>

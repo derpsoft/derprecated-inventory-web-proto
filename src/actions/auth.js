@@ -31,7 +31,6 @@ function login({
         commit(Constants.SET_SESSION, json);
         dispatch(Constants.GET_PROFILE);
       } else {
-        commit(Constants.LOGIN_FAILED, true);
         clear({
           dispatch,
           commit
@@ -42,7 +41,10 @@ function login({
       clear({
         commit
       });
-      commit(Constants.LOGIN_FAILED, true);
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Incorrect username/password combination.'
+      });
     });
 }
 
@@ -92,15 +94,23 @@ function register({
       }
     })
     .catch((e) => {
-      dispatch(Constants.REGISTRATION_FAILED, e);
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Registration failed.'
+      });
+      log.error(e);
     });
 }
 
-function forgotPassword(state, {
+function forgotPassword({
+  commit
+}, {
   email
 }) {
   new AuthApi().forgotPassword(email)
-    .then(() => {});
+    .then(() => {
+      commit(Constants.SET_PASSWORD_RESET_STATUS, true);
+    });
 }
 
 /*
@@ -142,6 +152,9 @@ const INITIAL_STATE = {
   login: {
     error: false,
   },
+  resetPassword: {
+    isSuccess: false
+  },
   profile: {
     userName: '',
     displayName: '',
@@ -161,7 +174,6 @@ const ACTIONS = {
   [Constants.REGISTER]: register,
   [Constants.FORGOT_PASSWORD]: forgotPassword,
   [Constants.CLEAR_LOGIN_ERROR]: clearLoginError,
-  // [Constants.REGISTRATIONFAILED]:
 };
 
 const MUTATIONS = {
@@ -185,6 +197,9 @@ const MUTATIONS = {
   [Constants.LOGIN_FAILED]: (state, value) => {
     state.login.error = value;
   },
+  [Constants.SET_PASSWORD_RESET_STATUS]: (state, value) => {
+    state.resetPassword.isSuccess = value;
+  },
 };
 
 const GETTERS = {
@@ -196,6 +211,9 @@ const GETTERS = {
   },
   loginError: (state) => {
     return state.login.error;
+  },
+  isResetPasswordSuccess: (state) => {
+    return state.resetPassword.isSuccess;
   },
   currentUserPermissions: (state) => {
     return (state.profile || {}).permissions;

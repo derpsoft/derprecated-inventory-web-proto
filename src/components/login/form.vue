@@ -1,6 +1,5 @@
 <template>
 <form action="index.html" id="loginForm" novalidate>
-  <div v-if="error"></div>
   <div class="form-group">
     <label class="control-label" for="username">Username</label>
     <input v-model="username" type="text" placeholder="Email" title="User Name" value="" name="username" id="username" class="form-control">
@@ -21,6 +20,12 @@
 </form>
 </template>
 
+<style lang="less" scoped>
+.alert {
+    margin-top: 10px;
+}
+</style>
+
 <script>
 import Constants from '../../constants';
 
@@ -32,12 +37,6 @@ export default {
       password: '',
     };
   },
-  computed: {
-    error() {
-      this.showError();
-      return this.$store.getters.loginError;
-    }
-  },
   methods: {
     login() {
       this.$store.dispatch(Constants.LOGIN, {
@@ -45,10 +44,6 @@ export default {
         password: this.password
       });
     },
-    showError() {
-      this.$toastr.error('Incorrect username/password combination.');
-      this.$store.dispatch(Constants.CLEAR_LOGIN_ERROR);
-    }
   },
 };
 </script>

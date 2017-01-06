@@ -7,6 +7,7 @@ import PermissionActions from './permission';
 import InventoryActions from './inventory';
 import ReportActions from './report';
 import LocationActions from './location';
+import ToastrActions from './toastr';
 
 module.exports = [
   AuthActions,
@@ -18,4 +19,5 @@ module.exports = [
   InventoryActions,
   ReportActions,
   LocationActions,
+  ToastrActions,
 ];
