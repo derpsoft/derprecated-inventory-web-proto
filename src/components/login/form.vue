@@ -1,17 +1,19 @@
 <template>
-<form action="index.html" id="loginForm" novalidate>
-  <div class="form-group">
+<form id="loginForm" @submit.prevent="validate">
+  <div class="form-group" :class="{'has-error': errors.has('username')}">
     <label class="control-label" for="username">Username</label>
-    <input v-model="username" type="text" placeholder="Email" title="User Name" value="" name="username" id="username" class="form-control">
+    <input v-model="username" type="text" placeholder="Email" title="User Name" name="username" id="username" class="form-control" v-validate.initial="username" data-vv-rules="required|email" >
     <span class="help-block small">Your unique username to app</span>
+    <span v-show="errors.has('username')" class="has-error">{{ errors.first('username') }}</span>
   </div>
-  <div class="form-group">
+  <div class="form-group" :class="{'has-error': errors.has('password')}">
     <label class="control-label" for="password">Password</label>
-    <input v-model="password" type="password" title="Please enter your password" placeholder="Password" value="" name="password" id="password" class="form-control">
+    <input v-model="password" type="password" title="Please enter your password" placeholder="Password" name="password" id="password" class="form-control" v-validate.initial="password" data-vv-rules="required">
     <span class="help-block small">Your strong password</span>
+    <span v-show="errors.has('password')" class="has-error">{{ errors.first('password') }}</span>
   </div>
   <div>
-    <button type="submit" class="btn btn-accent" @click.stop.prevent="login()">Login</button>
+    <button type="submit" class="btn btn-accent">Login</button>
     <div class="pull-right">
       <router-link class="btn btn-link" :to="{path: '/register'}">Register</router-link>
       <router-link class="btn btn-link" :to="{path: '/forgot-password'}">Forgot Password?</router-link>
@@ -32,6 +34,14 @@ export default {
     };
   },
   methods: {
+    validate() {
+      this.$validator.validateAll().then((success) => {
+        if (!success) {
+          return;
+        }
+        this.login();
+      });
+    },
     login() {
       this.$store.dispatch(Constants.LOGIN, {
         username: this.username,
