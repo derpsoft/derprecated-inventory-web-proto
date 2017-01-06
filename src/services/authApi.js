@@ -85,6 +85,13 @@ class AuthApi extends Fetchable {
         return json;
       });
   }
+
+  resetPassword(email, token, password, passwordRepeat) {
+    return super.post('/api/v1/password/reset', {
+      body: this.toForm({ email, token, password, passwordRepeat })
+    })
+      .then(res => res.json());
+  }
 }
 
 export default AuthApi;
