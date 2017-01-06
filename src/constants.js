@@ -1,5 +1,7 @@
+import config from '../config';
+
 export default {
-  API_ROOT: 'https://inventory-api-dev.azurewebsites.net',
+  API_ROOT: process.env.NODE_ENV === 'production' ? config.build.api : config.dev.api,
 
   SET_PROFILE: 'SET_PROFILE',
   GET_PROFILE: 'GET_PROFILE',
