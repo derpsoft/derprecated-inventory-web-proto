@@ -1,23 +1,22 @@
 <template>
 <div>
-  <div class="row control-row">
-    <div class="col-md-12">
-      <button class="btn btn-primary pull-right" @click="save">Save</button>
-      <h4>New Warehouse Details</h4>
+  <form id="warehouse-add-form" @submit.prevent="validate">
+    <div class="row control-row">
+      <div class="col-md-12">
+        <button class="btn btn-primary pull-right" type="submit">Create Warehouse</button>
+        <h4>Warehouse Details</h4>
+      </div>
     </div>
-  </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-      <form>
-        <div class="media">
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" placeholder="Name" v-model="warehouse.name">
-          </div>
+    <div class="panel panel-filled panel-main">
+      <div class="panel-body">
+        <div class="form-group" :class="{'has-error': errors.has('warehouseName')}">
+          <label>Name</label>
+          <input type="text" class="form-control" placeholder="Name" name="warehouseName" v-model="warehouse.name" v-validate.initial="warehouse.name" data-vv-rules="required">
+          <span v-show="errors.has('warehouseName')" class="help-block">{{ errors.first('warehouseName') }}</span>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
+  </form>
 </div>
 </template>
 
@@ -32,6 +31,14 @@ export default {
     };
   },
   methods: {
+    validate() {
+      this.$validator.validateAll().then((success) => {
+        if (!success) {
+          return;
+        }
+        this.save();
+      });
+    },
     save() {
       const warehouse = JSON.parse(JSON.stringify(this.warehouse));
       warehouse.id = this.id;
