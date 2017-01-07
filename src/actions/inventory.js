@@ -141,10 +141,6 @@ function getInventoryLogs({
     .getLogs(skip, take)
     .then((response) => {
       commit(Constants.SET_INVENTORY_TRANSACTION_LOGS, response.results);
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'success',
-        message: 'Successfully retrieving inventory logs.'
-      });
     })
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {
