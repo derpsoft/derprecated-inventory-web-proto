@@ -1,23 +1,24 @@
 <template>
 <div>
-  <div class="row control-row">
-    <div class="col-md-12">
-      <button class="btn btn-primary pull-right" @click="save">Save</button>
-      <h4>Location Details</h4>
+  <form id="location-edit-form" @submit.prevent="validate">
+    <div class="row control-row">
+      <div class="col-md-12">
+        <button class="btn btn-primary pull-right" type="submit">Save</button>
+        <h4>Location Details</h4>
+      </div>
     </div>
-  </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-      <form>
+    <div class="panel panel-filled panel-main">
+      <div class="panel-body">
         <div class="media">
-          <div class="form-group">
+          <div class="form-group" :class="{'has-error': errors.has('locationName')}">
             <label>Name</label>
-            <input type="text" class="form-control" placeholder="Name" v-model="location.name">
+            <input type="text" name="locationName" class="form-control" placeholder="Name" v-model="location.name" v-validate.initial="location.name" data-vv-rules="required">
+            <span v-show="errors.has('locationName')" class="help-block">Location Name is required.</span>
           </div>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
+  </form>
 </div>
 </template>
 
@@ -43,6 +44,14 @@ export default {
     load() {
       store.dispatch(Constants.GET_LOCATION, {
         id: this.id,
+      });
+    },
+    validate() {
+      this.$validator.validateAll().then((success) => {
+        if (!success) {
+          return;
+        }
+        this.save();
       });
     },
     save() {

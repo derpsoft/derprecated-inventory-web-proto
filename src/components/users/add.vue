@@ -1,53 +1,52 @@
 <template>
 <div>
-  <div class="row control-row">
-    <div class="col-md-12">
-      <button class="btn btn-primary pull-right" @click="save">Save</button>
-      <h4>User Details</h4>
+  <form id="user-add-form" @submit.prevent="validate">
+    <div class="row control-row">
+      <div class="col-md-12">
+        <button class="btn btn-primary pull-right" type="submit">Create User</button>
+        <h4>User Details</h4>
+      </div>
     </div>
-  </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-      <form>
-        <div class="media">
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" class="form-control" placeholder="Email" v-model="user.email">
-          </div>
-          <div class="form-group">
-            <label>First Name</label>
-            <input type="text" class="form-control" placeholder="First Name" v-model="user.firstName">
-          </div>
-          <div class="form-group">
-            <label>Last Name</label>
-            <input type="text" class="form-control" placeholder="Last Name" v-model="user.lastName">
-          </div>
-          <div class="form-group">
-            <label>Phone Number</label>
-            <input type="tel" class="form-control" placeholder="Phone Number" v-model="user.phone">
-          </div>
-          <div>
-            <h4>Permissions</h4>
-            <template v-for="permission in allPermissions">
-              <div class="checkbox">
-                <label>
+    <div class="panel panel-filled panel-main">
+      <div class="panel-body">
+        <div class="form-group" :class="{'has-error': errors.has('email')}">
+          <label>Email</label>
+          <input type="email" name="email" class="form-control" placeholder="Email" v-model="user.email" v-validate.initial="user.email" data-vv-rules="required|email">
+          <span v-show="errors.has('email')" class="help-block">{{ errors.first('email') }}</span>
+        </div>
+        <div class="form-group" :class="{'has-error': errors.has('firstName')}">
+          <label>First Name</label>
+          <input type="text" class="form-control" placeholder="First Name" name="firstName" v-model="user.firstName" v-validate.initial="user.firstName" data-vv-rules="required">
+          <span v-show="errors.has('firstName')" class="help-block">{{ errors.first('firstName') }}</span>
+        </div>
+        <div class="form-group" :class="{'has-error': errors.has('lastName')}">
+          <label>Last Name</label>
+          <input type="text" class="form-control" placeholder="Last Name" v-model="user.lastName" name="lastName" v-validate.initial="user.lastName" data-vv-rules="required">
+          <span v-show="errors.has('lastName')" class="help-block">{{ errors.first('lastName') }}</span>
+        </div>
+        <div class="form-group" :class="{'has-error': errors.has('phone')}">
+          <label>Phone Number</label>
+          <input type="tel" class="form-control" placeholder="Phone Number" v-model="user.phoneNumber" name="phone" v-validate.initial="user.phoneNumber" data-vv-rules="required">
+          <span v-show="errors.has('phone')" class="help-block">{{ errors.first('phone') }}</span>
+        </div>
+        <div>
+          <h4>Permissions</h4>
+          <div class="checkbox" v-for="permission in allPermissions">
+            <label>
                   <input type="checkbox" v-bind:id="permission" v-bind:value="permission" v-model="permissions">
                   {{ permission }}
                 </label>
-              </div>
-            </template>
           </div>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
+  </form>
 </div>
 </template>
 
 <script>
 import _ from 'lodash';
 import Constants from '../../constants';
-import store from '../../stores/store';
 
 export default {
   data() {
@@ -65,12 +64,21 @@ export default {
     }
   },
   methods: {
+    validate() {
+      this.$validator.validateAll().then((success) => {
+        if (!success) {
+          return;
+        }
+        this.save();
+      });
+    },
     save() {
       const user = JSON.parse(JSON.stringify(this.user));
       const permissions = JSON.parse(JSON.stringify(this.permissions));
 
-      store.dispatch(Constants.CREATE_USER, {
-        user, permissions
+      this.$store.dispatch(Constants.CREATE_USER, {
+        user,
+        permissions
       });
     }
   },

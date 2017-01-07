@@ -1,14 +1,14 @@
 <template>
 <div>
-  <div class="row control-row">
-    <div class="col-md-12">
-      <button class="btn btn-primary pull-right" @click="save()">Save</button>
-      <h4>Product Details</h4>
+  <form id="product-add-form" @submit.prevent="validate">
+    <div class="row control-row">
+      <div class="col-md-12">
+        <button class="btn btn-primary pull-right" type="submit">Create Product</button>
+        <h4>Product Details</h4>
+      </div>
     </div>
-  </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-      <form>
+    <div class="panel panel-filled panel-main">
+      <div class="panel-body">
         <div class="media">
           <div class="media-left">
             <a href="#" @click.prevent="">
@@ -16,9 +16,10 @@
             </a>
           </div>
           <div class="media-body">
-            <div class="form-group">
+            <div class="form-group" :class="{'has-error': errors.has('productTitle')}">
               <label>Product Title</label>
-              <input type="text" class="form-control" placeholder="Enter a title..." v-model="product.title">
+              <input type="text" class="form-control" placeholder="Enter a title..." v-model="product.title" name="productTitle" v-validate.initial="productTitle" data-vv-rules="required">
+              <span v-show="errors.has('productTitle')" class="help-block">Product Title is required.</span>
             </div>
             <div class="form-group">
               <label>Product Description</label>
@@ -26,7 +27,6 @@
             </div>
           </div>
         </div>
-
         <div class="row">
           <div class="col-lg-12">
             <div class="form-group">
@@ -51,20 +51,9 @@
             </div>
           </div>
         </div>
-
-        <!-- <div class="row" v-if="product.images">
-          <div class="col-lg-12">
-            <h5>Gallery</h5>
-          </div>
-          <div class="col-lg-1 thumb" v-for="image in product.images">
-            <a class="thumbnail" href="#" @click.prevent="updateImage(image.source)">
-              <img class="img-responsive" :src="image.sourceUrl" alt="">
-            </a>
-          </div>
-        </div> -->
-      </form>
+      </div>
     </div>
-  </div>
+  </form>
 </div>
 </template>
 
@@ -142,6 +131,14 @@ export default {
     tab,
   },
   methods: {
+    validate() {
+      this.$validator.validateAll().then((success) => {
+        if (!success) {
+          return;
+        }
+        this.save();
+      });
+    },
     save() {
       const product = JSON.parse(JSON.stringify(this.product));
       this.$store.dispatch(Constants.SAVE_PRODUCT, {
