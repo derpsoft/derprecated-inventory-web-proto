@@ -3,6 +3,8 @@ import config from '../config';
 export default {
   API_ROOT: process.env.NODE_ENV === 'production' ? config.build.api : config.dev.api,
 
+  SHOW_TOASTR: 'SHOW_TOASTR',
+
   SET_PROFILE: 'SET_PROFILE',
   GET_PROFILE: 'GET_PROFILE',
   CLEAR_PROFILE: 'CLEAR_PROFILE',
@@ -26,6 +28,7 @@ export default {
   CLEAR_PRODUCT: 'CLEAR_PRODUCT',
   CREATE_PRODUCT: 'CREATE_PRODUCT',
   SAVE_PRODUCT: 'SAVE_PRODUCT',
+  UPDATED_PRODUCT: 'UPDATED_PRODUCT',
 
   GET_PRODUCTS: 'GET_PRODUCTS',
   SEARCH_PRODUCTS: 'SEARCH_PRODUCTS',

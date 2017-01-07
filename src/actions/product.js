@@ -3,20 +3,26 @@ import Constants from '../constants';
 import ProductApi from '../services/productApi';
 
 function getProduct({
+  dispatch,
   commit
 }, {
   id
 }) {
   new ProductApi().retrieve(id)
-  .then((product) => {
-    commit(Constants.SET_PRODUCT, product);
-  })
-  .catch((e) => {
-    log.error(e);
-  });
+    .then((product) => {
+      commit(Constants.SET_PRODUCT, product);
+    })
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Retrieving Product.'
+      });
+      log.error(e);
+    });
 }
 
 function createProduct({
+  dispatch,
   commit
 }, {
   product
@@ -24,22 +30,43 @@ function createProduct({
   new ProductApi()
     .create(product)
     .then((res) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'success',
+        message: 'Created Product Successfully.'
+      });
       commit(Constants.SET_PRODUCT, res.product);
     })
     .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Creating Product.'
+      });
       log.error(e);
     });
 }
 
 function saveProduct({
+  dispatch,
   commit
 }, {
   product
 }) {
   new ProductApi()
     .save(product)
-    .then(res => commit(Constants.SET_PRODUCT, res.product))
-    .catch(e => log.error(e));
+    .then((res) => {
+      commit(Constants.SET_PRODUCT, res.product);
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'success',
+        message: 'Saved Product Successfully.'
+      });
+    })
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Saving Product.'
+      });
+      log.error(e);
+    });
 }
 
 function getProducts({
@@ -50,12 +77,16 @@ function getProducts({
   take = 25
 }) {
   new ProductApi().list(skip, take)
-  .then((products) => {
-    commit(Constants.SET_PRODUCT_LIST, products);
-  })
-  .catch((e) => {
-    log.error(e);
-  });
+    .then((products) => {
+      commit(Constants.SET_PRODUCT_LIST, products);
+    })
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Loading Products.'
+      });
+      log.error(e);
+    });
 }
 
 function search({
@@ -65,18 +96,23 @@ function search({
   query
 }) {
   new ProductApi().search(query)
-  .then((products) => {
-    commit(Constants.SET_PRODUCT_LIST, products.results);
-  })
-  .catch((e) => {
-    log.error(e);
-  });
+    .then((products) => {
+      commit(Constants.SET_PRODUCT_LIST, products.results);
+    })
+    .catch((e) => {
+      log.error(e);
+    });
 }
 
-function searchProductsWithTypeahead({ dispatch, commit }, { query }) {
+function searchProductsWithTypeahead({
+  dispatch,
+  commit
+}, {
+  query
+}) {
   new ProductApi().typeahead(query)
-  .then(response => commit(Constants.SET_PRODUCT_LIST, response.products))
-  .catch(e => log.error(e));
+    .then(response => commit(Constants.SET_PRODUCT_LIST, response.products))
+    .catch(e => log.error(e));
 }
 
 function clearProduct({
@@ -139,6 +175,9 @@ const GETTERS = {
   },
   product(state) {
     return state.products.product;
+  },
+  productUpdated(state) {
+    return state.products.updated;
   }
 };
 

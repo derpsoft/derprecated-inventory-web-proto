@@ -33,9 +33,6 @@ import ProductEdit from './edit.vue';
 
 export default {
   name: 'modifyProductView',
-  data() {
-    return {};
-  },
   computed: {
     isAdd() {
       return this.$route && ~this.$route.path.indexOf('add');

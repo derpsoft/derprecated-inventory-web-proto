@@ -11,7 +11,7 @@
     <span class="help-block small">Your strong password</span>
   </div>
   <div>
-    <button type="submit" class="btn btn-accent" @click.stop.prevent="login()">Login</button>
+    <button type="submit" class="btn btn-accent" @click.stop.prevent="login">Login</button>
     <div class="pull-right">
       <router-link class="btn btn-link" :to="{path: '/register'}">Register</router-link>
       <router-link class="btn btn-link" :to="{path: '/forgot-password'}">Forgot Password?</router-link>
@@ -19,6 +19,12 @@
   </div>
 </form>
 </template>
+
+<style lang="less" scoped>
+.alert {
+    margin-top: 10px;
+}
+</style>
 
 <script>
 import Constants from '../../constants';
