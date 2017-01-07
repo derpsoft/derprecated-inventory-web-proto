@@ -16,14 +16,15 @@
       You will retrieve an email shortly with your password reset.
     </div>
     <div class="panel-body" v-if="!resetRequested">
-      <form id="loginForm">
-        <div class="form-group">
+      <form id="forgot-password" @submit.prevent="validate">
+        <div class="form-group" :class="{'has-error': errors.has('email')}">
           <label class="control-label" for="email">Email address</label>
-          <input type="email" placeholder="example@email.com" title="Please enter you username" required value="" name="email" id="email" class="form-control" tabindex="0" autocomplete="off" v-model="email">
-          <span class="help-block small">Your address email to retrieve new password.</span>
+          <input type="email" placeholder="example@email.com" title="Please enter you username" name="email" id="email" class="form-control" tabindex="0" autocomplete="off" v-model="email" v-validate.initial="email" data-vv-rules="required|email">
+          <span class="help-block small" v-show="!errors.has('email')">Your address email to retrieve new password.</span>
+          <span v-show="errors.has('email')" class="help-block">{{ errors.first('email') }}</span>
         </div>
         <div>
-          <button class="btn btn-accent" type="submit" v-on:click.prevent="retrievePassword">Send new password</button>
+          <button class="btn btn-accent" type="submit">Send new password</button>
           <router-link class="btn btn-default" :to="{ path: '/login' }">Cancel</router-link>
         </div>
       </form>
@@ -44,6 +45,14 @@ export default {
     };
   },
   methods: {
+    validate() {
+      this.$validator.validateAll().then((success) => {
+        if (!success) {
+          return;
+        }
+        this.retrievePassword();
+      });
+    },
     retrievePassword() {
       if (!this.email) {
         toastr.info('Please enter an email.');

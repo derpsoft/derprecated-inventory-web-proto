@@ -10,8 +10,12 @@ import Directives from './directives';
 import router from './router';
 import Constants from './constants';
 
+const vvConfig = {
+  fieldsBagName: '',
+};
+
 Vue.use(VueRouter);
-Vue.use(VeeValidate);
+Vue.use(VeeValidate, vvConfig);
 
 sync(store, router);
 
