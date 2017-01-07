@@ -1,6 +1,6 @@
 <template>
 <section class="content" id="login">
-  <div class="container-center animated slideInDown">
+  <div class="container-center">
     <div class="view-header">
       <div class="header-icon">
         <i class="pe page-header-icon pe-7s-unlock"></i>

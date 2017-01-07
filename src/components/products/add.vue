@@ -116,14 +116,12 @@ import {
   tab
 } from 'vue-strap';
 import Constants from '../../constants';
-// import store from '../../stores/store';
 
 export default {
   name: 'productsAdd',
   data() {
     return {
       product: {},
-      // displayImage: null,
     };
   },
   components: {
@@ -145,9 +143,6 @@ export default {
         product
       });
     },
-    // updateImage(img) {
-    //   // this.displayImage = img;
-    // },
   },
 };
 </script>

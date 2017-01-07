@@ -13,7 +13,9 @@
   </div>
   <div class="panel panel-filled">
     <div class="panel-body" v-if="resetRequested">
-      You will retrieve an email shortly with your password reset.
+      <div class="alert alert-info">
+        You will retrieve an email shortly with your password reset.
+      </div>
     </div>
     <div class="panel-body" v-if="!resetRequested">
       <form id="forgot-password" @submit.prevent="validate">
@@ -32,17 +34,30 @@
   </div>
 </template>
 
+<style lang="less" scoped>
+.alert {
+    margin-top: 10px;
+
+    &.alert-info {
+      margin-bottom: 10px;
+    }
+}
+</style>
 <script>
-import toastr from 'toastr';
 import Constants from '../../constants';
 
 export default {
   name: 'forgotPasswordView',
   data() {
     return {
-      resetRequested: false,
       email: null,
+      emailError: false,
     };
+  },
+  computed: {
+    resetRequested() {
+      return this.$store.getters.isResetPasswordSuccess;
+    }
   },
   methods: {
     validate() {
@@ -55,7 +70,7 @@ export default {
     },
     retrievePassword() {
       if (!this.email) {
-        toastr.info('Please enter an email.');
+        this.emailError = true;
         return;
       }
 
@@ -64,5 +79,8 @@ export default {
       });
     },
   },
+  mounted() {
+    this.$store.dispatch(Constants.RESET_RESET_PASSWORD_FLAG, false);
+  }
 };
 </script>

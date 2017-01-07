@@ -11,6 +11,10 @@ const _fetch = function(url, options, {
         throw new Error('Redirect');
       }
 
+      if (res.status === 400) {
+        throw new Error(res);
+      }
+
       if (res.status === 401) {
         dispatch(Constants.LOGOUT);
         throw new Error('Unauthorized');

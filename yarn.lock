@@ -5695,7 +5695,7 @@ vue-style-loader@latest:
   dependencies:
     loader-utils "^0.2.7"
 
-vue-template-compiler@^2.1.8:
+vue-template-compiler@latest:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.1.8.tgz#12dd1cc63793f59be580c694a61610cb9369d629"
   dependencies:
@@ -5707,6 +5707,13 @@ vue-template-validator@^1.0.0:
   resolved "https://registry.yarnpkg.com/vue-template-validator/-/vue-template-validator-1.1.5.tgz#22d1ee77d0647c1ab14ff7eb01865942d9b3c458"
   dependencies:
     chalk "^1.1.1"
+
+vue-toastr@allentong/vue-toastr:
+  version "1.0.1"
+  resolved "https://codeload.github.com/allentong/vue-toastr/tar.gz/17a581b58195272ce4906cedb69cb24aa6483c02"
+  dependencies:
+    extend "^3.0.0"
+    toastr "^2.1.2"
 
 vue@^2.0.1, vue@^2.1.6, vue@^2.1.8:
   version "2.1.8"

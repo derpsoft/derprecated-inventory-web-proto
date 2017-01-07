@@ -22,6 +22,12 @@
 </form>
 </template>
 
+<style lang="less" scoped>
+.alert {
+    margin-top: 10px;
+}
+</style>
+
 <script>
 import Constants from '../../constants';
 
