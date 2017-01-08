@@ -33,8 +33,8 @@
           <h4>Permissions</h4>
           <div class="checkbox" v-for="p in allPermissions">
             <label>
-                  <input type="checkbox" v-model="user.permissions" :value="p">
-                  {{ p }}
+                  <input type="checkbox" v-model="user.permissions" :value="p.key">
+                  {{ p.description }}
                 </label>
           </div>
         </div>
