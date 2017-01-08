@@ -89,6 +89,8 @@ function dispatchInventory({
         productId,
         locationId,
       });
+
+      return q;
     })
     .then((q) => {
       commit(Constants.SET_QUANTITY_ON_HAND, {
