@@ -3,39 +3,44 @@
   <div class="col-md-12">
     <log-search></log-search>
   </div>
-  <div class="col-xs-6 text-left">
-    <page-size :callback="setPageSize" :page-size="25"></page-size>
-  </div>
-  <div class="col-xs-6 text-right">
-    <pagination :pagination="pagination" :callback="getPage"></pagination>
-  </div>
-  <div class="col-md-12">
-    <div class="table-responsive">
-      <table class="table table-striped table-hover log-list">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Product ID</th>
-            <th>Quantity</th>
-            <th>Type</th>
-            <th>Unit of Measure ID</th>
-            <th>User ID </th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="log in logs">
-            <td>{{log.id}}</td>
-            <td>{{log.productId}}</td>
-            <td>{{log.quantity}}</td>
-            <td>{{log.transactionType}}</td>
-            <td>{{log.unitOfMeasureId}}</td>
-            <td>{{log.userId}}</td>
-            <td>{{log.createDate | formatCreateDate}}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div v-if="logs.length">
+    <div class="col-xs-6 text-left">
+      <page-size :callback="setPageSize" :page-size="25"></page-size>
     </div>
+    <div class="col-xs-6 text-right">
+      <pagination :pagination="pagination" :callback="getPage"></pagination>
+    </div>
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover log-list">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Product ID</th>
+              <th>Quantity</th>
+              <th>Type</th>
+              <th>Unit of Measure ID</th>
+              <th>User ID </th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="log in logs">
+              <td>{{log.id}}</td>
+              <td>{{log.productId}}</td>
+              <td>{{log.quantity}}</td>
+              <td>{{log.transactionType}}</td>
+              <td>{{log.unitOfMeasureId}}</td>
+              <td>{{log.userId}}</td>
+              <td>{{log.createDate | formatCreateDate}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div v-if="logs.length === 0">
+    There are no inventory logs found.
   </div>
 </div>
 </template>

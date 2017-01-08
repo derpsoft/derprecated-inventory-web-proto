@@ -3,29 +3,34 @@
   <div class="col-md-12">
     <warehouse-search></warehouse-search>
   </div>
-  <div class="col-xs-6 text-left">
-    <page-size :callback="setPageSize" :page-size="25"></page-size>
-  </div>
-  <div class="col-xs-6 text-right">
-    <pagination :pagination="pagination" :callback="getPage"></pagination>
-  </div>
-  <div class="col-md-12">
-    <div class="table-responsive">
-      <table class="table table-striped table-hover warehouse-list">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="warehouse in warehouses" @click.prevent="edit(warehouse.id)">
-            <td>{{warehouse.id}}</td>
-            <td>{{warehouse.name}}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div v-if="warehouses.length">
+    <div class="col-xs-6 text-left">
+      <page-size :callback="setPageSize" :page-size="25"></page-size>
     </div>
+    <div class="col-xs-6 text-right">
+      <pagination :pagination="pagination" :callback="getPage"></pagination>
+    </div>
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover warehouse-list">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="warehouse in warehouses" @click.prevent="edit(warehouse.id)">
+              <td>{{warehouse.id}}</td>
+              <td>{{warehouse.name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12" v-if="warehouses.length === 0">
+    There are no warehouses found. Please add warehouses or update the filters.
   </div>
 </div>
 </template>

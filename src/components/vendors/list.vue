@@ -3,31 +3,34 @@
   <div class="col-md-12">
     <vendor-search></vendor-search>
   </div>
-  <div class="col-xs-6 text-left">
-    <page-size :callback="setPageSize" :page-size="25"></page-size>
-  </div>
-  <div class="col-xs-6 text-right">
-    <pagination :pagination="pagination" :callback="getPage"></pagination>
-  </div>
-  <div class="col-md-12">
-    <div class="table-responsive">
-      <table class="table table-striped table-hover vendor-list">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <template v-for="vendor in vendors">
-            <tr @click.prevent="edit(vendor.id)">
+  <div v-if="vendors.length">
+    <div class="col-xs-6 text-left">
+      <page-size :callback="setPageSize" :page-size="25"></page-size>
+    </div>
+    <div class="col-xs-6 text-right">
+      <pagination :pagination="pagination" :callback="getPage"></pagination>
+    </div>
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover vendor-list">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr @click.prevent="edit(vendor.id)" v-for="vendor in vendors">
               <td>{{vendor.id}}</td>
               <td>{{vendor.name}}</td>
             </tr>
-          </template>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
+  <div class="col-md-12" v-if="vendors.length === 0">
+    There were no vendors found. Please add vendors or update the filters.
   </div>
 </div>
 </template>
