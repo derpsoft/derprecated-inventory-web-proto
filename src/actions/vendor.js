@@ -24,16 +24,17 @@ function createVendor({
   dispatch,
   commit
 }, {
-  vendor
+  vendor,
+  redirect,
 }) {
   new VendorApi()
     .create(vendor)
     .then((res) => {
       commit(Constants.SET_VENDOR, res.vendor);
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'success',
-        message: 'Successfully Created Vendor.'
-      });
+
+      if (typeof redirect === 'function') {
+        redirect.apply();
+      }
     })
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {

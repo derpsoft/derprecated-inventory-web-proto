@@ -24,16 +24,16 @@ function createWarehouse({
   dispatch,
   commit
 }, {
-  warehouse
+  warehouse,
+  redirect,
 }) {
   new WarehouseApi()
     .create(warehouse)
     .then((w) => {
       commit(Constants.SET_WAREHOUSE, w);
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'success',
-        message: 'Successfully Created Warehouses.'
-      });
+      if (typeof redirect === 'function') {
+        redirect.apply();
+      }
     })
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {

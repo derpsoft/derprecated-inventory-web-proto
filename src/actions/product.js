@@ -25,16 +25,17 @@ function createProduct({
   dispatch,
   commit
 }, {
-  product
+  product,
+  redirect
 }) {
   new ProductApi()
-    .create(product)
+    .save(product)
     .then((res) => {
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'success',
-        message: 'Created Product Successfully.'
-      });
       commit(Constants.SET_PRODUCT, res.product);
+
+      if (typeof redirect === 'function') {
+        redirect.apply();
+      }
     })
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {

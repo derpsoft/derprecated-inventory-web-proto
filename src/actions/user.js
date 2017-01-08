@@ -96,15 +96,16 @@ function createUser({
   dispatch,
   commit
 }, {
-  user
+  user,
+  redirect
 }) {
   new UsersApi().create(user)
     .then((response) => {
       commit(Constants.SET_USER, response.user);
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'success',
-        message: 'Successfully Creating User.'
-      });
+
+      if (typeof redirect === 'function') {
+        redirect.apply();
+      }
     })
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {

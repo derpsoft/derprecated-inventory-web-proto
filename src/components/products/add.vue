@@ -18,7 +18,7 @@
           <div class="media-body">
             <div class="form-group" :class="{'has-error': errors.has('productTitle')}">
               <label>Product Title</label>
-              <input type="text" class="form-control" placeholder="Enter a title..." v-model="product.title" name="productTitle" v-validate.initial="productTitle" data-vv-rules="required">
+              <input type="text" class="form-control" placeholder="Enter a title..." v-model="product.title" name="productTitle" v-validate.initial="product.title" data-vv-rules="required">
               <span v-show="errors.has('productTitle')" class="help-block">Product Title is required.</span>
             </div>
             <div class="form-group">
@@ -137,10 +137,16 @@ export default {
         this.save();
       });
     },
+    redirect() {
+      this.$router.push({ path: '/products' });
+    },
     save() {
       const product = JSON.parse(JSON.stringify(this.product));
-      this.$store.dispatch(Constants.SAVE_PRODUCT, {
-        product
+      const redirect = this.redirect;
+
+      this.$store.dispatch(Constants.CREATE_PRODUCT, {
+        product,
+        redirect
       });
     },
   },

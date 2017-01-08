@@ -64,6 +64,9 @@ export default {
     }
   },
   methods: {
+    redirect() {
+      this.$router.push({ path: '/users' });
+    },
     validate() {
       this.$validator.validateAll().then((success) => {
         if (!success) {
@@ -75,10 +78,12 @@ export default {
     save() {
       const user = JSON.parse(JSON.stringify(this.user));
       const permissions = JSON.parse(JSON.stringify(this.permissions));
+      const redirect = this.redirect;
 
       this.$store.dispatch(Constants.CREATE_USER, {
         user,
-        permissions
+        permissions,
+        redirect,
       });
     }
   },

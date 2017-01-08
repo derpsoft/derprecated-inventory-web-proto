@@ -23,17 +23,17 @@ function createLocation({
   dispatch,
   commit
 }, {
-  location
+  location,
+  redirect,
 }) {
   new LocationApi()
     .create(location)
     .then((w) => {
       commit(Constants.SET_LOCATION, w);
 
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'success',
-        message: 'Successfully created Location.'
-      });
+      if (typeof redirect === 'function') {
+        redirect.apply();
+      }
     })
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {
