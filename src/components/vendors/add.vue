@@ -30,6 +30,9 @@ export default {
     };
   },
   methods: {
+    redirect() {
+      this.$router.push({ path: '/vendors' });
+    },
     validate() {
       this.$validator.validateAll().then((success) => {
         if (!success) {
@@ -40,9 +43,12 @@ export default {
     },
     save() {
       const vendor = JSON.parse(JSON.stringify(this.vendor));
+      const redirect = this.redirect;
+
       vendor.id = this.id;
       this.$store.dispatch(Constants.CREATE_VENDOR, {
-        vendor
+        vendor,
+        redirect,
       });
     }
   }

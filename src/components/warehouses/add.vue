@@ -31,6 +31,9 @@ export default {
     };
   },
   methods: {
+    redirect() {
+      this.$router.push({ path: '/warehouses' });
+    },
     validate() {
       this.$validator.validateAll().then((success) => {
         if (!success) {
@@ -41,9 +44,12 @@ export default {
     },
     save() {
       const warehouse = JSON.parse(JSON.stringify(this.warehouse));
+      const redirect = this.redirect;
+
       warehouse.id = this.id;
       store.dispatch(Constants.CREATE_WAREHOUSE, {
-        warehouse
+        warehouse,
+        redirect,
       });
     }
   }

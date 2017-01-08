@@ -30,6 +30,7 @@ function receiveInventory({
   productId,
   locationId,
   quantity,
+  redirect,
 }) {
   new InventoryApi()
     .receiveInventory({
@@ -43,10 +44,9 @@ function receiveInventory({
         productId,
         locationId,
       });
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'success',
-        message: 'Successfully received inventory.'
-      });
+      if (typeof redirect === 'function') {
+        redirect.apply();
+      }
     })
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {
@@ -65,7 +65,8 @@ function dispatchInventory({
   locationId,
   vendorId,
   quantity,
-  prices
+  prices,
+  redirect,
 }) {
   new InventoryApi()
     .dispatchInventory({
@@ -96,10 +97,10 @@ function dispatchInventory({
         productId,
         locationId,
       });
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'success',
-        message: 'Successfully dispatched inventory.'
-      });
+
+      if (typeof redirect === 'function') {
+        redirect.apply();
+      }
     })
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {

@@ -61,6 +61,9 @@ export default {
     });
   },
   methods: {
+    redirect() {
+      this.$router.push({ path: '/inventory' });
+    },
     validate() {
       this.$validator.validateAll().then((success) => {
         if (!success) {
@@ -70,10 +73,12 @@ export default {
       });
     },
     save() {
+      const redirect = this.redirect;
       const xact = {
         quantity: this.quantity,
         productId: this.productId,
         locationId: this.locationId,
+        redirect
       };
       this.$store.dispatch(Constants.RECEIVE_INVENTORY, xact);
     },
