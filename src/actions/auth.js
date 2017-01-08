@@ -231,97 +231,97 @@ const GETTERS = {
   },
   canReadUsers: (state, getters) => {
     const allowed = [
-      Permissions.EVERYTHING,
-      Permissions.MANAGE_USERS,
-      Permissions.READ_USERS,
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_USERS.key,
+      Permissions.READ_USERS.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
   canUpsertUsers: (state, getters) => {
     const allowed = [
-      Permissions.EVERYTHING,
-      Permissions.MANAGE_USERS,
-      Permissions.UPSERT_USERS,
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_USERS.key,
+      Permissions.UPSERT_USERS.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
   canReadVendors: (state, getters) => {
     const allowed = [
-      Permissions.EVERYTHING,
-      Permissions.MANAGE_VENDORS,
-      Permissions.READ_VENDORS,
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_VENDORS.key,
+      Permissions.READ_VENDORS.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
   canUpsertVendors: (state, getters) => {
     const allowed = [
-      Permissions.EVERYTHING,
-      Permissions.MANAGE_VENDORS,
-      Permissions.UPSERT_VENDORS,
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_VENDORS.key,
+      Permissions.UPSERT_VENDORS.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
   canReadProducts: (state, getters) => {
     const allowed = [
-      Permissions.EVERYTHING,
-      Permissions.MANAGE_PRODUCTS,
-      Permissions.READ_PRODUCTS,
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_PRODUCTS.key,
+      Permissions.READ_PRODUCTS.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
   canUpsertProducts: (state, getters) => {
     const allowed = [
-      Permissions.EVERYTHING,
-      Permissions.MANAGE_PRODUCTS,
-      Permissions.UPSERT_PRODUCTS,
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_PRODUCTS.key,
+      Permissions.UPSERT_PRODUCTS.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
   canReadWarehouses: (state, getters) => {
     const allowed = [
-      Permissions.EVERYTHING,
-      Permissions.MANAGE_WAREHOUSES,
-      Permissions.READ_WAREHOUSES,
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_WAREHOUSES.key,
+      Permissions.READ_WAREHOUSES.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
   canUpsertWarehouses: (state, getters) => {
     const allowed = [
-      Permissions.EVERYTHING,
-      Permissions.MANAGE_WAREHOUSES,
-      Permissions.UPSERT_WAREHOUSES,
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_WAREHOUSES.key,
+      Permissions.UPSERT_WAREHOUSES.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
   canReadLocations: (state, getters) => {
     const allowed = [
-      Permissions.EVERYTHING,
-      Permissions.MANAGE_LOCATIONS,
-      Permissions.READ_LOCATIONS,
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_LOCATIONS.key,
+      Permissions.READ_LOCATIONS.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
   canUpsertLocations: (state, getters) => {
     const allowed = [
-      Permissions.EVERYTHING,
-      Permissions.MANAGE_LOCATIONS,
-      Permissions.UPSERT_LOCATIONS,
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_LOCATIONS.key,
+      Permissions.UPSERT_LOCATIONS.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
   canReadCategories: (state, getters) => {
     const allowed = [
-      Permissions.EVERYTHING,
+      Permissions.EVERYTHING.key,
       Permissions.MANAGE_CATEGORIES,
       Permissions.READ_CATEGORIES,
     ];
@@ -330,7 +330,7 @@ const GETTERS = {
 
   canUpsertCategories: (state, getters) => {
     const allowed = [
-      Permissions.EVERYTHING,
+      Permissions.EVERYTHING.key,
       Permissions.MANAGE_CATEGORIES,
       Permissions.UPSERT_CATEGORIES,
     ];
@@ -339,19 +339,19 @@ const GETTERS = {
 
   canReceiveInventory: (state, getters) => {
     const allowed = [
-      Permissions.EVERYTHING,
-      Permissions.MANAGE_INVENTORY,
-      Permissions.RECEIVE_INVENTORY,
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_INVENTORY.key,
+      Permissions.RECEIVE_INVENTORY.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
   canDispatchInventory: (state, getters) => {
     const allowed = [
-      Permissions.EVERYTHING,
-      Permissions.MANAGE_INVENTORY,
-      Permissions.DISPATCH_INVENTORY,
-      Permissions.RELEASE_INVENTORY,
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_INVENTORY.key,
+      Permissions.DISPATCH_INVENTORY.key,
+      Permissions.RELEASE_INVENTORY.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },

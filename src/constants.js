@@ -120,36 +120,113 @@ export default {
   LOG_SALE: 'LOG_SALE',
 
   permissions: {
-    EVERYTHING: 'Everything',
+    EVERYTHING: {
+      key: 'everything',
+      description: 'Everything',
+    },
+    MANAGE_INVENTORY: {
+      key: 'manageInventory',
+      description: 'Manage Inventory',
+    },
+    MANAGE_LOCATIONS: {
+      key: 'manageLocations',
+      description: 'Manage Locations',
+    },
+    MANAGE_PRODUCTS: {
+      key: 'manageProducts',
+      description: 'Manage Products',
+    },
+    MANAGE_USERS: {
+      key: 'manageUsers',
+      description: 'Manage Users',
+    },
+    MANAGE_VENDORS: {
+      key: 'manageVendors',
+      description: 'Manage Vendors',
+    },
+    MANAGE_WAREHOUSES: {
+      key: 'manageWarehouses',
+      description: 'Manage Warehouses',
+    },
 
-    MANAGE_INVENTORY: 'Manage Inventory',
-    MANAGE_LOCATIONS: 'Manage Locations',
-    MANAGE_PRODUCTS: 'Manage Products',
-    MANAGE_USERS: 'Manage Users',
-    MANAGE_VENDORS: 'Manage Vendors',
-    MANAGE_WAREHOUSES: 'Manage Warehouses',
+    READ_LOCATIONS: {
+      key: 'readLocations',
+      description: 'Read Locations',
+    },
+    READ_PRODUCTS: {
+      key: 'readProducts',
+      description: 'Read Products',
+    },
+    READ_REPORTS: {
+      key: 'readReports',
+      description: 'Read Reports',
+    },
+    READ_USERS: {
+      key: 'readUsers',
+      description: 'Read Users',
+    },
+    READ_VENDORS: {
+      key: 'readVendors',
+      description: 'Read Vendors',
+    },
+    READ_WAREHOUSES: {
+      key: 'readWarehouses',
+      description: 'Read Warehouses',
+    },
 
-    READ_LOCATIONS: 'Read Locations',
-    READ_PRODUCTS: 'Read Products',
-    READ_REPORTS: 'Read Reports',
-    READ_USERS: 'Read Users',
-    READ_VENDORS: 'Read Vendors',
-    READ_WAREHOUSES: 'Read Warehouses',
+    UPSERT_LOCATIONS: {
+      key: 'upsertLocations',
+      description: 'Upsert Locations',
+    },
+    UPSERT_PRODUCTS: {
+      key: 'upsertProducts',
+      description: 'Upsert Products',
+    },
+    UPSERT_USERS: {
+      key: 'upsertUsers',
+      description: 'Upsert Users',
+    },
+    UPSERT_VENDORS: {
+      key: 'upsertVendors',
+      description: 'Upsert Vendors',
+    },
+    UPSERT_WAREHOUSES: {
+      key: 'upsertWarehouses',
+      description: 'Upsert Warehouses',
+    },
 
-    UPSERT_LOCATIONS: 'Upsert Locations',
-    UPSERT_PRODUCTS: 'Upsert Products',
-    UPSERT_USERS: 'Upsert Users',
-    UPSERT_VENDORS: 'Upsert Vendors',
-    UPSERT_WAREHOUSES: 'Upsert Warehouses',
+    DELETE_LOCATIONS: {
+      key: 'deleteLocations',
+      description: 'Delete Locations',
+    },
+    DELETE_PRODUCTS: {
+      key: 'deleteProducts',
+      description: 'Delete Products',
+    },
+    DELETE_USERS: {
+      key: 'deleteUsers',
+      description: 'Delete Users',
+    },
+    DELETE_VENDORS: {
+      key: 'deleteVendors',
+      description: 'Delete Vendors',
+    },
+    DELETE_WAREHOUSES: {
+      key: 'deleteWarehouses',
+      description: 'Delete Warehouses',
+    },
 
-    DELETE_LOCATIONS: 'Delete Locations',
-    DELETE_PRODUCTS: 'Delete Products',
-    DELETE_USERS: 'Delete Users',
-    DELETE_VENDORS: 'Delete Vendors',
-    DELETE_WAREHOUSES: 'Delete Warehouses',
-
-    RECEIVE_INVENTORY: 'Receive Inventory',
-    RELEASE_INVENTORY: 'Release Inventory',
-    DISPATCH_INVENTORY: 'Dispatch Inventory',
+    RECEIVE_INVENTORY: {
+      key: 'receiveInventory',
+      description: 'Receive Inventory',
+    },
+    RELEASE_INVENTORY: {
+      key: 'releaseInventory',
+      description: 'Release Inventory',
+    },
+    DISPATCH_INVENTORY: {
+      key: 'dispatchInventory',
+      description: 'Dispatch Inventory',
+    }
   }
 };
