@@ -3,33 +3,38 @@
   <div class="col-md-12">
     <user-search></user-search>
   </div>
-  <div class="col-xs-6 text-left">
-    <page-size :callback="setPageSize" :page-size="25"></page-size>
-  </div>
-  <div class="col-xs-6 text-right">
-    <pagination :pagination="pagination" :callback="getPage"></pagination>
-  </div>
-  <div class="col-md-12">
-    <div class="table-responsive">
-      <table class="table table-striped table-hover user-list">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="user in users" @click.prevent="editUser(user.id)">
-            <td>{{user.id}}</td>
-            <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
-            <td>{{user.email}}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="list-view" v-if="users.length">
+    <div class="col-xs-6 text-left">
+      <page-size :callback="setPageSize" :page-size="25"></page-size>
     </div>
+    <div class="col-xs-6 text-right">
+      <pagination :pagination="pagination" :callback="getPage"></pagination>
+    </div>
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover user-list">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="user in users" @click.prevent="editUser(user.id)">
+              <td>{{user.id}}</td>
+              <td>{{user.firstName}}</td>
+              <td>{{user.lastName}}</td>
+              <td>{{user.email}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div v-if="users.length === 0" class="col-md-12">
+    There are no users found. Please add users or update the filters.
   </div>
 </div>
 </template>
