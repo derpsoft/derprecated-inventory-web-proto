@@ -3,6 +3,7 @@ import Constants from '../constants';
 import WarehouseApi from '../services/warehouseApi';
 
 function getWarehouse({
+  dispatch,
   commit
 }, {
   id
@@ -10,29 +11,61 @@ function getWarehouse({
   new WarehouseApi()
     .single(id)
     .then(warehouse => commit(Constants.SET_WAREHOUSE, warehouse))
-    .catch(e => log.error(e));
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Getting Warehouse.'
+      });
+      log.error(e);
+    });
 }
 
 function createWarehouse({
+  dispatch,
   commit
 }, {
-  warehouse
+  warehouse,
+  redirect,
 }) {
   new WarehouseApi()
     .create(warehouse)
-    .then(w => commit(Constants.SET_WAREHOUSE, w))
-    .catch(e => log.error(e));
+    .then((w) => {
+      commit(Constants.SET_WAREHOUSE, w);
+      if (typeof redirect === 'function') {
+        redirect.apply();
+      }
+    })
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Creating Warehouses.'
+      });
+      log.error(e);
+    });
 }
 
 function saveWarehouse({
+  dispatch,
   commit
 }, {
   warehouse
 }) {
   new WarehouseApi()
     .save(warehouse)
-    .then(w => commit(Constants.SET_WAREHOUSE, w))
-    .catch(e => log.error(e));
+    .then((w) => {
+      commit(Constants.SET_WAREHOUSE, w);
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'success',
+        message: 'Successfully Saved Warehouses.'
+      });
+    })
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Saving Warehouses.'
+      });
+      log.error(e);
+    });
 }
 
 function getWarehouses({
@@ -45,7 +78,13 @@ function getWarehouses({
   new WarehouseApi()
     .list(skip, take)
     .then(warehouses => commit(Constants.SET_WAREHOUSE_LIST, warehouses))
-    .catch(e => log.error(e));
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Getting Warehouses.'
+      });
+      log.error(e);
+    });
 }
 
 function search({
@@ -57,14 +96,31 @@ function search({
   new WarehouseApi()
     .search(query)
     .then(warehouses => commit(Constants.SET_WAREHOUSE_LIST, warehouses.results))
-    .catch(e => log.error(e));
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Searching Warehouses.'
+      });
+      log.error(e);
+    });
 }
 
-function typeahead({ dispatch, commit }, { query }) {
+function typeahead({
+  dispatch,
+  commit
+}, {
+  query
+}) {
   new WarehouseApi()
     .typeahead(query)
     .then(warehouses => commit(Constants.SET_WAREHOUSE_LIST, warehouses))
-    .catch(e => log.error(e));
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Searching Warehouses.'
+      });
+      log.error(e);
+    });
 }
 
 function clearWarehouse({
@@ -73,11 +129,20 @@ function clearWarehouse({
   commit(Constants.CLEAR_WAREHOUSE);
 }
 
-function countWarehouses({ commit }) {
+function countWarehouses({
+  dispatch,
+  commit
+}) {
   new WarehouseApi()
     .count()
     .then(count => commit(Constants.SET_WAREHOUSE_COUNT, count))
-    .catch(e => log.error(e));
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Setting Warehouse Counts.'
+      });
+      log.error(e);
+    });
 }
 
 

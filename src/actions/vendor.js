@@ -3,6 +3,7 @@ import Constants from '../constants';
 import VendorApi from '../services/vendorApi';
 
 function getVendor({
+  dispatch,
   commit
 }, {
   id
@@ -10,36 +11,79 @@ function getVendor({
   new VendorApi()
     .single(id)
     .then(vendor => commit(Constants.SET_VENDOR, vendor))
-    .catch(e => log.error(e));
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Getting Vendor.'
+      });
+      log.error(e);
+    });
 }
 
 function createVendor({
+  dispatch,
   commit
 }, {
-  vendor
+  vendor,
+  redirect,
 }) {
   new VendorApi()
     .create(vendor)
-    .then(res => commit(Constants.SET_VENDOR, res.vendor))
-    .catch(e => log.error(e));
+    .then((res) => {
+      commit(Constants.SET_VENDOR, res.vendor);
+
+      if (typeof redirect === 'function') {
+        redirect.apply();
+      }
+    })
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Creating Vendor.'
+      });
+      log.error(e);
+    });
 }
 
-function countVendors({ commit }) {
+function countVendors({
+  dispatch,
+  commit
+}) {
   new VendorApi()
     .count()
     .then(res => commit(Constants.SET_VENDOR_COUNT, res.count))
-    .catch(e => log.error(e));
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Setting Vendor Counts.'
+      });
+      log.error(e);
+    });
 }
 
 function saveVendor({
+  dispatch,
   commit
 }, {
   vendor
 }) {
   new VendorApi()
     .save(vendor)
-    .then(res => commit(Constants.SET_VENDOR, res.vendor))
-    .catch(e => log.error(e));
+    .then((res) => {
+      commit(Constants.SET_VENDOR, res.vendor);
+
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'success',
+        message: 'Successfully Saved Vendor.'
+      });
+    })
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Saving Vendor.'
+      });
+      log.error(e);
+    });
 }
 
 function getVendors({
@@ -52,7 +96,13 @@ function getVendors({
   new VendorApi()
     .list(skip, take)
     .then(response => commit(Constants.SET_VENDOR_LIST, response))
-    .catch(e => log.error(e));
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Getting Vendors.'
+      });
+      log.error(e);
+    });
 }
 
 function search({
@@ -64,7 +114,13 @@ function search({
   new VendorApi()
     .search(query)
     .then(response => commit(Constants.SET_VENDOR_LIST, response.results))
-    .catch(e => log.error(e));
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Searching for Vendors.'
+      });
+      log.error(e);
+    });
 }
 
 function typeahead({
@@ -76,7 +132,13 @@ function typeahead({
   new VendorApi()
     .typeahead(query)
     .then(vendors => commit(Constants.SET_VENDOR_LIST, vendors))
-    .catch(e => log.error(e));
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Searching for Vendors.'
+      });
+      log.error(e);
+    });
 }
 
 function clearVendor({

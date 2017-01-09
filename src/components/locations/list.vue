@@ -3,29 +3,34 @@
   <div class="col-md-12">
     <location-search></location-search>
   </div>
-  <div class="col-xs-6 text-left">
-    <page-size :callback="setPageSize" :page-size="25"></page-size>
-  </div>
-  <div class="col-xs-6 text-right">
-    <pagination :pagination="pagination" :callback="getPage"></pagination>
-  </div>
-  <div class="col-md-12">
-    <div class="table-responsive">
-      <table class="table table-striped table-hover location-list">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="location in locations" @click.prevent="edit(location.id)">
-            <td>{{location.id}}</td>
-            <td>{{location.name}}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="list-view" v-if="locations.length">
+    <div class="col-xs-6 text-left">
+      <page-size :callback="setPageSize" :page-size="25"></page-size>
     </div>
+    <div class="col-xs-6 text-right">
+      <pagination :pagination="pagination" :callback="getPage"></pagination>
+    </div>
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover location-list">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="location in locations" @click.prevent="edit(location.id)">
+              <td>{{location.id}}</td>
+              <td>{{location.name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div v-if="locations.length === 0" class="col-md-12">
+    There are no locations found. Please add locations or update the filters.
   </div>
 </div>
 </template>

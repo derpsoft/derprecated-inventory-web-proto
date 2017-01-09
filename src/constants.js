@@ -1,5 +1,9 @@
+import config from '../config';
+
 export default {
-  API_ROOT: 'https://inventory-api-dev.azurewebsites.net',
+  API_ROOT: process.env.NODE_ENV === 'production' ? config.build.api : config.dev.api,
+
+  SHOW_TOASTR: 'SHOW_TOASTR',
 
   SET_PROFILE: 'SET_PROFILE',
   GET_PROFILE: 'GET_PROFILE',
@@ -14,6 +18,7 @@ export default {
   LOGIN_FAILED: 'LOGIN_FAILED',
   LOGOUT: 'LOGOUT',
   FORGOT_PASSWORD: 'FORGOT_PASSWORD',
+  RESET_PASSWORD: 'RESET_PASSWORD',
 
   REGISTER: 'REGISTER',
   REGISTATION_FAILED: 'REGISTRATION_FAILED',
@@ -23,6 +28,7 @@ export default {
   CLEAR_PRODUCT: 'CLEAR_PRODUCT',
   CREATE_PRODUCT: 'CREATE_PRODUCT',
   SAVE_PRODUCT: 'SAVE_PRODUCT',
+  UPDATED_PRODUCT: 'UPDATED_PRODUCT',
 
   GET_PRODUCTS: 'GET_PRODUCTS',
   SEARCH_PRODUCTS: 'SEARCH_PRODUCTS',
@@ -114,36 +120,113 @@ export default {
   LOG_SALE: 'LOG_SALE',
 
   permissions: {
-    EVERYTHING: 'everything',
+    EVERYTHING: {
+      key: 'everything',
+      description: 'Everything',
+    },
+    MANAGE_INVENTORY: {
+      key: 'manageInventory',
+      description: 'Manage Inventory',
+    },
+    MANAGE_LOCATIONS: {
+      key: 'manageLocations',
+      description: 'Manage Locations',
+    },
+    MANAGE_PRODUCTS: {
+      key: 'manageProducts',
+      description: 'Manage Products',
+    },
+    MANAGE_USERS: {
+      key: 'manageUsers',
+      description: 'Manage Users',
+    },
+    MANAGE_VENDORS: {
+      key: 'manageVendors',
+      description: 'Manage Vendors',
+    },
+    MANAGE_WAREHOUSES: {
+      key: 'manageWarehouses',
+      description: 'Manage Warehouses',
+    },
 
-    MANAGE_INVENTORY: 'manageInventory',
-    MANAGE_LOCATIONS: 'manageLocations',
-    MANAGE_PRODUCTS: 'manageProducts',
-    MANAGE_USERS: 'manageUsers',
-    MANAGE_VENDORS: 'manageVendors',
-    MANAGE_WAREHOUSES: 'manageWarehouses',
+    READ_LOCATIONS: {
+      key: 'readLocations',
+      description: 'Read Locations',
+    },
+    READ_PRODUCTS: {
+      key: 'readProducts',
+      description: 'Read Products',
+    },
+    READ_REPORTS: {
+      key: 'readReports',
+      description: 'Read Reports',
+    },
+    READ_USERS: {
+      key: 'readUsers',
+      description: 'Read Users',
+    },
+    READ_VENDORS: {
+      key: 'readVendors',
+      description: 'Read Vendors',
+    },
+    READ_WAREHOUSES: {
+      key: 'readWarehouses',
+      description: 'Read Warehouses',
+    },
 
-    READ_LOCATIONS: 'readLocations',
-    READ_PRODUCTS: 'readProducts',
-    READ_REPORTS: 'readReports',
-    READ_USERS: 'readUsers',
-    READ_VENDORS: 'readVendors',
-    READ_WAREHOUSES: 'readWarehouses',
+    UPSERT_LOCATIONS: {
+      key: 'upsertLocations',
+      description: 'Upsert Locations',
+    },
+    UPSERT_PRODUCTS: {
+      key: 'upsertProducts',
+      description: 'Upsert Products',
+    },
+    UPSERT_USERS: {
+      key: 'upsertUsers',
+      description: 'Upsert Users',
+    },
+    UPSERT_VENDORS: {
+      key: 'upsertVendors',
+      description: 'Upsert Vendors',
+    },
+    UPSERT_WAREHOUSES: {
+      key: 'upsertWarehouses',
+      description: 'Upsert Warehouses',
+    },
 
-    UPSERT_LOCATIONS: 'upsertLocations',
-    UPSERT_PRODUCTS: 'upsertProducts',
-    UPSERT_USERS: 'upsertUsers',
-    UPSERT_VENDORS: 'upsertVendors',
-    UPSERT_WAREHOUSES: 'upsertWarehouses',
+    DELETE_LOCATIONS: {
+      key: 'deleteLocations',
+      description: 'Delete Locations',
+    },
+    DELETE_PRODUCTS: {
+      key: 'deleteProducts',
+      description: 'Delete Products',
+    },
+    DELETE_USERS: {
+      key: 'deleteUsers',
+      description: 'Delete Users',
+    },
+    DELETE_VENDORS: {
+      key: 'deleteVendors',
+      description: 'Delete Vendors',
+    },
+    DELETE_WAREHOUSES: {
+      key: 'deleteWarehouses',
+      description: 'Delete Warehouses',
+    },
 
-    DELETE_LOCATIONS: 'deleteLocations',
-    DELETE_PRODUCTS: 'deleteProducts',
-    DELETE_USERS: 'deleteUsers',
-    DELETE_VENDORS: 'deleteVendors',
-    DELETE_WAREHOUSES: 'deleteWarehouses',
-
-    RECEIVE_INVENTORY: 'receiveInventory',
-    RELEASE_INVENTORY: 'releaseInventory',
-    DISPATCH_INVENTORY: 'dispatchInventory',
+    RECEIVE_INVENTORY: {
+      key: 'receiveInventory',
+      description: 'Receive Inventory',
+    },
+    RELEASE_INVENTORY: {
+      key: 'releaseInventory',
+      description: 'Release Inventory',
+    },
+    DISPATCH_INVENTORY: {
+      key: 'dispatchInventory',
+      description: 'Dispatch Inventory',
+    }
   }
 };

@@ -9,15 +9,26 @@ function searchUsers({
   searchTerm
 }) {
   new UsersApi().search(searchTerm)
-  .then((response) => {
-    commit(Constants.SET_USERS, response.users);
-  });
+    .then((response) => {
+      commit(Constants.SET_USERS, response.users);
+    });
 }
 
-function searchUsersWithTypeahead({ dispatch, commit }, { query }) {
+function searchUsersWithTypeahead({
+  dispatch,
+  commit
+}, {
+  query
+}) {
   new UsersApi().typeahead(query)
-  .then(response => commit(Constants.SET_USERS, response.users))
-  .catch(e => log.error(e));
+    .then(response => commit(Constants.SET_USERS, response.users))
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error searching for users.'
+      });
+      log.error(e);
+    });
 }
 
 function getUsers({
@@ -28,9 +39,16 @@ function getUsers({
   take = 25
 }) {
   new UsersApi().list(skip, take)
-  .then((response) => {
-    commit(Constants.SET_USERS, response.users);
-  });
+    .then((response) => {
+      commit(Constants.SET_USERS, response.users);
+    })
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Getting Users.'
+      });
+      log.error(e);
+    });
 }
 
 function getUser({
@@ -41,22 +59,61 @@ function getUser({
 }) {
   new UsersApi().singleById(id)
     .then(response => commit(Constants.SET_USER, response.user))
-    .catch(e => log.error(e));
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Retrieving User.'
+      });
+      log.error(e);
+    });
 }
 
-function saveUser({ dispatch, commit }, { user }) {
+function saveUser({
+  dispatch,
+  commit
+}, {
+  user
+}) {
   new UsersApi()
     .save(user)
-    .then(response => commit(Constants.SET_USER, response.user))
-    .catch(e => log.error(e));
+    .then((response) => {
+      commit(Constants.SET_USER, response.user);
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'success',
+        message: 'Successfully Saving User.'
+      });
+    })
+    .catch((e) => {
+      log.error(e);
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Saving User.'
+      });
+    });
 }
 
-function createUser({ dispatch, commit }, { user }) {
+function createUser({
+  dispatch,
+  commit
+}, {
+  user,
+  redirect
+}) {
   new UsersApi().create(user)
     .then((response) => {
       commit(Constants.SET_USER, response.user);
+
+      if (typeof redirect === 'function') {
+        redirect.apply();
+      }
     })
-    .catch(e => log.error(e));
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Error Creating User.'
+      });
+      log.error(e);
+    });
 }
 
 const INITIAL_STATE = {

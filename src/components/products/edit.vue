@@ -1,14 +1,14 @@
 <template>
 <div>
-  <div class="row control-row">
-    <div class="col-md-12">
-      <button class="btn btn-primary pull-right" @click="save">Save</button>
-      <h4>Product Details</h4>
+  <form id="product-edit-form" @submit.prevent="validate">
+    <div class="row control-row">
+      <div class="col-md-12">
+        <button class="btn btn-primary pull-right" type="submit">Save Product</button>
+        <h4>Product Details</h4>
+      </div>
     </div>
-  </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-      <form>
+    <div class="panel panel-filled panel-main">
+      <div class="panel-body">
         <div class="media">
           <div class="media-left">
             <a href="#" @click.prevent="">
@@ -16,9 +16,10 @@
             </a>
           </div>
           <div class="media-body">
-            <div class="form-group">
+            <div class="form-group" :class="{'has-error': errors.has('productTitle')}">
               <label>Product Title</label>
-              <input type="text" class="form-control" placeholder="Enter a title..." v-model="product.title">
+              <input type="text" class="form-control" placeholder="Enter a title..." v-model="product.title" name="productTitle" v-validate.initial="product.title" data-vv-rules="required">
+              <span v-show="errors.has('productTitle')" class="help-block">Product Title is required.</span>
             </div>
             <div class="form-group">
               <label>Product Description</label>
@@ -78,9 +79,7 @@
                     <div class="form-group">
                       <label>Vendor</label>
                       <select class="form-control" v-model="product.vendorId">
-                        <template v-for="vendor in vendors">
-                          <option :value="vendor.id">{{ vendor.name }}</option>
-                        </template>
+                        <option v-for="vendor in vendors" :value="vendor.id">{{ vendor.name }}</option>
                       </select>
                     </div>
                   </div>
@@ -89,63 +88,63 @@
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
+  </form>
 </div>
 </template>
 
 <style lang="less" scope>
-  .panel-main {
-      padding-top: 15px;
-  }
-  .tabs-container {
-      margin-top: 20px;
-  }
-  textarea.form-control {
-      resize: none;
-      height: 152px;
-  }
-  .nav-tabs {
-      margin-bottom: 0 !important;
-  }
-  .control-row {
-      margin-bottom: 20px;
-  }
+.panel-main {
+    padding-top: 15px;
+}
+.tabs-container {
+    margin-top: 20px;
+}
+textarea.form-control {
+    resize: none;
+    height: 152px;
+}
+.nav-tabs {
+    margin-bottom: 0 !important;
+}
+.control-row {
+    margin-bottom: 20px;
+}
 
-  .tab-content {
-      margin-top: 1px;
-  }
-  .tab-pane {
-      padding: 10px 15px;
-      background-color: rgba(68, 70, 79, 0.5);
+.tab-content {
+    margin-top: 1px;
+}
+.tab-pane {
+    padding: 10px 15px;
+    background-color: rgba(68, 70, 79, 0.5);
 
-      .panel {
-          &:first-child {
-              margin-top: 4px;
-          }
-          background-color: transparent;
-          border: 1px solid rgba(116, 124, 158, 0.2);
+    .panel {
+        &:first-child {
+            margin-top: 4px;
+        }
+        background-color: transparent;
+        border: 1px solid rgba(116, 124, 158, 0.2);
 
-          .panel-filled {
-              background-color: transparent;
-          }
-          .panel-heading {
-              background-color: transparent;
-              font-weight: bold;
-          }
-          .panel-body {
-              background-color: transparent;
-          }
-      }
-  }
-  a.thumbnail {
-      border: 2px solid transparent;
-      &:hover {
-          border-color: #f6a821;
-          transition: 300ms ease-in-out;
-      }
-  }
+        .panel-filled {
+            background-color: transparent;
+        }
+        .panel-heading {
+            background-color: transparent;
+            font-weight: bold;
+        }
+        .panel-body {
+            background-color: transparent;
+        }
+    }
+}
+a.thumbnail {
+    border: 2px solid transparent;
+    &:hover {
+        border-color: #f6a821;
+        transition: 300ms ease-in-out;
+    }
+}
 </style>
 
 <script>
@@ -186,6 +185,14 @@ export default {
     },
     updateImage(img) {
       this.displayImage = img;
+    },
+    validate() {
+      this.$validator.validateAll().then((success) => {
+        if (!success) {
+          return;
+        }
+        this.save();
+      });
     },
   },
   mounted() {
