@@ -63,7 +63,7 @@ class LocationApi extends Fetchable {
     headers.set('content-type', 'application/json');
     delete location.id;
     return super.put(`/api/v1/locations/${id}`, {
-      body: this.toJson({ location }),
+      body: this.toJson(location),
       headers
     })
     .then(res => res.json())
@@ -75,7 +75,7 @@ class LocationApi extends Fetchable {
     headers.set('content-type', 'application/json');
     delete location.id;
     return super.post('/api/v1/locations', {
-      body: this.toJson({ location }),
+      body: this.toJson(location),
       headers
     })
     .then(res => res.json())
