@@ -18,7 +18,7 @@ class LocationApi extends Fetchable {
   count() {
     return super.get('/api/v1/locations/count')
     .then(res => res.json())
-    .then(json => json.count);
+    .then(json => json.result);
   }
 
   list(skip = 0, take = 25) {
@@ -29,7 +29,7 @@ class LocationApi extends Fetchable {
     return super.get(`/api/v1/locations?${body}`)
     .then(res => res.json())
     .then((json) => {
-      return json.locations;
+      return json.result;
     });
   }
 
@@ -37,7 +37,7 @@ class LocationApi extends Fetchable {
     return super.get(`/api/v1/locations/${id}`)
     .then(res => res.json())
     .then((json) => {
-      return json.location;
+      return json.result;
     });
   }
 
@@ -67,7 +67,7 @@ class LocationApi extends Fetchable {
       headers
     })
     .then(res => res.json())
-    .then(json => json.location);
+    .then(json => json.result);
   }
 
   create(location) {
@@ -79,7 +79,7 @@ class LocationApi extends Fetchable {
       headers
     })
     .then(res => res.json())
-    .then(json => json.location);
+    .then(json => json.result);
   }
 }
 
