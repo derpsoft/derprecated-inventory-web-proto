@@ -20,7 +20,6 @@ export default {
   },
   mounted() {
     Pace.start();
-    console.log(process.env.NODE_ENV);
   }
 };
 </script>
