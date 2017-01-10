@@ -1,5 +1,5 @@
 <template>
-<div class="container-center animated slideInDown">
+<div class="container-center">
   <div class="view-header">
     <div class="header-icon">
       <i class="pe page-header-icon pe-7s-id"></i>
@@ -13,17 +13,20 @@
   </div>
   <div class="panel panel-filled">
     <div class="panel-body">
-      <form id="loginForm">
-        <div class="form-group">
-          <label class="control-label" for="email">New Password</label>
-          <input type="password" placeholder="Password" title="Please enter your new password" required value="" name="password" id="password" class="form-control" tabindex="0" autocomplete="off" v-model="password">
+      <form id="reset-password-form" @submit.prevent="validate">
+        <div class="form-group" :class="{'has-error': errors.has('password')}">
+          <label class="control-label" for="password">New Password</label>
+          <input type="password" placeholder="Password" title="Please enter your new password" required name="password" id="password" class="form-control" tabindex="0" autocomplete="off" v-model="password">
+          <span v-show="errors.has('password')" class="help-block">{{ errors.first('password') }}</span>
         </div>
-        <div class="form-group">
+        <div class="form-group" :class="{'has-error': errors.has('password-repeat')}">
           <label class="control-label" for="email">Repeat New Password</label>
-          <input type="password" placeholder="Repeat" title="Please reenter your new password" required value="" name="password-repeat" id="password-repeat" class="form-control" tabindex="0" autocomplete="off" v-model="passwordRepeat">
+          <input type="password" placeholder="Repeat" title="Please re-enter your new password" required name="password-repeat" id="password-repeat" class="form-control" tabindex="0" autocomplete="off" v-model="passwordRepeat" v-validate.initial="passwordRepeat"
+              data-vv-rules="required|confirmed:password">
+            <span v-show="errors.has('password-repeat')" class="help-block">{{ errors.first('password-repeat') }}</span>
         </div>
         <div>
-          <button class="btn btn-accent" type="submit" v-on:click.prevent="save">Save password</button>
+          <button class="btn btn-accent" type="submit">Save password</button>
           <router-link class="btn btn-default" :to="{ path: '/login' }">Cancel</router-link>
         </div>
       </form>
@@ -54,15 +57,27 @@ export default {
     $route: 'load'
   },
   methods: {
-    load() {
-
+    redirect() {
+      this.$router.push({
+        path: '/login'
+      });
     },
-    save() {
+    validate() {
+      this.$validator.validateAll().then((success) => {
+        if (!success) {
+          return;
+        }
+        this.resetPassword();
+      });
+    },
+    resetPassword() {
+      const redirect = this.redirect;
       this.$store.dispatch(Constants.RESET_PASSWORD, {
         email: this.email,
         password: this.password,
         passwordRepeat: this.passwordRepeat,
         token: this.token,
+        redirect,
       });
     },
   },
