@@ -14,7 +14,7 @@
   <div class="panel panel-filled">
     <div class="panel-body" v-if="resetRequested">
       <div class="alert alert-info">
-        You will retrieve an email shortly with your password reset.
+        You will receive an email shortly with your password reset.
       </div>
     </div>
     <div class="panel-body" v-if="!resetRequested">
