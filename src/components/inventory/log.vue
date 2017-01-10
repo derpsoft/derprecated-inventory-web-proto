@@ -3,7 +3,7 @@
   <div class="col-md-12">
     <log-search></log-search>
   </div>
-  <div v-if="logs.length">
+  <div v-if="logs && logs.length">
     <div class="col-xs-6 text-left">
       <page-size :callback="setPageSize" :page-size="25"></page-size>
     </div>
@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>
-  <div v-if="logs.length === 0">
+  <div v-if="!logs || logs.length === 0">
     There are no inventory logs found.
   </div>
 </div>

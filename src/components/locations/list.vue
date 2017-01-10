@@ -3,7 +3,7 @@
   <div class="col-md-12">
     <location-search></location-search>
   </div>
-  <div class="list-view" v-if="locations.length">
+  <div class="list-view" v-if="locations && locations.length">
     <div class="col-xs-6 text-left">
       <page-size :callback="setPageSize" :page-size="25"></page-size>
     </div>
@@ -29,7 +29,7 @@
       </div>
     </div>
   </div>
-  <div v-if="locations.length === 0" class="col-md-12">
+  <div v-if="!locations || locations.length === 0" class="col-md-12">
     There are no locations found. Please add locations or update the filters.
   </div>
 </div>
