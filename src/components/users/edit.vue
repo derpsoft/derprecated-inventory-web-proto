@@ -29,13 +29,21 @@
           <input type="tel" class="form-control" placeholder="Phone Number" v-model="user.phoneNumber" name="phone" v-validate.initial="user.phoneNumber" data-vv-rules="required">
           <span v-show="errors.has('phone')" class="help-block">{{ errors.first('phone') }}</span>
         </div>
-        <div>
+        <div class="form-group clearfix">
           <h4>Permissions</h4>
-          <div class="checkbox" v-for="p in allPermissions">
-            <label>
+          <div class="col-md-3 col-xs-12" v-for="p in allPermissions">
+            <div class="checkbox">
+              <label>
                   <input type="checkbox" v-model="user.permissions" :value="p.key">
                   {{ p.description }}
                 </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="password-reset">
+            <a class="btn btn-danger pull-left reset-btn" @click="resetPassword">Reset Password</a>
+            <span v-if="resetRequested">Password was sent to the user.</span>
           </div>
         </div>
       </div>
@@ -43,6 +51,20 @@
   </form>
 </div>
 </template>
+
+<style lang="less">
+  .password-reset {
+    .reset-btn {
+      margin-right: 10px;
+    }
+    span {
+      display: block;
+      padding: 6px 0;
+      line-height: 1.42857143;
+      color: #1bbf89;
+    }
+  }
+</style>
 
 <script>
 import _ from 'lodash';
@@ -62,6 +84,9 @@ export default {
     },
     allPermissions() {
       return _.values(Constants.permissions);
+    },
+    resetRequested() {
+      return this.$store.getters.isResetPasswordSuccess;
     }
   },
   watch: {
@@ -88,6 +113,18 @@ export default {
       this.$store.dispatch(Constants.GET_USER, {
         id: this.id,
       });
+    },
+    resetPassword() {
+      if (this.user.email) {
+        this.$store.dispatch(Constants.FORGOT_PASSWORD, {
+          email: this.user.email,
+        });
+      } else {
+        this.$store.dispatch(Constants.SHOW_TOASTR, {
+          type: 'info',
+          message: 'User does not have an email.'
+        });
+      }
     }
   },
   mounted() {
