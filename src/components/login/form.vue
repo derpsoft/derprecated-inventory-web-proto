@@ -2,7 +2,7 @@
 <form id="login-form" @submit.prevent="validate">
   <div class="form-group" :class="{'has-error': errors.has('username')}">
     <label class="control-label" for="username">Username</label>
-    <input v-model="username" type="text" placeholder="Email" title="User Name" name="username" id="username" class="form-control" v-validate.initial="username" data-vv-rules="required|email" >
+    <input v-model="username" type="text" placeholder="Username" title="User Name" name="username" id="username" class="form-control" v-validate.initial="username" data-vv-rules="required" >
     <span class="help-block small" v-show="!errors.has('username')">Your unique username to app</span>
     <span v-show="errors.has('username')" class="help-block">{{ errors.first('username') }}</span>
   </div>
