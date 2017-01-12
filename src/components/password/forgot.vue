@@ -7,7 +7,7 @@
     <div class="header-title">
       <h2>Reset password</h2>
       <small>
-        Please enter your email to rest your password.
+        Please enter your email to reset your password.
       </small>
     </div>
   </div>

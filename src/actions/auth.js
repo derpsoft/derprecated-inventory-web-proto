@@ -113,14 +113,26 @@ function forgotPassword({
     });
 }
 
-function resetPassword(state, {
+function resetPassword({
+  dispatch
+}, {
   email,
   password,
   passwordRepeat,
-  token
+  token,
+  redirect
 }) {
   new AuthApi().resetPassword(email, token, password, passwordRepeat)
-    .then(() => {});
+    .then(() => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'success',
+        message: 'Password reset was successful.'
+      });
+
+      if (typeof redirect === 'function') {
+        redirect.apply();
+      }
+    });
 }
 
 /*
