@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div v-if="products.length">
+  <div v-if="products && products.length">
     <div class="table-responsive">
       <table class="table table-striped table-hover product-list">
         <thead>
@@ -29,7 +29,7 @@
       </table>
     </div>
   </div>
-  <div v-if="products.length === 0">
+  <div v-if="!products || products.length === 0">
     There are no products found. Please add products or update the filters.
   </div>
 </div>

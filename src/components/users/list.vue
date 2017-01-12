@@ -3,7 +3,7 @@
   <div class="col-md-12">
     <user-search></user-search>
   </div>
-  <div class="list-view" v-if="users.length">
+  <div class="list-view" v-if="users && users.length">
     <div class="col-xs-6 text-left">
       <page-size :callback="setPageSize" :page-size="25"></page-size>
     </div>
@@ -33,7 +33,7 @@
       </div>
     </div>
   </div>
-  <div v-if="users.length === 0" class="col-md-12">
+  <div v-if="!users || users.length === 0" class="col-md-12">
     There are no users found. Please add users or update the filters.
   </div>
 </div>

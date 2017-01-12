@@ -3,7 +3,7 @@
   <div class="col-md-12">
     <vendor-search></vendor-search>
   </div>
-  <div v-if="vendors.length">
+  <div v-if="vendors && vendors.length">
     <div class="col-xs-6 text-left">
       <page-size :callback="setPageSize" :page-size="25"></page-size>
     </div>
@@ -29,7 +29,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-12" v-if="vendors.length === 0">
+  <div class="col-md-12" v-if="!vendors || vendors.length === 0">
     There were no vendors found. Please add vendors or update the filters.
   </div>
 </div>
@@ -48,7 +48,6 @@ import Pagination from 'vue-bootstrap-pagination';
 import vendorSearch from './search.vue';
 import Constants from '../../constants';
 import PageSize from '../../components/pageSize/pageSize.vue';
-import store from '../../stores/store';
 
 const defaultPageCount = 25;
 
@@ -69,18 +68,18 @@ export default {
     vendorSearch,
   },
   mounted() {
-    store.dispatch(Constants.GET_VENDORS, {
+    this.$store.dispatch(Constants.GET_VENDORS, {
       skip: 0,
       take: defaultPageCount
     });
-    store.dispatch(Constants.COUNT_VENDORS);
+    this.$store.dispatch(Constants.COUNT_VENDORS);
   },
   computed: {
     count() {
-      return store.getters.vendorCount;
+      return this.$store.getters.vendorCount;
     },
     vendors() {
-      const vendors = store.getters.vendors;
+      const vendors = this.$store.getters.vendors;
 
       this.pagination.last_page = Math.ceil(this.count / this.pagination.per_page);
       this.pagination.to = this.count;
@@ -94,7 +93,7 @@ export default {
     },
     getPage() {
       const skip = this.pagination.per_page * (this.pagination.current_page - 1);
-      store.dispatch(Constants.GET_VENDORS, {
+      this.$store.dispatch(Constants.GET_VENDORS, {
         skip,
         take: this.pagination.per_page
       });
