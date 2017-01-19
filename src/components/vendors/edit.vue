@@ -1,32 +1,29 @@
 <template>
-<div>
-  <form id="vendor-edit-form" @submit.prevent="validate">
+  <div>
     <div class="row control-row">
       <div class="col-md-12">
-        <button class="btn btn-primary pull-right" type="submit">Save Vendor</button>
+        <button class="btn btn-primary pull-right" @click="save">Save Vendor</button>
         <h4>Vendor Details</h4>
       </div>
     </div>
     <div class="panel panel-filled panel-main">
       <div class="panel-body">
-        <div class="form-group" :class="{'has-error': errors.has('vendorName')}">
-          <label>Name</label>
-          <input type="text" class="form-control" placeholder="Name" name="vendorName" v-model="vendor.name" v-validate.initial="vendor.name" data-vv-rules="required">
-          <span v-show="errors.has('vendorName')" class="help-block">{{ errors.first('vendorName') }}</span>
-        </div>
+        <vendor-form :vendor="vendor" @change="setVendor" @is-valid="setValid"></vendor-form>
       </div>
     </div>
-  </form>
-</div>
+  </div>
 </template>
 
 <script>
 import Constants from '../../constants';
+import VendorForm from './form.vue';
 
 export default {
+  components: { VendorForm },
   data() {
     return {
       vendor: {},
+      isValid: false,
     };
   },
   computed: {
@@ -43,26 +40,28 @@ export default {
         id: this.id,
       });
     },
-    validate() {
-      this.$validator.validateAll().then((success) => {
-        if (!success) {
-          return;
-        }
-        this.save();
-      });
-    },
     save() {
-      const vendor = JSON.parse(JSON.stringify(this.vendor));
-      vendor.id = this.id;
-      this.$store.dispatch(Constants.SAVE_VENDOR, {
-        vendor
-      });
-    }
+      if (this.isValid) {
+        const vendor = JSON.parse(JSON.stringify(this.vendor));
+        vendor.id = this.id;
+        this.$store.dispatch(Constants.SAVE_VENDOR, {
+          vendor
+        });
+      }
+    },
+    setVendor(v) {
+      this.vendor = Object.assign({}, this.vendor, v);
+      console.log(JSON.stringify(v), JSON.stringify(this.vendor));
+    },
+    setValid(flag) {
+      this.isValid = flag;
+    },
   },
-  created() {
-    this.$store.watch(() => this.$store.getters.vendor, (current) => {
-      this.vendor = Object.assign({}, current);
-    });
+  mounted() {
+    this.$store.watch(
+      () => this.$store.getters.vendor,
+      v => this.setVendor(v)
+    );
     this.load();
   }
 };
