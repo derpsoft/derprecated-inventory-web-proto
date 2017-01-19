@@ -1,24 +1,21 @@
 <template>
-<div>
-  <form id="vendor-edit-form" @submit.prevent="validate">
+  <div>
     <div class="row control-row">
       <div class="col-md-12">
-        <button class="btn btn-primary pull-right" type="submit">Save Vendor</button>
+        <button class="btn btn-primary pull-right" @click="save">Save Vendor</button>
         <h4>Vendor Details</h4>
       </div>
     </div>
-  </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-      <vendor-form :vendor="vendor" @change="setVendor"></vendor-form>
+    <div class="panel panel-filled panel-main">
+      <div class="panel-body">
+        <vendor-form :vendor="vendor" @change="setVendor" @is-valid="setValid"></vendor-form>
+      </div>
     </div>
-  </form>
-</div>
+  </div>
 </template>
 
 <script>
 import Constants from '../../constants';
-import store from '../../stores/store';
 import VendorForm from './form.vue';
 
 export default {
@@ -44,7 +41,7 @@ export default {
       });
     },
     save() {
-      if(this.isValid) {
+      if (this.isValid) {
         const vendor = JSON.parse(JSON.stringify(this.vendor));
         vendor.id = this.id;
         this.$store.dispatch(Constants.SAVE_VENDOR, {
@@ -54,14 +51,15 @@ export default {
     },
     setVendor(v) {
       this.vendor = Object.assign({}, this.vendor, v);
+      console.log(JSON.stringify(v), JSON.stringify(this.vendor));
     },
     setValid(flag) {
       this.isValid = flag;
     },
   },
   mounted() {
-    store.watch(
-      () => store.getters.vendor,
+    this.$store.watch(
+      () => this.$store.getters.vendor,
       v => this.setVendor(v)
     );
     this.load();

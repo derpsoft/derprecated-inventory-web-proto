@@ -27,13 +27,13 @@ class VendorApi extends Fetchable {
 
     return super.get(`/api/v1/vendors?${body}`)
     .then(res => res.json())
-    .then((json) => json.result);
+    .then(json => json.result);
   }
 
   single(id) {
     return super.get(`/api/v1/vendors/${id}`)
     .then(res => res.json())
-    .then((json) => json.result);
+    .then(json => json.result);
   }
 
   search(query) {

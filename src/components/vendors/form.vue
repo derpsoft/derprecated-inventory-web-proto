@@ -1,20 +1,24 @@
 <template>
-  <form>
-    <div class="form-group" :class="{'has-error': errors.has('vendorName')}">
+  <form @submit.prevent="validate">
+    <div class="form-group" :class="{'has-error': errors.has('name')}">
       <label>Name</label>
-      <input type="text" class="form-control" placeholder="Vendor Name"
+      <input type="text" class="form-control" placeholder="Vendor Name" name="name"
         v-model="value.name"
-        v-validate.initial="vendor.name" data-vv-rules="required"
+        v-validate.initial="value.name" data-vv-rules="required"
         @change="change">
-        <span v-show="errors.has('vendorName')" class="help-block">{{ errors.first('vendorName') }}</span>
+        <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
     </div>
     <div class="form-group">
       <label>Contact Name</label>
       <input type="text" class="form-control" placeholder="Contact Name" v-model="value.contactName" @change="change">
     </div>
-    <div class="form-group">
+    <div class="form-group" :class="{'has-error': errors.has('contactEmail')}">
       <label>Contact Email</label>
-      <input type="email" class="form-control" placeholder="Contact Email" v-model="value.contactEmail" @change="change">
+      <input type="email" class="form-control" placeholder="Contact Email" name="contactEmail"
+        v-model="value.contactEmail"
+        v-validate.initial="value.contactEmail" data-vv-rules="required|email"
+        @change="change">
+      <span v-show="errors.has('contactEmail')" class="help-block">{{ errors.first('contactEmail') }}</span>
     </div>
     <div class="form-group">
       <label>Contact Address</label>
@@ -40,7 +44,7 @@ export default {
     vendor: {
       type: Object,
       required: false
-    }
+    },
   },
 
   watch: {
@@ -55,13 +59,20 @@ export default {
       }
     },
     change() {
-      this.$emit('change', this.value);
-      this.validate();
+      this.validate()
+        .then((isValid) => {
+          if (isValid) {
+            this.$emit('change', this.value);
+          }
+        });
     },
     validate() {
-      this.$validator
+      return this.$validator
         .validateAll()
-        .then(isValid => this.$emit('validate', isValid));
+        .then((isValid) => {
+          this.$emit('is-valid', isValid);
+          return isValid;
+        });
     },
   }
 };

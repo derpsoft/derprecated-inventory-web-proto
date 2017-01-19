@@ -1,24 +1,21 @@
 <template>
-<div>
-  <form id="vendor-add-form" @submit.prevent="validate">
+  <div>
     <div class="row control-row">
       <div class="col-md-12">
-        <button class="btn btn-primary pull-right" type="submit">Create Vendor</button>
+        <button class="btn btn-primary pull-right" @click="save">Create Vendor</button>
         <h4>Vendor Details</h4>
       </div>
     </div>
-  </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-      <vendor-form @change="setVendor" @validate="setValid"></vendor-form>
+    <div class="panel panel-filled panel-main">
+      <div class="panel-body">
+        <vendor-form @change="setVendor" @is-valid="setValid"></vendor-form>
+      </div>
     </div>
-  </form>
-</div>
+  </div>
 </template>
 
 <script>
 import Constants from '../../constants';
-import store from '../../stores/store';
 import VendorForm from './form.vue';
 
 export default {
@@ -34,7 +31,7 @@ export default {
       this.$router.push({ path: '/vendors' });
     },
     save() {
-      if(this.isValid) {
+      if (this.isValid) {
         const vendor = JSON.parse(JSON.stringify(this.vendor));
         const redirect = this.redirect;
 
