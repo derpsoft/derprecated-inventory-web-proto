@@ -8,15 +8,30 @@
         @change="change">
         <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
     </div>
+    <div class="form-group">
+      <autocomplete
+        :suggestions="categories"
+        :selected="parent"
+        :key-selector="(v) => `${v.name}`"
+        :value-selector="(v) => v"
+        :display-selector="(v) => `${v.id}: ${v.name}`"
+        @change="setParent">
+      </autocomplete>
+    </div>
   </form>
 </template>
 
 <script>
+import _ from 'lodash';
+import Autocomplete from '../autocomplete.vue';
+import Constants from '../../constants';
 
 export default {
+  components: { Autocomplete },
+
   data() {
     return {
-      value: {}
+      value: {},
     };
   },
 
@@ -27,8 +42,21 @@ export default {
     },
   },
 
+  computed: {
+    categories() {
+      return _.filter(this.$store.getters.categories, v => v.id !== this.value.id);
+    },
+    parent() {
+      return _.find(this.$store.getters.categories, { id: this.value.parentId });
+    },
+  },
+
   watch: {
     category: 'refresh'
+  },
+
+  mounted() {
+    this.$store.dispatch(Constants.GET_CATEGORIES, { skip: 0, take: 1000 });
   },
 
   methods: {
@@ -54,6 +82,9 @@ export default {
           return isValid;
         });
     },
+    setParent(v) {
+      this.value.parentId = v.id;
+    }
   }
 };
 </script>
