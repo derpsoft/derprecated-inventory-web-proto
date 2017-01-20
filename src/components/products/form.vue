@@ -27,16 +27,12 @@
           </div>
         </div>
       </div>
-      <!-- <div class="row" v-if="value.images">
+      <div class="row">
         <div class="col-lg-12">
           <h5>Gallery</h5>
         </div>
-        <div class="col-lg-1 thumb" v-for="image in value.images">
-          <a class="thumbnail" href="#" @click.prevent="updateImage(image.source)">
-            <img class="img-responsive" :src="image.source" alt="">
-          </a>
-        </div>
-      </div> -->
+        <image-gallery :images="value.images"></image-gallery>
+      </div>
       <div class="row">
         <div class="col-md-12">
           <div class="clearfix">
@@ -174,9 +170,10 @@
 import _ from 'lodash';
 import Constants from '../../constants';
 import Autocomplete from '../autocomplete.vue';
+import ImageGallery from '../images/gallery.vue';
 
 export default {
-  components: { Autocomplete },
+  components: { Autocomplete, ImageGallery },
   data() {
     return {
       value: {},
