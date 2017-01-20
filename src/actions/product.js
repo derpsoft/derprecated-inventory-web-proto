@@ -30,8 +30,8 @@ function createProduct({
 }) {
   new ProductApi()
     .save(product)
-    .then((res) => {
-      commit(Constants.SET_PRODUCT, res.product);
+    .then((p) => {
+      commit(Constants.SET_PRODUCT, p);
 
       if (typeof redirect === 'function') {
         redirect.apply();
@@ -54,8 +54,8 @@ function saveProduct({
 }) {
   new ProductApi()
     .save(product)
-    .then((res) => {
-      commit(Constants.SET_PRODUCT, res.product);
+    .then((p) => {
+      commit(Constants.SET_PRODUCT, p);
       dispatch(Constants.SHOW_TOASTR, {
         type: 'success',
         message: 'Saved Product Successfully.'
@@ -98,7 +98,7 @@ function search({
 }) {
   new ProductApi().search(query)
     .then((products) => {
-      commit(Constants.SET_PRODUCT_LIST, products.results);
+      commit(Constants.SET_PRODUCT_LIST, products);
     })
     .catch((e) => {
       log.error(e);
@@ -112,7 +112,7 @@ function searchProductsWithTypeahead({
   query
 }) {
   new ProductApi().typeahead(query)
-    .then(response => commit(Constants.SET_PRODUCT_LIST, response.products))
+    .then(products => commit(Constants.SET_PRODUCT_LIST, products))
     .catch(e => log.error(e));
 }
 
