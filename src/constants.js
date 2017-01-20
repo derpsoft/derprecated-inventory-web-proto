@@ -66,6 +66,21 @@ export default {
   COUNT_VENDORS: 'COUNT_VENDORS',
   SEARCH_VENDORS_WITH_TYPEAHEAD: 'SEARCH_VENDORS_WITH_TYPEAHEAD',
 
+  GET_CATEGORY: 'GET_CATEGORY',
+  GET_CATEGORIES: 'GET_CATEGORIES',
+  SET_CATEGORY: 'SET_CATEGORY',
+  CREATE_CATEGORY: 'CREATE_CATEGORY',
+  SAVE_CATEGORY: 'SAVE_CATEGORY',
+  CLEAR_CATEGORY: 'CLEAR_CATEGORY',
+  SEARCH_CATEGORIES: 'SEARCH_CATEGORIES',
+  SET_CATEGORY_SEARCH_QUERY: 'SET_CATEGORY_SEARCH_QUERY',
+  SET_CATEGORY_SEARCH_RESULTS: 'SET_CATEGORY_SEARCH_RESULTS',
+  CLEAR_CATEGORY_SEARCH: 'CLEAR_CATEGORY_SEARCH',
+  SET_CATEGORY_LIST: 'SET_CATEGORY_LIST',
+  SET_CATEGORY_COUNT: 'SET_CATEGORY_COUNT',
+  COUNT_CATEGORIES: 'COUNT_CATEGORIES',
+  SEARCH_CATEGORIES_WITH_TYPEAHEAD: 'SEARCH_CATEGORIES_WITH_TYPEAHEAD',
+
   GET_WAREHOUSE: 'GET_WAREHOUSE',
   GET_WAREHOUSES: 'GET_WAREHOUSES',
   SET_WAREHOUSE: 'SET_WAREHOUSE',
@@ -148,6 +163,10 @@ export default {
       key: 'manageWarehouses',
       description: 'Manage Warehouses',
     },
+    MANAGE_CATEGORIES: {
+      key: 'manageCategories',
+      description: 'Manage Categories',
+    },
 
     READ_LOCATIONS: {
       key: 'readLocations',
@@ -173,6 +192,10 @@ export default {
       key: 'readWarehouses',
       description: 'Read Warehouses',
     },
+    READ_CATEGORIES: {
+      key: 'readCategories',
+      description: 'Read Categories',
+    },
 
     UPSERT_LOCATIONS: {
       key: 'upsertLocations',
@@ -194,6 +217,10 @@ export default {
       key: 'upsertWarehouses',
       description: 'Upsert Warehouses',
     },
+    UPSERT_CATEGORIES: {
+      key: 'upsertCategories',
+      description: 'Upsert Categories',
+    },
 
     DELETE_LOCATIONS: {
       key: 'deleteLocations',
@@ -214,6 +241,10 @@ export default {
     DELETE_WAREHOUSES: {
       key: 'deleteWarehouses',
       description: 'Delete Warehouses',
+    },
+    DELETE_CATEGORIES: {
+      key: 'deleteCategories',
+      description: 'Delete Categories',
     },
 
     RECEIVE_INVENTORY: {

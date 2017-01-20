@@ -29,6 +29,7 @@ import Users from './components/users/index.vue';
 import ModifyUsers from './components/users/modifyUser.vue';
 
 import Categories from './components/categories/index.vue';
+import ModifyCategories from './components/categories/modify.vue';
 
 import Vendors from './components/vendors/index.vue';
 import ModifyVendors from './components/vendors/modifyVendors.vue';
@@ -100,6 +101,20 @@ const routes = [{
   }, {
     path: '/categories',
     component: Categories,
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/categories/add',
+    component: ModifyCategories,
+    beforeEnter: guard('canUpsertCategories'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/categories/edit/:id',
+    component: ModifyCategories,
+    beforeEnter: guard('canUpsertCategories'),
     meta: {
       requiresAuth: true,
     },

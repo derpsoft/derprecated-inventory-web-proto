@@ -334,19 +334,19 @@ const GETTERS = {
   canReadCategories: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING.key,
-      Permissions.MANAGE_CATEGORIES,
-      Permissions.READ_CATEGORIES,
+      Permissions.MANAGE_CATEGORIES.key,
+      Permissions.READ_CATEGORIES.key,
     ];
-    return !!_.intersection(getters.currentUserPermissions, allowed).length && false;
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
   canUpsertCategories: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING.key,
-      Permissions.MANAGE_CATEGORIES,
-      Permissions.UPSERT_CATEGORIES,
+      Permissions.MANAGE_CATEGORIES.key,
+      Permissions.UPSERT_CATEGORIES.key,
     ];
-    return !!_.intersection(getters.currentUserPermissions, allowed).length && false;
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
   canReceiveInventory: (state, getters) => {
