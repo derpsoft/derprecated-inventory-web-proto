@@ -51,7 +51,6 @@ export default {
     },
     setVendor(v) {
       this.vendor = Object.assign({}, this.vendor, v);
-      console.log(JSON.stringify(v), JSON.stringify(this.vendor));
     },
     setValid(flag) {
       this.isValid = flag;
