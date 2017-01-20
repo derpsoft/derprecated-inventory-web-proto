@@ -48,10 +48,14 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Categories</label>
-                    <input type="text" class="form-control" placeholder="Categories" tabindex="0"
-                      v-model="value.tags"
-                      @change="change"
-                      >
+                    <autocomplete
+                      :suggestions="categories"
+                      :selected="category"
+                      :key-selector="(v) => `${v.name}`"
+                      :value-selector="(v) => v"
+                      :display-selector="(v) => `${v.id}: ${v.name}`"
+                      @change="setCategory">
+                    </autocomplete>
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -93,12 +97,14 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>Vendor</label>
-                    <select class="form-control"
-                      v-model="value.vendorId"
-                      @change="change"
-                      >
-                        <option v-for="vendor in vendors" :value="vendor.id">{{ vendor.name }}</option>
-                      </select>
+                    <autocomplete
+                      :suggestions="vendors"
+                      :selected="vendor"
+                      :key-selector="(v) => `${v.name}`"
+                      :value-selector="(v) => v"
+                      :display-selector="(v) => `${v.id}: ${v.name}`"
+                      @change="setVendor">
+                    </autocomplete>
                   </div>
                 </div>
               </div>
@@ -165,9 +171,12 @@
 </style>
 
 <script>
+import _ from 'lodash';
 import Constants from '../../constants';
+import Autocomplete from '../autocomplete.vue';
 
 export default {
+  components: { Autocomplete },
   data() {
     return {
       value: {},
@@ -186,12 +195,25 @@ export default {
     vendors() {
       return this.$store.getters.vendors;
     },
+    vendor() {
+      return _.find(this.$store.getters.vendors, { id: this.value.vendorId });
+    },
+    categories() {
+      return this.$store.getters.categories;
+    },
+    category() {
+      return _.find(this.$store.getters.categories, { id: this.value.categoryId });
+    },
   },
   watch: {
     product: 'refresh'
   },
   mounted() {
     this.$store.dispatch(Constants.GET_VENDORS, {
+      skip: 0,
+      take: 1000,
+    });
+    this.$store.dispatch(Constants.GET_CATEGORIES, {
       skip: 0,
       take: 1000,
     });
@@ -219,6 +241,14 @@ export default {
           return isValid;
         });
     },
+    setVendor(v) {
+      this.value.vendorId = v.id;
+      this.change();
+    },
+    setCategory(v) {
+      this.value.categoryId = v.id;
+      this.change();
+    }
   }
 };
 </script>
