@@ -1,9 +1,9 @@
 <template>
 <div>
   <div class="col-md-12">
-    <vendor-search></vendor-search>
+    <category-search></category-search>
   </div>
-  <div v-if="vendors && vendors.length">
+  <div v-if="categories && categories.length">
     <div class="col-xs-6 text-left">
       <page-size :callback="setPageSize" :page-size="25"></page-size>
     </div>
@@ -12,7 +12,7 @@
     </div>
     <div class="col-md-12">
       <div class="table-responsive">
-        <table class="table table-striped table-hover vendor-list">
+        <table class="table table-striped table-hover category-list">
           <thead>
             <tr>
               <th>ID</th>
@@ -20,32 +20,32 @@
             </tr>
           </thead>
           <tbody>
-            <tr @click.prevent="edit(vendor.id)" v-for="vendor in vendors">
-              <td>{{vendor.id}}</td>
-              <td>{{vendor.name}}</td>
+            <tr @click.prevent="edit(category.id)" v-for="category in categories">
+              <td>{{category.id}}</td>
+              <td>{{category.name}}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
-  <div class="col-md-12" v-if="!vendors || vendors.length === 0">
-    There were no vendors found. Please add vendors or update the filters.
+  <div class="col-md-12" v-if="!categories || categories.length === 0">
+    There were no categories found. Please add categories or update the filters.
   </div>
 </div>
 </template>
 
 <style lang="less" scoped>
-table.vendor-list {
+  table.category-list {
     tr {
-        cursor: pointer;
+      cursor: pointer;
     }
-}
+  }
 </style>
 
 <script>
 import Pagination from 'vue-bootstrap-pagination';
-import vendorSearch from './search.vue';
+import categorySearch from './search.vue';
 import Constants from '../../constants';
 import PageSize from '../../components/pageSize/pageSize.vue';
 
@@ -65,35 +65,35 @@ export default {
   components: {
     Pagination,
     PageSize,
-    vendorSearch,
+    categorySearch,
   },
   mounted() {
-    this.$store.dispatch(Constants.GET_VENDORS, {
+    this.$store.dispatch(Constants.GET_CATEGORIES, {
       skip: 0,
       take: defaultPageCount
     });
-    this.$store.dispatch(Constants.COUNT_VENDORS);
+    this.$store.dispatch(Constants.COUNT_CATEGORIES);
   },
   computed: {
     count() {
-      return this.$store.getters.vendorCount;
+      return this.$store.getters.categoryCount;
     },
-    vendors() {
-      const vendors = this.$store.getters.vendors;
+    categories() {
+      const categories = this.$store.getters.categories;
 
       this.pagination.last_page = Math.ceil(this.count / this.pagination.per_page);
       this.pagination.to = this.count;
 
-      return vendors;
+      return categories;
     },
   },
   methods: {
     edit(id) {
-      this.$router.push(`/vendors/edit/${id}`);
+      this.$router.push(`/categories/edit/${id}`);
     },
     getPage() {
       const skip = this.pagination.per_page * (this.pagination.current_page - 1);
-      this.$store.dispatch(Constants.GET_VENDORS, {
+      this.$store.dispatch(Constants.GET_CATEGORIES, {
         skip,
         take: this.pagination.per_page
       });
@@ -102,7 +102,7 @@ export default {
       this.pagination.per_page = pageSize;
       this.pagination.current_page = 1;
 
-      this.$store.dispatch(Constants.GET_VENDORS, {
+      this.$store.dispatch(Constants.GET_CATEGORIES, {
         skip: 0,
         take: pageSize,
       });

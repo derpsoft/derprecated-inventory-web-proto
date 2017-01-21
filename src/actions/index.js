@@ -9,6 +9,7 @@ import ReportActions from './report';
 import LocationActions from './location';
 import ToastrActions from './toastr';
 import SaleActions from './sale';
+import CategoryActions from './category';
 
 module.exports = [
   AuthActions,
@@ -22,4 +23,5 @@ module.exports = [
   LocationActions,
   ToastrActions,
   SaleActions,
+  CategoryActions,
 ];

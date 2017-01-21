@@ -14,6 +14,14 @@ class ProductApi extends Fetchable {
     return this;
   }
 
+  imageUploadIntercept(file, xhr) {
+    super.prepareXhr(xhr);
+  }
+
+  getImageUploadUrl(id) {
+    return `/api/v1/products/${id}/images`;
+  }
+
   list(skip = 0, take = 25) {
     const body = new URLSearchParams();
     body.set('skip', skip);
@@ -22,7 +30,7 @@ class ProductApi extends Fetchable {
     return super.get(`/api/v1/products?${body}`)
       .then(res => res.json())
       .then((json) => {
-        return json.products;
+        return json.result;
       });
   }
 
@@ -30,7 +38,7 @@ class ProductApi extends Fetchable {
     return super.get(`/api/v1/products/${id}`)
       .then(res => res.json())
       .then((json) => {
-        return json.product;
+        return json.result;
       });
   }
 
@@ -48,19 +56,19 @@ class ProductApi extends Fetchable {
     body.set('query', query);
 
     return super.get(`/api/v1/products/typeahead?${body}`)
-    .then(res => res.json());
+    .then(res => res.json())
+    .then(json => json.result);
   }
 
   save(product) {
     const headers = new Headers();
     headers.set('content-type', 'application/json');
-    return super.post('/api/v1/products/save', {
-      body: this.toJson({
-        product
-      }),
+    return super.post('/api/v1/products', {
+      body: this.toJson(product),
       headers
     })
-    .then(res => res.json());
+    .then(res => res.json())
+    .then(json => json.result);
   }
 }
 export default ProductApi;

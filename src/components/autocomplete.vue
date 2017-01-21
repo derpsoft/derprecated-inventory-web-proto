@@ -45,6 +45,18 @@ export default {
       type: Array,
       required: true
     },
+
+    selected: {
+      type: Object,
+      required: false,
+    },
+  },
+
+  mounted() {
+    if (this.selected) {
+      this.query = this.keySelector(this.selected);
+      this.change();
+    }
   },
 
   computed: {

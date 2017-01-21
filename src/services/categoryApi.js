@@ -2,21 +2,21 @@ import Fetchable from './fetchable';
 import store from '../stores/store';
 import Constants from '../constants';
 
-class LocationApi extends Fetchable {
+class CategoryApi extends Fetchable {
 
   constructor() {
     super(Constants.API_ROOT, store);
 
-    if (LocationApi.prototype.singleton) {
-      return LocationApi.prototype.singleton;
+    if (CategoryApi.prototype.singleton) {
+      return CategoryApi.prototype.singleton;
     }
-    LocationApi.prototype.singleton = this;
+    CategoryApi.prototype.singleton = this;
 
     return this;
   }
 
   count() {
-    return super.get('/api/v1/locations/count')
+    return super.get('/api/v1/categories/count')
     .then(res => res.json())
     .then(json => json.result);
   }
@@ -26,23 +26,19 @@ class LocationApi extends Fetchable {
     body.set('skip', skip);
     body.set('take', take);
 
-    return super.get(`/api/v1/locations?${body}`)
+    return super.get(`/api/v1/categories?${body}`)
     .then(res => res.json())
-    .then((json) => {
-      return json.result;
-    });
+    .then(json => json.result);
   }
 
   single(id) {
-    return super.get(`/api/v1/locations/${id}`)
+    return super.get(`/api/v1/categories/${id}`)
     .then(res => res.json())
-    .then((json) => {
-      return json.result;
-    });
+    .then(json => json.result);
   }
 
   search(query) {
-    return super.post('/api/v1/locations/search', {
+    return super.post('/api/v1/categories/search', {
       body: this.toForm({ query })
     })
     .then(res => res.json());
@@ -52,30 +48,29 @@ class LocationApi extends Fetchable {
     const body = new URLSearchParams();
     body.set('query', query);
 
-    return super.get(`/api/v1/locations/typeahead?${body}`)
+    return super.get(`/api/v1/categories/typeahead?${body}`)
     .then(res => res.json())
-    .then(json => json.locations);
+    .then(json => json.result);
   }
 
-  save(location) {
-    const id = location.id;
+  save(category) {
+    const id = category.id;
     const headers = new Headers();
     headers.set('content-type', 'application/json');
-    delete location.id;
-    return super.put(`/api/v1/locations/${id}`, {
-      body: this.toJson(location),
+    delete category.id;
+    return super.put(`/api/v1/categories/${id}`, {
+      body: this.toJson(category),
       headers
     })
     .then(res => res.json())
     .then(json => json.result);
   }
 
-  create(location) {
+  create(category) {
     const headers = new Headers();
     headers.set('content-type', 'application/json');
-    delete location.id;
-    return super.post('/api/v1/locations', {
-      body: this.toJson(location),
+    return super.post('/api/v1/categories', {
+      body: this.toJson(category),
       headers
     })
     .then(res => res.json())
@@ -83,4 +78,4 @@ class LocationApi extends Fetchable {
   }
 }
 
-export default LocationApi;
+export default CategoryApi;

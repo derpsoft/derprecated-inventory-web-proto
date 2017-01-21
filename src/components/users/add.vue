@@ -14,6 +14,11 @@
           <input type="email" name="email" class="form-control" placeholder="Email" v-model="user.email" v-validate.initial="user.email" data-vv-rules="required|email">
           <span v-show="errors.has('email')" class="help-block">{{ errors.first('email') }}</span>
         </div>
+        <div class="form-group" :class="{'has-error': errors.has('username')}">
+          <label>Username</label>
+          <input type="text" class="form-control" placeholder="Username" name="username" v-model="user.userName" v-validate.initial="user.userName" data-vv-rules="required">
+          <span v-show="errors.has('username')" class="help-block">{{ errors.first('username') }}</span>
+        </div>
         <div class="form-group" :class="{'has-error': errors.has('firstName')}">
           <label>First Name</label>
           <input type="text" class="form-control" placeholder="First Name" name="firstName" v-model="user.firstName" v-validate.initial="user.firstName" data-vv-rules="required">
@@ -31,17 +36,18 @@
         </div>
         <div>
           <h4>Permissions</h4>
-          <div class="checkbox" v-for="permission in allPermissions">
-            <label>
-                  <input type="checkbox" v-bind:id="permission" v-bind:value="permission.key" v-model="permissions">
-                  {{ permission.description }}
-                </label>
+          <div class="col-md-3 col-xs-12" v-for="p in allPermissions">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" v-bind:id="permission" v-bind:value="permission.key" v-model="permissions">
+                {{ permission.description }}
+              </label>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   </form>
-</div>
+  </div>
 </template>
 
 <script>
@@ -65,7 +71,9 @@ export default {
   },
   methods: {
     redirect() {
-      this.$router.push({ path: '/users' });
+      this.$router.push({
+        path: '/users'
+      });
     },
     validate() {
       this.$validator.validateAll().then((success) => {

@@ -113,14 +113,26 @@ function forgotPassword({
     });
 }
 
-function resetPassword(state, {
+function resetPassword({
+  dispatch
+}, {
   email,
   password,
   passwordRepeat,
-  token
+  token,
+  redirect
 }) {
   new AuthApi().resetPassword(email, token, password, passwordRepeat)
-    .then(() => {});
+    .then(() => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'success',
+        message: 'Password reset was successful.'
+      });
+
+      if (typeof redirect === 'function') {
+        redirect.apply();
+      }
+    });
 }
 
 /*
@@ -322,19 +334,19 @@ const GETTERS = {
   canReadCategories: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING.key,
-      Permissions.MANAGE_CATEGORIES,
-      Permissions.READ_CATEGORIES,
+      Permissions.MANAGE_CATEGORIES.key,
+      Permissions.READ_CATEGORIES.key,
     ];
-    return !!_.intersection(getters.currentUserPermissions, allowed).length && false;
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
   canUpsertCategories: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING.key,
-      Permissions.MANAGE_CATEGORIES,
-      Permissions.UPSERT_CATEGORIES,
+      Permissions.MANAGE_CATEGORIES.key,
+      Permissions.UPSERT_CATEGORIES.key,
     ];
-    return !!_.intersection(getters.currentUserPermissions, allowed).length && false;
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
   canReceiveInventory: (state, getters) => {

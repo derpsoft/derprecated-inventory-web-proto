@@ -3,7 +3,7 @@
   <div class="col-md-12">
     <warehouse-search></warehouse-search>
   </div>
-  <div v-if="warehouses.length">
+  <div v-if="warehouses && warehouses.length">
     <div class="col-xs-6 text-left">
       <page-size :callback="setPageSize" :page-size="25"></page-size>
     </div>
@@ -29,7 +29,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-12" v-if="warehouses.length === 0">
+  <div class="col-md-12" v-if="!warehouses || warehouses.length === 0">
     There are no warehouses found. Please add warehouses or update the filters.
   </div>
 </div>

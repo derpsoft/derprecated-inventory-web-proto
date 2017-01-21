@@ -2,13 +2,13 @@
   <div>
     <div class="row control-row">
       <div class="col-md-12">
-        <button class="btn btn-primary pull-right" @click="save">Save Vendor</button>
-        <h4>Vendor Details</h4>
+        <button class="btn btn-primary pull-right" @click="save">Save Category</button>
+        <h4>Category Details</h4>
       </div>
     </div>
     <div class="panel panel-filled panel-main">
       <div class="panel-body">
-        <vendor-form :vendor="vendor" @change="setVendor" @is-valid="setValid"></vendor-form>
+        <category-form :category="category" @change="setCategory" @is-valid="setValid"></category-form>
       </div>
     </div>
   </div>
@@ -16,13 +16,13 @@
 
 <script>
 import Constants from '../../constants';
-import VendorForm from './form.vue';
+import CategoryForm from './form.vue';
 
 export default {
-  components: { VendorForm },
+  components: { CategoryForm },
   data() {
     return {
-      vendor: {},
+      category: {},
       isValid: false,
     };
   },
@@ -36,21 +36,21 @@ export default {
   },
   methods: {
     load() {
-      this.$store.dispatch(Constants.GET_VENDOR, {
+      this.$store.dispatch(Constants.GET_CATEGORY, {
         id: this.id,
       });
     },
     save() {
       if (this.isValid) {
-        const vendor = JSON.parse(JSON.stringify(this.vendor));
-        vendor.id = this.id;
-        this.$store.dispatch(Constants.SAVE_VENDOR, {
-          vendor
+        const category = JSON.parse(JSON.stringify(this.category));
+        category.id = this.id;
+        this.$store.dispatch(Constants.SAVE_CATEGORY, {
+          category
         });
       }
     },
-    setVendor(v) {
-      this.vendor = Object.assign({}, this.vendor, v);
+    setCategory(v) {
+      this.category = Object.assign({}, this.category, v);
     },
     setValid(flag) {
       this.isValid = flag;
@@ -58,8 +58,8 @@ export default {
   },
   mounted() {
     this.$store.watch(
-      () => this.$store.getters.vendor,
-      v => this.setVendor(v)
+      () => this.$store.getters.category,
+      v => this.setCategory(v)
     );
     this.load();
   }
