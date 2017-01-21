@@ -58,17 +58,17 @@
 </template>
 
 <style lang="less">
-  .password-reset {
+.password-reset {
     .reset-btn {
-      margin-right: 10px;
+        margin-right: 10px;
     }
     span {
-      display: block;
-      padding: 6px 0;
-      line-height: 1.42857143;
-      color: #1bbf89;
+        display: block;
+        padding: 6px 0;
+        line-height: 1.42857143;
+        color: #1bbf89;
     }
-  }
+}
 </style>
 
 <script>
@@ -115,6 +115,12 @@ export default {
       });
     },
     load() {
+      this.$store.commit(Constants.SET_PASSWORD_RESET_STATUS, false);
+
+      this.$store.watch(() => this.$store.getters.user, (current) => {
+        this.user = Object.assign({}, current);
+      });
+
       this.$store.dispatch(Constants.GET_USER, {
         id: this.id,
       });
@@ -133,9 +139,6 @@ export default {
     }
   },
   mounted() {
-    this.$store.watch(() => this.$store.getters.user, (current) => {
-      this.user = Object.assign({}, current);
-    });
     this.load();
   }
 };
