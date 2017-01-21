@@ -11,6 +11,9 @@
       show-remove-link="false"
       max-file-size-in-mb="8"
       auto-process-queue="true"
+      :show-remove-link="false"
+      :max-file-size-in-mb="8"
+      :auto-process-queue="true"
       ></dropzone>
   </div>
 </template>
