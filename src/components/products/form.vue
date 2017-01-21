@@ -27,7 +27,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" is-dev>
         <div class="col-lg-12">
           <h5>Gallery</h5>
         </div>
