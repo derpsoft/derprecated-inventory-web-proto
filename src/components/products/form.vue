@@ -31,7 +31,7 @@
         <div class="col-lg-12">
           <h5>Gallery</h5>
         </div>
-        <image-gallery :images="value.images"></image-gallery>
+        <image-gallery v-if="value.id > 0" :images="value.images" :upload-url="uploadUrl"></image-gallery>
       </div>
       <div class="row">
         <div class="col-md-12">
@@ -171,6 +171,7 @@ import _ from 'lodash';
 import Constants from '../../constants';
 import Autocomplete from '../autocomplete.vue';
 import ImageGallery from '../images/gallery.vue';
+import ProductApi from '../../services/productApi';
 
 export default {
   components: { Autocomplete, ImageGallery },
@@ -201,6 +202,9 @@ export default {
     category() {
       return _.find(this.$store.getters.categories, { id: this.value.categoryId });
     },
+    uploadUrl() {
+      return new ProductApi().getImageUploadUrl(this.value.id);
+    }
   },
   watch: {
     product: 'refresh'

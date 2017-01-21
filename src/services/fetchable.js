@@ -59,6 +59,18 @@ export default class Fetchable {
     return JSON.stringify(body);
   }
 
+  prepareXhr(xhr) {
+    const defaults = {
+      headers: {
+        Accept: 'application/json',
+      }
+    };
+
+    _.each(defaults.headers, (v, k) => {
+      xhr.setRequestHeader(k, v);
+    });
+  }
+
   prepare(options) {
     const defaults = {
       headers: {

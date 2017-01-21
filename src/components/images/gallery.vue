@@ -5,12 +5,16 @@
       <image-edit :image="image" @remove="remove(image)"></image-edit>
     </template>
     <dropzone
-      url="/product/images"
       id="productImages"
+      :url="uploadUrl"
       accepted-file-types="image/*"
       show-remove-link="false"
       max-file-size-in-mb="8"
       auto-process-queue="true"
+      :show-remove-link="false"
+      :max-file-size-in-mb="8"
+      :auto-process-queue="true"
+      @vdropzone-sending="sending"
       ></dropzone>
   </div>
 </template>
@@ -24,11 +28,17 @@
 <script>
 import Dropzone from 'vue2-dropzone';
 import ImageEdit from './edit.vue';
+import ProductApi from '../../services/productApi';
 
 export default {
   components: { ImageEdit, Dropzone },
 
   props: {
+    uploadUrl: {
+      type: String,
+      required: true,
+    },
+
     images: {
       type: Array,
       required: false,
@@ -59,10 +69,8 @@ export default {
     remove() {
       // todo
     },
-    showSuccess(file, response) {
-      if (response.result) {
-        this.add(response.result);
-      }
+    sending(file, xhr, form) {
+      new ProductApi().imageUploadIntercept(file, xhr, form);
     },
   },
 };
