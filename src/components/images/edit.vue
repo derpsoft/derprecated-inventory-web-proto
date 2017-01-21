@@ -1,16 +1,9 @@
 <template>
   <div class="image">
     <div>
-      <button class="btn btn-primary" @click="prompt">+</button>
       <button class="btn btn-primary" v-if="value.src" @click="remove">-</button>
     </div>
-    <img :src="value.src" @click="prompt" />
-    <input type="file" class="hide"
-      accept="image/*"
-      multiple="false"
-      :value="filename"
-      @change="imageSelected"
-      >
+    <img :src="value.src" />
   </div>
 </template>
 
@@ -24,6 +17,7 @@
 </style>
 
 <script>
+
 export default {
   components: {},
 

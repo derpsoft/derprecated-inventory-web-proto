@@ -4,8 +4,14 @@
     <template v-for="image in images">
       <image-edit :image="image" @remove="remove(image)"></image-edit>
     </template>
-    <button class="btn btn-primary" @click="add">Add</button>
-
+    <dropzone
+      url="/product/images"
+      id="productImages"
+      accepted-file-types="image/*"
+      show-remove-link="false"
+      max-file-size-in-mb="8"
+      auto-process-queue="true"
+      ></dropzone>
   </div>
 </template>
 
@@ -16,10 +22,11 @@
 </style>
 
 <script>
+import Dropzone from 'vue2-dropzone';
 import ImageEdit from './edit.vue';
 
 export default {
-  components: { ImageEdit },
+  components: { ImageEdit, Dropzone },
 
   props: {
     images: {
@@ -51,7 +58,12 @@ export default {
     },
     remove() {
       // todo
-    }
+    },
+    showSuccess(file, response) {
+      if (response.result) {
+        this.add(response.result);
+      }
+    },
   },
 };
 </script>
