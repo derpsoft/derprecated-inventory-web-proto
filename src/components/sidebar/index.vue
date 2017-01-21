@@ -40,7 +40,7 @@
       <li class="nav-category">
         Account
       </li>
-      <li>
+      <li v-is-dev>
         <router-link :to="{ path: '/profile', activeClass: 'active'}" active-class="active">Profile</router-link>
       </li>
       <li>
