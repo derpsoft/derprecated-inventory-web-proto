@@ -11,57 +11,7 @@
 </div>
 </template>
 
-<style lang="less" scope>
-  .panel-main {
-      padding-top: 15px;
-  }
-  .tabs-container {
-      margin-top: 20px;
-  }
-  textarea.form-control {
-      resize: none;
-      height: 152px;
-  }
-  .nav-tabs {
-      margin-bottom: 0 !important;
-  }
-  .control-row {
-      margin-bottom: 20px;
-  }
-
-  .tab-content {
-      margin-top: 1px;
-  }
-  .tab-pane {
-      padding: 10px 15px;
-      background-color: rgba(68, 70, 79, 0.5);
-
-      .panel {
-          &:first-child {
-              margin-top: 4px;
-          }
-          background-color: transparent;
-          border: 1px solid rgba(116, 124, 158, 0.2);
-
-          .panel-filled {
-              background-color: transparent;
-          }
-          .panel-heading {
-              background-color: transparent;
-              font-weight: bold;
-          }
-          .panel-body {
-              background-color: transparent;
-          }
-      }
-  }
-  a.thumbnail {
-      border: 2px solid transparent;
-      &:hover {
-          border-color: #f6a821;
-          transition: 300ms ease-in-out;
-      }
-  }
+<style lang="less" scoped>
 </style>
 
 <script>

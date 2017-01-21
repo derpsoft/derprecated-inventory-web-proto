@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<style lang="less" scope>
+<style lang="less" scoped>
   .image {
     img {
       width: 300px;

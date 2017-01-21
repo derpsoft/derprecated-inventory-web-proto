@@ -28,7 +28,7 @@
 </section>
 </template>
 
-<style scope>
+<style scoped>
 .btn-return {
   margin-right: -15px;
 }

@@ -1,9 +1,9 @@
 <template>
-  <div class="gallery">
+<div class="gallery">
 
-    <template v-for="image in images">
+  <template v-for="image in images">
       <image-edit :image="image" @remove="remove(image)"></image-edit>
-    </template>
+</template>
     <dropzone
       id="productImages"
       :url="uploadUrl"
@@ -19,10 +19,12 @@
   </div>
 </template>
 
-<style lang="less" scope>
-  .gallery {
-
-  }
+<style lang="less" scoped>
+html {
+    background: none;
+}
+.gallery {
+    }
 </style>
 
 <script>
@@ -31,7 +33,10 @@ import ImageEdit from './edit.vue';
 import ProductApi from '../../services/productApi';
 
 export default {
-  components: { ImageEdit, Dropzone },
+  components: {
+    ImageEdit,
+    Dropzone
+  },
 
   props: {
     uploadUrl: {
