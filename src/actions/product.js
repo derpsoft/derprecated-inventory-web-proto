@@ -124,6 +124,21 @@ function clearProduct({
 
 function updateProductField() {}
 
+function deleteProduct({
+  dispatch
+}, id) {
+  if (id < 1) {
+    throw new Error('id must be >= 1');
+  }
+  new ProductApi()
+    .delete(id)
+    .then(() => dispatch(Constants.SHOW_TOASTR, {
+      type: 'info',
+      message: 'Product deleted',
+    }))
+    .catch(e => log.error(e));
+}
+
 const INITIAL_STATE = {
   products: {
     search: {
@@ -144,6 +159,7 @@ const ACTIONS = {
   [Constants.CLEAR_PRODUCT]: clearProduct,
   [Constants.CREATE_PRODUCT]: createProduct,
   [Constants.SAVE_PRODUCT]: saveProduct,
+  [Constants.DELETE_PRODUCT]: deleteProduct,
 };
 
 const MUTATIONS = {

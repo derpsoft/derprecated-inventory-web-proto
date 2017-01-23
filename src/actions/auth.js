@@ -295,6 +295,15 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
+  canDeleteProducts: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_PRODUCTS.key,
+      Permissions.DELETE_PRODUCTS.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
   canReadWarehouses: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING.key,
