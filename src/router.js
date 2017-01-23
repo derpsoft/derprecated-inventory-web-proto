@@ -23,7 +23,7 @@ import Warehouses from './components/warehouses/index.vue';
 import ModifyWarehouses from './components/warehouses/modifyWarehouses.vue';
 
 import Locations from './components/locations/index.vue';
-import SaveLocation from './components/locations/save.vue';
+import ModifyLocation from './components/locations/modify.vue';
 
 import Users from './components/users/index.vue';
 import ModifyUsers from './components/users/modifyUser.vue';
@@ -222,14 +222,14 @@ const routes = [{
     },
   }, {
     path: '/locations/add',
-    component: SaveLocation,
+    component: ModifyLocation,
     beforeEnter: guard('canUpsertLocations'),
     meta: {
       requiresAuth: true,
     },
   }, {
     path: '/locations/edit/:id',
-    component: SaveLocation,
+    component: ModifyLocation,
     beforeEnter: guard('canUpsertLocations'),
     meta: {
       requiresAuth: true,

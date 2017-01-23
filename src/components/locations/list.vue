@@ -29,7 +29,7 @@
       </div>
     </div>
   </div>
-  <div v-if="!locations || locations.length === 0" class="col-md-12">
+  <div v-if="!locations || !locations.length" class="col-md-12">
     There are no locations found. Please add locations or update the filters.
   </div>
 </div>

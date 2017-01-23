@@ -139,6 +139,19 @@ function countLocations({
     });
 }
 
+function deleteLocation({ dispatch }, id) {
+  if (id < 1) {
+    throw new Error('id must be >= 1');
+  }
+  new LocationApi()
+    .delete(id)
+    .then(() => dispatch(Constants.SHOW_TOASTR, {
+      type: 'info',
+      message: 'Location deleted'
+    }))
+    .catch(e => log.error(e));
+}
+
 
 const INITIAL_STATE = {
   locations: {
@@ -157,6 +170,7 @@ const ACTIONS = {
   [Constants.SAVE_LOCATION]: saveLocation,
   [Constants.SEARCH_LOCATIONS_WITH_TYPEAHEAD]: typeahead,
   [Constants.COUNT_LOCATIONS]: countLocations,
+  [Constants.DELETE_LOCATION]: deleteLocation,
 };
 
 const MUTATIONS = {

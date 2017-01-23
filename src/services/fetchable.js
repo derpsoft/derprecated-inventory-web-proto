@@ -12,7 +12,7 @@ const _fetch = function(url, options, {
       }
 
       if (res.status === 400) {
-        throw new Error(res);
+        throw new Error('Validation');
       }
 
       if (res.status === 401) {
