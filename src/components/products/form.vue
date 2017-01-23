@@ -24,7 +24,7 @@
         <div class="col-lg-12">
           <h5>Gallery</h5>
         </div>
-        <!-- <image-gallery v-if="false" :images="value.images" :upload-url="uploadUrl"></image-gallery> -->
+        <image-gallery is-dev :images="value.images" :upload-url="uploadUrl"></image-gallery>
       </div>
       <div class="row">
         <div class="col-md-12">
@@ -107,13 +107,13 @@ a.thumbnail {
 import _ from 'lodash';
 import Constants from '../../constants';
 import Autocomplete from '../autocomplete.vue';
-// import ImageGallery from '../images/gallery.vue';
+import ImageGallery from '../images/gallery.vue';
 import ProductApi from '../../services/productApi';
 
 export default {
   components: {
     Autocomplete,
-    // ImageGallery
+    ImageGallery
   },
   data() {
     return {
