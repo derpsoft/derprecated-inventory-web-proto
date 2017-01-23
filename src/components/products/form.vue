@@ -24,7 +24,7 @@
         <div class="col-lg-12">
           <h5>Gallery</h5>
         </div>
-        <image-gallery is-dev :images="value.images" :upload-url="uploadUrl"></image-gallery>
+        <image-gallery is-dev :images="value.images" :upload-url="uploadUrl" :on-sending="xhrIntercept"></image-gallery>
       </div>
       <div class="row">
         <div class="col-md-12">
@@ -123,13 +123,17 @@ export default {
   },
 
   props: {
-    product: {
-      type: Object,
-      required: false
+    id: {
+      type: Number,
+      required: true,
+      default: 0,
     },
   },
 
   computed: {
+    product() {
+      return this.$store.getters.product;
+    },
     vendors() {
       return this.$store.getters.vendors;
     },
@@ -147,21 +151,15 @@ export default {
       });
     },
     uploadUrl() {
-      return new ProductApi().getImageUploadUrl(this.value.id);
+      return new ProductApi().getImageUploadUrl(this.id);
     }
   },
   watch: {
+    id: 'load',
     product: 'refresh'
   },
   mounted() {
-    this.$store.dispatch(Constants.GET_VENDORS, {
-      skip: 0,
-      take: 1000,
-    });
-    this.$store.dispatch(Constants.GET_CATEGORIES, {
-      skip: 0,
-      take: 1000,
-    });
+    this.load();
   },
   methods: {
     refresh() {
@@ -169,6 +167,21 @@ export default {
         this.value = Object.assign({}, this.value, this.product);
         this.validate();
       }
+    },
+    load() {
+      if (this.id > 0) {
+        this.$store.dispatch(Constants.GET_PRODUCT, {
+          id: this.id,
+        });
+      }
+      this.$store.dispatch(Constants.GET_VENDORS, {
+        skip: 0,
+        take: 1000,
+      });
+      this.$store.dispatch(Constants.GET_CATEGORIES, {
+        skip: 0,
+        take: 1000,
+      });
     },
     change() {
       this.validate()
@@ -193,6 +206,9 @@ export default {
     setCategory(v) {
       this.value.categoryId = v.id;
       this.change();
+    },
+    xhrIntercept(file, xhr) {
+      return new ProductApi().imageUploadIntercept(file, xhr);
     }
   }
 };

@@ -5,7 +5,7 @@
       <image-edit :image="image" @remove="remove(image)"></image-edit>
 </template>
     <dropzone
-      id="productImages"
+      id="imageGallery"
       :url="uploadUrl"
       accepted-file-types="image/*"
       show-remove-link="false"
@@ -14,7 +14,7 @@
       :show-remove-link="false"
       :max-file-size-in-mb="8"
       :auto-process-queue="true"
-      @vdropzone-sending="sending"
+      @vdropzone-sending="onSending"
       ></dropzone>
   </div>
 </template>
@@ -30,7 +30,6 @@ html {
 <script>
 import Dropzone from 'vue2-dropzone';
 import ImageEdit from './edit.vue';
-import ProductApi from '../../services/productApi';
 
 export default {
   components: {
@@ -61,6 +60,12 @@ export default {
       required: false,
       default: true,
     },
+
+    onSending: {
+      type: Function,
+      required: false,
+      default: () => {},
+    },
   },
 
   data() {
@@ -73,9 +78,6 @@ export default {
     },
     remove() {
       // todo
-    },
-    sending(file, xhr, form) {
-      new ProductApi().imageUploadIntercept(file, xhr, form);
     },
   },
 };

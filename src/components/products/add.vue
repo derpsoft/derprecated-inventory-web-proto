@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <product-form :product="product" @change="setProduct" @is-valid="setValid"></product-form>
+  <product-form ref="productForm" @change="setProduct"></product-form>
 </div>
 </template>
 
@@ -32,37 +32,29 @@ export default {
   data() {
     return {
       product: {},
-      isValid: false,
     };
   },
   methods: {
-    validate() {
-      this.$validator.validateAll().then((success) => {
-        if (!success) {
-          return;
-        }
-        this.save();
-      });
-    },
     redirect() {
       this.$router.push({ path: '/products' });
     },
     save() {
-      if (this.isValid) {
-        const product = JSON.parse(JSON.stringify(this.product));
-        const redirect = this.redirect;
+      this.$refs.productForm
+        .validate()
+        .then((isValid) => {
+          if (isValid) {
+            const product = JSON.parse(JSON.stringify(this.product));
+            const redirect = this.redirect;
 
-        this.$store.dispatch(Constants.CREATE_PRODUCT, {
-          product,
-          redirect
+            this.$store.dispatch(Constants.CREATE_PRODUCT, {
+              product,
+              redirect
+            });
+          }
         });
-      }
     },
     setProduct(v) {
       this.product = Object.assign({}, this.product, v);
-    },
-    setValid(flag) {
-      this.isValid = flag;
     },
   },
 };

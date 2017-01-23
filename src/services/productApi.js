@@ -19,7 +19,10 @@ class ProductApi extends Fetchable {
   }
 
   getImageUploadUrl(id) {
-    return `/api/v1/products/${id}/images`;
+    if (id < 1) {
+      throw new Error('id must be >= 1');
+    }
+    return `${Constants.API_ROOT}/api/v1/products/${id}/images`;
   }
 
   list(skip = 0, take = 25) {
