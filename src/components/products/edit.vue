@@ -2,6 +2,7 @@
 <div>
   <div class="row control-row">
     <div class="col-md-12">
+      <button class="btn btn-danger pull-right" @click="remove" v-can-delete-products>Delete Product</button>
       <button class="btn btn-primary pull-right" type="submit" @click="save">Save Product</button>
       <h4>Product Details</h4>
     </div>
@@ -55,6 +56,9 @@ export default {
           product
         });
       }
+    },
+    remove() {
+      this.$store.dispatch(Constants.DELETE_PRODUCT, this.id);
     },
     updateImage(img) {
       this.displayImage = img;

@@ -10,6 +10,7 @@ const guards = [
 
   'canReadProducts',
   'canUpsertProducts',
+  'canDeleteProducts',
 
   'canReadWarehouses',
   'canUpsertWarehouses',
