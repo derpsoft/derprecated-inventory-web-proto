@@ -2,11 +2,12 @@
 <div>
   <div class="row control-row">
     <div class="col-md-12">
-      <button class="btn btn-primary pull-right" type="submit">Save</button>
+      <button class="btn btn-danger pull-right" @click="remove">Delete</button>
+      <button class="btn btn-primary pull-right" type="submit" @click="save">Save</button>
       <h4>Location Details</h4>
     </div>
   </div>
-  <location-form ref="locationForm" @change="setLocation"></location-form>
+  <location-form ref="locationForm" :location="location" @change="setLocation"></location-form>
 </div>
 </template>
 
@@ -49,6 +50,10 @@ export default {
 
     validate() {
       return this.$refs.locationForm.validate();
+    },
+
+    remove() {
+      this.$store.dispatch(Constants.DELETE_LOCATION, this.id);
     },
 
     save() {

@@ -4,18 +4,18 @@
       <label>Warehouse</label>
 
       <autocomplete
-      :suggestions="warehouses"
-      :key-selector="(v) => `${v.name}`"
-      :value-selector="(v) => v"
-      :display-selector="(v) => `${v.id}: ${v.name}`"
-      @change="setWarehouse"
+        :selected="warehouse"
+        :suggestions="warehouses"
+        :key-selector="(v) => `${v.name}`"
+        :value-selector="(v) => v"
+        :display-selector="(v) => `${v.id}: ${v.name}`"
+        @change="setWarehouse"
       ></autocomplete>
     </div>
     <div class="form-group" :class="{'has-error': errors.has('name')}">
       <label>Name</label>
       <input type="text" class="form-control" placeholder="Location Name" name="name"
         v-model="value.name"
-        v-validate.initial="value.name"
         @change="change">
       <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
     </div>
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import Constants from '../../constants';
 import Autocomplete from '../autocomplete.vue';
 
@@ -72,7 +73,13 @@ export default {
   computed: {
     warehouses() {
       return this.$store.getters.warehouseList;
-    }
+    },
+    warehouseId() {
+      return this.value.warehouseId;
+    },
+    warehouse() {
+      return _.find(this.warehouses, { id: this.warehouseId });
+    },
   },
 
   mounted() {

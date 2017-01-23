@@ -52,11 +52,12 @@ export default {
     },
   },
 
+  watch: {
+    selected: 'refresh'
+  },
+
   mounted() {
-    if (this.selected) {
-      this.query = this.keySelector(this.selected);
-      this.change();
-    }
+    this.refresh();
   },
 
   computed: {
@@ -82,6 +83,13 @@ export default {
   },
 
   methods: {
+    refresh() {
+      if (this.selected) {
+        this.query = this.keySelector(this.selected);
+        this.enter();
+      }
+    },
+
     up() {
       if (this.current > 0) {
         this.current -= 1;
