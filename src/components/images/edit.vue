@@ -1,16 +1,16 @@
 <template>
   <div class="image">
     <div>
-      <button class="btn btn-primary" v-if="value.src" @click="remove">-</button>
+      <button class="btn btn-primary" v-if="value.sourceUrl" @click="remove">-</button>
     </div>
-    <img :src="value.src" />
+    <img :src="value.sourceUrl" />
   </div>
 </template>
 
 <style lang="less" scoped>
   .image {
     img {
-      width: 300px;
+      width: auto;
       height: 300px;
     }
   }
@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       value: {
-        src: '',
+        sourceUrl: '',
       },
       filename: '',
       showUpload: false,

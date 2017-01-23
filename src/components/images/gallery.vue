@@ -15,6 +15,7 @@
       :max-file-size-in-mb="8"
       :auto-process-queue="true"
       @vdropzone-sending="onSending"
+      @vdropzone-success="onSuccess"
       ></dropzone>
   </div>
 </template>
@@ -73,12 +74,15 @@ export default {
   },
 
   methods: {
-    add() {
-      this.images.push({});
+    add(image) {
+      this.images.push(image);
     },
     remove() {
       // todo
     },
+    onSuccess(file, json) {
+      this.add(json.result);
+    }
   },
 };
 </script>
