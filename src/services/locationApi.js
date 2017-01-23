@@ -42,7 +42,7 @@ class LocationApi extends Fetchable {
   }
 
   search(query) {
-    return super.post('/api/v1/locations/search', {
+    return super.search('/api/v1/locations/search', {
       body: this.toForm({ query })
     })
     .then(res => res.json());
@@ -52,7 +52,7 @@ class LocationApi extends Fetchable {
     const body = new URLSearchParams();
     body.set('query', query);
 
-    return super.get(`/api/v1/locations/typeahead?${body}`)
+    return super.search(`/api/v1/locations/typeahead?${body}`)
     .then(res => res.json())
     .then(json => json.locations);
   }

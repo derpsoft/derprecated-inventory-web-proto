@@ -129,4 +129,12 @@ export default class Fetchable {
     options.method = 'DELETE';
     return _fetch(this.baseUrl + url, this.prepare(options), this.store);
   }
+
+  search(url, options = {}) {
+    if (!url) {
+      throw new Error('url may not be empty');
+    }
+    options.method = 'SEARCH';
+    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
+  }
 }
