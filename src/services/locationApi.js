@@ -42,7 +42,7 @@ class LocationApi extends Fetchable {
   }
 
   search(query) {
-    return super.post('/api/v1/locations/search', {
+    return super.search('/api/v1/locations/search', {
       body: this.toForm({ query })
     })
     .then(res => res.json());
@@ -52,7 +52,7 @@ class LocationApi extends Fetchable {
     const body = new URLSearchParams();
     body.set('query', query);
 
-    return super.get(`/api/v1/locations/typeahead?${body}`)
+    return super.search(`/api/v1/locations/typeahead?${body}`)
     .then(res => res.json())
     .then(json => json.locations);
   }
@@ -78,6 +78,15 @@ class LocationApi extends Fetchable {
       body: this.toJson(location),
       headers
     })
+    .then(res => res.json())
+    .then(json => json.result);
+  }
+
+  delete(id) {
+    if (id < 1) {
+      throw new Error('id must be >= 1');
+    }
+    return super.delete(`/api/v1/locations/${id}`)
     .then(res => res.json())
     .then(json => json.result);
   }

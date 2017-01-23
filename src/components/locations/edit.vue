@@ -1,72 +1,77 @@
 <template>
 <div>
-  <form id="location-edit-form" @submit.prevent="validate">
-    <div class="row control-row">
-      <div class="col-md-12">
-        <button class="btn btn-primary pull-right" type="submit">Save</button>
-        <h4>Location Details</h4>
-      </div>
+  <div class="row control-row">
+    <div class="col-md-12">
+      <button class="btn btn-danger pull-right" @click="remove">Delete</button>
+      <button class="btn btn-primary pull-right" type="submit" @click="save">Save</button>
+      <h4>Location Details</h4>
     </div>
-    <div class="panel panel-filled panel-main">
-      <div class="panel-body">
-        <div class="media">
-          <div class="form-group" :class="{'has-error': errors.has('locationName')}">
-            <label>Name</label>
-            <input type="text" name="locationName" class="form-control" placeholder="Name" v-model="location.name" v-validate.initial="location.name" data-vv-rules="required">
-            <span v-show="errors.has('locationName')" class="help-block">Location Name is required.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
+  </div>
+  <location-form ref="locationForm" :location="location" @change="setLocation"></location-form>
 </div>
 </template>
 
 <script>
 import Constants from '../../constants';
-import store from '../../stores/store';
+import LocationForm from './form.vue';
 
 export default {
+  components: { LocationForm },
+
   data() {
     return {
       location: {},
     };
   },
+
   computed: {
     id() {
       return parseInt(this.$route.params.id, 10);
     }
   },
+
   watch: {
     $route: 'load'
   },
-  methods: {
-    load() {
-      store.dispatch(Constants.GET_LOCATION, {
-        id: this.id,
-      });
-    },
-    validate() {
-      this.$validator.validateAll().then((success) => {
-        if (!success) {
-          return;
-        }
-        this.save();
-      });
-    },
-    save() {
-      const location = JSON.parse(JSON.stringify(this.location));
-      location.id = this.id;
-      store.dispatch(Constants.SAVE_LOCATION, {
-        location
-      });
-    }
-  },
-  created() {
-    store.watch(() => store.getters.location, (current) => {
+
+  mounted() {
+    this.$store.watch(() => this.$store.getters.location, (current) => {
       this.location = Object.assign({}, current);
     });
     this.load();
-  }
+  },
+
+  methods: {
+    load() {
+      this.$store.dispatch(Constants.GET_LOCATION, {
+        id: this.id,
+      });
+    },
+
+    validate() {
+      return this.$refs.locationForm.validate();
+    },
+
+    remove() {
+      this.$store.dispatch(Constants.DELETE_LOCATION, this.id);
+    },
+
+    save() {
+      this.validate()
+        .then((isValid) => {
+          if (isValid) {
+            const location = JSON.parse(JSON.stringify(this.location));
+            location.id = this.id;
+            this.$store.dispatch(Constants.SAVE_LOCATION, {
+              location
+            });
+          }
+        });
+    },
+
+    setLocation(v) {
+      this.location = v;
+    },
+  },
 };
 </script>
