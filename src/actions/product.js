@@ -113,7 +113,7 @@ function searchProductsWithTypeahead({
   query
 }) {
   new ProductApi().typeahead(query)
-    .then(products => commit(Constants.SET_PRODUCT_LIST, products))
+    .then(products => commit(Constants.SET_PRODUCT_SEARCH_RESULTS, products))
     .catch(e => log.error(e));
 }
 
@@ -192,10 +192,20 @@ const MUTATIONS = {
     };
   },
   [Constants.SET_PRODUCT_LIST]: (state, results) => {
-    state.products.all = _.merge({}, state.products.all, _.keyBy(results, x => x.id));
+    state.products.all = _.merge(
+      {},
+      state.products.all,
+      _.keyBy(results, x => x.id)
+    );
+    state.products.images = _.merge(
+      {},
+      state.products.images,
+      _.mapValues(state.products.all, x => x.images)
+    );
   },
   [Constants.SET_PRODUCT]: (state, result) => {
     state.products.all[result.id] = result;
+    state.products.images[result.id] = result.images;
   },
   [Constants.CLEAR_PRODUCT]: (state, id) => {
     delete state.products.all[id];
@@ -206,6 +216,8 @@ const MUTATIONS = {
 const GETTERS = {
   products: state => _.values(state.products.all),
   product: state => id => state.products.all[id],
+  productImages: state => id => state.products.images[id],
+  productSearch: state => state.products.search.results,
 };
 
 const ProductActions = {

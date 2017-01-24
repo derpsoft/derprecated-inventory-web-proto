@@ -1,7 +1,7 @@
 <template>
 <form>
   <div class="form-group">
-    <input class="form-control" type="text" v-model="searchTerm" placeholder="Search for a product" autocomplete="false" v-on:keyup="searchProducts">
+    <input class="form-control" type="text" v-model="searchTerm" placeholder="Search for a product" autocomplete="false">
   </div>
 </form>
 </template>
@@ -12,20 +12,14 @@ export default {
   name: 'productSearch',
   data() {
     return {
-      searchTerm: null,
+      searchTerm: '',
     };
   },
+  watch: {
+    searchTerm: 'search',
+  },
   methods: {
-    searchProducts() {
-      if (this.searchTerm.length === 0) {
-        this.$store.dispatch(Constants.GET_PRODUCTS, {
-          skip: 0,
-          take: 200
-        });
-      } else if (this.searchTerm.length < 2) {
-        return;
-      }
-
+    search() {
       this.$store.dispatch(Constants.SEARCH_PRODUCTS_WITH_TYPEAHEAD, {
         query: this.searchTerm,
       });
