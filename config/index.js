@@ -22,5 +22,6 @@ module.exports = {
     port: 8080,
     proxyTable: {},
     api: 'https://inventory-api-dev.azurewebsites.net'
+    // api: 'http://192.168.0.7:3413'
   }
 }

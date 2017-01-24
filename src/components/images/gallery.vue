@@ -1,11 +1,15 @@
 <template>
-<div class="gallery">
+  <div class="gallery">
 
-  <template v-for="image in images">
-      <image-edit :image="image" @remove="remove(image)"></image-edit>
-</template>
+    <template v-for="image in images">
+      <div class="image">
+        <button class="btn btn-danger" v-if="allowRemove" @click="onDelete(image)">delete</button>
+        <img :src="image.sourceUrl" />
+      </div>
+    </template>
+
     <dropzone
-      id="productImages"
+      id="imageGallery"
       :url="uploadUrl"
       accepted-file-types="image/*"
       show-remove-link="false"
@@ -14,28 +18,48 @@
       :show-remove-link="false"
       :max-file-size-in-mb="8"
       :auto-process-queue="true"
-      @vdropzone-sending="sending"
+      @vdropzone-sending="onSending"
+      @vdropzone-success="onSuccess"
       ></dropzone>
   </div>
 </template>
 
 <style lang="less" scoped>
-html {
+  html {
     background: none;
-}
-.gallery {
+  }
+  .gallery {
+    .image {
+      display: inline-block;
+      position: relative;;
+
+      button {
+        display: none;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
+      img {
+        height: 200px;
+        width: auto;
+      }
+
+      &:hover {
+        button {
+          display: initial;
+        }
+      }
     }
+  }
 </style>
 
 <script>
 import Dropzone from 'vue2-dropzone';
-import ImageEdit from './edit.vue';
-import ProductApi from '../../services/productApi';
 
 export default {
   components: {
-    ImageEdit,
-    Dropzone
+    Dropzone,
   },
 
   props: {
@@ -61,6 +85,18 @@ export default {
       required: false,
       default: true,
     },
+
+    onSending: {
+      type: Function,
+      required: false,
+      default: () => {},
+    },
+
+    onDelete: {
+      type: Function,
+      required: false,
+      default: () => {},
+    }
   },
 
   data() {
@@ -68,15 +104,9 @@ export default {
   },
 
   methods: {
-    add() {
-      this.images.push({});
-    },
-    remove() {
-      // todo
-    },
-    sending(file, xhr, form) {
-      new ProductApi().imageUploadIntercept(file, xhr, form);
-    },
+    onSuccess(file, json) {
+      this.images.push(json.result);
+    }
   },
 };
 </script>

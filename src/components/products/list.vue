@@ -17,7 +17,7 @@
           <tr v-for="product in products" v-on:click="openProduct(product.id)">
             <td class="id">{{product.id}}</td>
             <td>
-              <img v-if="product.images && product.images.length" :src="product.images[0].source" width="50" height="50">
+              <img v-if="product.images && product.images.length" :src="product.images[0].sourceUrl" width="50" height="50">
               <img src="http://placehold.it/50x50" v-if="!product.images || !product.images.length"> {{product.title}}
             </td>
             <td>{{product.quantityOnHand}}</td>
@@ -39,13 +39,13 @@
 .product-list {
     td {
         vertical-align: middle;
+        &.id {
+            padding-left: 15px;
+            width: 25px;
+        }
     }
     tr {
         cursor: pointer;
-    }
-    td.id {
-        padding-left: 15px;
-        width: 25px;
     }
     img {
         margin-right: 20px;
@@ -60,7 +60,7 @@ export default {
   name: 'productList',
   computed: {
     products() {
-      return this.$store.getters.productList;
+      return this.$store.getters.products;
     },
   },
   methods: {
