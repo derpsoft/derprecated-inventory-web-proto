@@ -7,12 +7,9 @@
     </div>
   </div>
 
-  <product-form ref="productForm" @change="setProduct"></product-form>
+  <product-form ref="productForm"></product-form>
 </div>
 </template>
-
-<style lang="less" scoped>
-</style>
 
 <script>
 import {
@@ -30,20 +27,22 @@ export default {
     ProductForm,
   },
   data() {
-    return {
-      product: {},
-    };
+    return {};
   },
   methods: {
     redirect() {
-      this.$router.push({ path: '/products' });
+      this.$router.push({
+        path: '/products'
+      });
     },
     save() {
       this.$refs.productForm
         .validate()
-        .then((isValid) => {
+        .then(({
+          isValid,
+          product
+        }) => {
           if (isValid) {
-            const product = JSON.parse(JSON.stringify(this.product));
             const redirect = this.redirect;
 
             this.$store.dispatch(Constants.CREATE_PRODUCT, {
@@ -52,9 +51,6 @@ export default {
             });
           }
         });
-    },
-    setProduct(v) {
-      this.product = Object.assign({}, this.product, v);
     },
   },
 };

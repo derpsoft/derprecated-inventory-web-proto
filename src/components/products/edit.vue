@@ -8,7 +8,7 @@
     </div>
   </div>
 
-  <product-form ref="productForm" :id="id" @change="setProduct"></product-form>
+  <product-form ref="productForm" :id="id"></product-form>
 </div>
 </template>
 
@@ -29,7 +29,6 @@ export default {
   },
   data() {
     return {
-      product: {},
       displayImage: 'http://placehold.it/250x250',
     };
   },
@@ -43,9 +42,11 @@ export default {
     save() {
       this.$refs.productForm
         .validate()
-        .then((isValid) => {
+        .then(({
+          isValid,
+          product
+        }) => {
           if (isValid) {
-            const product = JSON.parse(JSON.stringify(this.product));
             product.id = this.id;
             this.$store.dispatch(Constants.SAVE_PRODUCT, {
               product
@@ -55,9 +56,6 @@ export default {
     },
     remove() {
       this.$store.dispatch(Constants.DELETE_PRODUCT, this.id);
-    },
-    setProduct(v) {
-      this.product = Object.assign({}, this.product, v);
     },
   },
 };

@@ -60,6 +60,10 @@ export default {
   name: 'productList',
   computed: {
     products() {
+      const results = this.$store.getters.productSearch;
+      if (results.length) {
+        return results;
+      }
       return this.$store.getters.products;
     },
   },

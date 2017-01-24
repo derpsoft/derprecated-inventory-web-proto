@@ -11,12 +11,12 @@
         <div class="media-body">
           <div class="form-group" :class="{'has-error': errors.has('productTitle')}">
             <label>Product Title</label>
-            <input type="text" class="form-control" placeholder="Enter a title..." name="productTitle" v-model="value.title" @change="change" v-validate.initial="value.title" data-vv-rules="required">
+            <input type="text" class="form-control" placeholder="Enter a title..." name="productTitle" v-model="value.title" v-validate.initial="value.title" data-vv-rules="required">
             <span v-show="errors.has('productTitle')" class="help-block">Product Title is required.</span>
           </div>
           <div class="form-group">
             <label>Product Description</label>
-            <textarea class="form-control" placeholder="Enter a description..." v-model="value.description" @change="change"></textarea>
+            <textarea class="form-control" placeholder="Enter a description..." v-model="value.description"></textarea>
           </div>
         </div>
       </div>
@@ -24,13 +24,7 @@
         <div class="col-lg-12">
           <h5>Gallery</h5>
         </div>
-        <image-gallery
-          is-dev
-          :images="images"
-          :upload-url="uploadUrl"
-          :on-sending="xhrIntercept"
-          :on-delete="deleteImage"
-          ></image-gallery>
+        <image-gallery is-dev v-if="id > 0" :images="images" :upload-url="uploadUrl" :on-sending="xhrIntercept" :on-delete="deleteImage"></image-gallery>
       </div>
       <div class="row">
         <div class="col-md-12">
@@ -50,25 +44,25 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="qty">Quantity</label>
-                    <input type="number" name="qty" class="form-control" id="qty" placeholder="Quantity" tabindex="0" v-model="value.quantity" @change="change">
+                    <input type="number" name="qty" class="form-control" id="qty" placeholder="Quantity" tabindex="0" v-model="value.quantity">
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>Price (USD)</label>
-                    <input type="text" class="form-control" placeholder="Price" tabindex="0" v-model="value.price" @change="change">
+                    <input type="text" class="form-control" placeholder="Price" tabindex="0" v-model="value.price">
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>SKU</label>
-                    <input type="text" class="form-control" placeholder="SKU" tabindex="0" v-model="value.sku" @change="change">
+                    <input type="text" class="form-control" placeholder="SKU" tabindex="0" v-model="value.sku">
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>Weight (Unit: {{ value.weightUnit }})</label>
-                    <input type="number" class="form-control" placeholder="Weight" tabindex="0" v-model="value.weight" @change="change">
+                    <input type="number" class="form-control" placeholder="Weight" tabindex="0" v-model="value.weight">
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -89,24 +83,24 @@
 </template>
 
 <style lang="less" scoped>
-  .panel-main {
-      padding-top: 15px;
-  }
-  textarea.form-control {
-      resize: none;
-      height: 152px;
-  }
-  .control-row {
-      margin-bottom: 20px;
-  }
+.panel-main {
+    padding-top: 15px;
+}
+textarea.form-control {
+    resize: none;
+    height: 152px;
+}
+.control-row {
+    margin-bottom: 20px;
+}
 
-  a.thumbnail {
-      border: 2px solid transparent;
-      &:hover {
-          border-color: #f6a821;
-          transition: 300ms ease-in-out;
-      }
-  }
+a.thumbnail {
+    border: 2px solid transparent;
+    &:hover {
+        border-color: #f6a821;
+        transition: 300ms ease-in-out;
+    }
+}
 </style>
 
 <script>
@@ -131,7 +125,7 @@ export default {
   props: {
     id: {
       type: Number,
-      required: true,
+      required: false,
       default: 0,
     },
   },
@@ -141,7 +135,7 @@ export default {
       return this.$store.getters.product(this.id);
     },
     images() {
-      return this.product.images;
+      return this.$store.getters.productImages(this.id);
     },
     vendors() {
       return this.$store.getters.vendors;
@@ -172,7 +166,6 @@ export default {
     refresh() {
       if (this.product) {
         this.value = Object.assign({}, this.value, this.product);
-        this.validate();
       }
     },
     load() {
@@ -190,35 +183,30 @@ export default {
         take: 1000,
       });
     },
-    change() {
-      this.validate()
-        .then((isValid) => {
-          if (isValid) {
-            this.$emit('change', this.value);
-          }
-        });
-    },
     validate() {
       return this.$validator
         .validateAll()
         .then((isValid) => {
-          this.$emit('is-valid', isValid);
-          return isValid;
+          return {
+            isValid,
+            product: this.value
+          };
         });
     },
     setVendor(v) {
       this.value.vendorId = v.id;
-      this.change();
     },
     setCategory(v) {
       this.value.categoryId = v.id;
-      this.change();
     },
     xhrIntercept(file, xhr) {
       return new ProductApi().imageUploadIntercept(file, xhr);
     },
     deleteImage(image) {
-      this.$store.dispatch(Constants.DELETE_PRODUCT_IMAGE, { id: image.id, productId: this.id });
+      this.$store.dispatch(Constants.DELETE_PRODUCT_IMAGE, {
+        id: image.id,
+        productId: this.id
+      });
     },
   }
 };
