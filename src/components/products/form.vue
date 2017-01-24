@@ -132,7 +132,7 @@ export default {
 
   computed: {
     product() {
-      return this.$store.getters.product;
+      return this.$store.getters.product(this.id);
     },
     vendors() {
       return this.$store.getters.vendors;

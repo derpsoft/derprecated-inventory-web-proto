@@ -39,13 +39,13 @@
 .product-list {
     td {
         vertical-align: middle;
+        &.id {
+            padding-left: 15px;
+            width: 25px;
+        }
     }
     tr {
         cursor: pointer;
-    }
-    td.id {
-        padding-left: 15px;
-        width: 25px;
     }
     img {
         margin-right: 20px;
@@ -60,7 +60,7 @@ export default {
   name: 'productList',
   computed: {
     products() {
-      return this.$store.getters.productList;
+      return this.$store.getters.products;
     },
   },
   methods: {

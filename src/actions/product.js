@@ -1,4 +1,5 @@
 import log from 'loglevel';
+import _ from 'lodash';
 import Constants from '../constants';
 import ProductApi from '../services/productApi';
 
@@ -116,26 +117,24 @@ function searchProductsWithTypeahead({
     .catch(e => log.error(e));
 }
 
-function clearProduct({
-  commit
-}) {
-  commit(Constants.CLEAR_PRODUCT);
-}
-
 function updateProductField() {}
 
 function deleteProduct({
-  dispatch
+  dispatch,
+  commit,
 }, id) {
   if (id < 1) {
     throw new Error('id must be >= 1');
   }
   new ProductApi()
     .delete(id)
-    .then(() => dispatch(Constants.SHOW_TOASTR, {
-      type: 'info',
-      message: 'Product deleted',
-    }))
+    .then(() => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'info',
+        message: 'Product deleted',
+      });
+      commit(Constants.CLEAR_PRODUCT, id);
+    })
     .catch(e => log.error(e));
 }
 
@@ -145,8 +144,7 @@ const INITIAL_STATE = {
       query: {},
       results: {}
     },
-    list: [],
-    product: {},
+    all: {},
   }
 };
 
@@ -156,7 +154,6 @@ const ACTIONS = {
   [Constants.SEARCH_PRODUCTS]: search,
   [Constants.SEARCH_PRODUCTS_WITH_TYPEAHEAD]: searchProductsWithTypeahead,
   [Constants.UPDATE_PRODUCT_FIELD]: updateProductField,
-  [Constants.CLEAR_PRODUCT]: clearProduct,
   [Constants.CREATE_PRODUCT]: createProduct,
   [Constants.SAVE_PRODUCT]: saveProduct,
   [Constants.DELETE_PRODUCT]: deleteProduct,
@@ -176,26 +173,19 @@ const MUTATIONS = {
     };
   },
   [Constants.SET_PRODUCT_LIST]: (state, results) => {
-    state.products.list = results;
+    state.products.all = _.merge({}, state.products.all, _.keyBy(results, x => x.id));
   },
-  [Constants.SET_PRODUCT]: (state, results) => {
-    state.products.product = results;
+  [Constants.SET_PRODUCT]: (state, result) => {
+    state.products.all[result.id] = result;
   },
-  [Constants.CLEAR_PRODUCT]: (state) => {
-    state.products.product = {};
+  [Constants.CLEAR_PRODUCT]: (state, id) => {
+    delete state.products.all[id];
   },
 };
 
 const GETTERS = {
-  productList(state) {
-    return state.products.list;
-  },
-  product(state) {
-    return state.products.product;
-  },
-  productUpdated(state) {
-    return state.products.updated;
-  }
+  products: state => _.values(state.products.all),
+  product: state => id => state.products.all[id],
 };
 
 const ProductActions = {
