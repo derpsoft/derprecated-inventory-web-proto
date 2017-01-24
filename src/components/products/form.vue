@@ -147,9 +147,7 @@ export default {
       return this.$store.getters.vendors;
     },
     vendor() {
-      return _.find(this.$store.getters.vendors, {
-        id: this.value.vendorId
-      });
+      return this.$store.getters.vendor(this.value.vendorId);
     },
     categories() {
       return this.$store.getters.categories;

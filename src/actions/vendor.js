@@ -1,4 +1,5 @@
 import log from 'loglevel';
+import _ from 'lodash';
 import Constants from '../constants';
 import VendorApi from '../services/vendorApi';
 
@@ -29,11 +30,11 @@ function createVendor({
 }) {
   new VendorApi()
     .create(vendor)
-    .then((res) => {
-      commit(Constants.SET_VENDOR, res.vendor);
+    .then((v) => {
+      commit(Constants.SET_VENDOR, v);
 
       if (typeof redirect === 'function') {
-        redirect.apply();
+        redirect();
       }
     })
     .catch((e) => {
@@ -51,7 +52,7 @@ function countVendors({
 }) {
   new VendorApi()
     .count()
-    .then(res => commit(Constants.SET_VENDOR_COUNT, res.count))
+    .then(count => commit(Constants.SET_VENDOR_COUNT, count))
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {
         type: 'error',
@@ -69,8 +70,8 @@ function saveVendor({
 }) {
   new VendorApi()
     .save(vendor)
-    .then((res) => {
-      commit(Constants.SET_VENDOR, res.vendor);
+    .then((v) => {
+      commit(Constants.SET_VENDOR, v);
 
       dispatch(Constants.SHOW_TOASTR, {
         type: 'success',
@@ -150,8 +151,7 @@ function clearVendor({
 
 const INITIAL_STATE = {
   vendors: {
-    list: [],
-    vendor: {},
+    all: {},
     count: 0,
   }
 };
@@ -168,30 +168,24 @@ const ACTIONS = {
 };
 
 const MUTATIONS = {
-  [Constants.SET_VENDOR_LIST]: (state, list) => {
-    state.vendors.list = list;
+  [Constants.SET_VENDOR_LIST]: (state, vendors) => {
+    state.vendors.all = _.merge({}, state.vendors.all, _.keyBy(vendors, x => x.id));
   },
-  [Constants.SET_VENDOR]: (state, results) => {
-    state.vendors.vendor = results;
+  [Constants.SET_VENDOR]: (state, result) => {
+    state.vendors.all[result.id] = result;
   },
   [Constants.SET_VENDOR_COUNT]: (state, count) => {
     state.vendors.count = count;
   },
-  [Constants.CLEAR_VENDOR]: (state) => {
-    state.vendors.vendor = {};
+  [Constants.CLEAR_VENDOR]: (state, id) => {
+    delete state.vendors.all[id];
   },
 };
 
 const GETTERS = {
-  vendors(state) {
-    return state.vendors.list;
-  },
-  vendorCount(state) {
-    return state.vendors.count;
-  },
-  vendor(state) {
-    return state.vendors.vendor;
-  },
+  vendors: state => _.values(state.vendors.all),
+  vendor: state => id => state.vendors.all[id],
+  vendorCount: state => state.vendors.count,
 };
 
 const VendorActions = {
