@@ -17,7 +17,8 @@ class VendorApi extends Fetchable {
 
   count() {
     return super.get('/api/v1/vendors/count')
-    .then(res => res.json());
+    .then(res => res.json())
+    .then(json => json.result);
   }
 
   list(skip = 0, take = 25) {
@@ -61,7 +62,8 @@ class VendorApi extends Fetchable {
       body: this.toJson(vendor),
       headers
     })
-    .then(res => res.json());
+    .then(res => res.json())
+    .then(res => res.result);
   }
 
   create(vendor) {
@@ -71,7 +73,8 @@ class VendorApi extends Fetchable {
       body: this.toJson(vendor),
       headers
     })
-    .then(res => res.json());
+    .then(res => res.json())
+    .then(res => res.result);
   }
 }
 

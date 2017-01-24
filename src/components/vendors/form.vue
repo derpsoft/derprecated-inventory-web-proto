@@ -1,37 +1,35 @@
 <template>
-  <form @submit.prevent="validate">
-    <div class="form-group" :class="{'has-error': errors.has('name')}">
-      <label>Name</label>
-      <input type="text" class="form-control" placeholder="Vendor Name" name="name"
-        v-model="value.name"
-        v-validate.initial="value.name" data-vv-rules="required"
-        @change="change">
-        <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
-    </div>
-    <div class="form-group">
-      <label>Contact Name</label>
-      <input type="text" class="form-control" placeholder="Contact Name" v-model="value.contactName" @change="change">
-    </div>
-    <div class="form-group" :class="{'has-error': errors.has('contactEmail')}">
-      <label>Contact Email</label>
-      <input type="email" class="form-control" placeholder="Contact Email" name="contactEmail"
-        v-model="value.contactEmail"
-        v-validate.initial="value.contactEmail" data-vv-rules="required|email"
-        @change="change">
-      <span v-show="errors.has('contactEmail')" class="help-block">{{ errors.first('contactEmail') }}</span>
-    </div>
-    <div class="form-group">
-      <label>Contact Address</label>
-      <textarea class="form-control" placeholder="Contact Address" v-model="value.contactAddress" @change="change"></textarea>
-    </div>
-    <div class="form-group">
-      <label>Contact Phone</label>
-      <input type="tel" class="form-control" placeholder="Contact Phone" v-model="value.contactPhone" @change="change"></textarea>
-    </div>
-  </form>
+<form @submit.prevent="validate">
+  <div class="form-group" :class="{'has-error': errors.has('name')}">
+    <label>Name</label>
+    <input type="text" class="form-control" placeholder="Vendor Name" name="name" v-model="value.name" v-validate.initial="value.name" data-vv-rules="required">
+    <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
+  </div>
+  <div class="form-group" :class="{'has-error': errors.has('contactName')}">
+    <label>Contact Name</label>
+    <input type="text" class="form-control" placeholder="Contact Name" name="contactName" v-model="value.contactName" v-validate.initial="value.contactName" data-vv-rules="required">
+    <span v-show="errors.has('contactName')" class="help-block">{{ errors.first('contactName') }}</span>
+  </div>
+  <div class="form-group" :class="{'has-error': errors.has('contactEmail')}">
+    <label>Contact Email</label>
+    <input type="email" class="form-control" placeholder="Contact Email" name="contactEmail" v-model="value.contactEmail" v-validate.initial="value.contactEmail" data-vv-rules="required|email">
+    <span v-show="errors.has('contactEmail')" class="help-block">{{ errors.first('contactEmail') }}</span>
+  </div>
+  <div class="form-group" :class="{'has-error': errors.has('contactAddress')}">
+    <label>Contact Address</label>
+    <textarea class="form-control" name="contactAddress" placeholder="Contact Address" v-model="value.contactAddress" v-validate.initial="value.contactAddress" data-vv-rules="required"></textarea>
+    <span v-show="errors.has('contactAddress')" class="help-block">{{ errors.first('contactAddress') }}</span>
+  </div>
+  <div class="form-group" :class="{'has-error': errors.has('contactPhone')}">
+    <label>Contact Phone</label>
+    <input type="tel" class="form-control" placeholder="Contact Phone" name="contactPhone" v-model="value.contactPhone" v-validate.initial="value.contactPhone" data-vv-rules="required">
+    <span v-show="errors.has('contactPhone')" class="help-block">{{ errors.first('contactPhone') }}</span>
+  </div>
+</form>
 </template>
 
 <script>
+import Constants from '../../constants';
 
 export default {
   data() {
@@ -41,37 +39,48 @@ export default {
   },
 
   props: {
-    vendor: {
-      type: Object,
-      required: false
+    id: {
+      type: Number,
+      required: false,
+      default: 0,
     },
   },
 
   watch: {
-    vendor: 'refresh'
+    id: 'load',
+    vendor: 'refresh',
+  },
+
+  computed: {
+    vendor() {
+      return this.$store.getters.vendor(this.id);
+    },
+  },
+
+  mounted() {
+    this.load();
   },
 
   methods: {
-    refresh() {
-      if (this.vendor) {
-        this.value = Object.assign({}, this.value, this.vendor);
-        this.validate();
+    load() {
+      if (this.id > 0) {
+        this.$store.dispatch(Constants.GET_VENDOR, {
+          id: this.id,
+        });
       }
     },
-    change() {
-      this.validate()
-        .then((isValid) => {
-          if (isValid) {
-            this.$emit('change', this.value);
-          }
-        });
+    refresh() {
+      this.value = Object.assign({}, this.value, this.vendor);
+      this.validate();
     },
     validate() {
       return this.$validator
         .validateAll()
         .then((isValid) => {
-          this.$emit('is-valid', isValid);
-          return isValid;
+          return {
+            isValid,
+            vendor: this.value
+          };
         });
     },
   }
