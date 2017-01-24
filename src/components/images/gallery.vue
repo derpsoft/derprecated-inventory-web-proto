@@ -91,6 +91,7 @@ export default {
       required: false,
       default: () => {},
     },
+
     onDelete: {
       type: Function,
       required: false,
@@ -103,11 +104,8 @@ export default {
   },
 
   methods: {
-    add(image) {
-      this.images.push(image);
-    },
     onSuccess(file, json) {
-      this.add(json.result);
+      this.images.push(json.result);
     }
   },
 };
