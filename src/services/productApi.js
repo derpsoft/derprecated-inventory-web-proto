@@ -82,5 +82,17 @@ class ProductApi extends Fetchable {
     .then(res => res.json())
     .then(json => json.result);
   }
+
+  deleteImage(productId, id) {
+    if (productId < 1) {
+      throw new Error('productId must be >= 1');
+    }
+    if (id < 1) {
+      throw new Error('id must be >= 1');
+    }
+    return super.delete(`/api/v1/products/${productId}/images/${id}`)
+    .then(res => res.json())
+    .then(json => json.result);
+  }
 }
 export default ProductApi;

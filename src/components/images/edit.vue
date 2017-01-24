@@ -1,19 +1,7 @@
 <template>
-  <div class="image">
-    <div>
-      <button class="btn btn-primary" v-if="value.sourceUrl" @click="remove">-</button>
-    </div>
-    <img :src="value.sourceUrl" />
-  </div>
 </template>
 
 <style lang="less" scoped>
-  .image {
-    img {
-      width: auto;
-      height: 300px;
-    }
-  }
 </style>
 
 <script>
@@ -38,15 +26,7 @@ export default {
       value: {
         sourceUrl: '',
       },
-      filename: '',
-      showUpload: false,
     };
-  },
-
-  computed: {
-    input() {
-      return this.$el.querySelector('input[type=file]');
-    }
   },
 
   watch: {
@@ -63,29 +43,9 @@ export default {
         this.value = Object.assign({}, this.value, this.image);
       }
     },
-    prompt() {
-      this.input.click();
-    },
-    save() {
-      if (this.isValid) {
-        // todo
-      }
-    },
     remove() {
       if (this.allowRemove) {
         this.$emit('remove', this.value);
-        this.value = { src: '' };
-      }
-    },
-    imageSelected() {
-      const { files } = this.input;
-
-      if (files && files.length) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.value.src = e.target.result;
-        };
-        reader.readAsDataURL(files[0]);
       }
     },
   },

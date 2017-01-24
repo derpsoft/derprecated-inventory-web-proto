@@ -1,9 +1,13 @@
 <template>
-<div class="gallery">
+  <div class="gallery">
 
-  <template v-for="image in images">
-      <image-edit :image="image" @remove="remove(image)"></image-edit>
-</template>
+    <template v-for="image in images">
+      <div class="image">
+        <button class="btn btn-danger" v-if="allowRemove" @click="onDelete(image)">delete</button>
+        <img :src="image.sourceUrl" />
+      </div>
+    </template>
+
     <dropzone
       id="imageGallery"
       :url="uploadUrl"
@@ -21,21 +25,41 @@
 </template>
 
 <style lang="less" scoped>
-html {
+  html {
     background: none;
-}
-.gallery {
+  }
+  .gallery {
+    .image {
+      display: inline-block;
+      position: relative;;
+
+      button {
+        display: none;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
+      img {
+        height: 200px;
+        width: auto;
+      }
+
+      &:hover {
+        button {
+          display: initial;
+        }
+      }
     }
+  }
 </style>
 
 <script>
 import Dropzone from 'vue2-dropzone';
-import ImageEdit from './edit.vue';
 
 export default {
   components: {
-    ImageEdit,
-    Dropzone
+    Dropzone,
   },
 
   props: {
@@ -67,6 +91,11 @@ export default {
       required: false,
       default: () => {},
     },
+    onDelete: {
+      type: Function,
+      required: false,
+      default: () => {},
+    }
   },
 
   data() {
@@ -76,9 +105,6 @@ export default {
   methods: {
     add(image) {
       this.images.push(image);
-    },
-    remove() {
-      // todo
     },
     onSuccess(file, json) {
       this.add(json.result);

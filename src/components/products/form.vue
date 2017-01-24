@@ -24,7 +24,13 @@
         <div class="col-lg-12">
           <h5>Gallery</h5>
         </div>
-        <image-gallery is-dev :images="value.images" :upload-url="uploadUrl" :on-sending="xhrIntercept"></image-gallery>
+        <image-gallery
+          is-dev
+          :images="images"
+          :upload-url="uploadUrl"
+          :on-sending="xhrIntercept"
+          :on-delete="deleteImage"
+          ></image-gallery>
       </div>
       <div class="row">
         <div class="col-md-12">
@@ -83,24 +89,24 @@
 </template>
 
 <style lang="less" scoped>
-.panel-main {
-    padding-top: 15px;
-}
-textarea.form-control {
-    resize: none;
-    height: 152px;
-}
-.control-row {
-    margin-bottom: 20px;
-}
+  .panel-main {
+      padding-top: 15px;
+  }
+  textarea.form-control {
+      resize: none;
+      height: 152px;
+  }
+  .control-row {
+      margin-bottom: 20px;
+  }
 
-a.thumbnail {
-    border: 2px solid transparent;
-    &:hover {
-        border-color: #f6a821;
-        transition: 300ms ease-in-out;
-    }
-}
+  a.thumbnail {
+      border: 2px solid transparent;
+      &:hover {
+          border-color: #f6a821;
+          transition: 300ms ease-in-out;
+      }
+  }
 </style>
 
 <script>
@@ -134,6 +140,9 @@ export default {
     product() {
       return this.$store.getters.product(this.id);
     },
+    images() {
+      return this.product.images;
+    },
     vendors() {
       return this.$store.getters.vendors;
     },
@@ -152,7 +161,7 @@ export default {
     },
     uploadUrl() {
       return new ProductApi().getImageUploadUrl(this.id);
-    }
+    },
   },
   watch: {
     id: 'load',
@@ -209,7 +218,10 @@ export default {
     },
     xhrIntercept(file, xhr) {
       return new ProductApi().imageUploadIntercept(file, xhr);
-    }
+    },
+    deleteImage(image) {
+      this.$store.dispatch(Constants.DELETE_PRODUCT_IMAGE, { id: image.id, productId: this.id });
+    },
   }
 };
 </script>

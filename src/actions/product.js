@@ -138,6 +138,23 @@ function deleteProduct({
     .catch(e => log.error(e));
 }
 
+function deleteProductImage({
+  dispatch
+}, {
+  productId,
+  id
+}) {
+  new ProductApi()
+    .deleteImage(productId, id)
+    .then(() => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'info',
+        message: 'Image deleted',
+      });
+    })
+    .catch(e => log.error(e));
+}
+
 const INITIAL_STATE = {
   products: {
     search: {
@@ -145,6 +162,7 @@ const INITIAL_STATE = {
       results: {}
     },
     all: {},
+    images: {},
   }
 };
 
@@ -157,6 +175,7 @@ const ACTIONS = {
   [Constants.CREATE_PRODUCT]: createProduct,
   [Constants.SAVE_PRODUCT]: saveProduct,
   [Constants.DELETE_PRODUCT]: deleteProduct,
+  [Constants.DELETE_PRODUCT_IMAGE]: deleteProductImage,
 };
 
 const MUTATIONS = {
@@ -180,6 +199,7 @@ const MUTATIONS = {
   },
   [Constants.CLEAR_PRODUCT]: (state, id) => {
     delete state.products.all[id];
+    delete state.products.images[id];
   },
 };
 
