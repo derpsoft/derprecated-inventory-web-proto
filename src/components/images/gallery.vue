@@ -1,13 +1,13 @@
 <template>
-  <div class="gallery">
+<div class="gallery">
+  <template v-for="image in images">
+        <div class="img-container clearfix">
+          <a class="delete" v-if="allowRemove" @click="onDelete(image)" title="Delete Image">&times;</a>
+          <img :src="image.sourceUrl" />
+        </div>
+</template>
 
-    <template v-for="image in images">
-      <div class="image">
-        <button class="btn btn-danger" v-if="allowRemove" @click="onDelete(image)">delete</button>
-        <img :src="image.sourceUrl" />
-      </div>
-    </template>
-
+    <div class="image-upload" v-show="toggle">
     <dropzone
       id="imageGallery"
       :url="uploadUrl"
@@ -20,44 +20,73 @@
       :auto-process-queue="true"
       @vdropzone-sending="onSending"
       @vdropzone-success="onSuccess"
+      :use-font-awesome="true"
       ></dropzone>
+    </div>
   </div>
 </template>
 
 <style lang="less" scoped>
-  html {
-    background: none;
-  }
-  .gallery {
-    .image {
-      display: inline-block;
-      position: relative;;
-
-      button {
-        display: none;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-      }
-
-      img {
-        height: 200px;
-        width: auto;
-      }
-
-      &:hover {
-        button {
-          display: initial;
+.image-upload {
+    margin-top: 10px;
+    .dropzone {
+        background: transparent;
+        border: 1px dotted #ccc !important;
+        font-family: 'Roboto', sans-serif;
+        &:hover {
+            background-color: #494b54;
+            color: #fff;
         }
-      }
+
     }
-  }
+}
+.gallery {
+    .dz-message {
+        font-size: 20px;
+    }
+    .img-container {
+        display: inline-block;
+        position: relative;
+        margin-left: 10px;
+        &:first-child {
+            margin-left: 0;
+        }
+        &:hover {
+            .delete {
+                display: initial;
+            }
+        }
+        img {
+            width: auto;
+            height: 200px;
+        }
+        .delete {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 10px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+    }
+}
 </style>
 
 <script>
 import Dropzone from 'vue2-dropzone';
 
 export default {
+  name: 'imageGallery',
+
+  data() {
+    return {
+
+    };
+  },
+
   components: {
     Dropzone,
   },
@@ -96,17 +125,19 @@ export default {
       type: Function,
       required: false,
       default: () => {},
-    }
-  },
+    },
 
-  data() {
-    return {};
+    toggle: {
+      type: Boolean,
+      required: false,
+      default: false,
+    }
   },
 
   methods: {
     onSuccess(file, json) {
       this.images.push(json.result);
-    }
+    },
   },
 };
 </script>

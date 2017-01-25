@@ -6,9 +6,7 @@ import ProductApi from '../services/productApi';
 function getProduct({
   dispatch,
   commit
-}, {
-  id
-}) {
+}, id) {
   new ProductApi().retrieve(id)
     .then((product) => {
       commit(Constants.SET_PRODUCT, product);

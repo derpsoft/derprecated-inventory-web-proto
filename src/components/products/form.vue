@@ -1,13 +1,19 @@
+<style lang="less" scoped>
+.panel-main {
+    padding-top: 15px;
+}
+textarea.form-control {
+    resize: none;
+    height: 152px;
+}
+</style>
+
 <template>
 <form id="product-form" @submit.prevent="validate">
   <div class="panel panel-filled panel-main">
     <div class="panel-body">
+
       <div class="media">
-        <div class="media-left">
-          <a href="#" @click.prevent="">
-            <!-- <img class="media-object" :src="displayImage" width="250" height="250"> -->
-          </a>
-        </div>
         <div class="media-body">
           <div class="form-group" :class="{'has-error': errors.has('productTitle')}">
             <label>Product Title</label>
@@ -20,12 +26,7 @@
           </div>
         </div>
       </div>
-      <div class="row" is-dev>
-        <div class="col-lg-12">
-          <h5>Gallery</h5>
-        </div>
-        <image-gallery is-dev v-if="id > 0" :images="images" :upload-url="uploadUrl" :on-sending="xhrIntercept" :on-delete="deleteImage"></image-gallery>
-      </div>
+
       <div class="row">
         <div class="col-md-12">
           <div class="clearfix">
@@ -61,7 +62,7 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>Weight (Unit: {{ value.weightUnit }})</label>
+                    <label>Weight (Unit: {{ value.weightUnit || 'lb' }})</label>
                     <input type="number" class="form-control" placeholder="Weight" tabindex="0" v-model="value.weight">
                   </div>
                 </div>
@@ -82,41 +83,21 @@
 </form>
 </template>
 
-<style lang="less" scoped>
-.panel-main {
-    padding-top: 15px;
-}
-textarea.form-control {
-    resize: none;
-    height: 152px;
-}
-.control-row {
-    margin-bottom: 20px;
-}
-
-a.thumbnail {
-    border: 2px solid transparent;
-    &:hover {
-        border-color: #f6a821;
-        transition: 300ms ease-in-out;
-    }
-}
-</style>
-
 <script>
 import _ from 'lodash';
 import Constants from '../../constants';
 import Autocomplete from '../autocomplete.vue';
-import ImageGallery from '../images/gallery.vue';
-import ProductApi from '../../services/productApi';
 
 export default {
+  name: 'productForm',
+
   components: {
     Autocomplete,
-    ImageGallery
   },
+
   data() {
     return {
+      toggle: false,
       value: {},
       displayImage: {},
     };
@@ -126,16 +107,12 @@ export default {
     id: {
       type: Number,
       required: false,
-      default: 0,
     },
   },
 
   computed: {
     product() {
       return this.$store.getters.product(this.id);
-    },
-    images() {
-      return this.$store.getters.productImages(this.id);
     },
     vendors() {
       return this.$store.getters.vendors;
@@ -151,17 +128,16 @@ export default {
         id: this.value.categoryId
       });
     },
-    uploadUrl() {
-      return new ProductApi().getImageUploadUrl(this.id);
-    },
   },
+
   watch: {
-    id: 'load',
     product: 'refresh'
   },
+
   mounted() {
     this.load();
   },
+
   methods: {
     refresh() {
       if (this.product) {
@@ -169,11 +145,6 @@ export default {
       }
     },
     load() {
-      if (this.id > 0) {
-        this.$store.dispatch(Constants.GET_PRODUCT, {
-          id: this.id,
-        });
-      }
       this.$store.dispatch(Constants.GET_VENDORS, {
         skip: 0,
         take: 1000,
@@ -199,15 +170,6 @@ export default {
     setCategory(v) {
       this.value.categoryId = v.id;
     },
-    xhrIntercept(file, xhr) {
-      return new ProductApi().imageUploadIntercept(file, xhr);
-    },
-    deleteImage(image) {
-      this.$store.dispatch(Constants.DELETE_PRODUCT_IMAGE, {
-        id: image.id,
-        productId: this.id
-      });
-    },
-  }
+  },
 };
 </script>
