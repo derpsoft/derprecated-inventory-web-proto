@@ -376,6 +376,20 @@ const GETTERS = {
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
+
+  canReadSales: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
+  canUpsertSales: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
 };
 
 const AuthActions = {

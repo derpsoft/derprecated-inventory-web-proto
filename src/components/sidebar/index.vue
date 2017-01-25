@@ -11,6 +11,9 @@
       <li>
         <router-link :to="{ path: '/inventory', activeClass: 'active' }" active-class="active">Inventory</router-link>
       </li>
+      <li v-can-read-sales>
+        <router-link :to="{ path: '/sales', activeClass: 'active' }" active-class="active">Sales</router-link>
+      </li>
       <li>
         <router-link :to="{ path: '/reports', activeClass: 'active' }" active-class="active">Reports</router-link>
       </li>

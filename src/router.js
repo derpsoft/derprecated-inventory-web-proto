@@ -34,6 +34,9 @@ import ModifyCategories from './components/categories/modify.vue';
 import Vendors from './components/vendors/index.vue';
 import ModifyVendors from './components/vendors/modifyVendors.vue';
 
+import Sales from './components/sales/index.vue';
+import ModifySales from './components/sales/modify.vue';
+
 import Constants from './constants';
 // import NotFound from './views/notfound.vue';
 import store from './stores/store';
@@ -231,6 +234,20 @@ const routes = [{
     path: '/locations/edit/:id',
     component: ModifyLocation,
     beforeEnter: guard('canUpsertLocations'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/sales',
+    component: Sales,
+    beforeEnter: guard('canReadSales'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/sales/add',
+    component: ModifySales,
+    beforeEnter: guard('canUpsertSales'),
     meta: {
       requiresAuth: true,
     },

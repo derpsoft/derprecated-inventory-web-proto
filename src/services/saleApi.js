@@ -14,14 +14,44 @@ class SaleApi extends Fetchable {
     return this;
   }
 
-  log(sale) {
+  create(sale) {
     const headers = new Headers();
     headers.set('content-type', 'application/json');
-    return super.post('/api/v1/sales', {
-      body: this.toJson(sale),
-      headers
-    })
-    .then(res => res.json());
+    return super
+      .post('/api/v1/sales', {
+        body: this.toJson(sale),
+        headers
+      })
+      .then(res => res.json())
+      .then(json => json.result);
+  }
+
+  count() {
+    return super
+      .get('/api/v1/sales/count')
+      .then(res => res.json())
+      .then(json => json.result);
+  }
+
+  list(skip = 0, take = 25) {
+    const body = new URLSearchParams();
+    body.set('skip', skip);
+    body.set('take', take);
+
+    return super
+      .get(`/api/v1/sales?${body}`)
+      .then(res => res.json())
+      .then(json => json.result);
+  }
+
+  typeahead(query) {
+    const body = new URLSearchParams();
+    body.set('query', query);
+
+    return super
+      .get(`/api/v1/sales/typeahead?${body}`)
+      .then(res => res.json())
+      .then(json => json.result);
   }
 }
 
