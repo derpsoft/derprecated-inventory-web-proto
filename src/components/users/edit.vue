@@ -11,27 +11,27 @@
       <div class="panel-body">
         <div class="form-group" :class="{'has-error': errors.has('email')}">
           <label>Email</label>
-          <input type="email" name="email" class="form-control" placeholder="Email" v-model="user.email" disabled v-validate.initial="user.email" data-vv-rules="required|email">
+          <input type="email" name="email" class="form-control" placeholder="Email" v-model="value.email" disabled v-validate.initial="value.email" data-vv-rules="required|email">
           <span v-show="errors.has('email')" class="help-block">{{ errors.first('email') }}</span>
         </div>
         <div class="form-group" :class="{'has-error': errors.has('username')}">
           <label>Username</label>
-          <input type="text" class="form-control" placeholder="Username" name="username" v-model="user.userName" v-validate.initial="user.userName" data-vv-rules="required">
+          <input type="text" class="form-control" placeholder="Username" name="username" v-model="value.userName" v-validate.initial="value.userName" data-vv-rules="required">
           <span v-show="errors.has('username')" class="help-block">{{ errors.first('username') }}</span>
         </div>
         <div class="form-group" :class="{'has-error': errors.has('firstName')}">
           <label>First Name</label>
-          <input type="text" class="form-control" placeholder="First Name" name="firstName" v-model="user.firstName" v-validate.initial="user.firstName" data-vv-rules="required">
+          <input type="text" class="form-control" placeholder="First Name" name="firstName" v-model="value.firstName" v-validate.initial="value.firstName" data-vv-rules="required">
           <span v-show="errors.has('firstName')" class="help-block">{{ errors.first('firstName') }}</span>
         </div>
         <div class="form-group" :class="{'has-error': errors.has('lastName')}">
           <label>Last Name</label>
-          <input type="text" class="form-control" placeholder="Last Name" v-model="user.lastName" name="lastName" v-validate.initial="user.lastName" data-vv-rules="required">
+          <input type="text" class="form-control" placeholder="Last Name" v-model="value.lastName" name="lastName" v-validate.initial="value.lastName" data-vv-rules="required">
           <span v-show="errors.has('lastName')" class="help-block">{{ errors.first('lastName') }}</span>
         </div>
         <div class="form-group" :class="{'has-error': errors.has('phone')}">
           <label>Phone Number</label>
-          <input type="tel" class="form-control" placeholder="Phone Number" v-model="user.phoneNumber" name="phone" v-validate.initial="user.phoneNumber" data-vv-rules="required">
+          <input type="tel" class="form-control" placeholder="Phone Number" v-model="value.phoneNumber" name="phone" v-validate.initial="value.phoneNumber" data-vv-rules="required">
           <span v-show="errors.has('phone')" class="help-block">{{ errors.first('phone') }}</span>
         </div>
         <div class="form-group clearfix">
@@ -39,7 +39,7 @@
           <div class="col-md-3 col-xs-12" v-for="p in allPermissions">
             <div class="checkbox">
               <label>
-                  <input type="checkbox" v-model="user.permissions" :value="p.key">
+                  <input type="checkbox" v-model="value.permissions" :value="p.key">
                   {{ p.description }}
                 </label>
             </div>
@@ -78,7 +78,7 @@ import Constants from '../../constants';
 export default {
   data() {
     return {
-      user: {
+      value: {
         permissions: [],
       },
     };
@@ -86,6 +86,9 @@ export default {
   computed: {
     id() {
       return parseInt(this.$route.params.id, 10);
+    },
+    user() {
+      return this.$store.getters.user(this.id);
     },
     allPermissions() {
       return _.values(Constants.permissions);
@@ -95,31 +98,32 @@ export default {
     }
   },
   watch: {
-    $route: 'load'
+    $route: 'load',
+    user: 'refresh',
   },
   methods: {
     validate() {
-      this.$validator.validateAll().then((success) => {
-        if (!success) {
-          return;
-        }
-        this.save();
-      });
+      this.$validator
+        .validateAll()
+        .then((isValid) => {
+          if (isValid) {
+            this.save();
+          }
+        });
     },
     save() {
-      const user = JSON.parse(JSON.stringify(this.user));
+      const user = JSON.parse(JSON.stringify(this.value));
 
       user.id = this.id;
       this.$store.dispatch(Constants.SAVE_USER, {
         user
       });
     },
+    refresh() {
+      this.value = Object.assign({}, this.user);
+    },
     load() {
       this.$store.commit(Constants.SET_PASSWORD_RESET_STATUS, false);
-
-      this.$store.watch(() => this.$store.getters.user, (current) => {
-        this.user = Object.assign({}, current);
-      });
 
       this.$store.dispatch(Constants.GET_USER, {
         id: this.id,
