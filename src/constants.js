@@ -154,6 +154,10 @@ export default {
       key: 'everything',
       description: 'Everything',
     },
+    LOGIN: {
+      key: 'login',
+      description: 'Can login'
+    },
     MANAGE_INVENTORY: {
       key: 'manageInventory',
       description: 'Manage Inventory',
