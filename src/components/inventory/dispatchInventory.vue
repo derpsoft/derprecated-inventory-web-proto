@@ -23,13 +23,6 @@
             <span v-show="errors.has('quantity')" class="help-block">{{ errors.first('quantity') }}</span>
           </div>
 
-          <div class="form-group" v-if="quantity > 0">
-            <label>Prices</label>
-          </div>
-          <div class="form-group" v-for="i in quantity" :class="{'has-error': errors.has('prices[' + i-1 +']')}" >
-            <input type="text" :name="`prices[${i-1}]`" class="form-control" placeholder="Price" v-model.number.lazy="prices[i-1]"  v-validate.initial="prices[i-1]" data-vv-rules="required">
-            <span v-show="errors.has('prices[' + i-1 +']')" class="help-block">{{ errors.first('prices[' + i-1 +']') }}</span>
-          </div>
           <div class="form-group hide" :class="{'has-error': errors.has('location')}">
             <label>From Location</label>
             <input type="text" name="location" class="form-control" placeholder="Location" value="Shipping" disabled="disabled">
@@ -54,7 +47,6 @@ export default {
       productId: 0,
       locationId: 2,
       quantity: 0,
-      prices: [],
       product: {},
     };
   },
@@ -70,15 +62,18 @@ export default {
   },
   methods: {
     redirect() {
-      this.$router.push({ path: '/inventory' });
+      this.$router.push({
+        path: '/inventory'
+      });
     },
     validate() {
-      this.$validator.validateAll().then((success) => {
-        if (!success) {
-          return;
-        }
-        this.save();
-      });
+      this.$validator
+        .validateAll()
+        .then((isValid) => {
+          if (isValid) {
+            this.save();
+          }
+        });
     },
     save() {
       const redirect = this.redirect;
@@ -86,8 +81,6 @@ export default {
         quantity: this.quantity,
         productId: this.product.id,
         locationId: this.locationId,
-        prices: JSON.parse(JSON.stringify(this.prices)),
-        vendorId: 1,
         redirect,
       };
       this.$store.dispatch(Constants.DISPATCH_INVENTORY, xact);
