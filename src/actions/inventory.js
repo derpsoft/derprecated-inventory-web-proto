@@ -63,9 +63,7 @@ function dispatchInventory({
 }, {
   productId,
   locationId,
-  vendorId,
   quantity,
-  prices,
   redirect,
 }) {
   new InventoryApi()
@@ -75,16 +73,6 @@ function dispatchInventory({
       quantity: -Math.abs(quantity),
     })
     .then((q) => {
-      for (let i = 0; i < quantity; i += 1) {
-        dispatch(Constants.LOG_SALE, {
-          quantity: 1,
-          productId,
-          locationId,
-          vendorId,
-          inventoryTransactionId: q.id,
-          total: prices[i]
-        });
-      }
       commit(Constants.SET_QUANTITY_ON_HAND, {
         quantity: q.quantity,
         productId,

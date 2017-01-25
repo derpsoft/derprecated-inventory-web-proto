@@ -23,6 +23,9 @@ const guards = [
 
   'canReceiveInventory',
   'canDispatchInventory',
+
+  'canReadSales',
+  'canUpsertSales',
 ];
 
 const toggleHide = (el, shown = true) => {

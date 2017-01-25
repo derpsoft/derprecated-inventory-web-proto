@@ -142,12 +142,8 @@ const MUTATIONS = {
 };
 
 const GETTERS = {
-  users(state) {
-    return state.users.list;
-  },
-  user(state) {
-    return state.users.user;
-  }
+  users: state => state.users.list,
+  user: state => () => state.users.user,
 };
 
 const UsersActions = {
