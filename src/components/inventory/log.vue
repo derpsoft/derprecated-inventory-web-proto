@@ -16,7 +16,7 @@
           <thead>
             <tr>
               <th>ID</th>
-              <th>Product ID</th>
+              <th>Product</th>
               <th>Quantity</th>
               <th>Type</th>
               <th>Unit of Measure ID</th>
@@ -27,7 +27,7 @@
           <tbody>
             <tr v-for="log in logs">
               <td>{{log.id}}</td>
-              <td>{{log.productId}}</td>
+              <product-field tag="td" :id="log.productId" field="title"></product-field>
               <td>{{log.quantity}}</td>
               <td>{{log.transactionType}}</td>
               <td>{{log.unitOfMeasureId}}</td>
@@ -60,10 +60,18 @@ import LogSearch from './search.vue';
 import Constants from '../../constants';
 import PageSize from '../pageSize/pageSize.vue';
 import store from '../../stores/store';
+import ProductField from '../products/field.vue';
 
 const defaultPageCount = 25;
 
 export default {
+  components: {
+    Pagination,
+    PageSize,
+    LogSearch,
+    ProductField,
+  },
+
   data() {
     return {
       pagination: {
@@ -74,11 +82,7 @@ export default {
       },
     };
   },
-  components: {
-    Pagination,
-    PageSize,
-    LogSearch,
-  },
+
   mounted() {
     store.dispatch(Constants.GET_INVENTORY_TRANSACTION_LOGS, {
       skip: 0,
@@ -86,6 +90,7 @@ export default {
     });
     store.dispatch(Constants.COUNT_INVENTORY_LOGS);
   },
+
   computed: {
     count() {
       return store.getters.logCount;
@@ -97,6 +102,7 @@ export default {
       return store.getters.logs;
     },
   },
+
   methods: {
     getPage() {
       const skip = this.pagination.per_page * (this.pagination.current_page - 1);
@@ -115,6 +121,7 @@ export default {
       });
     },
   },
+
   filters: {
     formatCreateDate(date) {
       return moment(date).format('lll');

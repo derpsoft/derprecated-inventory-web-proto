@@ -1,21 +1,28 @@
 import log from 'loglevel';
 import _ from 'lodash';
+import Vue from 'vue';
 import Constants from '../constants';
 import ProductApi from '../services/productApi';
 
 function getProduct({
   dispatch,
   commit
-}, id) {
-  new ProductApi().retrieve(id)
+}, {
+  id,
+  includeDeleted = false,
+  toastError = true,
+}) {
+  new ProductApi().retrieve(id, includeDeleted)
     .then((product) => {
       commit(Constants.SET_PRODUCT, product);
     })
     .catch((e) => {
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'error',
-        message: 'Error Retrieving Product.'
-      });
+      if (toastError) {
+        dispatch(Constants.SHOW_TOASTR, {
+          type: 'error',
+          message: 'Error Retrieving Product.'
+        });
+      }
       log.error(e);
     });
 }
@@ -190,20 +197,23 @@ const MUTATIONS = {
     };
   },
   [Constants.SET_PRODUCT_LIST]: (state, results) => {
-    state.products.all = _.merge(
-      {},
+    state.products.all = _.merge({},
       state.products.all,
       _.keyBy(results, x => x.id)
     );
-    state.products.images = _.merge(
-      {},
+    state.products.images = _.merge({},
       state.products.images,
       _.mapValues(state.products.all, x => x.images)
     );
   },
   [Constants.SET_PRODUCT]: (state, result) => {
-    state.products.all[result.id] = result;
-    state.products.images[result.id] = result.images;
+    if (state.products.all[result.id]) {
+      state.products.all[result.id] = _.merge({}, state.products.all[result.id], result);
+      state.products.images[result.id] = result.images;
+    } else {
+      Vue.set(state.products.all, result.id, result);
+      Vue.set(state.products.images, result.id, result.images);
+    }
   },
   [Constants.CLEAR_PRODUCT]: (state, id) => {
     delete state.products.all[id];
