@@ -20,7 +20,7 @@
               <th>Quantity</th>
               <th>Type</th>
               <th>Unit of Measure ID</th>
-              <th>User ID </th>
+              <th>User</th>
               <th>Date</th>
             </tr>
           </thead>
