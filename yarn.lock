@@ -5619,10 +5619,6 @@ void-elements@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
 
-vue-bootstrap-pagination@latest:
-  version "2.10.2"
-  resolved "https://registry.yarnpkg.com/vue-bootstrap-pagination/-/vue-bootstrap-pagination-2.10.2.tgz#1db4d90782f56d4a496cc4b52b584df92cc96a8d"
-
 vue-chartjs@^2.3.2:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-2.3.3.tgz#5e7782a38c5941ec6cdfb624b4ad94679964716a"
@@ -5684,7 +5680,7 @@ vue-style-loader@^1.0.0, vue-style-loader@latest:
   dependencies:
     loader-utils "^0.2.7"
 
-vue-template-compiler@latest:
+vue-template-compiler@^2.1.8:
   version "2.1.10"
   resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.1.10.tgz#cb89643adc395e97435585522e43d0a9b1913257"
   dependencies:
