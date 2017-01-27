@@ -31,15 +31,15 @@ textarea.form-control {
         <div class="product-title">
           <div class="pull-right product-controls">
             <button type="button" class="btn btn-danger" @click="deleteProductConfirm" v-can-delete-products>Delete Product</button>
-            <button type="button" class="btn btn-warning" @click="showImages = !showImages">{{ !showImages ? 'Show Images' : 'Hide Images'}}</button>
+            <button type="button" class="btn btn-warning" @click="showImages = !showImages">{{ !showImages ? 'Show Upload' : 'Hide Upload'}}</button>
             <button type="submit" class="btn btn-primary" @click="save" v-can-upsert-products>Save Product</button>
           </div>
           <h4>{{ product.title }}</h4>
         </div>
 
-        <div class="row" v-show="showImages">
+        <div class="row">
           <div class="col-lg-12">
-            <image-gallery ref="imageGallery" :images="images" :upload-url="uploadUrl" :on-sending="xhrIntercept" :on-delete="deleteImage"></image-gallery>
+            <image-gallery ref="imageGallery" :images="images" :upload-url="uploadUrl" :on-sending="xhrIntercept" :on-delete="deleteImage" :toggle="showImages"></image-gallery>
           </div>
         </div>
 

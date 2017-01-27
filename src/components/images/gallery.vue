@@ -1,31 +1,3 @@
-<template>
-<div class="gallery">
-  <template v-for="image in images">
-        <div class="img-container clearfix">
-          <a class="delete" v-if="allowRemove" @click="onDelete(image)" title="Delete Image">&times;</a>
-          <img :src="image.sourceUrl" />
-        </div>
-</template>
-
-    <div class="image-upload" v-show="toggle">
-    <dropzone
-      id="imageGallery"
-      :url="uploadUrl"
-      accepted-file-types="image/*"
-      show-remove-link="false"
-      max-file-size-in-mb="8"
-      auto-process-queue="true"
-      :show-remove-link="false"
-      :max-file-size-in-mb="8"
-      :auto-process-queue="true"
-      @vdropzone-sending="onSending"
-      @vdropzone-success="onSuccess"
-      :use-font-awesome="true"
-      ></dropzone>
-    </div>
-  </div>
-</template>
-
 <style lang="less" scoped>
 .image-upload {
     margin-top: 10px;
@@ -74,6 +46,35 @@
     }
 }
 </style>
+
+<template>
+<div class="gallery">
+  <template v-for="image in images">
+        <div class="img-container clearfix">
+          <a class="delete" v-if="allowRemove" @click="onDelete(image)" title="Delete Image">&times;</a>
+          <img :src="image.sourceUrl" />
+        </div>
+</template>
+
+    <div class="image-upload" v-show="toggle">
+    <dropzone
+      id="imageGallery"
+      :url="uploadUrl"
+      accepted-file-types="image/*"
+      show-remove-link="false"
+      max-file-size-in-mb="8"
+      auto-process-queue="true"
+      :show-remove-link="false"
+      :max-file-size-in-mb="8"
+      :auto-process-queue="true"
+      @vdropzone-sending="onSending"
+      @vdropzone-success="onSuccess"
+      :use-font-awesome="true"
+      ></dropzone>
+    </div>
+  </div>
+</template>
+
 
 <script>
 import Dropzone from 'vue2-dropzone';
