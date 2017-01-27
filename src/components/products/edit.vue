@@ -126,6 +126,10 @@ export default {
         });
     },
 
+    redirect() {
+      this.$router.replace('/products');
+    },
+
     deleteProductConfirm() {
       /* eslint-disable no-alert */
       if (window.confirm('Are you sure you want to delete?')) {
@@ -135,7 +139,10 @@ export default {
     },
 
     deleteProduct() {
-      this.$store.dispatch(Constants.DELETE_PRODUCT, this.id);
+      this.$store.dispatch(Constants.DELETE_PRODUCT, {
+        id: this.id,
+        redirect: this.redirect,
+      });
     },
 
     deleteImage(image) {
