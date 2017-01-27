@@ -28,7 +28,7 @@ function list({
 }) {
   new SaleApi()
     .list(skip, take)
-    .then(x => commit(Constants.SET_SALE_LIST, x))
+    .then(x => commit(Constants.SET_SALES, x))
     .catch(e => log.error(e));
 }
 
@@ -68,7 +68,7 @@ const ACTIONS = {
 };
 
 const MUTATIONS = {
-  [Constants.SET_SALE_LIST]: (state, sales) => {
+  [Constants.SET_SALES]: (state, sales) => {
     state.sales.all = _.merge({}, state.sales.all, _.keyBy(sales, x => x.id));
   },
   [Constants.SET_SALE_SEARCH_RESULTS]: (state, results) => {

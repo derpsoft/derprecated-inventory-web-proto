@@ -1,6 +1,14 @@
+<style lang="less" scoped>
+table.user-list {
+  tr {
+    cursor: pointer;
+  }
+}
+</style>
+
 <template>
 <div>
-  <div v-if="users.length == 0" class="col-md-12">
+  <div v-if="!users.length" class="col-md-12">
     There are no users found. Please add users or update the filters.
   </div>
   <div class="list-view">
@@ -27,14 +35,6 @@
   </div>
 </div>
 </template>
-
-<style lang="less" scoped>
-table.user-list {
-    tr {
-        cursor: pointer;
-    }
-}
-</style>
 
 <script>
 import Constants from '../../constants';

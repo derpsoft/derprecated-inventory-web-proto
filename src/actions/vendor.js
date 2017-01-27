@@ -97,29 +97,11 @@ function getVendors({
 }) {
   new VendorApi()
     .list(skip, take)
-    .then(response => commit(Constants.SET_VENDOR_LIST, response))
+    .then(response => commit(Constants.SET_VENDORS, response))
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {
         type: 'error',
         message: 'Error Getting Vendors.'
-      });
-      log.error(e);
-    });
-}
-
-function search({
-  dispatch,
-  commit,
-}, {
-  query
-}) {
-  new VendorApi()
-    .search(query)
-    .then(response => commit(Constants.SET_VENDOR_LIST, response.results))
-    .catch((e) => {
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'error',
-        message: 'Error Searching for Vendors.'
       });
       log.error(e);
     });
@@ -133,7 +115,7 @@ function typeahead({
 }) {
   new VendorApi()
     .typeahead(query)
-    .then(vendors => commit(Constants.SET_VENDOR_LIST, vendors))
+    .then(vendors => commit(Constants.SET_VENDOR_SEARCH_RESULTS, vendors))
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {
         type: 'error',
@@ -143,25 +125,19 @@ function typeahead({
     });
 }
 
-function clearVendor({
-  commit
-}) {
-  commit(Constants.CLEAR_VENDOR);
-}
-
-
 const INITIAL_STATE = {
   vendors: {
     all: {},
     count: 0,
+    search: {
+      results: [],
+    },
   }
 };
 
 const ACTIONS = {
   [Constants.GET_VENDOR]: getVendor,
   [Constants.GET_VENDORS]: getVendors,
-  [Constants.SEARCH_VENDORS]: search,
-  [Constants.CLEAR_VENDOR]: clearVendor,
   [Constants.CREATE_VENDOR]: createVendor,
   [Constants.SAVE_VENDOR]: saveVendor,
   [Constants.COUNT_VENDORS]: countVendors,
@@ -169,7 +145,7 @@ const ACTIONS = {
 };
 
 const MUTATIONS = {
-  [Constants.SET_VENDOR_LIST]: (state, results) => {
+  [Constants.SET_VENDORS]: (state, results) => {
     state.vendors.all = _.merge({},
       state.vendors.all,
       _.keyBy(results, x => x.id)
@@ -185,8 +161,8 @@ const MUTATIONS = {
   [Constants.SET_VENDOR_COUNT]: (state, count) => {
     state.vendors.count = count;
   },
-  [Constants.CLEAR_VENDOR]: (state, id) => {
-    delete state.vendors.all[id];
+  [Constants.SET_VENDOR_SEARCH_RESULTS]: (state, results) => {
+    state.vendors.search.results = results;
   },
 };
 
@@ -194,6 +170,7 @@ const GETTERS = {
   vendors: state => _.values(state.vendors.all),
   vendor: state => id => state.vendors.all[id],
   vendorCount: state => state.vendors.count,
+  vendorSearch: state => state.vendors.search.results,
 };
 
 const VendorActions = {

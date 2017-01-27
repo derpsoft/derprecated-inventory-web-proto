@@ -166,7 +166,7 @@ const MUTATIONS = {
 };
 
 const GETTERS = {
-  users: state => state.users.all,
+  users: state => _.values(state.users.all),
   user: state => id => state.users.all[id],
   userSearch: state => state.users.search.results,
 };

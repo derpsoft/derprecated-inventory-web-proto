@@ -27,24 +27,49 @@ export default {
       propType: String,
       required: true,
     },
+    searchOnMount: {
+      propType: Boolean,
+      required: false,
+      default: true,
+    },
+    skip: {
+      propType: Number,
+      required: false,
+      default: 0,
+    },
+    take: {
+      propType: Number,
+      required: false,
+      default: 200,
+    },
   },
 
   watch: {
     searchTerm: 'search',
   },
 
+  computed: {
+    params() {
+      return {
+        query: this.searchTerm,
+        skip: this.skip,
+        take: this.take,
+      };
+    },
+    action() {
+      return this.searchTerm.length ? this.searchActionName : this.listActionName;
+    },
+  },
+
+  mounted() {
+    if (this.searchOnMount) {
+      this.search();
+    }
+  },
+
   methods: {
     search() {
-      if (this.searchTerm.length) {
-        this.$store.dispatch(this.searchActionName, {
-          query: this.searchTerm,
-        });
-      } else {
-        this.$store.dispatch(this.listActionName, {
-          skip: 0,
-          take: 200
-        });
-      }
+      this.$store.dispatch(this.action, this.params);
     },
   },
 };

@@ -1,4 +1,6 @@
 import log from 'loglevel';
+import _ from 'lodash';
+import Vue from 'vue';
 import Constants from '../constants';
 import LocationApi from '../services/locationApi';
 
@@ -77,29 +79,11 @@ function getLocations({
 }) {
   new LocationApi()
     .list(skip, take)
-    .then(locations => commit(Constants.SET_LOCATION_LIST, locations))
+    .then(locations => commit(Constants.SET_LOCATIONS, locations))
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {
         type: 'error',
         message: 'Error Retrieving Locations.'
-      });
-      log.error(e);
-    });
-}
-
-function search({
-  dispatch,
-  commit,
-}, {
-  query
-}) {
-  new LocationApi()
-    .search(query)
-    .then(locations => commit(Constants.SET_LOCATION_LIST, locations.results))
-    .catch((e) => {
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'error',
-        message: 'Error Searching for Location.'
       });
       log.error(e);
     });
@@ -113,14 +97,8 @@ function typeahead({
 }) {
   new LocationApi()
     .typeahead(query)
-    .then(locations => commit(Constants.SET_LOCATION_LIST, locations))
+    .then(locations => commit(Constants.SET_LOCATION_SEARCH_RESULTS, locations))
     .catch(e => log.error(e));
-}
-
-function clearLocation({
-  commit
-}) {
-  commit(Constants.CLEAR_LOCATION);
 }
 
 function countLocations({
@@ -155,17 +133,17 @@ function deleteLocation({ dispatch }, id) {
 
 const INITIAL_STATE = {
   locations: {
-    list: [],
+    all: {},
     count: 0,
-    location: {},
+    search: {
+      results: [],
+    },
   }
 };
 
 const ACTIONS = {
   [Constants.GET_LOCATION]: getLocation,
   [Constants.GET_LOCATIONS]: getLocations,
-  [Constants.SEARCH_LOCATIONS]: search,
-  [Constants.CLEAR_LOCATION]: clearLocation,
   [Constants.CREATE_LOCATION]: createLocation,
   [Constants.SAVE_LOCATION]: saveLocation,
   [Constants.SEARCH_LOCATIONS_WITH_TYPEAHEAD]: typeahead,
@@ -174,30 +152,32 @@ const ACTIONS = {
 };
 
 const MUTATIONS = {
-  [Constants.SET_LOCATION_LIST]: (state, results) => {
-    state.locations.list = results;
+  [Constants.SET_LOCATIONS]: (state, results) => {
+    state.locations.all = _.merge({},
+      state.locations.all,
+      _.keyBy(results, x => x.id)
+    );
   },
-  [Constants.SET_LOCATION]: (state, results) => {
-    state.locations.location = results;
-  },
-  [Constants.CLEAR_LOCATION]: (state) => {
-    state.locations.location = {};
+  [Constants.SET_LOCATION]: (state, result) => {
+    if (state.locations.all[result.id]) {
+      state.locations.all[result.id] = _.merge({}, state.locations.all[result.id], result);
+    } else {
+      Vue.set(state.locations.all, result.id, result);
+    }
   },
   [Constants.SET_LOCATION_COUNT]: (state, count) => {
     state.locations.count = count;
   },
+  [Constants.SET_LOCATION_SEARCH_RESULTS]: (state, results) => {
+    state.locations.search.results = results;
+  },
 };
 
 const GETTERS = {
-  locationList(state) {
-    return state.locations.list;
-  },
-  locationCount(state) {
-    return state.locations.count;
-  },
-  location(state) {
-    return state.locations.location;
-  },
+  location: state => id => state.locations.all[id],
+  locations: state => _.values(state.locations.all),
+  locationCount: state => state.locations.count,
+  locationSearch: state => state.locations.search.results,
 };
 
 const LocationActions = {

@@ -23,5 +23,5 @@ module.exports = [
   LocationActions,
   ToastrActions,
   SaleActions,
-  CategoryActions,
+  CategoryActions
 ];

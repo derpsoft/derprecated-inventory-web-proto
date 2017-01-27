@@ -1,4 +1,6 @@
 import log from 'loglevel';
+import _ from 'lodash';
+import Vue from 'vue';
 import Constants from '../constants';
 import WarehouseApi from '../services/warehouseApi';
 
@@ -77,29 +79,11 @@ function getWarehouses({
 }) {
   new WarehouseApi()
     .list(skip, take)
-    .then(warehouses => commit(Constants.SET_WAREHOUSE_LIST, warehouses))
+    .then(warehouses => commit(Constants.SET_WAREHOUSES, warehouses))
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {
         type: 'error',
         message: 'Error Getting Warehouses.'
-      });
-      log.error(e);
-    });
-}
-
-function search({
-  dispatch,
-  commit,
-}, {
-  query
-}) {
-  new WarehouseApi()
-    .search(query)
-    .then(warehouses => commit(Constants.SET_WAREHOUSE_LIST, warehouses.results))
-    .catch((e) => {
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'error',
-        message: 'Error Searching Warehouses.'
       });
       log.error(e);
     });
@@ -113,7 +97,7 @@ function typeahead({
 }) {
   new WarehouseApi()
     .typeahead(query)
-    .then(warehouses => commit(Constants.SET_WAREHOUSE_LIST, warehouses))
+    .then(warehouses => commit(Constants.SET_WAREHOUSE_SEARCH_RESULTS, warehouses))
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {
         type: 'error',
@@ -121,12 +105,6 @@ function typeahead({
       });
       log.error(e);
     });
-}
-
-function clearWarehouse({
-  commit
-}) {
-  commit(Constants.CLEAR_WAREHOUSE);
 }
 
 function countWarehouses({
@@ -148,17 +126,18 @@ function countWarehouses({
 
 const INITIAL_STATE = {
   warehouses: {
-    list: [],
+    all: {},
     count: 0,
-    warehouse: {},
+    search: {
+      results: {},
+      query: {},
+    },
   }
 };
 
 const ACTIONS = {
   [Constants.GET_WAREHOUSE]: getWarehouse,
   [Constants.GET_WAREHOUSES]: getWarehouses,
-  [Constants.SEARCH_WAREHOUSES]: search,
-  [Constants.CLEAR_WAREHOUSE]: clearWarehouse,
   [Constants.CREATE_WAREHOUSE]: createWarehouse,
   [Constants.SAVE_WAREHOUSE]: saveWarehouse,
   [Constants.SEARCH_WAREHOUSES_WITH_TYPEAHEAD]: typeahead,
@@ -166,30 +145,32 @@ const ACTIONS = {
 };
 
 const MUTATIONS = {
-  [Constants.SET_WAREHOUSE_LIST]: (state, results) => {
-    state.warehouses.list = results;
+  [Constants.SET_WAREHOUSES]: (state, results) => {
+    state.warehouses.all = _.merge({},
+      state.warehouses.all,
+      _.keyBy(results, x => x.id)
+    );
   },
-  [Constants.SET_WAREHOUSE]: (state, results) => {
-    state.warehouses.warehouse = results;
-  },
-  [Constants.CLEAR_WAREHOUSE]: (state) => {
-    state.warehouses.warehouse = {};
+  [Constants.SET_WAREHOUSE]: (state, result) => {
+    if (state.warehouses.all[result.id]) {
+      state.warehouses.all[result.id] = _.merge({}, state.warehouses.all[result.id], result);
+    } else {
+      Vue.set(state.warehouses.all, result.id, result);
+    }
   },
   [Constants.SET_WAREHOUSE_COUNT]: (state, count) => {
     state.warehouses.count = count;
   },
+  [Constants.SET_WAREHOUSE_SEARCH_RESULTS]: (state, results) => {
+    state.warehouses.search.results = results;
+  },
 };
 
 const GETTERS = {
-  warehouseList(state) {
-    return state.warehouses.list;
-  },
-  warehouseCount(state) {
-    return state.warehouses.count;
-  },
-  warehouse(state) {
-    return state.warehouses.warehouse;
-  },
+  warehouse: state => id => state.warehouses.all[id],
+  warehouses: state => _.values(state.warehouses.all),
+  warehouseCount: state => state.warehouses.count,
+  warehouseSearch: state => state.warehouses.search.results,
 };
 
 const WarehouseActions = {

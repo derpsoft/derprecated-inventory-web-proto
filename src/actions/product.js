@@ -85,28 +85,13 @@ function getProducts({
 }) {
   new ProductApi().list(skip, take)
     .then((products) => {
-      commit(Constants.SET_PRODUCT_LIST, products);
+      commit(Constants.SET_PRODUCTS, products);
     })
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {
         type: 'error',
         message: 'Error Loading Products.'
       });
-      log.error(e);
-    });
-}
-
-function search({
-  dispatch,
-  commit,
-}, {
-  query
-}) {
-  new ProductApi().search(query)
-    .then((products) => {
-      commit(Constants.SET_PRODUCT_LIST, products);
-    })
-    .catch((e) => {
       log.error(e);
     });
 }
@@ -174,7 +159,6 @@ const INITIAL_STATE = {
 const ACTIONS = {
   [Constants.GET_PRODUCT]: getProduct,
   [Constants.GET_PRODUCTS]: getProducts,
-  [Constants.SEARCH_PRODUCTS]: search,
   [Constants.SEARCH_PRODUCTS_WITH_TYPEAHEAD]: searchProductsWithTypeahead,
   [Constants.UPDATE_PRODUCT_FIELD]: updateProductField,
   [Constants.CREATE_PRODUCT]: createProduct,
@@ -196,7 +180,7 @@ const MUTATIONS = {
       results: {},
     };
   },
-  [Constants.SET_PRODUCT_LIST]: (state, results) => {
+  [Constants.SET_PRODUCTS]: (state, results) => {
     state.products.all = _.merge({},
       state.products.all,
       _.keyBy(results, x => x.id)

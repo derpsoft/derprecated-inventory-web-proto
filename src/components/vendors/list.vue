@@ -14,7 +14,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr @click.prevent="edit(vendor.id)" v-for="vendor in vendors">
+            <tr v-for="vendor in vendors" @click.prevent="edit(vendor.id)">
               <td>{{vendor.id}}</td>
               <td>{{vendor.name}}</td>
             </tr>
@@ -35,21 +35,13 @@ table.vendor-list {
 </style>
 
 <script>
-import Constants from '../../constants';
-
 export default {
-  mounted() {
-    this.$store.dispatch(Constants.GET_VENDORS, {
-      skip: 0,
-      take: 200,
-    });
-    this.$store.dispatch(Constants.COUNT_VENDORS);
-  },
   computed: {
-    count() {
-      return this.$store.getters.vendorCount;
-    },
     vendors() {
+      const results = this.$store.getters.vendorSearch;
+      if (results.length) {
+        return results;
+      }
       return this.$store.getters.vendors;
     },
   },
