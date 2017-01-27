@@ -53,7 +53,6 @@ table.sale-list {
 
 <script>
 import moment from 'moment';
-import _ from 'lodash';
 import Pagination from 'vue-bootstrap-pagination';
 import saleSearch from './search.vue';
 import Constants from '../../constants';
@@ -127,16 +126,6 @@ export default {
         skip: 0,
         take: pageSize,
       });
-    },
-    getProduct(id) {
-      return _.merge({
-        name: '',
-      }, this.$store.getters.product(id));
-    },
-    getUser(id) {
-      return _.merge({
-        name: '',
-      }, this.$store.getters.user(id));
     },
   },
 };
