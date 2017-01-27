@@ -1,3 +1,11 @@
+<style lang="less" scoped>
+table.category-list {
+  tr {
+    cursor: pointer;
+  }
+}
+</style>
+
 <template>
 <div>
   <div class="col-md-12" v-if="!categories.length">
@@ -13,7 +21,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr @click.prevent="edit(category.id)" v-for="category in categories">
+          <tr v-for="category in categories" @click.prevent="edit(category.id)">
             <td>{{category.id}}</td>
             <td>{{category.name}}</td>
           </tr>
@@ -24,33 +32,15 @@
 </div>
 </template>
 
-<style lang="less" scoped>
-table.category-list {
-    tr {
-        cursor: pointer;
-    }
-}
-</style>
-
 <script>
-import Constants from '../../constants';
-
 export default {
-  mounted() {
-    this.$store.dispatch(Constants.GET_CATEGORIES, {
-      skip: 0,
-      take: 200,
-    });
-    this.$store.dispatch(Constants.COUNT_CATEGORIES);
-  },
   computed: {
-    count() {
-      return this.$store.getters.categoryCount;
-    },
     categories() {
-      const categories = this.$store.getters.categories;
-
-      return categories;
+      const results = this.$store.getters.categorySearch;
+      if (results.length) {
+        return results;
+      }
+      return this.$store.getters.categories;
     },
   },
   methods: {

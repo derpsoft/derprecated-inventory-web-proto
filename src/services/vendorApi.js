@@ -37,20 +37,13 @@ class VendorApi extends Fetchable {
     .then(json => json.result);
   }
 
-  search(query) {
-    return super.post('/api/v1/vendors/search', {
-      body: this.toForm({ query })
-    })
-    .then(res => res.json());
-  }
-
   typeahead(query) {
     const body = new URLSearchParams();
     body.set('query', query);
 
     return super.get(`/api/v1/vendors/typeahead?${body}`)
     .then(res => res.json())
-    .then(json => json.vendors);
+    .then(json => json.result);
   }
 
   save(vendor) {

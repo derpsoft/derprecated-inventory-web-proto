@@ -35,22 +35,14 @@ table.warehouse-list {
 </style>
 
 <script>
-import Constants from '../../constants';
-
 export default {
-  mounted() {
-    this.$store.dispatch(Constants.GET_WAREHOUSES, {
-      skip: 0,
-      take: 200,
-    });
-    this.$store.dispatch(Constants.COUNT_WAREHOUSES);
-  },
   computed: {
-    count() {
-      return this.$store.getters.warehouseCount;
-    },
     warehouses() {
-      return this.$store.getters.warehouseList;
+      const results = this.$store.getters.warehouseSearch;
+      if (results.length) {
+        return results;
+      }
+      return this.$store.getters.warehouses;
     },
   },
   methods: {

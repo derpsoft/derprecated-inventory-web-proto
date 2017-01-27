@@ -28,24 +28,13 @@ class LocationApi extends Fetchable {
 
     return super.get(`/api/v1/locations?${body}`)
     .then(res => res.json())
-    .then((json) => {
-      return json.result;
-    });
+    .then(json => json.result);
   }
 
   single(id) {
     return super.get(`/api/v1/locations/${id}`)
     .then(res => res.json())
-    .then((json) => {
-      return json.result;
-    });
-  }
-
-  search(query) {
-    return super.search('/api/v1/locations/search', {
-      body: this.toForm({ query })
-    })
-    .then(res => res.json());
+    .then(json => json.result);
   }
 
   typeahead(query) {
@@ -54,7 +43,7 @@ class LocationApi extends Fetchable {
 
     return super.search(`/api/v1/locations/typeahead?${body}`)
     .then(res => res.json())
-    .then(json => json.locations);
+    .then(json => json.result);
   }
 
   save(location) {

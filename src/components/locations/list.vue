@@ -11,12 +11,18 @@
             <tr>
               <th>ID</th>
               <th>Name</th>
+              <th>Shelf</th>
+              <th>Rack</th>
+              <th>Bin</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="location in locations" @click.prevent="edit(location.id)">
               <td>{{location.id}}</td>
               <td>{{location.name}}</td>
+              <td>{{location.shelf}}</td>
+              <td>{{location.rack}}</td>
+              <td>{{location.bin}}</td>
             </tr>
           </tbody>
         </table>
@@ -35,21 +41,14 @@ table.location-list {
 </style>
 
 <script>
-import Constants from '../../constants';
-
 export default {
-  mounted() {
-    this.$store.dispatch(Constants.GET_LOCATIONS, {
-      skip: 0,
-      take: 200,
-    });
-  },
   computed: {
-    count() {
-      return this.$store.getters.locationCount;
-    },
     locations() {
-      return this.$store.getters.locationList;
+      const results = this.$store.getters.locationSearch;
+      if (results.length) {
+        return results;
+      }
+      return this.$store.getters.locations;
     },
   },
   methods: {

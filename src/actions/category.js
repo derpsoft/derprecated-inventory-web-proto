@@ -1,4 +1,6 @@
 import log from 'loglevel';
+import _ from 'lodash';
+import Vue from 'vue';
 import Constants from '../constants';
 import CategoryApi from '../services/categoryApi';
 
@@ -95,29 +97,11 @@ function getCategories({
 }) {
   new CategoryApi()
     .list(skip, take)
-    .then(response => commit(Constants.SET_CATEGORY_LIST, response))
+    .then(response => commit(Constants.SET_CATEGORIES, response))
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {
         type: 'error',
         message: 'Error Getting Categories.'
-      });
-      log.error(e);
-    });
-}
-
-function search({
-  dispatch,
-  commit,
-}, {
-  query
-}) {
-  new CategoryApi()
-    .search(query)
-    .then(response => commit(Constants.SET_CATEGORY_LIST, response.results))
-    .catch((e) => {
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'error',
-        message: 'Error Searching for Categories.'
       });
       log.error(e);
     });
@@ -131,7 +115,7 @@ function typeahead({
 }) {
   new CategoryApi()
     .typeahead(query)
-    .then(categories => commit(Constants.SET_CATEGORY_LIST, categories))
+    .then(categories => commit(Constants.SET_CATEGORY_SEARCH_RESULTS, categories))
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {
         type: 'error',
@@ -141,17 +125,13 @@ function typeahead({
     });
 }
 
-function clearCategory({
-  commit
-}) {
-  commit(Constants.CLEAR_CATEGORY);
-}
-
-
 const INITIAL_STATE = {
   categories: {
-    list: [],
-    category: {},
+    all: {},
+    search: {
+      results: [],
+      query: {},
+    },
     count: 0,
   }
 };
@@ -159,8 +139,6 @@ const INITIAL_STATE = {
 const ACTIONS = {
   [Constants.GET_CATEGORY]: getCategory,
   [Constants.GET_CATEGORIES]: getCategories,
-  [Constants.SEARCH_CATEGORIES]: search,
-  [Constants.CLEAR_CATEGORY]: clearCategory,
   [Constants.CREATE_CATEGORY]: createCategory,
   [Constants.SAVE_CATEGORY]: saveCategory,
   [Constants.COUNT_CATEGORIES]: countCategories,
@@ -168,30 +146,32 @@ const ACTIONS = {
 };
 
 const MUTATIONS = {
-  [Constants.SET_CATEGORY_LIST]: (state, list) => {
-    state.categories.list = list;
+  [Constants.SET_CATEGORIES]: (state, results) => {
+    state.categories.all = _.merge({},
+      state.categories.all,
+      _.keyBy(results, x => x.id)
+    );
   },
-  [Constants.SET_CATEGORY]: (state, results) => {
-    state.categories.category = results;
+  [Constants.SET_CATEGORY]: (state, result) => {
+    if (state.categories.all[result.id]) {
+      state.categories.all[result.id] = _.merge({}, state.categories.all[result.id], result);
+    } else {
+      Vue.set(state.categories.all, result.id, result);
+    }
   },
   [Constants.SET_CATEGORY_COUNT]: (state, count) => {
     state.categories.count = count;
   },
-  [Constants.CLEAR_CATEGORY]: (state) => {
-    state.categories.category = {};
+  [Constants.SET_CATEGORY_SEARCH_RESULTS]: (state, results) => {
+    state.categories.search.results = results;
   },
 };
 
 const GETTERS = {
-  categories(state) {
-    return state.categories.list;
-  },
-  categoryCount(state) {
-    return state.categories.count;
-  },
-  category(state) {
-    return state.categories.category;
-  },
+  categories: state => _.values(state.categories.all),
+  categoryCount: state => state.categories.count,
+  category: state => id => state.categories.all[id],
+  categorySearch: state => state.categories.search.results,
 };
 
 const CategoryActions = {
