@@ -21,6 +21,11 @@
     </div>
     <div class="row">
       <div class="col-md-12">
+        <log-search></log-search>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
         <inventory-log></inventory-log>
       </div>
     </div>
@@ -30,6 +35,7 @@
 
 <script>
 import InventoryLog from './log.vue';
+import LogSearch from './search.vue';
 
 export default {
   data() {
@@ -37,6 +43,7 @@ export default {
   },
   components: {
     InventoryLog,
+    LogSearch,
   },
 };
 </script>

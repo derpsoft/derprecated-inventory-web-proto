@@ -18,6 +18,13 @@
         <hr>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <category-search></category-search>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md-12">
         <category-list></category-list>
@@ -29,13 +36,12 @@
 
 <script>
 import CategoryList from './list.vue';
+import CategorySearch from './search.vue';
 
 export default {
-  data() {
-    return {};
-  },
   components: {
     CategoryList,
+    CategorySearch,
   },
 };
 </script>

@@ -20,6 +20,11 @@
     </div>
     <div class="row">
       <div class="col-md-12">
+        <warehouse-search></warehouse-search>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
         <warehouse-list></warehouse-list>
       </div>
     </div>
@@ -28,7 +33,8 @@
 </template>
 
 <script>
-import WarehouseList from '../../components/warehouses/list.vue';
+import WarehouseList from './list.vue';
+import WarehouseSearch from './search.vue';
 
 export default {
   data() {
@@ -36,6 +42,7 @@ export default {
   },
   components: {
     WarehouseList,
+    WarehouseSearch,
   },
 };
 </script>

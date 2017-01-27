@@ -20,6 +20,11 @@
     </div>
     <div class="row">
       <div class="col-md-12">
+        <vendor-search></vendor-search>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
         <vendor-list></vendor-list>
       </div>
     </div>
@@ -29,13 +34,12 @@
 
 <script>
 import VendorList from './list.vue';
+import VendorSearch from './search.vue';
 
 export default {
-  data() {
-    return {};
-  },
   components: {
     VendorList,
+    VendorSearch,
   },
 };
 </script>

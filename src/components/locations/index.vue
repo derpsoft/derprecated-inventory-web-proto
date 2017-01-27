@@ -20,6 +20,11 @@
     </div>
     <div class="row">
       <div class="col-md-12">
+        <location-search></location-search>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
         <location-list></location-list>
       </div>
     </div>
@@ -28,14 +33,13 @@
 </template>
 
 <script>
-import LocationList from '../../components/locations/list.vue';
+import LocationList from './list.vue';
+import LocationSearch from './search.vue';
 
 export default {
-  data() {
-    return {};
-  },
   components: {
     LocationList,
+    LocationSearch,
   },
 };
 </script>
