@@ -1,4 +1,6 @@
 import log from 'loglevel';
+import _ from 'lodash';
+import Vue from 'vue';
 import Constants from '../constants';
 import UsersApi from '../services/usersApi';
 
@@ -36,17 +38,21 @@ function getUsers({
   commit
 }, {
   skip = 0,
-  take = 25
+  take = 25,
+  includeDeleted = false,
+  toastError = true,
 }) {
-  new UsersApi().list(skip, take)
+  new UsersApi().list(skip, take, includeDeleted)
     .then((response) => {
       commit(Constants.SET_USERS, response.users);
     })
     .catch((e) => {
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'error',
-        message: 'Error Getting Users.'
-      });
+      if (toastError) {
+        dispatch(Constants.SHOW_TOASTR, {
+          type: 'error',
+          message: 'Error Getting Users.'
+        });
+      }
       log.error(e);
     });
 }
@@ -55,15 +61,19 @@ function getUser({
   dispatch,
   commit
 }, {
-  id
+  id,
+  includeDeleted = false,
+  toastError = true,
 }) {
-  new UsersApi().singleById(id)
+  new UsersApi().singleById(id, includeDeleted)
     .then(response => commit(Constants.SET_USER, response.user))
     .catch((e) => {
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'error',
-        message: 'Error Retrieving User.'
-      });
+      if (toastError) {
+        dispatch(Constants.SHOW_TOASTR, {
+          type: 'error',
+          message: 'Error Retrieving User.'
+        });
+      }
       log.error(e);
     });
 }
@@ -118,8 +128,12 @@ function createUser({
 
 const INITIAL_STATE = {
   users: {
-    list: [],
-    user: {},
+    all: {},
+    search: {
+      query: {},
+      results: {},
+    },
+    count: 0,
   }
 };
 
@@ -134,16 +148,23 @@ const ACTIONS = {
 
 const MUTATIONS = {
   [Constants.SET_USERS]: (state, results) => {
-    state.users.list = results;
+    state.users.all = _.merge({},
+      state.users.all,
+      _.keyBy(results, x => x.id)
+    );
   },
-  [Constants.SET_USER]: (state, user) => {
-    state.users.user = user;
+  [Constants.SET_USER]: (state, result) => {
+    if (state.users.all[result.id]) {
+      state.users.all[result.id] = _.merge({}, state.users.all[result.id], result);
+    } else {
+      Vue.set(state.users.all, result.id, result);
+    }
   }
 };
 
 const GETTERS = {
-  users: state => state.users.list,
-  user: state => () => state.users.user,
+  users: state => state.users.all,
+  user: state => id => state.users.all[id],
 };
 
 const UsersActions = {
