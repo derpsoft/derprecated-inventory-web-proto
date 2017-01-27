@@ -1,7 +1,7 @@
 <template>
-  <div class="form-group user-search">
-    <input type="text" v-model="searchTerm" class="form-control" placeholder="Search for User..." autocomplete="no" tabindex="0" v-on:keyup="search">
-  </div>
+<div class="form-group user-search">
+  <input type="text" v-model="searchTerm" class="form-control" placeholder="Search for User..." autocomplete="no" tabindex="0">
+</div>
 </template>
 
 <script>
@@ -13,8 +13,11 @@ export default {
       searchTerm: '',
     };
   },
-  computed: {
+
+  watch: {
+    searchTerm: 'search',
   },
+
   methods: {
     search() {
       this.$store.dispatch(Constants.SEARCH_USERS_WITH_TYPEAHEAD, {
@@ -26,8 +29,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .user-search {
+.user-search {
     margin-bottom: 30px;
-  }
-
+}
 </style>

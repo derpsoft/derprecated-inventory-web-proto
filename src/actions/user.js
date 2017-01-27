@@ -12,7 +12,7 @@ function searchUsers({
 }) {
   new UsersApi().search(searchTerm)
     .then((response) => {
-      commit(Constants.SET_USERS, response.users);
+      commit(Constants.SET_USERS_SEARCH_RESULTS, response.users);
     });
 }
 
@@ -23,7 +23,7 @@ function searchUsersWithTypeahead({
   query
 }) {
   new UsersApi().typeahead(query)
-    .then(response => commit(Constants.SET_USERS, response.users))
+    .then(response => commit(Constants.SET_USERS_SEARCH_RESULTS, response.users))
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {
         type: 'error',
@@ -159,12 +159,16 @@ const MUTATIONS = {
     } else {
       Vue.set(state.users.all, result.id, result);
     }
-  }
+  },
+  [Constants.SET_USERS_SEARCH_RESULTS]: (state, results) => {
+    state.users.search.results = results;
+  },
 };
 
 const GETTERS = {
   users: state => state.users.all,
   user: state => id => state.users.all[id],
+  userSearch: state => state.users.search.results,
 };
 
 const UsersActions = {

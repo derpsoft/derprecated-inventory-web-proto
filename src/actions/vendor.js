@@ -1,5 +1,6 @@
 import log from 'loglevel';
 import _ from 'lodash';
+import Vue from 'vue';
 import Constants from '../constants';
 import VendorApi from '../services/vendorApi';
 
@@ -168,11 +169,18 @@ const ACTIONS = {
 };
 
 const MUTATIONS = {
-  [Constants.SET_VENDOR_LIST]: (state, vendors) => {
-    state.vendors.all = _.merge({}, state.vendors.all, _.keyBy(vendors, x => x.id));
+  [Constants.SET_VENDOR_LIST]: (state, results) => {
+    state.vendors.all = _.merge({},
+      state.vendors.all,
+      _.keyBy(results, x => x.id)
+    );
   },
   [Constants.SET_VENDOR]: (state, result) => {
-    state.vendors.all[result.id] = result;
+    if (state.vendors.all[result.id]) {
+      state.vendors.all[result.id] = _.merge({}, state.vendors.all[result.id], result);
+    } else {
+      Vue.set(state.vendors.all, result.id, result);
+    }
   },
   [Constants.SET_VENDOR_COUNT]: (state, count) => {
     state.vendors.count = count;
