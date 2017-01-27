@@ -21,7 +21,7 @@ module.exports = {
     env: require('./dev.env'),
     port: 8080,
     proxyTable: {},
-    api: 'https://inventory-api-dev.azurewebsites.net'
-    // api: 'http://192.168.0.7:3413'
+    // api: 'https://inventory-api-dev.azurewebsites.net'
+    api: 'http://192.168.0.7:3413'
   }
 }

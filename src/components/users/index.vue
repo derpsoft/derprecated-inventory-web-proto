@@ -9,10 +9,15 @@
           </div>
           <div class="header-title">
             <h3>Users</h3>
-            <small>Find all contacts</small>
+            <small>Find all users</small>
           </div>
         </div>
         <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <user-search></user-search>
       </div>
     </div>
     <div class="row">
@@ -26,14 +31,12 @@
 
 <script>
 import UserList from './list.vue';
+import UserSearch from './search.vue';
 
 export default {
-  name: 'usersView',
-  data() {
-    return {};
-  },
   components: {
     UserList,
+    UserSearch,
   },
 };
 </script>

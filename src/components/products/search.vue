@@ -15,9 +15,11 @@ export default {
       searchTerm: '',
     };
   },
+
   watch: {
     searchTerm: 'search',
   },
+
   methods: {
     search() {
       this.$store.dispatch(Constants.SEARCH_PRODUCTS_WITH_TYPEAHEAD, {

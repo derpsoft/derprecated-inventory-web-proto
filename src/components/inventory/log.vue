@@ -20,7 +20,7 @@
               <th>Quantity</th>
               <th>Type</th>
               <th>Unit of Measure ID</th>
-              <th>User ID </th>
+              <th>User</th>
               <th>Date</th>
             </tr>
           </thead>
@@ -31,7 +31,7 @@
               <td>{{log.quantity}}</td>
               <td>{{log.transactionType}}</td>
               <td>{{log.unitOfMeasureId}}</td>
-              <td>{{log.userId}}</td>
+              <user-field tag="td" :id="log.userId" field="userName"></user-field>
               <td>{{log.createDate | formatCreateDate}}</td>
             </tr>
           </tbody>
@@ -61,6 +61,7 @@ import Constants from '../../constants';
 import PageSize from '../pageSize/pageSize.vue';
 import store from '../../stores/store';
 import ProductField from '../products/field.vue';
+import UserField from '../users/field.vue';
 
 const defaultPageCount = 25;
 
@@ -70,6 +71,7 @@ export default {
     PageSize,
     LogSearch,
     ProductField,
+    UserField,
   },
 
   data() {

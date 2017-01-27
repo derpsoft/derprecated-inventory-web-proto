@@ -14,10 +14,11 @@ class UsersApi extends Fetchable {
     return this;
   }
 
-  list(skip = 0, take = 25) {
+  list(skip = 0, take = 25, includeDeleted = false) {
     const body = new URLSearchParams();
     body.set('skip', skip);
     body.set('take', take);
+    body.set('includeDeleted', includeDeleted);
 
     return super.get(`/api/v1/users?${body}`)
     .then(res => res.json())
@@ -26,8 +27,11 @@ class UsersApi extends Fetchable {
     });
   }
 
-  singleById(id) {
-    return super.get(`/api/v1/users/${id}`)
+  singleById(id, includeDeleted = false) {
+    const body = new URLSearchParams();
+    body.set('includeDeleted', includeDeleted);
+
+    return super.get(`/api/v1/users/${id}?${body}`)
     .then(res => res.json())
     .then((json) => {
       return json;

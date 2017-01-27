@@ -34,8 +34,8 @@ table.sale-list {
           <tbody>
             <tr @click.prevent="edit(sale.id)" v-for="sale in sales">
               <td>{{sale.id}}</td>
-              <td>{{getProduct(sale.productId).name || sale.productId}}</td>
-              <td>{{getUser(sale.userAuthId).name || sale.userAuthId}}</td>
+              <product-field tag="td" :id="sale.productId" field="title"></product-field>
+              <user-field tag="td" :id="sale.userAuthId" field="userName"></user-field>
               <td>{{sale.vendorId}}</td>
               <td>${{sale.total}}</td>
               <td>{{sale.timestamp | formatTimestamp}}</td>
@@ -53,15 +53,23 @@ table.sale-list {
 
 <script>
 import moment from 'moment';
-import _ from 'lodash';
 import Pagination from 'vue-bootstrap-pagination';
 import saleSearch from './search.vue';
 import Constants from '../../constants';
 import PageSize from '../../components/pageSize/pageSize.vue';
+import ProductField from '../products/field.vue';
+import UserField from '../users/field.vue';
 
 const defaultPageCount = 25;
 
 export default {
+  components: {
+    Pagination,
+    PageSize,
+    saleSearch,
+    ProductField,
+    UserField,
+  },
   data() {
     return {
       pagination: {
@@ -71,11 +79,6 @@ export default {
         to: 0,
       },
     };
-  },
-  components: {
-    Pagination,
-    PageSize,
-    saleSearch,
   },
   mounted() {
     this.$store.dispatch(Constants.GET_SALES, {
@@ -123,16 +126,6 @@ export default {
         skip: 0,
         take: pageSize,
       });
-    },
-    getProduct(id) {
-      return _.merge({
-        name: '',
-      }, this.$store.getters.product(id));
-    },
-    getUser(id) {
-      return _.merge({
-        name: '',
-      }, this.$store.getters.user(id));
     },
   },
 };

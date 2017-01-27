@@ -67,16 +67,18 @@ export default {
       return this.$store.getters.products;
     },
   },
-  methods: {
-    openProduct(id) {
-      this.$router.push(`/products/edit/${id}`);
-    }
-  },
+
   mounted() {
     this.$store.dispatch(Constants.GET_PRODUCTS, {
       skip: 0,
       take: 200
     });
+  },
+
+  methods: {
+    openProduct(id) {
+      this.$router.push(`/products/edit/${id}`);
+    }
   },
 };
 </script>
