@@ -25,10 +25,11 @@ class ProductApi extends Fetchable {
     return `${Constants.API_ROOT}/api/v1/products/${id}/images`;
   }
 
-  list(skip = 0, take = 25) {
+  list(skip = 0, take = 25, includeDeleted = false) {
     const body = new URLSearchParams();
     body.set('skip', skip);
     body.set('take', take);
+    body.set('includeDeleted', includeDeleted);
 
     return super.get(`/api/v1/products?${body}`)
       .then(res => res.json())
@@ -37,8 +38,11 @@ class ProductApi extends Fetchable {
       });
   }
 
-  retrieve(id) {
-    return super.get(`/api/v1/products/${id}`)
+  retrieve(id, includeDeleted = false) {
+    const body = new URLSearchParams();
+    body.set('includeDeleted', includeDeleted);
+
+    return super.get(`/api/v1/products/${id}?${body}`)
       .then(res => res.json())
       .then((json) => {
         return json.result;
@@ -54,9 +58,10 @@ class ProductApi extends Fetchable {
     .then(res => res.json());
   }
 
-  typeahead(query) {
+  typeahead(query, includeDeleted = false) {
     const body = new URLSearchParams();
     body.set('query', query);
+    body.set('includeDeleted', includeDeleted);
 
     return super.get(`/api/v1/products/typeahead?${body}`)
     .then(res => res.json())

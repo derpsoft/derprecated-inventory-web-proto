@@ -100,7 +100,9 @@ export default {
   methods: {
     reload() {
       if (this.id) {
-        this.$store.dispatch(Constants.GET_PRODUCT, this.id);
+        this.$store.dispatch(Constants.GET_PRODUCT, {
+          id: this.id
+        });
       }
     },
 
