@@ -21,7 +21,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <category-search></category-search>
+        <search :searchActionName="searchAction" :listActionName="listAction"></search>
       </div>
     </div>
 
@@ -36,12 +36,20 @@
 
 <script>
 import CategoryList from './list.vue';
-import CategorySearch from './search.vue';
+import Search from '../search.vue';
+import Constants from '../../constants';
 
 export default {
   components: {
     CategoryList,
-    CategorySearch,
+    Search,
+  },
+
+  data() {
+    return {
+      searchAction: Constants.SEARCH_CATEGORIES_WITH_TYPEAHEAD,
+      listAction: Constants.GET_CATEGORIES,
+    };
   },
 };
 </script>

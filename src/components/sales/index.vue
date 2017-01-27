@@ -20,7 +20,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <sale-search></sale-search>
+        <search :searchActionName="searchAction" :listActionName="listAction"></search>
       </div>
     </div>
     <div class="row">
@@ -33,13 +33,21 @@
 </template>
 
 <script>
+import Constants from '../../constants';
 import SaleList from './list.vue';
-import SaleSearch from './search.vue';
+import Search from '../search.vue';
 
 export default {
+  data() {
+    return {
+      searchAction: Constants.SEARCH_SALES_WITH_TYPEAHEAD,
+      listAction: Constants.GET_SALES,
+    };
+  },
+
   components: {
     SaleList,
-    SaleSearch,
+    Search,
   },
 };
 </script>

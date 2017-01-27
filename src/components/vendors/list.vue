@@ -35,13 +35,9 @@ table.vendor-list {
 </style>
 
 <script>
-import vendorSearch from './search.vue';
 import Constants from '../../constants';
 
 export default {
-  components: {
-    vendorSearch,
-  },
   mounted() {
     this.$store.dispatch(Constants.GET_VENDORS, {
       skip: 0,

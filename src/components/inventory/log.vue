@@ -44,14 +44,12 @@ table.log-list {
 
 <script>
 import moment from 'moment';
-import LogSearch from './search.vue';
 import Constants from '../../constants';
 import ProductField from '../products/field.vue';
 import UserField from '../users/field.vue';
 
 export default {
   components: {
-    LogSearch,
     ProductField,
     UserField,
   },

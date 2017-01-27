@@ -36,12 +36,8 @@ table.warehouse-list {
 
 <script>
 import Constants from '../../constants';
-import warehouseSearch from './search.vue';
 
 export default {
-  components: {
-    warehouseSearch,
-  },
   mounted() {
     this.$store.dispatch(Constants.GET_WAREHOUSES, {
       skip: 0,

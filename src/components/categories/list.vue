@@ -33,13 +33,9 @@ table.category-list {
 </style>
 
 <script>
-import categorySearch from './search.vue';
 import Constants from '../../constants';
 
 export default {
-  components: {
-    categorySearch,
-  },
   mounted() {
     this.$store.dispatch(Constants.GET_CATEGORIES, {
       skip: 0,

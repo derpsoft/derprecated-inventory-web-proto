@@ -20,7 +20,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <location-search></location-search>
+        <search :searchActionName="searchAction" :listActionName="listAction"></search>
       </div>
     </div>
     <div class="row">
@@ -34,12 +34,20 @@
 
 <script>
 import LocationList from './list.vue';
-import LocationSearch from './search.vue';
+import Search from '../search.vue';
+import Constants from '../../constants';
 
 export default {
   components: {
     LocationList,
-    LocationSearch,
+    Search,
+  },
+
+  data() {
+    return {
+      searchAction: Constants.SEARCH_LOCATIONS_WITH_TYPEAHEAD,
+      listAction: Constants.GET_LOCATIONS,
+    };
   },
 };
 </script>

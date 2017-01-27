@@ -44,14 +44,12 @@ table.sale-list {
 
 <script>
 import moment from 'moment';
-import saleSearch from './search.vue';
 import Constants from '../../constants';
 import ProductField from '../products/field.vue';
 import UserField from '../users/field.vue';
 
 export default {
   components: {
-    saleSearch,
     ProductField,
     UserField,
   },
