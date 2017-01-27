@@ -20,6 +20,11 @@
     </div>
     <div class="row">
       <div class="col-md-12">
+        <search :searchActionName="searchAction" :listActionName="listAction"></search>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
         <warehouse-list></warehouse-list>
       </div>
     </div>
@@ -28,14 +33,21 @@
 </template>
 
 <script>
-import WarehouseList from '../../components/warehouses/list.vue';
+import WarehouseList from './list.vue';
+import Search from '../search.vue';
+import Constants from '../../constants';
 
 export default {
-  data() {
-    return {};
-  },
   components: {
     WarehouseList,
+    Search,
+  },
+
+  data() {
+    return {
+      searchAction: Constants.SEARCH_WAREHOUSES_WITH_TYPEAHEAD,
+      listAction: Constants.GET_WAREHOUSES,
+    };
   },
 };
 </script>

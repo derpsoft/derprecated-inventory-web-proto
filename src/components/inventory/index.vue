@@ -21,6 +21,11 @@
     </div>
     <div class="row">
       <div class="col-md-12">
+        <search :searchActionName="searchAction" :listActionName="listAction"></search>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
         <inventory-log></inventory-log>
       </div>
     </div>
@@ -30,13 +35,20 @@
 
 <script>
 import InventoryLog from './log.vue';
+import Search from '../search.vue';
+import Constants from '../../constants';
 
 export default {
   data() {
-    return {};
+    return {
+      searchAction: Constants.SEARCH_INVENTORY_TRANSACTION_LOGS,
+      listAction: Constants.GET_INVENTORY_TRANSACTION_LOGS,
+    };
   },
+
   components: {
     InventoryLog,
+    Search,
   },
 };
 </script>

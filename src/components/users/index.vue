@@ -17,7 +17,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <user-search></user-search>
+        <search :searchActionName="searchAction" :listActionName="listAction"></search>
       </div>
     </div>
     <div class="row">
@@ -31,12 +31,20 @@
 
 <script>
 import UserList from './list.vue';
-import UserSearch from './search.vue';
+import Search from '../search.vue';
+import Constants from '../../constants';
 
 export default {
   components: {
     UserList,
-    UserSearch,
+    Search,
+  },
+
+  data() {
+    return {
+      searchAction: Constants.SEARCH_USERS_WITH_TYPEAHEAD,
+      listAction: Constants.GET_USERS,
+    };
   },
 };
 </script>
