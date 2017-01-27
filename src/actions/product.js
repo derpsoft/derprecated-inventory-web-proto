@@ -112,7 +112,10 @@ function updateProductField() {}
 function deleteProduct({
   dispatch,
   commit,
-}, id) {
+}, {
+  id,
+  redirect
+}) {
   if (id < 1) {
     throw new Error('id must be >= 1');
   }
@@ -124,6 +127,10 @@ function deleteProduct({
         message: 'Product deleted',
       });
       commit(Constants.CLEAR_PRODUCT, id);
+
+      if (typeof redirect === 'function') {
+        redirect.apply();
+      }
     })
     .catch(e => log.error(e));
 }
