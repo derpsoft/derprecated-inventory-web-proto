@@ -21,8 +21,7 @@
         </div>
         <div class="form-group" :class="{'has-error': errors.has('password-repeat')}">
           <label class="control-label" for="email">Repeat New Password</label>
-          <input type="password" placeholder="Repeat" title="Please re-enter your new password" required name="password-repeat" id="password-repeat" class="form-control" tabindex="0" autocomplete="off" v-model="passwordRepeat" v-validate.initial="passwordRepeat"
-              data-vv-rules="required|confirmed:password">
+          <input type="password" placeholder="Repeat" title="Please re-enter your new password" required name="password-repeat" id="password-repeat" class="form-control" tabindex="0" autocomplete="off" v-model="passwordRepeat" v-validate="'required|confirmed:password'">
             <span v-show="errors.has('password-repeat')" class="help-block">{{ errors.first('password-repeat') }}</span>
         </div>
         <div>

@@ -19,7 +19,7 @@
 
           <div class="form-group" :class="{'has-error': errors.has('quantity')}">
             <label>Quantity</label>
-            <input type="number" name="quantity" class="form-control" placeholder="Quantity" v-model.number.lazy="quantity" v-validate.initial="quantity" data-vv-rules="required|numeric|between:1, 9999">
+            <input type="number" name="quantity" class="form-control" placeholder="Quantity" v-model.number.lazy="quantity" v-validate="'required|numeric|between:1, 9999'">
             <span v-show="errors.has('quantity')" class="help-block">{{ errors.first('quantity') }}</span>
           </div>
 
