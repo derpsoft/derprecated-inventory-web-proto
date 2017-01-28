@@ -10,7 +10,7 @@
   <div class="form-group" :class="{'has-error': errors.has('quantity')}">
     <label>Quantity</label>
 
-    <input type="number" name="quantity" class="form-control" placeholder="Quantity" v-model.number.lazy="value.quantity" v-validate.initial="value.quantity" data-vv-rules="required|numeric|between:1, 9999" data-vv-as="quantity">
+    <input type="number" name="quantity" class="form-control" placeholder="Quantity" v-model.number.lazy="value.quantity" v-validate="'required|numeric|between:1, 9999'" data-vv-as="quantity">
     <span v-show="errors.has('quantity')" class="help-block">{{ errors.first('quantity') }}</span>
   </div>
 
@@ -18,7 +18,7 @@
     <label>Total Price</label>
     <div class="input-group">
       <div class="input-group-addon">$</div>
-      <input type="text" name="total" class="form-control" placeholder="Price" v-model.number="value.total" v-validate.initial="value.total" data-vv-rules="required|decimal:2" data-vv-as="total price">
+      <input type="text" name="total" class="form-control" placeholder="Price" v-model.number="value.total" v-validate="'required|decimal:2'" data-vv-as="total price">
     </div>
     <span v-show="errors.has('total')" class="help-block">{{ errors.first('total') }}</span>
   </div>

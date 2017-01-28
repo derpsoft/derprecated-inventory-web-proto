@@ -4,7 +4,7 @@
       <label>Name</label>
       <input type="text" class="form-control" placeholder="Category Name" name="name"
         v-model="value.name"
-        v-validate.initial="value.name" data-vv-rules="required"
+        v-validate="'required'"
         @change="change">
         <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
     </div>
