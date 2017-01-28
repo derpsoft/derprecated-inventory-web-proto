@@ -5680,7 +5680,7 @@ vue-style-loader@^1.0.0, vue-style-loader@latest:
   dependencies:
     loader-utils "^0.2.7"
 
-vue-template-compiler@^2.1.8:
+vue-template-compiler@^2.1.10:
   version "2.1.10"
   resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.1.10.tgz#cb89643adc395e97435585522e43d0a9b1913257"
   dependencies:
