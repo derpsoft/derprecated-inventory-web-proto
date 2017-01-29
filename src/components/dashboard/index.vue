@@ -66,7 +66,10 @@
               <h2 class="m-b-none">
                 200
               </h2>
-              <small>Inventory Dispatched</small>
+              <small>Inventory Dispatched
+                <br>
+                by <span class="c-white">Month</span>
+              </small>
             </div>
           </div>
         </div>
@@ -77,7 +80,11 @@
               <h2 class="m-b-none">
                 100
               </h2>
-              <small>Inventory Received</small>
+              <small>
+                Inventory Received
+                <br>
+                by <span class="c-white">Month</span>
+              </small>
             </div>
           </div>
         </div>
@@ -88,7 +95,10 @@
               <h2 class="m-b-none">
                 888.00
               </h2>
-              <small>Total Sales</small>
+              <small>Total Sales
+                <br>
+                by <span class="c-white">Month</span>
+              </small>
             </div>
           </div>
         </div>
