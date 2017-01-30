@@ -17,12 +17,12 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <search :searchActionName="searchAction" :listActionName="listAction"></search>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <user-list></user-list>
+        <div class="panel panel-filled panel-main">
+          <div class="panel-body">
+            <search :searchActionName="searchAction" :listActionName="listAction"></search>
+            <user-list></user-list>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -6,7 +6,11 @@
       <h4>New Location Details</h4>
     </div>
   </div>
-  <location-form ref="locationForm" @change="setLocation"></location-form>
+  <div class="panel panel-filled panel-main">
+    <div class="panel-body">
+      <location-form ref="locationForm" @change="setLocation"></location-form>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -15,7 +19,9 @@ import Constants from '../../constants';
 import LocationForm from './form.vue';
 
 export default {
-  components: { LocationForm },
+  components: {
+    LocationForm
+  },
   data() {
     return {
       location: {},

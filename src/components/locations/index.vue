@@ -18,14 +18,15 @@
         <hr>
       </div>
     </div>
+
     <div class="row">
       <div class="col-md-12">
-        <search :searchActionName="searchAction" :listActionName="listAction"></search>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <location-list></location-list>
+        <div class="panel panel-filled panel-main">
+          <div class="panel-body">
+            <search :searchActionName="searchAction" :listActionName="listAction"></search>
+            <location-list></location-list>
+          </div>
+        </div>
       </div>
     </div>
   </div>

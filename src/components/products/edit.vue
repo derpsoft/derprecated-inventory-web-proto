@@ -43,8 +43,11 @@ textarea.form-control {
           </div>
         </div>
 
-        <product-form ref="productForm" :id="id"></product-form>
-
+        <div class="panel panel-filled panel-main">
+          <div class="panel-body">
+            <product-form ref="productForm" :id="id"></product-form>
+          </div>
+        </div>
       </div>
     </div>
   </div>

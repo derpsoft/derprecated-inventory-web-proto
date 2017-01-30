@@ -20,12 +20,12 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <search :searchActionName="searchAction" :listActionName="listAction"></search>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <sale-list></sale-list>
+        <div class="panel panel-filled panel-main">
+          <div class="panel-body">
+            <search :searchActionName="searchAction" :listActionName="listAction"></search>
+            <sale-list></sale-list>
+          </div>
+        </div>
       </div>
     </div>
   </div>
