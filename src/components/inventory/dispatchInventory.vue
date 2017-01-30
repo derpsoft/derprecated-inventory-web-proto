@@ -6,7 +6,11 @@
       <h4>Dispatch Inventory</h4>
     </div>
   </div>
-  <inventory-form ref="inventoryForm"></inventory-form>
+  <div class="panel panel-filled panel-main">
+    <div class="panel-body">
+      <inventory-form ref="inventoryForm"></inventory-form>
+    </div>
+  </div>
 </div>
 </template>
 

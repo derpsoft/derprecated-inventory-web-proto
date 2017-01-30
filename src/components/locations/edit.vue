@@ -7,7 +7,11 @@
       <h4>Location Details</h4>
     </div>
   </div>
-  <location-form ref="locationForm" :location="location" @change="setLocation"></location-form>
+  <div class="panel panel-filled panel-main">
+    <div class="panel-body">
+      <location-form ref="locationForm" :location="location" @change="setLocation"></location-form>
+    </div>
+  </div>
 </div>
 </template>
 
