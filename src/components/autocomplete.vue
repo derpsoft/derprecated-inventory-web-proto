@@ -1,6 +1,6 @@
 <template>
 <div style="position:relative" :class="{'open':openSuggestion}">
-  <input class="form-control" type="text" v-model="query" @keydown.enter='enter' @keydown.down='down' @keydown.up='up' @input='change' />
+  <input class="form-control" type="text" v-model="query" v-focus="focus" @keydown.enter='enter' @keydown.down='down' @keydown.up='up' @input='change' />
   <ul class="dropdown-menu" style="width:100%">
     <li v-for="(suggestion, index) in displays" :class="{'active': isActive(index)}" @click="suggestionClick(index)">
       <a>{{ suggestion }}</a>
@@ -11,8 +11,12 @@
 
 <script>
 import _ from 'lodash';
+import {
+  mixin as focusMixin
+} from 'vue-focus';
 
 export default {
+  mixins: [focusMixin],
 
   data() {
     return {
@@ -28,27 +32,28 @@ export default {
       required: false,
       default: JSON.stringify,
     },
-
     valueSelector: {
       type: Function,
       required: false,
       default: v => v.id,
     },
-
     displaySelector: {
       type: Function,
       required: false,
       default: JSON.stringify,
     },
-
     suggestions: {
       type: Array,
       required: true
     },
-
     selected: {
       type: Object,
       required: false,
+    },
+    focus: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
 

@@ -6,12 +6,18 @@
 
 <template>
 <div class="form-group search">
-  <input type="text" v-model="searchTerm" class="form-control" placeholder="Search..." autocomplete="no" tabindex="0">
+  <input type="text" v-model="searchTerm" v-focus="focus" class="form-control" placeholder="Search..." autocomplete="no" tabindex="0">
 </div>
 </template>
 
 <script>
+import {
+  mixin as focusMixin
+} from 'vue-focus';
+
 export default {
+  mixins: [focusMixin],
+
   data() {
     return {
       searchTerm: '',
@@ -41,6 +47,11 @@ export default {
       propType: Number,
       required: false,
       default: 200,
+    },
+    focus: {
+      type: Boolean,
+      required: false,
+      default: true,
     },
   },
 
