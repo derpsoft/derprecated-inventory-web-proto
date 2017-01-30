@@ -107,12 +107,12 @@ function getVendors({
     });
 }
 
-function typeahead({
+const typeahead = _.throttle(({
   dispatch,
   commit,
 }, {
   query
-}) {
+}) => {
   new VendorApi()
     .typeahead(query)
     .then(vendors => commit(Constants.SET_VENDOR_SEARCH_RESULTS, vendors))
@@ -123,7 +123,10 @@ function typeahead({
       });
       log.error(e);
     });
-}
+}, 800, {
+  leading: false,
+  trailing: true,
+});
 
 const INITIAL_STATE = {
   vendors: {

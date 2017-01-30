@@ -89,17 +89,20 @@ function getLocations({
     });
 }
 
-function typeahead({
+const typeahead = _.throttle(({
   dispatch,
   commit
 }, {
   query
-}) {
+}) => {
   new LocationApi()
     .typeahead(query)
     .then(locations => commit(Constants.SET_LOCATION_SEARCH_RESULTS, locations))
     .catch(e => log.error(e));
-}
+}, 800, {
+  leading: false,
+  trailing: true,
+});
 
 function countLocations({
   dispatch,
@@ -117,7 +120,9 @@ function countLocations({
     });
 }
 
-function deleteLocation({ dispatch }, id) {
+function deleteLocation({
+  dispatch
+}, id) {
   if (id < 1) {
     throw new Error('id must be >= 1');
   }

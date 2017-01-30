@@ -41,16 +41,19 @@ function count({
     .catch(e => log.error(e));
 }
 
-function search({
+const search = _.throttle(({
   commit
 }, {
   query
-}) {
+}) => {
   new SaleApi()
     .typeahead(query)
     .then(x => commit(Constants.SET_SALE_SEARCH_RESULTS, x))
     .catch(e => log.error(e));
-}
+}, 800, {
+  leading: false,
+  trailing: true,
+});
 
 const INITIAL_STATE = {
   sales: {
