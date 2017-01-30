@@ -1,9 +1,4 @@
 <style lang="less" scoped>
-table.sale-list {
-    tr {
-        cursor: pointer;
-    }
-}
 </style>
 
 <template>
@@ -26,10 +21,10 @@ table.sale-list {
             </tr>
           </thead>
           <tbody>
-            <tr @click.prevent="edit(sale.id)" v-for="sale in sales">
+            <tr v-for="sale in sales">
               <td>{{sale.id}}</td>
-              <product-field tag="td" :id="sale.productId" field="title"></product-field>
-              <user-field tag="td" :id="sale.userAuthId" field="userName"></user-field>
+              <product-field tag="td" :id="sale.productId" field="title" :defaultValue="sale.productId"></product-field>
+              <user-field tag="td" :id="sale.userAuthId" field="userName" :defaultValue="sale.userAuthId"></user-field>
               <td>{{sale.vendorId}}</td>
               <td>${{sale.total}}</td>
               <td>{{sale.timestamp | formatTimestamp}}</td>
@@ -65,12 +60,6 @@ export default {
   filters: {
     formatTimestamp(date) {
       return moment(date).format('lll');
-    },
-  },
-
-  methods: {
-    edit(id) {
-      this.$router.push(`/sales/edit/${id}`);
     },
   },
 };
