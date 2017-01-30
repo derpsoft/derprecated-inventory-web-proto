@@ -49,7 +49,7 @@
               <small>
                 Today is
                 <br>
-                <span class="c-white">{{ date }}</span>
+                <span class="c-white">{{ date | formatDate }}</span>
               </small>
             </div>
             <h3 class="m-b-xs">Derprecated Dashboard Concept</h3>
@@ -107,6 +107,8 @@
         <div class="col-md-12">
           <div class="panel panel-filled">
             <div class="panel-body">
+              <chart :series="series" :labels="labels" :options="options">
+              </chart>
               <div class="ct-chart"></div>
             </div>
           </div>
@@ -119,39 +121,54 @@
 
 <script>
 import moment from 'moment';
-import {
-  Line
-} from 'chartist';
-import 'chartist/dist/chartist.min.css';
+import Chart from './chart.vue';
+import Constants from '../../constants';
 
 export default {
   name: 'dashboardView',
+  components: {
+    Chart
+  },
   data() {
     return {
-      date: moment().format('LL')
+      date: moment(),
     };
   },
-  mounted() {
-    /* eslint-disable */
-    new Line('.ct-chart', {
-      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-      series: [{
+  filters: {
+    formatDate(x) {
+      return x.format('LL');
+    }
+  },
+  computed: {
+    labels() {
+      return ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+    },
+    series() {
+      // return this.$store.getters.dashboard;
+      return [{
         name: 'Inventory Received',
         data: [12, 9, 7, 8, 5],
       }, {
         data: [2, 1, 3.5, 7, 3],
       }, {
         data: [1, 3, 4, 5, 6]
-      }]
-    }, {
-      fullWidth: true,
-      chartPadding: {
-        right: 40
-      },
-      height: '500px'
-    });
-
-    /* eslint-enable */
+      }];
+    },
+    options() {
+      return {
+        fullWidth: true,
+        chartPadding: {
+          right: 40
+        },
+        height: '500px'
+      };
+    },
+    timespan() {
+      return '7.00:00:00';
+    },
+  },
+  mounted() {
+    this.$store.dispatch(Constants.GET_DASHBOARD, { timespan: this.timespan });
   },
   methods: {},
 };
