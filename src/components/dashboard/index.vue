@@ -107,11 +107,7 @@
         <div class="col-md-12">
           <div class="panel panel-filled">
             <div class="panel-body">
-              <chart
-                :series="series"
-                :labels="labels"
-                :options="options"
-                >
+              <chart :series="series" :labels="labels" :options="options">
               </chart>
               <div class="ct-chart"></div>
             </div>
@@ -126,6 +122,7 @@
 <script>
 import moment from 'moment';
 import Chart from './chart.vue';
+import Constants from '../../constants';
 
 export default {
   name: 'dashboardView',
@@ -147,6 +144,7 @@ export default {
       return ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
     },
     series() {
+      // return this.$store.getters.dashboard;
       return [{
         name: 'Inventory Received',
         data: [12, 9, 7, 8, 5],
@@ -165,8 +163,13 @@ export default {
         height: '500px'
       };
     },
+    timespan() {
+      return '7.00:00:00';
+    },
   },
-  methods: {
+  mounted() {
+    this.$store.dispatch(Constants.GET_DASHBOARD, { timespan: this.timespan });
   },
+  methods: {},
 };
 </script>
