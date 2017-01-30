@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import InventoryLog from './log.vue';
+import InventoryLog from './list.vue';
 import Search from '../search.vue';
 import Constants from '../../constants';
 
