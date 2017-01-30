@@ -16,7 +16,7 @@ class ReportApi extends Fetchable {
 
   dashboard(timespan) {
     const body = new URLSearchParams();
-    body.set('groupBy', groupBy);
+    body.set('timespan', timespan);
 
     return super.get(`/api/v1/reports/dashboard?${body}`)
       .then(res => res.json())
