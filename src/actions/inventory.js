@@ -27,25 +27,18 @@ function receiveInventory({
   dispatch,
   commit
 }, {
-  productId,
-  locationId,
-  quantity,
+  transaction,
   redirect,
 }) {
   new InventoryApi()
-    .receiveInventory({
-      productId,
-      locationId,
-      quantity,
-    })
+    .receiveInventory(transaction)
     .then((q) => {
       commit(Constants.SET_QUANTITY_ON_HAND, {
+        ...transaction,
         quantity: q.quantity,
-        productId,
-        locationId,
       });
       if (typeof redirect === 'function') {
-        redirect.apply();
+        redirect();
       }
     })
     .catch((e) => {
@@ -61,35 +54,30 @@ function dispatchInventory({
   dispatch,
   commit
 }, {
-  productId,
-  locationId,
-  quantity,
+  transaction,
   redirect,
 }) {
   new InventoryApi()
     .dispatchInventory({
-      productId,
-      locationId,
-      quantity: -Math.abs(quantity),
+      ...transaction,
+      quantity: -Math.abs(transaction.quantity),
     })
     .then((q) => {
       commit(Constants.SET_QUANTITY_ON_HAND, {
+        ...transaction,
         quantity: q.quantity,
-        productId,
-        locationId,
       });
 
       return q;
     })
     .then((q) => {
       commit(Constants.SET_QUANTITY_ON_HAND, {
+        ...transaction,
         quantity: q.quantity,
-        productId,
-        locationId,
       });
 
       if (typeof redirect === 'function') {
-        redirect.apply();
+        redirect();
       }
     })
     .catch((e) => {

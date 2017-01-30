@@ -1,92 +1,46 @@
 <template>
-<section class="content">
-  <div class="container-fluid">
-    <form id="dispatch-inventory-form" @submit.prevent="validate">
-      <div class="row control-row">
-        <div class="col-md-12">
-          <button type="submit" class="btn btn-primary pull-right">Dispatch</button>
-          <h4>Dispatch Inventory</h4>
-        </div>
-      </div>
-      <div class="panel panel-filled panel-main">
-        <div class="panel-body">
-          <div class="form-group">
-            <label>Product</label>
-
-            <autocomplete :suggestions="products" :key-selector="(v) => `${v.sku} ${v.title} ${v.description} ${v.color}`" :value-selector="(v) => v" :display-selector="(v) => `${v.sku}: ${v.title}`" @change="setProduct">
-            </autocomplete>
-          </div>
-
-          <div class="form-group" :class="{'has-error': errors.has('quantity')}">
-            <label>Quantity</label>
-            <input type="number" name="quantity" class="form-control" placeholder="Quantity" v-model.number.lazy="quantity" v-validate="'required|numeric|between:1, 9999'">
-            <span v-show="errors.has('quantity')" class="help-block">{{ errors.first('quantity') }}</span>
-          </div>
-
-          <div class="form-group hide" :class="{'has-error': errors.has('location')}">
-            <label>From Location</label>
-            <input type="text" name="location" class="form-control" placeholder="Location" value="Shipping" disabled="disabled">
-          </div>
-        </div>
-      </div>
-    </form>
+<div>
+  <div class="row control-row">
+    <div class="col-md-12">
+      <button type="submit" class="btn btn-primary pull-right" @click="save">Dispatch</button>
+      <h4>Dispatch Inventory</h4>
+    </div>
   </div>
-</section>
+  <inventory-form ref="inventoryForm"></inventory-form>
+</div>
 </template>
 
 <script>
 import Constants from '../../constants';
-import Autocomplete from '../autocomplete.vue';
+import InventoryForm from './form.vue';
 
 export default {
   components: {
-    Autocomplete
-  },
-  data() {
-    return {
-      productId: 0,
-      locationId: 2,
-      quantity: 0,
-      product: {},
-    };
-  },
-  computed: {
-    products() {
-      return this.$store.getters.products;
-    }
-  },
-  mounted() {
-    this.$store.dispatch(Constants.GET_PRODUCTS, {
-      take: 1000
-    });
+    InventoryForm
   },
   methods: {
+    save() {
+      this.validate()
+        .then(({
+          isValid,
+          transaction
+        }) => {
+          if (isValid) {
+            const redirect = this.redirect;
+            this.$store.dispatch(Constants.DISPATCH_INVENTORY, {
+              transaction,
+              redirect
+            });
+          }
+        });
+    },
+    validate() {
+      return this.$refs.inventoryForm.validate();
+    },
     redirect() {
       this.$router.push({
         path: '/inventory'
       });
-    },
-    validate() {
-      this.$validator
-        .validateAll()
-        .then((isValid) => {
-          if (isValid) {
-            this.save();
-          }
-        });
-    },
-    save() {
-      const redirect = this.redirect;
-      const xact = {
-        quantity: this.quantity,
-        productId: this.product.id,
-        locationId: this.locationId,
-        redirect,
-      };
-      this.$store.dispatch(Constants.DISPATCH_INVENTORY, xact);
-    },
-    setProduct(selected) {
-      this.product = selected;
     },
   },
 };
