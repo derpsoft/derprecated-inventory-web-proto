@@ -44,7 +44,6 @@ table.sale-list {
 
 <script>
 import moment from 'moment';
-import Constants from '../../constants';
 import ProductField from '../products/field.vue';
 import UserField from '../users/field.vue';
 
@@ -53,18 +52,12 @@ export default {
     ProductField,
     UserField,
   },
-  mounted() {
-    this.$store.dispatch(Constants.GET_SALES, {
-      skip: 0,
-      take: 200,
-    });
-    this.$store.dispatch(Constants.COUNT_SALES);
-  },
   computed: {
-    count() {
-      return this.$store.getters.saleCount;
-    },
     sales() {
+      const results = this.$store.getters.saleSearch;
+      if (results.length) {
+        return results;
+      }
       return this.$store.getters.sales;
     },
   },
