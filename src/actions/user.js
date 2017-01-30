@@ -16,12 +16,12 @@ function searchUsers({
     });
 }
 
-function searchUsersWithTypeahead({
+const searchUsersWithTypeahead = _.throttle(({
   dispatch,
   commit
 }, {
   query
-}) {
+}) => {
   new UsersApi().typeahead(query)
     .then(response => commit(Constants.SET_USERS_SEARCH_RESULTS, response.users))
     .catch((e) => {
@@ -31,7 +31,10 @@ function searchUsersWithTypeahead({
       });
       log.error(e);
     });
-}
+}, 800, {
+  leading: false,
+  trailing: true,
+});
 
 function getUsers({
   dispatch,

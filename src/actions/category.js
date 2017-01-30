@@ -107,12 +107,12 @@ function getCategories({
     });
 }
 
-function typeahead({
+const typeahead = _.throttle(({
   dispatch,
   commit,
 }, {
   query
-}) {
+}) => {
   new CategoryApi()
     .typeahead(query)
     .then(categories => commit(Constants.SET_CATEGORY_SEARCH_RESULTS, categories))
@@ -123,7 +123,10 @@ function typeahead({
       });
       log.error(e);
     });
-}
+}, 800, {
+  leading: false,
+  trailing: true,
+});
 
 const INITIAL_STATE = {
   categories: {

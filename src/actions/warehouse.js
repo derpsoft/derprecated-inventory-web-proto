@@ -89,12 +89,12 @@ function getWarehouses({
     });
 }
 
-function typeahead({
+const typeahead = _.throttle(({
   dispatch,
   commit
 }, {
   query
-}) {
+}) => {
   new WarehouseApi()
     .typeahead(query)
     .then(warehouses => commit(Constants.SET_WAREHOUSE_SEARCH_RESULTS, warehouses))
@@ -105,7 +105,10 @@ function typeahead({
       });
       log.error(e);
     });
-}
+}, 800, {
+  leading: false,
+  trailing: true,
+});
 
 function countWarehouses({
   dispatch,

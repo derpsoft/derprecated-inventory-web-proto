@@ -96,16 +96,20 @@ function getProducts({
     });
 }
 
-function searchProductsWithTypeahead({
+
+const searchProductsWithTypeahead = _.throttle(({
   dispatch,
   commit
 }, {
   query
-}) {
-  new ProductApi().typeahead(query)
+}) => {
+  return new ProductApi().typeahead(query)
     .then(products => commit(Constants.SET_PRODUCT_SEARCH_RESULTS, products))
     .catch(e => log.error(e));
-}
+}, 800, {
+  leading: false,
+  trailing: true
+});
 
 function updateProductField() {}
 
