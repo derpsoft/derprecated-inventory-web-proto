@@ -55,6 +55,13 @@ const search = _.throttle(({
   trailing: true,
 });
 
+function clearSearch({
+  commit
+}) {
+  commit(Constants.CLEAR_SALE_SEARCH);
+}
+
+
 const INITIAL_STATE = {
   sales: {
     all: {},
@@ -68,6 +75,7 @@ const ACTIONS = {
   [Constants.GET_SALES]: list,
   [Constants.SEARCH_SALES_WITH_TYPEAHEAD]: search,
   [Constants.COUNT_SALES]: count,
+  [Constants.CLEAR_SALE_SEARCH]: clearSearch,
 };
 
 const MUTATIONS = {
@@ -79,7 +87,11 @@ const MUTATIONS = {
   },
   [Constants.SET_SALE_COUNT]: (state, c) => {
     state.sales.count = c;
-  }
+  },
+  [Constants.CLEAR_SALE_SEARCH]: (state) => {
+    state.sales.search.results = [];
+    state.sales.search.query = {};
+  },
 };
 
 const GETTERS = {

@@ -23,7 +23,7 @@ table.user-list {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in users" @click.prevent="openUser(user.id)">
+          <tr v-for="user in users" @click.prevent="edit(user.id)">
             <td>{{user.id}}</td>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
@@ -37,8 +37,6 @@ table.user-list {
 </template>
 
 <script>
-import Constants from '../../constants';
-
 export default {
   computed: {
     users() {
@@ -50,15 +48,8 @@ export default {
     },
   },
 
-  mounted() {
-    this.$store.dispatch(Constants.GET_USERS, {
-      skip: 0,
-      take: 200,
-    });
-  },
-
   methods: {
-    openUser(id) {
+    edit(id) {
       this.$router.push(`/users/edit/${id}`);
     },
   },

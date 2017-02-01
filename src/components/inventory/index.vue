@@ -23,7 +23,7 @@
       <div class="col-md-12">
         <div class="panel panel-filled panel-main">
           <div class="panel-body">
-            <search :searchActionName="searchAction" :listActionName="listAction"></search>
+            <search :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
             <inventory-log></inventory-log>
           </div>
         </div>
@@ -43,6 +43,7 @@ export default {
     return {
       searchAction: Constants.SEARCH_INVENTORY_TRANSACTION_LOGS,
       listAction: Constants.GET_INVENTORY_TRANSACTION_LOGS,
+      clearAction: Constants.CLEAR_INVENTORY_SEARCH,
     };
   },
 

@@ -22,7 +22,7 @@
       <div class="col-md-12">
         <div class="panel panel-filled panel-main">
           <div class="panel-body">
-            <search :searchActionName="searchAction" :listActionName="listAction"></search>
+            <search :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
             <warehouse-list></warehouse-list>
           </div>
         </div>
@@ -45,8 +45,9 @@ export default {
 
   data() {
     return {
-      searchAction: Constants.SEARCH_WAREHOUSES_WITH_TYPEAHEAD,
+      searchAction: Constants.SEARCH_WAREHOUSES,
       listAction: Constants.GET_WAREHOUSES,
+      clearAction: Constants.CLEAR_WAREHOUSE_SEARCH,
     };
   },
 };
