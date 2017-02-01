@@ -164,11 +164,21 @@ function countInventoryLogs({
     });
 }
 
+function clearSearch({
+  commit
+}) {
+  commit(Constants.CLEAR_INVENTORY_SEARCH);
+}
+
 const INITIAL_STATE = {
   inventory: {
     quantity: {},
     logs: [],
     logCount: 0,
+    search: {
+      results: [],
+      query: {},
+    },
   }
 };
 
@@ -180,6 +190,7 @@ const ACTIONS = {
   [Constants.GET_INVENTORY_TRANSACTION_LOGS]: getInventoryLogs,
   [Constants.SEARCH_INVENTORY_TRANSACTION_LOGS]: searchInventoryLogs,
   [Constants.COUNT_INVENTORY_LOGS]: countInventoryLogs,
+  [Constants.CLEAR_INVENTORY_SEARCH]: clearSearch,
 };
 
 const MUTATIONS = {
@@ -196,7 +207,12 @@ const MUTATIONS = {
 
   [Constants.SET_INVENTORY_TRANSACTION_LOG_COUNT]: (state, count) => {
     state.inventory.logCount = count;
-  }
+  },
+
+  [Constants.CLEAR_INVENTORY_SEARCH]: (state) => {
+    state.inventory.search.results = {};
+    state.inventory.search.query = {};
+  },
 };
 
 const GETTERS = {

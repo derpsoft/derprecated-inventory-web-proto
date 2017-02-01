@@ -22,7 +22,7 @@
       <div class="col-md-12">
         <div class="panel panel-filled panel-main">
           <div class="panel-body">
-            <search :searchActionName="searchAction" :listActionName="listAction"></search>
+            <search :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
             <product-list></product-list>
           </div>
         </div>
@@ -41,8 +41,9 @@ import Constants from '../../constants';
 export default {
   data() {
     return {
-      searchAction: Constants.SEARCH_PRODUCTS_WITH_TYPEAHEAD,
+      searchAction: Constants.SEARCH_PRODUCTS,
       listAction: Constants.GET_PRODUCTS,
+      clearAction: Constants.CLEAR_PRODUCT_SEARCH,
     };
   },
 

@@ -22,9 +22,7 @@ class UsersApi extends Fetchable {
 
     return super.get(`/api/v1/users?${body}`)
     .then(res => res.json())
-    .then((json) => {
-      return json;
-    });
+    .then(json => json.users);
   }
 
   singleById(id, includeDeleted = false) {
@@ -50,7 +48,8 @@ class UsersApi extends Fetchable {
     body.set('query', query);
 
     return super.get(`/api/v1/users/typeahead?${body}`)
-    .then(res => res.json());
+    .then(res => res.json())
+    .then(json => json.users);
   }
 
   save({ id, firstName, lastName, phoneNumber, permissions }) {

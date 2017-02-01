@@ -33,20 +33,16 @@ class ProductApi extends Fetchable {
 
     return super.get(`/api/v1/products?${body}`)
       .then(res => res.json())
-      .then((json) => {
-        return json.result;
-      });
+      .then(json => json.result);
   }
 
-  retrieve(id, includeDeleted = false) {
+  single(id, includeDeleted = false) {
     const body = new URLSearchParams();
     body.set('includeDeleted', includeDeleted);
 
     return super.get(`/api/v1/products/${id}?${body}`)
       .then(res => res.json())
-      .then((json) => {
-        return json.result;
-      });
+      .then(json => json.result);
   }
 
   search(query) {
@@ -64,6 +60,17 @@ class ProductApi extends Fetchable {
     body.set('includeDeleted', includeDeleted);
 
     return super.get(`/api/v1/products/typeahead?${body}`)
+    .then(res => res.json())
+    .then(json => json.result);
+  }
+
+  create(product) {
+    const headers = new Headers();
+    headers.set('content-type', 'application/json');
+    return super.post('/api/v1/products', {
+      body: this.toJson(product),
+      headers
+    })
     .then(res => res.json())
     .then(json => json.result);
   }

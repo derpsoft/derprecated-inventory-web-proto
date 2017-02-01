@@ -23,7 +23,7 @@
       <div class="col-md-12">
         <div class="panel panel-filled panel-main">
           <div class="panel-body">
-            <search :searchActionName="searchAction" :listActionName="listAction"></search>
+            <search :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
             <location-list></location-list>
           </div>
         </div>
@@ -48,6 +48,7 @@ export default {
     return {
       searchAction: Constants.SEARCH_LOCATIONS_WITH_TYPEAHEAD,
       listAction: Constants.GET_LOCATIONS,
+      clearAction: Constants.CLEAR_LOCATION_SEARCH,
     };
   },
 };

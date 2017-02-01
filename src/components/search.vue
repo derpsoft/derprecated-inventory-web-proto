@@ -33,6 +33,11 @@ export default {
       propType: String,
       required: true,
     },
+    clearActionName: {
+      propType: String,
+      required: false,
+      default: null,
+    },
     searchOnMount: {
       propType: Boolean,
       required: false,
@@ -75,6 +80,12 @@ export default {
   mounted() {
     if (this.searchOnMount) {
       this.search();
+    }
+  },
+
+  beforeDestroy() {
+    if (this.clearActionName) {
+      this.$store.dispatch(this.clearActionName);
     }
   },
 

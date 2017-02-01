@@ -122,7 +122,7 @@ export default {
         }) => {
           if (isValid) {
             product.id = this.id;
-            this.$store.dispatch(Constants.SAVE_PRODUCT, {
+            this.$store.dispatch(Constants.UPDATE_PRODUCT, {
               product
             });
           }

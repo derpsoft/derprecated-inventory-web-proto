@@ -22,7 +22,7 @@
       <div class="col-md-12">
         <div class="panel panel-filled panel-main">
           <div class="panel-body">
-            <search :searchActionName="searchAction" :listActionName="listAction"></search>
+            <search :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
             <vendor-list></vendor-list>
           </div>
         </div>
@@ -45,8 +45,9 @@ export default {
 
   data() {
     return {
-      searchAction: Constants.SEARCH_VENDORS_WITH_TYPEAHEAD,
+      searchAction: Constants.SEARCH_VENDORS,
       listAction: Constants.GET_VENDORS,
+      clearAction: Constants.CLEAR_VENDOR_SEARCH,
     };
   },
 };
