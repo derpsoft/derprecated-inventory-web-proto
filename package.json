@@ -19,6 +19,7 @@
     "bootstrap": "^3.3.6",
     "chartist": "^0.10.1",
     "connect-history-api-fallback": "^1.3.0",
+    "csv": "^1.1.1",
     "express": "^4.14.0",
     "font-awesome": "^4.6.3",
     "jquery": "^3.1.0",
