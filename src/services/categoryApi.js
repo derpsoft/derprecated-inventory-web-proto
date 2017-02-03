@@ -1,6 +1,6 @@
-import CrudApi from '../crudApi';
+import CrudApi from './crudApi';
 
-class CategoryApi extends CrudApi {
+export default class CategoryApi extends CrudApi {
   constructor() {
     super('category');
 
@@ -12,5 +12,3 @@ class CategoryApi extends CrudApi {
     return this;
   }
 }
-
-export default CategoryApi;

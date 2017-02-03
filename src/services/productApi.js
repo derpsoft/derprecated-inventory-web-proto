@@ -1,6 +1,7 @@
-import CrudApi from '../crudApi';
+import CrudApi from './crudApi';
+import Constants from '../constants';
 
-class ProductApi extends CrudApi {
+export default class ProductApi extends CrudApi {
   constructor() {
     super('product');
 
@@ -30,9 +31,9 @@ class ProductApi extends CrudApi {
     if (id < 1) {
       throw new Error('id must be >= 1');
     }
-    return super.delete(`/api/v1/products/${productId}/images/${id}`)
-    .then(res => res.json())
-    .then(json => json.result);
+    return super
+      .delete(`/api/v1/products/${productId}/images/${id}`)
+      .then(res => res.json())
+      .then(json => json.result);
   }
 }
-export default ProductApi;
