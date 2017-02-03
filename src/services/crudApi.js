@@ -45,7 +45,7 @@ export default class CrudApi extends Fetchable {
     return super
       .get(`${this.routes.LIST(this.name)}?${body}`)
       .then(res => res.json())
-      .then(json => json.result);
+      .then(json => json.result || json[this.many]);
   }
 
   single(id, includeDeleted = false) {
@@ -55,7 +55,7 @@ export default class CrudApi extends Fetchable {
     return super
       .get(`${this.routes.SINGLE(this.name)}/${id}?${body}`)
       .then(res => res.json())
-      .then(json => json.result);
+      .then(json => json.result || json[this.one]);
   }
 
   typeahead(query, includeDeleted = false) {
@@ -81,7 +81,7 @@ export default class CrudApi extends Fetchable {
         headers
       })
       .then(res => res.json())
-      .then(json => json.result);
+      .then(json => json.result || json[this.one]);
   }
 
   create(thing) {
@@ -94,7 +94,7 @@ export default class CrudApi extends Fetchable {
         headers
       })
       .then(res => res.json())
-      .then(json => json.result);
+      .then(json => json.result || json[this.one]);
   }
 
   delete(id) {
@@ -104,6 +104,6 @@ export default class CrudApi extends Fetchable {
     return super
       .delete(`${this.routes.DELETE(this.name)}/${id}`)
       .then(res => res.json())
-      .then(json => json.result);
+      .then(json => json.result || json[this.one]);
   }
 }
