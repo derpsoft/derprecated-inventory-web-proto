@@ -1,8 +1,8 @@
-import CrudApi from '../crudApi';
+import CrudApi from './crudApi';
 
-class UsersApi extends CrudApi {
+export default class UsersApi extends CrudApi {
   constructor() {
-    super(Constants.API_ROOT, store);
+    super('user');
 
     if (UsersApi.prototype.singleton) {
       return UsersApi.prototype.singleton;
@@ -12,5 +12,3 @@ class UsersApi extends CrudApi {
     return this;
   }
 }
-
-export default UsersApi;

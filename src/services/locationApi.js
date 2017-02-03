@@ -1,6 +1,6 @@
-import CrudApi from '../crudApi';
+import CrudApi from './crudApi';
 
-class LocationApi extends CrudApi {
+export default class LocationApi extends CrudApi {
   constructor() {
     super('location');
 
@@ -12,5 +12,3 @@ class LocationApi extends CrudApi {
     return this;
   }
 }
-
-export default LocationApi;

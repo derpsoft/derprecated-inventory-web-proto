@@ -1,7 +1,9 @@
+
 import _ from 'lodash';
 import inflection from 'lodash-inflection';
 import store from '../stores/store';
-import fetchable from './fetchable';
+import Fetchable from './fetchable';
+import Constants from '../constants';
 
 _.mixin(inflection);
 
@@ -15,13 +17,13 @@ const t = {
   TYPEAHEAD: x => `/api/v1/${_(x).pluralize().toLower()}/typeahead`,
 };
 
-class CrudApi extends Fetchable {
+export default class CrudApi extends Fetchable {
   constructor(name, routes = {}) {
     super(Constants.API_ROOT, store);
     this.routes = _.merge(t, routes);
     this.name = name;
     this.one = _(name).singularize().toLower();
-    this.many _(one).pluralize();
+    this.many = _(name).pluralize().toLower();
   }
 
   count(includeDeleted = false) {
@@ -105,5 +107,3 @@ class CrudApi extends Fetchable {
       .then(json => json.result);
   }
 }
-
-export default CrudApi;

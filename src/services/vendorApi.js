@@ -1,9 +1,8 @@
-import CrudApi from '../crudApi';
+import CrudApi from './crudApi';
 
-class VendorApi extends CrudApi {
-
+export default class VendorApi extends CrudApi {
   constructor() {
-    super(Constants.API_ROOT, store);
+    super('vendor');
 
     if (VendorApi.prototype.singleton) {
       return VendorApi.prototype.singleton;
@@ -13,5 +12,3 @@ class VendorApi extends CrudApi {
     return this;
   }
 }
-
-export default VendorApi;
