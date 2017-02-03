@@ -2627,6 +2627,15 @@ handlebars@^4.0.1:
   optionalDependencies:
     uglify-js "^2.6"
 
+handsontable@^0.30.1:
+  version "0.30.1"
+  resolved "https://registry.yarnpkg.com/handsontable/-/handsontable-0.30.1.tgz#4ca3bcc35d4cf464d96ad3ad876af32550158a49"
+  dependencies:
+    moment "^2.13.0"
+    numbro "^1.8.0"
+    pikaday "^1.4.0"
+    zeroclipboard "^2.2.0"
+
 har-validator@~2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/har-validator/-/har-validator-2.0.6.tgz#cdcbc08188265ad119b6a5a7c8ab70eecfb5d27d"
@@ -3794,7 +3803,7 @@ mocha@latest:
     mkdirp "0.5.1"
     supports-color "3.1.2"
 
-moment@^2.10.6, moment@^2.17.1:
+moment@2.x, moment@^2.10.6, moment@^2.13.0, moment@^2.17.1:
   version "2.17.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
 
@@ -3956,6 +3965,10 @@ num2fraction@^1.2.2:
 number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
+
+numbro@^1.8.0:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/numbro/-/numbro-1.9.3.tgz#47f727f580aef49fcd5fdd5fa2af7e603e68b530"
 
 oauth-sign@~0.8.1:
   version "0.8.2"
@@ -4210,6 +4223,12 @@ phantomjs-prebuilt@^2.1.7, phantomjs-prebuilt@latest:
 pify@^2.0.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
+
+pikaday@^1.4.0:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/pikaday/-/pikaday-1.5.1.tgz#0a48549bc1a14ea1d08c44074d761bc2f2bfcfd3"
+  optionalDependencies:
+    moment "2.x"
 
 pinkie-promise@^2.0.0:
   version "2.0.1"
@@ -5970,3 +5989,7 @@ yauzl@2.4.1:
 yeast@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
+
+zeroclipboard@^2.2.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/zeroclipboard/-/zeroclipboard-2.3.0.tgz#592ebd833a4308688b0739697d3dbf989002c9af"
