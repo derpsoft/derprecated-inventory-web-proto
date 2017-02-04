@@ -257,7 +257,8 @@ const routes = [{
 }];
 
 const router = new VueRouter({
-  history: false,
+  history: true,
+  mode: 'history',
   scrollBehavior: (to, from, savedPosition) => {
     return savedPosition || {
       x: 0,
