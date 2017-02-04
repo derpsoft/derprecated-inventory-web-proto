@@ -253,11 +253,10 @@ const routes = [{
   }]
 }, {
   path: '*',
-  redirect: '/'
+  // redirect: '/'
 }];
 
 const router = new VueRouter({
-  history: true,
   mode: 'history',
   scrollBehavior: (to, from, savedPosition) => {
     return savedPosition || {
