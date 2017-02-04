@@ -1,27 +1,27 @@
 <style lang="less" scoped>
 .panel-main {
-  min-height: 600px;
+    min-height: 600px;
 }
 .panel-controls {
-  padding: 5px 0 10px 0;
+    padding: 5px 0 10px;
 }
 
 .table-wrapper {
-  margin: 5px 0px;
-  width: 100%;
-  height: 100%;
-  min-height: 500px;
+    margin: 5px 0;
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
 
-  .empty {
-    line-height: 600px;
-    display: block;
-    text-align: center;
-    font-size: 50px;
-    color: rgba(255, 255, 255, 0.3);
-  }
+    .empty {
+        line-height: 600px;
+        display: block;
+        text-align: center;
+        font-size: 50px;
+        color: rgba(255, 255, 255, 0.3);
+    }
 }
 .table {
-  margin: 20px 0;
+    margin: 20px 0;
 }
 </style>
 
@@ -63,7 +63,7 @@
 <script>
 import Handsontable from 'handsontable/dist/handsontable.full';
 import 'handsontable/dist/handsontable.min.css';
-// import Constants from '../../constants';
+import Constants from '../../constants';
 import CsvImport from '../csvUpload.vue';
 
 export default {
@@ -79,108 +79,106 @@ export default {
     };
   },
 
-  computed: {},
+  computed: {
+    columns() {
+      return [{
+        data: 'title',
+        type: 'text',
+        width: 100
+      }, {
+        data: 'sku',
+        type: 'text',
+        width: 100
+      }, {
+        data: 'upc',
+        type: 'text',
+        width: 100,
+      }, {
+        data: 'vendor',
+        type: 'text',
+        width: 100,
+      }, {
+        data: 'price',
+        type: 'numeric',
+        format: '0.00',
+        width: 100,
+      }, {
+        data: 'color',
+        type: 'text',
+        width: 100,
+      }, {
+        data: 'tags',
+        type: 'text',
+        width: 100,
+      }, {
+        data: 'description',
+        type: 'text',
+        width: 300,
+      }];
+    },
+    headers() {
+      return [
+        'title',
+        'sku',
+        'upc',
+        'vendor',
+        'price',
+        'color',
+        'tags',
+        'description',
+      ];
+    },
+    table() {
+      return document.querySelector('#hands-on-table');
+    },
+  },
 
   methods: {
     csvToProduct(csv) {
-      return csv;
-      // return {
-      //   title: csv.Title,
-      //   sku: csv['Variant SKU'],
-      //   upc: csv.Handle,
-      //   vendor: csv.Vendor,
-      //   price: csv['Variant Price'],
-      //   color: csv.Color,
-      //   tags: csv.Tags,
-      //   description: csv['Body (HTML)'],
-      // };
+      return {
+        _id: Symbol(csv.Title),
+        title: csv.Title,
+        sku: csv['Variant SKU'],
+        upc: csv.Handle,
+        vendor: csv.Vendor,
+        price: csv['Variant Price'],
+        color: csv.Color,
+        tags: csv.Tags,
+        description: csv['Body (HTML)'],
+      };
     },
 
     bulkImport(value) {
-      const table = document.querySelector('#hands-on-table');
       const data = JSON.parse(JSON.stringify(value));
-      // this.products = value;
-
-      this.hot = new Handsontable(
-        table, {
-          data,
-          columns: [{
-            data: 'title',
-            type: 'text',
-            width: 100
-          }, {
-            data: 'sku',
-            type: 'text',
-            width: 100
-          },
-          {
-            data: 'upc',
-            type: 'text',
-            width: 100,
-          },
-          {
-            data: 'vendor',
-            type: 'text',
-            width: 100,
-          },
-          {
-            data: 'price',
-            type: 'numeric',
-            format: '0.00',
-            width: 100,
-          },
-          {
-            data: 'color',
-            type: 'text',
-            width: 100,
-          },
-          {
-            data: 'tags',
-            type: 'text',
-            width: 100,
-          },
-          {
-            data: 'description',
-            type: 'text',
-            width: 300,
-          }
-          ],
-          width: '100%',
-          height: 600,
-          // contextMenu: true,
-          rowHeaders: true,
-          colHeaders: [
-            'title',
-            'sku',
-            'upc',
-            'vendor',
-            'price',
-            'color',
-            'tags',
-            'description',
-          ]
-        }
-      );
 
       this.hasUpload = true;
+      this.hot = new Handsontable(
+        this.table, {
+          data,
+          columns: this.columns,
+          colHeaders: this.headers,
+          width: '100%',
+          height: 600,
+          allowEmpty: false,
+          allowInsertRow: false,
+          allowInsertColumn: false,
+          allowRemoveColumn: false,
+          // contextMenu: true,
+          rowHeaders: true,
+          rowHeights: 40,
+        }
+      );
     },
+
     save() {
-      console.log(this.hot.getSourceData());
-      //
-      // this.$refs.productForm
-      //   .validate()
-      //   .then(({
-      //     isValid,
-      //     product
-      //   }) => {
-      //     if (isValid) {
-      //       product.id = this.id;
-      //       this.$store.dispatch(Constants.UPDATE_PRODUCT, {
-      //         product
-      //       });
-      //     }
-      //   });
+      const products = this.hot.getSourceData();
+      this.$store.dispatch(Constants.CREATE_PRODUCTS, {
+        products,
+        toastError: true,
+        redirect: this.redirect
+      });
     },
+
     redirect() {
       this.$router.replace('/products');
     },

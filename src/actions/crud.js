@@ -19,6 +19,7 @@ const t = {
   CLEAR_SEARCH_RESULTS: x => `CLEAR_${_(x).singularize().toUpper()}_SEARCH_RESULTS`,
   CLEAR_SEARCH: x => `CLEAR_${_(x).singularize().toUpper()}_SEARCH`,
   CREATE_ONE: x => `CREATE_${_(x).singularize().toUpper()}`,
+  CREATE_MANY: x => `CREATE_${_(x).pluralize().toUpper()}`,
   COUNT: x => `COUNT_${_(x).pluralize().toUpper()}`,
   UPDATE_ONE: x => `UPDATE_${_(x).singularize().toUpper()}`,
   DELETE_ONE: x => `DELETE_${_(x).singularize().toUpper()}`,
@@ -104,9 +105,10 @@ export default function(name, Api) {
     }, {
       id,
       toastError = true,
+      includeDeleted = false,
     }) => {
       return new Api()
-        .single(id)
+        .single(id, includeDeleted)
         .then(x => commit(t.SET_ONE(name), x))
         .catch(createErrorHandler({
           dispatch,
@@ -122,9 +124,10 @@ export default function(name, Api) {
       skip,
       take,
       toastError = true,
+      includeDeleted = false,
     }) => {
       return new Api()
-        .list(skip, take)
+        .list(skip, take, includeDeleted)
         .then(x => commit(t.SET_MANY(name), x))
         .catch(createErrorHandler({
           dispatch,
@@ -137,8 +140,8 @@ export default function(name, Api) {
       commit,
       dispatch
     }, {
-      includeDeleted = false,
       toastError = true,
+      includeDeleted = false,
     }) => {
       return new Api()
         .count(includeDeleted)
@@ -155,10 +158,11 @@ export default function(name, Api) {
         commit,
         dispatch
       }, {
-        query
+        query,
+        includeDeleted = false,
       }) => {
         return new Api()
-          .typeahead(query)
+          .typeahead(query, includeDeleted)
           .then(x => commit(t.SET_SEARCH_RESULTS(name), x))
           .catch(createErrorHandler({
             dispatch
@@ -193,6 +197,34 @@ export default function(name, Api) {
           dispatch,
           toastError: args.toastError,
           message: `Error creating ${one}.`
+        }));
+    },
+
+    [t.CREATE_MANY(name)]: ({
+      commit,
+      dispatch
+    }, args) => {
+      const api = new Api();
+
+      return Promise.all(
+          _.map(args[many], (single) => {
+            return api
+              .create(single)
+              .then(x => commit(t.SET_ONE(name), x));
+          }))
+        .then((results) => {
+          toastSuccess({
+            dispatch,
+            message: `Created ${results.length} ${many} successfully.`
+          });
+          if (args.redirect) {
+            args.redirect();
+          }
+        })
+        .catch(createErrorHandler({
+          dispatch,
+          toastError: args.toastError,
+          message: `Error creating one or more ${many}.`,
         }));
     },
 
