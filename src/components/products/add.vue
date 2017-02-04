@@ -15,18 +15,12 @@
 </template>
 
 <script>
-import {
-  tabset,
-  tab
-} from 'vue-strap';
 import Constants from '../../constants';
 import ProductForm from './form.vue';
 
 export default {
   name: 'productsAdd',
   components: {
-    tabs: tabset,
-    tab,
     ProductForm,
   },
   data() {
