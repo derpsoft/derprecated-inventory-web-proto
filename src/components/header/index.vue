@@ -43,20 +43,6 @@
                 <span class="profile-address">{{ userSession.userName }}</span>
                 <img src="/static/img/avatar.png" class="img-circle" alt="">
               </button>
-          <!-- <dropdown>
-            <ul class="dropdown-menu" slot="dropdown-menu">
-              <li>
-                <router-link href="#dropdown" :to="{ path: 'profile' }" title="Profile">
-                    Profile
-                  </router-link>
-                <li>
-                  <li>
-                    <router-link href="#dropdown" :to="{ path: 'logout' }" title="Logout">
-                    Logout
-                  </router-link>
-                    <li>
-            </ul>
-          </dropdown> -->
         </li>
       </ul>
     </div>
@@ -65,9 +51,6 @@
 </template>
 
 <script>
-import {
-  dropdown
-} from 'vue-strap';
 import {
   version
 } from '../../../package.json';
@@ -81,7 +64,6 @@ export default {
     };
   },
   components: {
-    dropdown,
   },
   computed: {
     userSession: () => {
