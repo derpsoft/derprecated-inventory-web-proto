@@ -8,8 +8,9 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceRoot}\\server.js",
-            "cwd": "${workspaceRoot}"
+            "program": "${workspaceRoot}\/build/server.js",
+            "cwd": "${workspaceRoot}",
+            "port": 8080
         },
         {
             "type": "node",
