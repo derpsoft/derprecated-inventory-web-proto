@@ -73,7 +73,7 @@ const INITIAL_STATE = {
 const ACTIONS = {
   [Constants.CREATE_SALE]: logSale,
   [Constants.GET_SALES]: list,
-  [Constants.SEARCH_SALES_WITH_TYPEAHEAD]: search,
+  [Constants.SEARCH_SALES]: search,
   [Constants.COUNT_SALES]: count,
   [Constants.CLEAR_SALE_SEARCH]: clearSearch,
 };

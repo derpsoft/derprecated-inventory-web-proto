@@ -142,6 +142,13 @@ const routes = [{
       requiresAuth: true,
     },
   }, {
+    path: '/products/import',
+    component: ModifyProducts,
+    beforeEnter: guard('canUpsertProducts'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
     path: '/warehouses',
     component: Warehouses,
     beforeEnter: guard('canReadWarehouses'),

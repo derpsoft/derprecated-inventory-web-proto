@@ -46,7 +46,7 @@ export default {
 
   data() {
     return {
-      searchAction: Constants.SEARCH_LOCATIONS_WITH_TYPEAHEAD,
+      searchAction: Constants.SEARCH_LOCATIONS,
       listAction: Constants.GET_LOCATIONS,
       clearAction: Constants.CLEAR_LOCATION_SEARCH,
     };

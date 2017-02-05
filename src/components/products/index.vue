@@ -5,6 +5,7 @@
       <div class="col-lg-12">
         <div class="view-header">
           <div class="pull-right">
+            <router-link class="btn btn-w-md btn-accent" :to="{path: '/products/import'}">Bulk Import Products</router-link>
             <router-link class="btn btn-w-md btn-accent add-control" :to="{path: '/products/add'}">Add New Product</router-link>
           </div>
           <div class="header-icon">

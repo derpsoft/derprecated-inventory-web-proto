@@ -40,7 +40,7 @@ import Search from '../search.vue';
 export default {
   data() {
     return {
-      searchAction: Constants.SEARCH_SALES_WITH_TYPEAHEAD,
+      searchAction: Constants.SEARCH_SALES,
       listAction: Constants.GET_SALES,
       clearAction: Constants.CLEAR_SALE_SEARCH,
     };
