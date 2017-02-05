@@ -8,9 +8,10 @@ var baseConfig = require('./webpack.base.conf');
 var webpackConfig = merge(baseConfig, {
   // use inline sourcemap for karma-sourcemap-loader
   module: {
-    rules: [
-      { test: /\.less$/, loader: 'ignore-loader' }
-    ].concat(utils.styleLoaders())
+    rules: [{
+      test: /\.less$/,
+      loader: 'ignore-loader'
+    }].concat(utils.styleLoaders())
   },
   devtool: '#inline-source-map',
   plugins: [
