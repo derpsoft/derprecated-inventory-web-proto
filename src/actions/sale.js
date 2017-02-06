@@ -65,7 +65,10 @@ function clearSearch({
 const INITIAL_STATE = {
   sales: {
     all: {},
-    searchResults: {},
+    search: {
+      results: [],
+      query: '',
+    },
     count: 0,
   }
 };
@@ -97,7 +100,7 @@ const MUTATIONS = {
 const GETTERS = {
   sale: state => id => state.sales.all[id],
   sales: state => _.values(state.sales.all),
-  saleSearch: state => state.sales.searchResults,
+  saleSearch: state => state.sales.search.results,
   saleCount: state => state.sales.count,
 };
 
