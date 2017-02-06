@@ -177,12 +177,12 @@ const INITIAL_STATE = {
   resetPassword: {
     isSuccess: false
   },
-  profile: {
+  profile: _.merge({
     userName: '',
     displayName: '',
     email: '',
     permissions: []
-  },
+  }, read('profile')),
   session: _.merge({
     isAuthenticated: false,
     sessionId: null,
@@ -206,6 +206,9 @@ const MUTATIONS = {
   },
   [Constants.SET_PROFILE]: (state, profile) => {
     state.profile = profile;
+    save('profile', {
+      permissions: profile.permissions
+    });
   },
   [Constants.CLEAR_SESSION]: (state) => {
     const session = {
@@ -216,6 +219,7 @@ const MUTATIONS = {
   },
   [Constants.CLEAR_PROFILE]: (state) => {
     state.profile = {};
+    save('profile', {});
   },
   [Constants.LOGIN_FAILED]: (state, value) => {
     state.login.error = value;
