@@ -9,5 +9,4 @@ describe('Header - Index.vue', () => {
     const data = Header.data();
     expect(data.appVersion).to.not.be.undefined;
   });
-
 });
