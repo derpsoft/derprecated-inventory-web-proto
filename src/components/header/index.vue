@@ -1,3 +1,15 @@
+<style lang="less" scoped>
+.profil-link {
+    .btn {
+        &:active,
+        &:focus {
+            color: #000;
+        }
+        outline: none;
+    }
+}
+</style>
+
 <template>
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
@@ -72,15 +84,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less" scoped>
-.profil-link {
-    .btn {
-        &:active,
-        &:focus {
-            color: #000;
-        }
-        outline: none;
-    }
-}
-</style>

@@ -16,8 +16,6 @@ import store from '../stores/store';
 export default {
   name: 'appView',
   store,
-  components: {
-  },
   mounted() {
     Pace.start();
   }
