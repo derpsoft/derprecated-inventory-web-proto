@@ -2,6 +2,7 @@
 import VueRouter from 'vue-router';
 import Main from 'components/main';
 import Dashboard from 'components/dashboard/index';
+import NotFound from 'components/errors/notFound';
 
 import ForgotPassword from 'components/password/forgot';
 import ResetPassword from 'components/password/reset';
@@ -48,7 +49,7 @@ const guard = (g) => {
       return next();
     }
     // do something to tell the user that they're not allowed;
-    return next(false);
+    return next('/notfound');
   };
 };
 
@@ -121,7 +122,7 @@ const routes = [{
       requiresAuth: true,
     },
   }, {
-    path: '/products',
+    path: 'products',
     component: Products,
     beforeEnter: guard('canReadProducts'),
     meta: {
@@ -257,10 +258,10 @@ const routes = [{
     meta: {
       requiresAuth: true,
     },
-  }]
-}, {
-  path: '*',
-  redirect: '/'
+  }, {
+    path: '*',
+    component: NotFound,
+  }],
 }];
 
 const router = new VueRouter({
@@ -276,6 +277,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = store.getters.isAuthenticated;
+
   if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
     next('/login');
   } else if (to.path.toLowerCase() === '/login' && isAuthenticated) {
@@ -285,8 +287,10 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-store.watch(() => store.getters.isAuthenticated, (current) => {
-  router.replace(current ? '/' : '/login');
+store.watch(() => store.getters.isAuthenticated, (current, previous) => {
+  if (current !== previous) {
+    router.replace(current ? '/' : '/login');
+  }
 });
 
 
