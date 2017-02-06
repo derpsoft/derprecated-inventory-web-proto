@@ -21,8 +21,7 @@
 </template>
 
 <script>
-import Constants from '../../constants';
-import store from '../../stores/store';
+import Constants from 'src/constants';
 
 export default {
   data() {
@@ -47,7 +46,7 @@ export default {
       const redirect = this.redirect;
 
       warehouse.id = this.id;
-      store.dispatch(Constants.CREATE_WAREHOUSE, {
+      this.$store.dispatch(Constants.CREATE_WAREHOUSE, {
         warehouse,
         redirect,
       });

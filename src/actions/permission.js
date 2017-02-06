@@ -1,6 +1,6 @@
 import log from 'loglevel';
-import Constants from '../constants';
-import PermissionApi from '../services/permissionApi';
+import Constants from 'src/constants';
+import PermissionApi from 'services/permissionApi';
 
 function setManyPermissions({ commit }, { user, permissions }) {
   new PermissionApi()

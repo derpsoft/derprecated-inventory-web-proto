@@ -4,8 +4,8 @@
   </div>
 </template>
 <script>
-import Constants from '../../constants';
-import BarChart from './barChart.vue';
+import Constants from 'src/constants';
+import BarChart from './barChart';
 
 // TODO: Figure out how to use base report.
 

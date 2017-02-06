@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Constants from '../../constants';
-import CategoryForm from './form.vue';
+import Constants from 'src/constants';
+import CategoryForm from './form';
 
 export default {
   components: { CategoryForm },

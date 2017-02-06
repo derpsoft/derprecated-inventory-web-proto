@@ -1,3 +1,11 @@
+<style lang="less" scoped>
+table.log-list {
+    tr {
+        cursor: pointer;
+    }
+}
+</style>
+
 <template>
 <div>
   <div v-if="!logs.length">
@@ -34,19 +42,11 @@
 </div>
 </template>
 
-<style lang="less" scoped>
-table.log-list {
-    tr {
-        cursor: pointer;
-    }
-}
-</style>
-
 <script>
 import moment from 'moment';
-import Constants from '../../constants';
-import ProductField from '../products/field.vue';
-import UserField from '../users/field.vue';
+import Constants from 'src/constants';
+import ProductField from 'components/products/field';
+import UserField from 'components/users/field';
 
 export default {
   components: {

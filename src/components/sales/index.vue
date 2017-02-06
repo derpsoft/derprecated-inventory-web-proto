@@ -33,9 +33,9 @@
 </template>
 
 <script>
-import Constants from '../../constants';
-import SaleList from './list.vue';
-import Search from '../search.vue';
+import Constants from 'src/constants';
+import Search from 'components/search';
+import SaleList from './list';
 
 export default {
   data() {

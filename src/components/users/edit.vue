@@ -1,3 +1,16 @@
+<style lang="less">
+.password-reset {
+    .reset-btn {
+        margin-right: 10px;
+    }
+    span {
+        display: block;
+        padding: 6px 0;
+        line-height: 1.42857143;
+        color: #1bbf89;
+    }
+}
+</style>
 <template>
 <div>
   <form id="user-edit-form" @submit.prevent="validate">
@@ -57,23 +70,10 @@
 </div>
 </template>
 
-<style lang="less">
-.password-reset {
-    .reset-btn {
-        margin-right: 10px;
-    }
-    span {
-        display: block;
-        padding: 6px 0;
-        line-height: 1.42857143;
-        color: #1bbf89;
-    }
-}
-</style>
 
 <script>
 import _ from 'lodash';
-import Constants from '../../constants';
+import Constants from 'src/constants';
 
 export default {
   data() {

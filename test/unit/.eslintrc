@@ -8,6 +8,10 @@
     "sinon": true
   },
   "rules": {
+    'import/extensions': ['error', 'always', {
+      'js': 'never',
+      'vue': 'never'
+    }],
     "no-unused-expressions": "off"
   }
 }

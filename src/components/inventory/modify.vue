@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import ReceiveInventory from './receiveInventory.vue';
-import DispatchInventory from './dispatchInventory.vue';
+import ReceiveInventory from './receiveInventory';
+import DispatchInventory from './dispatchInventory';
 
 export default {
   data() {

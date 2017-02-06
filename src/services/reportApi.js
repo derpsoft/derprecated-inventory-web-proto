@@ -1,6 +1,6 @@
-import Fetchable from './fetchable';
-import store from '../stores/store';
-import Constants from '../constants';
+import store from 'stores/store';
+import Constants from 'src/constants';
+import Fetchable from 'services/fetchable';
 
 class ReportApi extends Fetchable {
   constructor() {

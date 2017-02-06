@@ -35,8 +35,8 @@
 </style>
 
 <script>
-import CategoryAdd from './add.vue';
-import CategoryEdit from './edit.vue';
+import CategoryAdd from './add';
+import CategoryEdit from './edit';
 
 export default {
   data() {

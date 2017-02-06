@@ -1,6 +1,6 @@
 import log from 'loglevel';
-import Constants from '../constants';
-import InventoryApi from '../services/inventoryApi';
+import Constants from 'src/constants';
+import InventoryApi from 'services/inventoryApi';
 
 function getQuantityOnHand({
   dispatch,

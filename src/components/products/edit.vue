@@ -55,10 +55,10 @@ textarea.form-control {
 </template>
 
 <script>
-import Constants from '../../constants';
-import ProductForm from './form.vue';
-import ImageGallery from '../images/gallery.vue';
-import ProductApi from '../../services/productApi';
+import Constants from 'src/constants';
+import ImageGallery from 'components/images/gallery';
+import ProductApi from 'services/productApi';
+import ProductForm from './form';
 
 export default {
   name: 'productEdit',

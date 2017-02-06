@@ -39,8 +39,8 @@
 
 <script>
 import moment from 'moment';
-import ProductField from '../products/field.vue';
-import UserField from '../users/field.vue';
+import ProductField from 'components/products/field';
+import UserField from 'components/users/field';
 
 export default {
   components: {

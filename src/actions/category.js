@@ -1,5 +1,5 @@
-import crud from './crud';
-import CategoryApi from '../services/categoryApi';
+import crud from 'actions/crud';
+import CategoryApi from 'services/categoryApi';
 
 const BASE = crud('category', CategoryApi);
 

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import _ from 'lodash';
-import Actions from '../actions';
+import Actions from 'actions';
 
 Vue.use(Vuex);
 

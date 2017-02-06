@@ -1,3 +1,9 @@
+<style scoped>
+.btn-return {
+  margin-right: -15px;
+}
+</style>
+
 <template>
 <section class="content">
   <div class="container-fluid">
@@ -28,15 +34,9 @@
 </section>
 </template>
 
-<style scoped>
-.btn-return {
-  margin-right: -15px;
-}
-</style>
-
 <script>
-import VendorAdd from './add.vue';
-import VendorEdit from './edit.vue';
+import VendorAdd from './add';
+import VendorEdit from './edit';
 
 export default {
   data() {

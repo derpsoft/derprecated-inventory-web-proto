@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Constants from '../../constants';
+import Constants from 'src/constants';
 
 export default {
   data() {

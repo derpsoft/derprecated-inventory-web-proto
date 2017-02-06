@@ -121,8 +121,8 @@
 
 <script>
 import moment from 'moment';
-import Chart from './chart.vue';
-import Constants from '../../constants';
+import Constants from 'src/constants';
+import Chart from './chart';
 
 export default {
   name: 'dashboardView',

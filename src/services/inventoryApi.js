@@ -1,6 +1,6 @@
-import Fetchable from './fetchable';
-import store from '../stores/store';
-import Constants from '../constants';
+import Fetchable from 'services/fetchable';
+import store from 'stores/store';
+import Constants from 'src/constants';
 
 class InventoryApi extends Fetchable {
   constructor() {
@@ -14,7 +14,11 @@ class InventoryApi extends Fetchable {
     return this;
   }
 
-  _createTransaction({ locationId, productId, quantity }) {
+  _createTransaction({
+    locationId,
+    productId,
+    quantity
+  }) {
     const headers = new Headers();
     headers.set('content-type', 'application/json');
     const xact = {
@@ -23,7 +27,8 @@ class InventoryApi extends Fetchable {
       quantity
     };
     return super.post('/api/v1/inventory-transactions', {
-      body: this.toJson({ ...xact }),
+      body: this.toJson({ ...xact
+      }),
       headers
     })
     .then(res => res.json());
@@ -42,7 +47,7 @@ class InventoryApi extends Fetchable {
       throw new Error('quantity must be <= 0');
     }
     return this._createTransaction(xact)
-    .then(res => res.inventoryTransaction);
+      .then(res => res.inventoryTransaction);
   }
 
   getLogs(skip = 0, take = 25) {
@@ -51,8 +56,8 @@ class InventoryApi extends Fetchable {
 
   countLogs() {
     return super.get('/api/v1/inventory-transactions/count')
-    .then(res => res.json())
-    .then(json => json.count);
+      .then(res => res.json())
+      .then(json => json.count);
   }
 
   searchLogs(query, skip = 0, take = 25) {
@@ -62,7 +67,7 @@ class InventoryApi extends Fetchable {
     body.set('query', query);
 
     return super.get(`/api/v1/inventory-transactions/search?${body}`)
-    .then(res => res.json());
+      .then(res => res.json());
   }
 }
 

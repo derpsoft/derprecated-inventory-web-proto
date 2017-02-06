@@ -1,43 +1,43 @@
 /* eslint-disable no-unused-vars */
 import VueRouter from 'vue-router';
-import Main from './components/main.vue';
-import Dashboard from './components/dashboard/index.vue';
+import Main from 'components/main';
+import Dashboard from 'components/dashboard/index';
 
-import ForgotPassword from './components/password/forgot.vue';
-import ResetPassword from './components/password/reset.vue';
+import ForgotPassword from 'components/password/forgot';
+import ResetPassword from 'components/password/reset';
 
-import Profile from './components/profile/index.vue';
-import Register from './components/registration/index.vue';
-import Login from './components/login/index.vue';
-import Logout from './components/logout/index.vue';
+import Profile from 'components/profile/index';
+import Register from 'components/registration/index';
+import Login from 'components/login/index';
+import Logout from 'components/logout/index';
 
-import Reports from './components/reports/index.vue';
-import Inventory from './components/inventory/index.vue';
-import ModifyInventory from './components/inventory/modify.vue';
+import Reports from 'components/reports/index';
+import Inventory from 'components/inventory/index';
+import ModifyInventory from 'components/inventory/modify';
 
-import Products from './components/products/index.vue';
-import ModifyProducts from './components/products/modifyProduct.vue';
+import Products from 'components/products/index';
+import ModifyProducts from 'components/products/modifyProduct';
 
-import Warehouses from './components/warehouses/index.vue';
-import ModifyWarehouses from './components/warehouses/modifyWarehouses.vue';
+import Warehouses from 'components/warehouses/index';
+import ModifyWarehouses from 'components/warehouses/modifyWarehouses';
 
-import Locations from './components/locations/index.vue';
-import ModifyLocation from './components/locations/modify.vue';
+import Locations from 'components/locations/index';
+import ModifyLocation from 'components/locations/modify';
 
-import Users from './components/users/index.vue';
-import ModifyUsers from './components/users/modifyUser.vue';
+import Users from 'components/users/index';
+import ModifyUsers from 'components/users/modifyUser';
 
-import Categories from './components/categories/index.vue';
-import ModifyCategories from './components/categories/modify.vue';
+import Categories from 'components/categories/index';
+import ModifyCategories from 'components/categories/modify';
 
-import Vendors from './components/vendors/index.vue';
-import ModifyVendors from './components/vendors/modifyVendors.vue';
+import Vendors from 'components/vendors/index';
+import ModifyVendors from 'components/vendors/modifyVendors';
 
-import Sales from './components/sales/index.vue';
-import ModifySales from './components/sales/modify.vue';
+import Sales from 'components/sales/index';
+import ModifySales from 'components/sales/modify';
 
 import Constants from './constants';
-// import NotFound from './views/notfound.vue';
+// import NotFound from './views/notfound';
 import store from './stores/store';
 
 const Permissions = Constants.permissions;

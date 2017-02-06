@@ -63,8 +63,8 @@
 <script>
 import Handsontable from 'handsontable/dist/handsontable.full';
 import 'handsontable/dist/handsontable.min.css';
-import Constants from '../../constants';
-import CsvImport from '../csvUpload.vue';
+import Constants from 'src/constants';
+import CsvImport from 'components/csvUpload';
 
 export default {
   components: {

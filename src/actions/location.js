@@ -1,5 +1,5 @@
-import crud from './crud';
-import LocationApi from '../services/locationApi';
+import crud from 'actions/crud';
+import LocationApi from 'services/locationApi';
 
 const BASE = crud('location', LocationApi);
 

@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import Constants from '../../constants';
-import LocationForm from './form.vue';
+import Constants from 'src/constants';
+import LocationForm from './form';
 
 export default {
   components: { LocationForm },
