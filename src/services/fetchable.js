@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Constants from '../constants';
+import Constants from 'src/constants';
 
 const _fetch = function(url, options, {
   dispatch

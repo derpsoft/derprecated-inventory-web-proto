@@ -28,8 +28,8 @@
 </section>
 </template>
 <script>
-import LocationAdd from './add.vue';
-import LocationEdit from './edit.vue';
+import LocationAdd from './add';
+import LocationEdit from './edit';
 
 export default {
   name: 'saveLocationView',

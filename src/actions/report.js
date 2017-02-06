@@ -1,7 +1,7 @@
 import log from 'loglevel';
 import moment from 'moment';
-import Constants from '../constants';
-import ReportApi from '../services/reportApi';
+import Constants from 'src/constants';
+import ReportApi from 'services/reportApi';
 
 function dashboard({
   commit

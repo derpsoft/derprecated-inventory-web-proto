@@ -1,9 +1,8 @@
-
 import _ from 'lodash';
 import inflection from 'lodash-inflection';
-import store from '../stores/store';
-import Fetchable from './fetchable';
-import Constants from '../constants';
+import Fetchable from 'services/fetchable';
+import store from 'stores/store';
+import Constants from 'src/constants';
 
 _.mixin(inflection);
 

@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Constants from '../../constants';
-import SaleForm from './form.vue';
+import Constants from 'src/constants';
+import SaleForm from './form';
 
 export default {
   components: {

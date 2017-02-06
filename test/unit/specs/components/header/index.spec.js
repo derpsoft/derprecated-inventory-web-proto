@@ -1,9 +1,10 @@
-import Header from '../../../../../src/components/header/index.vue';
+// import VueComponent from 'unit/utils';
+import Header from 'components/header/index';
 
 describe('Header - Index.vue', () => {
-  it('should set the name', () => {
-    expect(Header.name).to.equal('header');
-  });
+  // it('should set the name', () => {
+  //   console.log(VueComponent(Header));
+  // });
 
   it('should set data', () => {
     const data = Header.data();

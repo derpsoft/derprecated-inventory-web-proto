@@ -25,8 +25,8 @@
 
 <script>
 import _ from 'lodash';
-import Constants from '../../constants';
-import Autocomplete from '../autocomplete.vue';
+import Constants from 'src/constants';
+import Autocomplete from 'components/autocomplete';
 
 export default {
   components: {

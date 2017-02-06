@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Constants from '../../constants';
-import InventoryForm from './form.vue';
+import Constants from 'src/constants';
+import InventoryForm from './form';
 
 export default {
   components: {

@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import RegistrationForm from './form.vue';
+import RegistrationForm from './form';
 
 export default {
   components: {

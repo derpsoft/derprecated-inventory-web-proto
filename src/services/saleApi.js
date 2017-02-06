@@ -1,4 +1,4 @@
-import CrudApi from './crudApi';
+import CrudApi from 'services/crudApi';
 
 export default class SaleApi extends CrudApi {
   constructor() {

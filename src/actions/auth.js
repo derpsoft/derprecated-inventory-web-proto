@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import log from 'loglevel';
-import Constants from '../constants';
-import AuthApi from '../services/authApi';
+import Constants from 'src/constants';
+import AuthApi from 'services/authApi';
 
 const Permissions = Constants.permissions;
 

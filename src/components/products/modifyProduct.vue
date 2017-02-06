@@ -37,9 +37,9 @@
 </section>
 </template>
 <script>
-import ProductAdd from './add.vue';
-import ProductEdit from './edit.vue';
-import ProductImport from './import.vue';
+import ProductAdd from './add';
+import ProductEdit from './edit';
+import ProductImport from './import';
 
 export default {
   name: 'modifyProductView',

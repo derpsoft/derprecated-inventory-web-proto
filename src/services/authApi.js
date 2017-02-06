@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import Fetchable from './fetchable';
-import store from '../stores/store';
-import Constants from '../constants';
+import Fetchable from 'services/fetchable';
+import store from 'stores/store';
+import Constants from 'src/constants';
 
 class AuthApi extends Fetchable {
   constructor() {
@@ -25,10 +25,10 @@ class AuthApi extends Fetchable {
         lastName
       })
     })
-      .then(res => res.json())
-      .then((json) => {
-        return this.setUser(json);
-      });
+    .then(res => res.json())
+    .then((json) => {
+      return this.setUser(json);
+    });
   }
 
   login(username, password) {
@@ -78,19 +78,26 @@ class AuthApi extends Fetchable {
 
   forgotPassword(email) {
     return super.post('/api/v1/password/forgot', {
-      body: this.toForm({ email })
+      body: this.toForm({
+        email
+      })
     })
-      .then(res => res.json())
-      .then((json) => {
-        return json;
-      });
+    .then(res => res.json())
+    .then((json) => {
+      return json;
+    });
   }
 
   resetPassword(email, token, password, passwordRepeat) {
     return super.post('/api/v1/password/reset', {
-      body: this.toForm({ email, token, password, passwordRepeat })
+      body: this.toForm({
+        email,
+        token,
+        password,
+        passwordRepeat
+      })
     })
-      .then(res => res.json());
+    .then(res => res.json());
   }
 }
 

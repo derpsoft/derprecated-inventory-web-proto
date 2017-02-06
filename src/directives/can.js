@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import store from '../stores/store';
+import store from 'stores/store';
 
 const guards = [
   'canReadUsers',
@@ -45,7 +45,10 @@ export default (Vue) => {
   Vue.directive('canAny', {
     bind: (el, binding) => {
       /* eslint-disable no-shadow */
-      const { term, guards } = binding.value;
+      const {
+        term,
+        guards
+      } = binding.value;
       /* eslint-enable no-shadow */
 
       const op = term === 'or' ? _.some : _.every;

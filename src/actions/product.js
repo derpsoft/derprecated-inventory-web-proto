@@ -1,7 +1,7 @@
 import log from 'loglevel';
-import Constants from '../constants';
-import ProductApi from '../services/productApi';
-import crud from './crud';
+import Constants from 'src/constants';
+import ProductApi from 'services/productApi';
+import crud from 'actions/crud';
 
 function deleteProductImage({
   dispatch

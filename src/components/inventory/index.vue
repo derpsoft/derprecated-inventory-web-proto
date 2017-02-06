@@ -34,9 +34,9 @@
 </template>
 
 <script>
-import InventoryLog from './list.vue';
-import Search from '../search.vue';
-import Constants from '../../constants';
+import Search from 'components/search';
+import Constants from 'src/constants';
+import InventoryLog from './list';
 
 export default {
   data() {

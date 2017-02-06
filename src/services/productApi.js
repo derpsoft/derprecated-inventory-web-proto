@@ -1,5 +1,5 @@
-import CrudApi from './crudApi';
-import Constants from '../constants';
+import CrudApi from 'services/crudApi';
+import Constants from 'src/constants';
 
 export default class ProductApi extends CrudApi {
   constructor() {

@@ -1,6 +1,6 @@
 <script>
 import _ from 'lodash';
-import Constants from '../../constants';
+import Constants from 'src/constants';
 
 /**
  * Load and display an element containing single field from a product.

@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Constants from '../../constants';
-import ProductForm from './form.vue';
+import Constants from 'src/constants';
+import ProductForm from './form';
 
 export default {
   name: 'productsAdd',

@@ -33,9 +33,9 @@
 </template>
 
 <script>
-import WarehouseList from './list.vue';
-import Search from '../search.vue';
-import Constants from '../../constants';
+import Constants from 'src/constants';
+import Search from 'components/search';
+import WarehouseList from './list';
 
 export default {
   components: {

@@ -66,7 +66,6 @@
 import {
   version
 } from '../../../package.json';
-import store from '../../stores/store';
 
 export default {
   name: 'header',
@@ -78,8 +77,8 @@ export default {
   components: {
   },
   computed: {
-    userSession: () => {
-      return store.state.session;
+    userSession() {
+      return this.$store.state.session;
     }
   },
 };

@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Constants from '../../constants';
-import VendorForm from './form.vue';
+import Constants from 'src/constants';
+import VendorForm from './form';
 
 export default {
   components: {

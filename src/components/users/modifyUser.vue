@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import userAdd from './add.vue';
-import userEdit from './edit.vue';
+import userAdd from './add';
+import userEdit from './edit';
 
 export default {
   name: 'modifyUserView',

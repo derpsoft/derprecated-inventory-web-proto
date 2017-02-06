@@ -35,9 +35,9 @@
 
 
 <script>
-import productList from './list.vue';
-import Search from '../search.vue';
-import Constants from '../../constants';
+import Constants from 'src/constants';
+import Search from 'components/search';
+import productList from './list';
 
 export default {
   data() {

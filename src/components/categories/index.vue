@@ -34,9 +34,9 @@
 </template>
 
 <script>
-import CategoryList from './list.vue';
-import Search from '../search.vue';
-import Constants from '../../constants';
+import Constants from 'src/constants';
+import Search from 'components/search';
+import CategoryList from './list';
 
 export default {
   components: {

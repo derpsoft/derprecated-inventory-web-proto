@@ -1,3 +1,11 @@
+<style lang="less" scoped>
+table.vendor-list {
+    tr {
+        cursor: pointer;
+    }
+}
+</style>
+
 <template>
 <div>
   <div class="col-md-12" v-if="!vendors.length">
@@ -25,14 +33,6 @@
   </div>
 </div>
 </template>
-
-<style lang="less" scoped>
-table.vendor-list {
-    tr {
-        cursor: pointer;
-    }
-}
-</style>
 
 <script>
 export default {

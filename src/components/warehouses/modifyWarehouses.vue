@@ -28,8 +28,8 @@
 </section>
 </template>
 <script>
-import WarehouseAdd from './add.vue';
-import WarehouseEdit from './edit.vue';
+import WarehouseAdd from './add';
+import WarehouseEdit from './edit';
 
 export default {
   name: 'modifyWarehouseView',

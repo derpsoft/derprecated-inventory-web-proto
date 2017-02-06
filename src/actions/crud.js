@@ -8,7 +8,7 @@ import _ from 'lodash';
 import inflection from 'lodash-inflection';
 import log from 'loglevel';
 import Vue from 'vue';
-import Constants from '../constants';
+import Constants from 'src/constants';
 
 _.mixin(inflection);
 

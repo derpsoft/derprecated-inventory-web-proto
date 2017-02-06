@@ -1,7 +1,7 @@
 import log from 'loglevel';
 import _ from 'lodash';
-import Constants from '../constants';
-import SaleApi from '../services/saleApi';
+import Constants from 'src/constants';
+import SaleApi from 'services/saleApi';
 
 function logSale({
   commit

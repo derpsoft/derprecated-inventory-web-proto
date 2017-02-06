@@ -1,4 +1,4 @@
-import App from '../../../../src/components/app.vue';
+import App from 'components/app';
 
 describe('App.vue', () => {
   it('should mount', () => {
