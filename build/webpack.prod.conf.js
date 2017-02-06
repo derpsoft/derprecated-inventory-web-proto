@@ -10,6 +10,10 @@ var env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : config.build.env
 
+env = process.env.NODE_ENV === 'development'
+  ? require('../config/dev.env')
+  : config.build.env
+
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
