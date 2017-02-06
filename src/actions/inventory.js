@@ -1,6 +1,7 @@
 import log from 'loglevel';
 import Constants from 'src/constants';
 import InventoryApi from 'services/inventoryApi';
+import ProductApi from 'services/productApi';
 
 function getQuantityOnHand({
   dispatch,
@@ -29,8 +30,9 @@ function receiveInventory({
 }, {
   transaction,
   redirect,
+  toastError = true,
 }) {
-  new InventoryApi()
+  return new InventoryApi()
     .receiveInventory(transaction)
     .then((q) => {
       commit(Constants.SET_QUANTITY_ON_HAND, {
@@ -42,10 +44,59 @@ function receiveInventory({
       }
     })
     .catch((e) => {
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'error',
-        message: 'Error has occured while attempting to receiving inventory.'
-      });
+      if (toastError) {
+        dispatch(Constants.SHOW_TOASTR, {
+          type: 'error',
+          message: 'Error has occured while attempting to receiving inventory.'
+        });
+      }
+      log.error(e);
+    });
+}
+
+function bulkReceiveInventory({
+  dispatch,
+  commit,
+}, {
+  transactions,
+  locationId,
+  redirect = null,
+  toastError = true,
+}) {
+  const withProducts = transactions.map(x => new ProductApi()
+    .singleBySku(x.sku)
+    .then((product) => {
+      return {
+        ...x,
+        locationId,
+        productId: product.id,
+      };
+    }));
+
+  const receives = Promise.all(withProducts)
+    .then(results =>
+      results.map(transaction => receiveInventory({
+        commit,
+        dispatch
+      }, {
+        transaction,
+        toastError: false,
+      }))
+    );
+
+  return Promise.all(receives)
+    .then(() => {
+      if (redirect) {
+        redirect();
+      }
+    })
+    .catch((e) => {
+      if (toastError) {
+        dispatch(Constants.SHOW_TOASTR, {
+          type: 'error',
+          message: 'Error has occured while attempting to import inventory.'
+        });
+      }
       log.error(e);
     });
 }
@@ -185,6 +236,7 @@ const INITIAL_STATE = {
 const ACTIONS = {
   [Constants.GET_QUANTITY_ON_HAND]: getQuantityOnHand,
   [Constants.RECEIVE_INVENTORY]: receiveInventory,
+  [Constants.RECEIVE_INVENTORY_BULK]: bulkReceiveInventory,
   [Constants.DISPATCH_INVENTORY]: dispatchInventory,
   [Constants.LOCATE_INVENTORY]: locateInventory,
   [Constants.GET_INVENTORY_TRANSACTION_LOGS]: getInventoryLogs,

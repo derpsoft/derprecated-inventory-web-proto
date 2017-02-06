@@ -217,6 +217,13 @@ const routes = [{
       requiresAuth: true,
     }
   }, {
+    path: '/inventory/import',
+    component: ModifyInventory,
+    beforeEnter: guard('canReceiveInventory'),
+    meta: {
+      requiresAuth: true,
+    }
+  }, {
     path: '/inventory/dispatch',
     component: ModifyInventory,
     beforeEnter: guard('canDispatchInventory'),

@@ -27,7 +27,8 @@
     <div class="row">
       <div class="col-md-12">
         <receive-inventory v-if="isReceive"></receive-inventory>
-        <dispatch-inventory v-else></dispatch-inventory>
+        <dispatch-inventory v-if="isDispatch"></dispatch-inventory>
+        <import-inventory v-if="isImport"></import-inventory>
       </div>
     </div>
   </div>
@@ -37,6 +38,7 @@
 <script>
 import ReceiveInventory from './receiveInventory';
 import DispatchInventory from './dispatchInventory';
+import ImportInventory from './import';
 
 export default {
   data() {
@@ -46,10 +48,17 @@ export default {
     isReceive() {
       return this.$route && ~this.$route.path.indexOf('receive');
     },
+    isDispatch() {
+      return this.$route && ~this.$route.path.indexOf('dispatch');
+    },
+    isImport() {
+      return this.$route && ~this.$route.path.indexOf('import');
+    },
   },
   components: {
     ReceiveInventory,
     DispatchInventory,
+    ImportInventory,
   },
 };
 </script>
