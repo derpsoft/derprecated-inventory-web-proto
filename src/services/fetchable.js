@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Constants from 'src/constants';
+import getErrorCodeHandler from 'services/apiErrorCodes';
 
 const _fetch = function(url, options, {
   dispatch
@@ -7,32 +7,13 @@ const _fetch = function(url, options, {
   // console.log(url, options);
   return fetch(url, options)
     .then((res) => {
-      if (res.status === 302) {
-        throw new Error('Redirect');
-      }
-
-      if (res.status === 400) {
-        throw new Error('Validation');
-      }
-
-      if (res.status === 401) {
-        dispatch(Constants.LOGOUT);
-        throw new Error('Unauthorized');
-      }
-
-      if (res.status === 403) {
-        // Eventually handle a missing permissions error.
-        throw new Error('Forbidden');
-      }
-
-      if (res.status >= 500) {
-        throw new Error('Server Error');
-      }
-
+      getErrorCodeHandler({
+        dispatch,
+        code: res.status
+      })();
       return res;
     });
 };
-
 
 export default class Fetchable {
   constructor(baseUrl, store) {

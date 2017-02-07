@@ -3,6 +3,7 @@
   <form id="warehouse-edit-form" @submit.prevent="save">
     <div class="row control-row">
       <div class="col-md-12">
+        <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-delete-warehouses>Delete</button>
         <button class="btn btn-primary pull-right" type="submit">Save Warehouse</button>
         <h4>Warehouse Details</h4>
       </div>
@@ -58,7 +59,21 @@ export default {
             });
           }
         });
-    }
+    },
+    deleteConfirm() {
+      /* eslint-disable no-alert */
+      if (window.confirm('Are you sure you want to delete?')) {
+        this.delete();
+      }
+      /* eslint-enable no-alert */
+    },
+
+    delete() {
+      this.$store.dispatch(Constants.DELETE_WAREHOUSE, {
+        id: this.id,
+        redirect: this.redirect,
+      });
+    },
   },
   mounted() {
     this.$store.watch(

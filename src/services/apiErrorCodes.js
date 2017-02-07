@@ -16,17 +16,17 @@ const knownCodes = {
   Returns a function that handles the given error code.
   If there is no error, returns a NOOP-equivalent function.
  */
-export function getErrorCodeHandler({
+export default function getErrorCodeHandler({
   dispatch,
   code
 }) {
   const handler = knownCodes[code];
   if (handler) {
-    if (typeof handler == 'string') {
+    if (typeof handler === 'string') {
       return () => {
         throw new Error(handler);
       };
-    } else if (typeof handler == 'object') {
+    } else if (typeof handler === 'object') {
       return () => {
         if (handler.actions) {
           handler.actions.map(dispatch);
@@ -36,4 +36,4 @@ export function getErrorCodeHandler({
     }
   }
   return () => {};
-};
+}
