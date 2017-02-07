@@ -3,7 +3,9 @@ import Constants from 'src/constants';
 
 export default class ProductApi extends CrudApi {
   constructor() {
-    super('product');
+    super('product', {
+      SEARCH: () => '/api/v1/products/search'
+    });
 
     if (ProductApi.prototype.singleton) {
       return ProductApi.prototype.singleton;
@@ -11,6 +13,19 @@ export default class ProductApi extends CrudApi {
     ProductApi.prototype.singleton = this;
 
     return this;
+  }
+
+  singleBySku(sku, includeDeleted = false) {
+    return super
+      .post(`${this.routes.SEARCH()}`, {
+        body: this.toJson({
+          sku,
+          includeDeleted,
+          take: 1,
+        })
+      })
+      .then(res => res.json())
+      .then(json => json.results[0]);
   }
 
   imageUploadIntercept(file, xhr) {
