@@ -1,17 +1,17 @@
 <template>
-  <div>
-    <div class="row control-row">
-      <div class="col-md-12">
-        <button class="btn btn-primary pull-right" @click="save">Save Category</button>
-        <h4>Category Details</h4>
-      </div>
-    </div>
-    <div class="panel panel-filled panel-main">
-      <div class="panel-body">
-        <category-form :category="category" @change="setCategory" @is-valid="setValid"></category-form>
-      </div>
+<div>
+  <div class="row control-row">
+    <div class="col-md-12">
+      <button class="btn btn-primary pull-right" @click="save">Save Category</button>
+      <h4>Category Details</h4>
     </div>
   </div>
+  <div class="panel panel-filled panel-main">
+    <div class="panel-body">
+      <category-form ref="categoryForm" :category="category"></category-form>
+    </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -19,11 +19,12 @@ import Constants from 'src/constants';
 import CategoryForm from './form';
 
 export default {
-  components: { CategoryForm },
+  components: {
+    CategoryForm
+  },
   data() {
     return {
       category: {},
-      isValid: false,
     };
   },
   computed: {
@@ -32,7 +33,7 @@ export default {
     }
   },
   watch: {
-    $route: 'load'
+    id: 'load'
   },
   methods: {
     load() {
@@ -40,26 +41,30 @@ export default {
         id: this.id,
       });
     },
+    validate() {
+      return this.$refs.categoryForm.validate();
+    },
     save() {
-      if (this.isValid) {
-        const category = JSON.parse(JSON.stringify(this.category));
-        category.id = this.id;
-        this.$store.dispatch(Constants.SAVE_CATEGORY, {
+      this.validate()
+        .then(({
+          isValid,
           category
+        }) => {
+          if (isValid) {
+            category.id = this.id;
+            this.$store.dispatch(Constants.UPDATE_CATEGORY, {
+              category
+            });
+          }
         });
-      }
-    },
-    setCategory(v) {
-      this.category = Object.assign({}, this.category, v);
-    },
-    setValid(flag) {
-      this.isValid = flag;
     },
   },
   mounted() {
     this.$store.watch(
       () => this.$store.getters.category(this.id),
-      v => this.setCategory(v)
+      (current) => {
+        this.category = Object.assign({}, this.category, current);
+      }
     );
     this.load();
   }
