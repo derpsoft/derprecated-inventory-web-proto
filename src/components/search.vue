@@ -6,12 +6,13 @@
 
 <template>
 <div class="form-group search">
-  <input type="text" v-model="searchTerm" v-focus="focus" class="form-control" placeholder="Search..." autocomplete="no" tabindex="0" >
+  <input type="text" v-model="searchTerm" v-focus="focus" class="form-control" placeholder="Search..."
+      autocomplete="no" tabindex="0">
 </div>
+
 </template>
 
 <script>
-import _ from 'lodash';
 import {
   mixin as focusMixin
 } from 'vue-focus';
@@ -62,9 +63,7 @@ export default {
   },
 
   watch: {
-    searchTerm() {
-      this.callSearch();
-    },
+    searchTerm: 'search',
   },
 
   computed: {
@@ -87,19 +86,22 @@ export default {
   },
 
   beforeDestroy() {
-    if (this.clearActionName) {
-      this.$store.dispatch(this.clearActionName);
-    }
+    this.clear();
   },
 
   methods: {
-
-    callSearch: _.debounce(function() {
-      this.search();
-    }, 200),
+    clear() {
+      if (this.clearActionName) {
+        this.$store.dispatch(this.clearActionName);
+      }
+    },
     search() {
+      if (this.action === this.listActionName) {
+        this.clear();
+      }
       this.$store.dispatch(this.action, this.params);
     },
   },
 };
+
 </script>
