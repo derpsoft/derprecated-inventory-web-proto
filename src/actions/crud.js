@@ -192,6 +192,9 @@ export default function(name, Api) {
             dispatch,
             message: `Created ${name} successfully.`
           });
+          if (args.redirect) {
+            args.redirect();
+          }
         })
         .catch(createErrorHandler({
           dispatch,

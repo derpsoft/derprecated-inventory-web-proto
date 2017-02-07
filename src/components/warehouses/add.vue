@@ -1,6 +1,6 @@
 <template>
 <div>
-  <form id="warehouse-add-form" @submit.prevent="validate">
+  <form id="warehouse-add-form" @submit.prevent="save">
     <div class="row control-row">
       <div class="col-md-12">
         <button class="btn btn-primary pull-right" type="submit">Create Warehouse</button>
@@ -31,25 +31,27 @@ export default {
   },
   methods: {
     redirect() {
-      this.$router.push({ path: '/warehouses' });
+      this.$router.push({
+        path: '/warehouses'
+      });
     },
     validate() {
-      this.$validator.validateAll().then((success) => {
-        if (!success) {
-          return;
-        }
-        this.save();
-      });
+      return this.$validator
+        .validateAll();
     },
     save() {
-      const warehouse = JSON.parse(JSON.stringify(this.warehouse));
-      const redirect = this.redirect;
+      this.validate()
+        .then((isValid) => {
+          if (isValid) {
+            const warehouse = JSON.parse(JSON.stringify(this.warehouse));
+            const redirect = this.redirect;
 
-      warehouse.id = this.id;
-      this.$store.dispatch(Constants.CREATE_WAREHOUSE, {
-        warehouse,
-        redirect,
-      });
+            this.$store.dispatch(Constants.CREATE_WAREHOUSE, {
+              warehouse,
+              redirect,
+            });
+          }
+        });
     }
   }
 };
