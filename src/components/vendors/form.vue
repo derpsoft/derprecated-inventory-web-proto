@@ -1,5 +1,5 @@
 <template>
-<form @submit.prevent="validate">
+<form>
   <div class="form-group" :class="{'has-error': errors.has('name')}">
     <label>Name</label>
     <input type="text" class="form-control" placeholder="Vendor Name" name="name" v-model="value.name" v-validate="'required'">
@@ -71,7 +71,6 @@ export default {
     },
     refresh() {
       this.value = Object.assign({}, this.value, this.vendor);
-      this.validate();
     },
     validate() {
       return this.$validator
