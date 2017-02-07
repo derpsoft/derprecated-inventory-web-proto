@@ -42,37 +42,25 @@
             cursor: pointer;
             text-decoration: none;
         }
-
     }
 }
 </style>
 
 <template>
 <div class="gallery">
-  <template v-for="image in images">
-        <div class="img-container clearfix">
-          <a class="delete" v-if="allowRemove" @click="onDelete(image)" title="Delete Image">&times;</a>
-          <img :src="image.sourceUrl" />
-        </div>
-</template>
-
-    <div class="image-upload" v-show="toggle">
-    <dropzone
-      id="imageGallery"
-      :url="uploadUrl"
-      accepted-file-types="image/*"
-      show-remove-link="false"
-      max-file-size-in-mb="8"
-      auto-process-queue="true"
-      :show-remove-link="false"
-      :max-file-size-in-mb="8"
-      :auto-process-queue="true"
-      @vdropzone-sending="onSending"
-      @vdropzone-success="onSuccess"
-      :use-font-awesome="true"
-      ></dropzone>
-    </div>
+  <div v-for="image in images" class="img-container clearfix">
+    <a class="delete" v-if="allowRemove" @click="onDelete(image)" title="Delete Image">&times;</a>
+    <img :src="image.sourceUrl | toSsl" />
   </div>
+
+  <div class="image-upload" v-show="toggle">
+    <dropzone id="imageGallery" :url="uploadUrl" accepted-file-types="image/*" show-remove-link="false"
+        max-file-size-in-mb="8" auto-process-queue="true" :show-remove-link="false" :max-file-size-in-mb="8"
+        :auto-process-queue="true" @vdropzone-sending="onSending" @vdropzone-success="onSuccess"
+        :use-font-awesome="true"></dropzone>
+  </div>
+</div>
+
 </template>
 
 
@@ -83,9 +71,7 @@ export default {
   name: 'imageGallery',
 
   data() {
-    return {
-
-    };
+    return {};
   },
 
   components: {
@@ -132,7 +118,13 @@ export default {
       type: Boolean,
       required: false,
       default: false,
-    }
+    },
+  },
+
+  filter: {
+    toSsl(src) {
+      return src.replace('http:', 'https:');
+    },
   },
 
   methods: {
@@ -141,4 +133,5 @@ export default {
     },
   },
 };
+
 </script>
