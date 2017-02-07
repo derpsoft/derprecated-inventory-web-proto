@@ -115,7 +115,7 @@ export default {
       const user = JSON.parse(JSON.stringify(this.value));
 
       user.id = this.id;
-      this.$store.dispatch(Constants.SAVE_USER, {
+      this.$store.dispatch(Constants.UPDATE_USER, {
         user
       });
     },
