@@ -33,10 +33,6 @@ export default {
     }
   },
 
-  watch: {
-    $route: 'load'
-  },
-
   methods: {
     save() {
       this.$refs.vendorForm.validate()
@@ -46,7 +42,7 @@ export default {
         }) => {
           if (isValid) {
             vendor.id = this.id;
-            this.$store.dispatch(Constants.SAVE_VENDOR, {
+            this.$store.dispatch(Constants.UPDATE_VENDOR, {
               vendor
             });
           }
