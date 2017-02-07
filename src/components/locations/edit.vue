@@ -9,7 +9,7 @@
   </div>
   <div class="panel panel-filled panel-main">
     <div class="panel-body">
-      <location-form ref="locationForm" :location="location" @change="setLocation"></location-form>
+      <location-form ref="locationForm" :location="location"></location-form>
     </div>
   </div>
 </div>
@@ -20,28 +20,29 @@ import Constants from 'src/constants';
 import LocationForm from './form';
 
 export default {
-  components: { LocationForm },
+  components: {
+    LocationForm
+  },
 
   data() {
-    return {
-      location: {},
-    };
+    return {};
   },
 
   computed: {
     id() {
       return parseInt(this.$route.params.id, 10);
-    }
+    },
+    location() {
+      return this.$store.getters.location(this.id);
+    },
   },
 
   watch: {
-    $route: 'load'
+    $route: 'load',
+    id: 'load',
   },
 
   mounted() {
-    this.$store.watch(() => this.$store.getters.location(this.id), (current) => {
-      this.location = Object.assign({}, current);
-    });
     this.load();
   },
 
@@ -62,19 +63,17 @@ export default {
 
     save() {
       this.validate()
-        .then((isValid) => {
+        .then(({
+          isValid,
+          location
+        }) => {
           if (isValid) {
-            const location = JSON.parse(JSON.stringify(this.location));
             location.id = this.id;
-            this.$store.dispatch(Constants.SAVE_LOCATION, {
+            this.$store.dispatch(Constants.UPDATE_LOCATION, {
               location
             });
           }
         });
-    },
-
-    setLocation(v) {
-      this.location = v;
     },
   },
 };
