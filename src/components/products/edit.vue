@@ -30,7 +30,7 @@ textarea.form-control {
 
         <div class="product-title">
           <div class="pull-right product-controls">
-            <button type="button" class="btn btn-danger" @click="deleteProductConfirm" v-can-delete-products>Delete Product</button>
+            <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-delete-products>Delete Product</button>
             <button type="button" class="btn btn-warning" @click="showImages = !showImages">{{ !showImages ? 'Show Upload' : 'Hide Upload'}}</button>
             <button type="submit" class="btn btn-primary" @click="save" v-can-upsert-products>Save Product</button>
           </div>
@@ -133,7 +133,7 @@ export default {
       this.$router.replace('/products');
     },
 
-    deleteProductConfirm() {
+    deleteConfirm() {
       /* eslint-disable no-alert */
       if (window.confirm('Are you sure you want to delete?')) {
         this.deleteProduct();

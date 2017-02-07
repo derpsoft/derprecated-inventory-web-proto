@@ -2,7 +2,7 @@
 <div>
   <div class="row control-row">
     <div class="col-md-12">
-      <button class="btn btn-danger pull-right" @click="remove">Delete</button>
+      <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-delete-locations>Delete</button>
       <button class="btn btn-primary pull-right" type="submit" @click="save">Save</button>
       <h4>Location Details</h4>
     </div>
@@ -74,6 +74,20 @@ export default {
             });
           }
         });
+    },
+    deleteConfirm() {
+      /* eslint-disable no-alert */
+      if (window.confirm('Are you sure you want to delete?')) {
+        this.delete();
+      }
+      /* eslint-enable no-alert */
+    },
+
+    delete() {
+      this.$store.dispatch(Constants.DELETE_LOCATION, {
+        id: this.id,
+        redirect: this.redirect,
+      });
     },
   },
 };
