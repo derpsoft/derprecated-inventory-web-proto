@@ -60,7 +60,8 @@ export default {
     }
   },
   mounted() {
-    this.$store.watch(() => this.$store.getters.warehouse, (current) => {
+    this.$store.watch(() => this.$store.getters.warehouse(this.id), (current) => {
+      console.log(current);
       this.warehouse = Object.assign({}, current);
     });
     this.load();
