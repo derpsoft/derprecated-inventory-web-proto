@@ -58,7 +58,7 @@ export default {
   },
   mounted() {
     this.$store.watch(
-      () => this.$store.getters.category,
+      () => this.$store.getters.category(this.id),
       v => this.setCategory(v)
     );
     this.load();

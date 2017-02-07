@@ -39,7 +39,7 @@ export default {
   },
 
   mounted() {
-    this.$store.watch(() => this.$store.getters.location, (current) => {
+    this.$store.watch(() => this.$store.getters.location(this.id), (current) => {
       this.location = Object.assign({}, current);
     });
     this.load();
