@@ -4,12 +4,11 @@ import {
   sync
 } from 'vuex-router-sync';
 import VeeValidate from 'vee-validate';
-import Toastr from 'vue-toastr';
-import store from './stores/store';
-import App from './components/app.vue';
-import Directives from './directives';
-import router from './router';
-import Constants from './constants';
+import store from 'stores/store';
+import Constants from 'src/constants';
+import App from 'components/app';
+import Directives from 'directives';
+import router from 'src/router';
 
 const vvConfig = {
   fieldsBagName: '',
@@ -17,7 +16,6 @@ const vvConfig = {
 
 Vue.use(VueRouter);
 Vue.use(VeeValidate, vvConfig);
-Vue.use(Toastr);
 
 sync(store, router);
 

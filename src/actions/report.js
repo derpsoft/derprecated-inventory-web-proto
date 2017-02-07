@@ -1,7 +1,18 @@
 import log from 'loglevel';
 import moment from 'moment';
-import Constants from '../constants';
-import ReportApi from '../services/reportApi';
+import Constants from 'src/constants';
+import ReportApi from 'services/reportApi';
+
+function dashboard({
+  commit
+}, {
+  timespan
+}) {
+  new ReportApi()
+    .dashboard(timespan)
+    .then(report => commit(Constants.SET_DASHBOARD_REPORT, report))
+    .catch(e => log.error(e));
+}
 
 function salesByProduct({
   commit
@@ -79,6 +90,7 @@ const ACTIONS = {
   [Constants.GET_SALES_BY_PRODUCT]: salesByProduct,
   [Constants.GET_SALES_BY_TOTAL]: salesByTotal,
   [Constants.GET_SALES_BY_VENDOR]: salesByVendor,
+  [Constants.GET_DASHBOARD]: dashboard,
 };
 
 const MUTATIONS = {
@@ -109,15 +121,10 @@ const MUTATIONS = {
 };
 
 const GETTERS = {
-  salesByProduct(state) {
-    return state.reports.salesByProduct;
-  },
-  salesByTotal(state) {
-    return state.reports.salesByTotal;
-  },
-  salesByVendor(state) {
-    return state.reports.salesByVendor;
-  }
+  salesByProduct: state => state.reports.salesByProduct,
+  salesByTotal: state => state.reports.salesByTotal,
+  salesByVendor: state => state.reports.salesByVendor,
+  dashboard: state => state.reports.dashboard,
 };
 
 const ReportActions = {

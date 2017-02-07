@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Constants from '../constants';
+import Constants from 'src/constants';
 
 const _fetch = function(url, options, {
   dispatch
@@ -12,7 +12,7 @@ const _fetch = function(url, options, {
       }
 
       if (res.status === 400) {
-        throw new Error(res);
+        throw new Error('Validation');
       }
 
       if (res.status === 401) {
@@ -127,6 +127,14 @@ export default class Fetchable {
       throw new Error('url may not be empty');
     }
     options.method = 'DELETE';
+    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
+  }
+
+  search(url, options = {}) {
+    if (!url) {
+      throw new Error('url may not be empty');
+    }
+    options.method = 'SEARCH';
     return _fetch(this.baseUrl + url, this.prepare(options), this.store);
   }
 }

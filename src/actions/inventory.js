@@ -1,6 +1,7 @@
 import log from 'loglevel';
-import Constants from '../constants';
-import InventoryApi from '../services/inventoryApi';
+import Constants from 'src/constants';
+import InventoryApi from 'services/inventoryApi';
+import ProductApi from 'services/productApi';
 
 function getQuantityOnHand({
   dispatch,
@@ -27,32 +28,75 @@ function receiveInventory({
   dispatch,
   commit
 }, {
-  productId,
-  locationId,
-  quantity,
+  transaction,
   redirect,
+  toastError = true,
 }) {
-  new InventoryApi()
-    .receiveInventory({
-      productId,
-      locationId,
-      quantity,
-    })
+  return new InventoryApi()
+    .receiveInventory(transaction)
     .then((q) => {
       commit(Constants.SET_QUANTITY_ON_HAND, {
+        ...transaction,
         quantity: q.quantity,
-        productId,
-        locationId,
       });
       if (typeof redirect === 'function') {
-        redirect.apply();
+        redirect();
       }
     })
     .catch((e) => {
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'error',
-        message: 'Error has occured while attempting to receiving inventory.'
-      });
+      if (toastError) {
+        dispatch(Constants.SHOW_TOASTR, {
+          type: 'error',
+          message: 'Error has occured while attempting to receiving inventory.'
+        });
+      }
+      log.error(e);
+    });
+}
+
+function bulkReceiveInventory({
+  dispatch,
+  commit,
+}, {
+  transactions,
+  locationId,
+  redirect = null,
+  toastError = true,
+}) {
+  const withProducts = transactions.map(x => new ProductApi()
+    .singleBySku(x.sku)
+    .then((product) => {
+      return {
+        ...x,
+        locationId,
+        productId: product.id,
+      };
+    }));
+
+  const receives = Promise.all(withProducts)
+    .then(results =>
+      results.map(transaction => receiveInventory({
+        commit,
+        dispatch
+      }, {
+        transaction,
+        toastError: false,
+      }))
+    );
+
+  return Promise.all(receives)
+    .then(() => {
+      if (redirect) {
+        redirect();
+      }
+    })
+    .catch((e) => {
+      if (toastError) {
+        dispatch(Constants.SHOW_TOASTR, {
+          type: 'error',
+          message: 'Error has occured while attempting to import inventory.'
+        });
+      }
       log.error(e);
     });
 }
@@ -61,47 +105,30 @@ function dispatchInventory({
   dispatch,
   commit
 }, {
-  productId,
-  locationId,
-  vendorId,
-  quantity,
-  prices,
+  transaction,
   redirect,
 }) {
   new InventoryApi()
     .dispatchInventory({
-      productId,
-      locationId,
-      quantity: -Math.abs(quantity),
+      ...transaction,
+      quantity: -Math.abs(transaction.quantity),
     })
     .then((q) => {
-      for (let i = 0; i < quantity; i += 1) {
-        dispatch(Constants.LOG_SALE, {
-          quantity: 1,
-          productId,
-          locationId,
-          vendorId,
-          inventoryTransactionId: q.id,
-          total: prices[i]
-        });
-      }
       commit(Constants.SET_QUANTITY_ON_HAND, {
+        ...transaction,
         quantity: q.quantity,
-        productId,
-        locationId,
       });
 
       return q;
     })
     .then((q) => {
       commit(Constants.SET_QUANTITY_ON_HAND, {
+        ...transaction,
         quantity: q.quantity,
-        productId,
-        locationId,
       });
 
       if (typeof redirect === 'function') {
-        redirect.apply();
+        redirect();
       }
     })
     .catch((e) => {
@@ -188,22 +215,34 @@ function countInventoryLogs({
     });
 }
 
+function clearSearch({
+  commit
+}) {
+  commit(Constants.CLEAR_INVENTORY_SEARCH);
+}
+
 const INITIAL_STATE = {
   inventory: {
     quantity: {},
     logs: [],
     logCount: 0,
+    search: {
+      results: [],
+      query: {},
+    },
   }
 };
 
 const ACTIONS = {
   [Constants.GET_QUANTITY_ON_HAND]: getQuantityOnHand,
   [Constants.RECEIVE_INVENTORY]: receiveInventory,
+  [Constants.RECEIVE_INVENTORY_BULK]: bulkReceiveInventory,
   [Constants.DISPATCH_INVENTORY]: dispatchInventory,
   [Constants.LOCATE_INVENTORY]: locateInventory,
   [Constants.GET_INVENTORY_TRANSACTION_LOGS]: getInventoryLogs,
   [Constants.SEARCH_INVENTORY_TRANSACTION_LOGS]: searchInventoryLogs,
   [Constants.COUNT_INVENTORY_LOGS]: countInventoryLogs,
+  [Constants.CLEAR_INVENTORY_SEARCH]: clearSearch,
 };
 
 const MUTATIONS = {
@@ -220,7 +259,12 @@ const MUTATIONS = {
 
   [Constants.SET_INVENTORY_TRANSACTION_LOG_COUNT]: (state, count) => {
     state.inventory.logCount = count;
-  }
+  },
+
+  [Constants.CLEAR_INVENTORY_SEARCH]: (state) => {
+    state.inventory.search.results = {};
+    state.inventory.search.query = {};
+  },
 };
 
 const GETTERS = {

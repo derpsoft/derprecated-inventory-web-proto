@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import store from '../stores/store';
+import store from 'stores/store';
 
 const guards = [
   'canReadUsers',
@@ -10,6 +10,7 @@ const guards = [
 
   'canReadProducts',
   'canUpsertProducts',
+  'canDeleteProducts',
 
   'canReadWarehouses',
   'canUpsertWarehouses',
@@ -22,6 +23,9 @@ const guards = [
 
   'canReceiveInventory',
   'canDispatchInventory',
+
+  'canReadSales',
+  'canUpsertSales',
 ];
 
 const toggleHide = (el, shown = true) => {
@@ -41,7 +45,10 @@ export default (Vue) => {
   Vue.directive('canAny', {
     bind: (el, binding) => {
       /* eslint-disable no-shadow */
-      const { term, guards } = binding.value;
+      const {
+        term,
+        guards
+      } = binding.value;
       /* eslint-enable no-shadow */
 
       const op = term === 'or' ? _.some : _.every;

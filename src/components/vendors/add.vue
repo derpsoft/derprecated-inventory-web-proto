@@ -1,53 +1,53 @@
 <template>
-  <div>
-    <div class="row control-row">
-      <div class="col-md-12">
-        <button class="btn btn-primary pull-right" @click="save">Create Vendor</button>
-        <h4>Vendor Details</h4>
-      </div>
-    </div>
-    <div class="panel panel-filled panel-main">
-      <div class="panel-body">
-        <vendor-form @change="setVendor" @is-valid="setValid"></vendor-form>
-      </div>
+<div>
+  <div class="row control-row">
+    <div class="col-md-12">
+      <button class="btn btn-primary pull-right" @click="save">Create Vendor</button>
+      <h4>Vendor Details</h4>
     </div>
   </div>
+  <div class="panel panel-filled panel-main">
+    <div class="panel-body">
+      <vendor-form ref="vendorForm"></vendor-form>
+    </div>
+  </div>
+</div>
 </template>
 
 <script>
-import Constants from '../../constants';
-import VendorForm from './form.vue';
+import Constants from 'src/constants';
+import VendorForm from './form';
 
 export default {
-  components: { VendorForm },
+  components: {
+    VendorForm
+  },
   data() {
-    return {
-      vendor: {},
-      isValid: false,
-    };
+    return {};
   },
   methods: {
     redirect() {
-      this.$router.push({ path: '/vendors' });
+      this.$router.push({
+        path: '/vendors'
+      });
     },
     save() {
-      if (this.isValid) {
-        const vendor = JSON.parse(JSON.stringify(this.vendor));
-        const redirect = this.redirect;
+      this.$refs.vendorForm.validate()
+        .then(({
+          isValid,
+          vendor
+        }) => {
+          if (isValid) {
+            const redirect = this.redirect;
 
-        vendor.id = this.id;
-        this.$store.dispatch(Constants.CREATE_VENDOR, {
-          vendor,
-          redirect,
+            vendor.id = this.id;
+            this.$store.dispatch(Constants.CREATE_VENDOR, {
+              vendor,
+              redirect,
+            });
+          }
         });
-      }
-    },
-    setVendor(v) {
-      this.vendor = Object.assign({}, this.vendor, v);
-    },
-    setValid(flag) {
-      this.isValid = flag;
-    },
+    }
   }
 };
 </script>

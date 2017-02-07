@@ -18,9 +18,15 @@
         <hr>
       </div>
     </div>
+
     <div class="row">
       <div class="col-md-12">
-        <category-list></category-list>
+        <div class="panel panel-filled panel-main">
+          <div class="panel-body">
+            <search :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
+            <category-list></category-list>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -28,14 +34,22 @@
 </template>
 
 <script>
-import CategoryList from './list.vue';
+import Constants from 'src/constants';
+import Search from 'components/search';
+import CategoryList from './list';
 
 export default {
-  data() {
-    return {};
-  },
   components: {
     CategoryList,
+    Search,
+  },
+
+  data() {
+    return {
+      searchAction: Constants.SEARCH_CATEGORIES,
+      listAction: Constants.GET_CATEGORIES,
+      clearAction: Constants.CLEAR_CATEGORY_SEARCH,
+    };
   },
 };
 </script>

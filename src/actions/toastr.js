@@ -1,6 +1,6 @@
 import log from 'loglevel';
 import toastr from 'toastr';
-import Constants from '../constants';
+import Constants from 'src/constants';
 
 const options = {
   closeButton: true,

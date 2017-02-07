@@ -1,26 +1,23 @@
-import log from 'loglevel';
-import Constants from '../constants';
-import SaleApi from '../services/saleApi';
+import SaleApi from 'services/saleApi';
+import crud from 'actions/crud';
 
-function logSale({
-  commit
-}, sale) {
-  new SaleApi()
-    .log(sale)
-    .catch(e => log.error(e));
-}
+const BASE = crud('sale', SaleApi);
 
 const INITIAL_STATE = {
-  sales: {}
+  sales: BASE.INITIAL_STATE,
 };
 
 const ACTIONS = {
-  [Constants.LOG_SALE]: logSale,
+  ...BASE.ACTIONS,
 };
 
-const MUTATIONS = {};
+const MUTATIONS = {
+  ...BASE.MUTATORS,
+};
 
-const GETTERS = {};
+const GETTERS = {
+  ...BASE.GETTERS,
+};
 
 const SaleActions = {
   ACTIONS,

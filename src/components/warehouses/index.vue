@@ -20,7 +20,12 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <warehouse-list></warehouse-list>
+        <div class="panel panel-filled panel-main">
+          <div class="panel-body">
+            <search :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
+            <warehouse-list></warehouse-list>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -28,14 +33,22 @@
 </template>
 
 <script>
-import WarehouseList from '../../components/warehouses/list.vue';
+import Constants from 'src/constants';
+import Search from 'components/search';
+import WarehouseList from './list';
 
 export default {
-  data() {
-    return {};
-  },
   components: {
     WarehouseList,
+    Search,
+  },
+
+  data() {
+    return {
+      searchAction: Constants.SEARCH_WAREHOUSES,
+      listAction: Constants.GET_WAREHOUSES,
+      clearAction: Constants.CLEAR_WAREHOUSE_SEARCH,
+    };
   },
 };
 </script>

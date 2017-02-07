@@ -9,7 +9,7 @@
           </div>
           <div class="header-title">
             <h3>Users</h3>
-            <small>Find all contacts</small>
+            <small>Find all users</small>
           </div>
         </div>
         <hr>
@@ -17,7 +17,12 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <user-list></user-list>
+        <div class="panel panel-filled panel-main">
+          <div class="panel-body">
+            <search :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
+            <user-list></user-list>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -25,15 +30,22 @@
 </template>
 
 <script>
-import UserList from './list.vue';
+import Constants from 'src/constants';
+import Search from 'components/search';
+import UserList from './list';
 
 export default {
-  name: 'usersView',
-  data() {
-    return {};
-  },
   components: {
     UserList,
+    Search,
+  },
+
+  data() {
+    return {
+      searchAction: Constants.SEARCH_USERS,
+      listAction: Constants.GET_USERS,
+      clearAction: Constants.CLEAR_USER_SEARCH,
+    };
   },
 };
 </script>

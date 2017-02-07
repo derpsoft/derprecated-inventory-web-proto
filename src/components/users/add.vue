@@ -11,27 +11,27 @@
       <div class="panel-body">
         <div class="form-group" :class="{'has-error': errors.has('email')}">
           <label>Email</label>
-          <input type="email" name="email" class="form-control" placeholder="Email" v-model="user.email" v-validate.initial="user.email" data-vv-rules="required|email">
+          <input type="email" name="email" class="form-control" placeholder="Email" v-model="user.email" v-validate="'required|email'">
           <span v-show="errors.has('email')" class="help-block">{{ errors.first('email') }}</span>
         </div>
         <div class="form-group" :class="{'has-error': errors.has('username')}">
           <label>Username</label>
-          <input type="text" class="form-control" placeholder="Username" name="username" v-model="user.userName" v-validate.initial="user.userName" data-vv-rules="required">
+          <input type="text" class="form-control" placeholder="Username" name="username" v-model="user.userName" v-validate="'required'">
           <span v-show="errors.has('username')" class="help-block">{{ errors.first('username') }}</span>
         </div>
         <div class="form-group" :class="{'has-error': errors.has('firstName')}">
           <label>First Name</label>
-          <input type="text" class="form-control" placeholder="First Name" name="firstName" v-model="user.firstName" v-validate.initial="user.firstName" data-vv-rules="required">
+          <input type="text" class="form-control" placeholder="First Name" name="firstName" v-model="user.firstName" v-validate="'required'">
           <span v-show="errors.has('firstName')" class="help-block">{{ errors.first('firstName') }}</span>
         </div>
         <div class="form-group" :class="{'has-error': errors.has('lastName')}">
           <label>Last Name</label>
-          <input type="text" class="form-control" placeholder="Last Name" v-model="user.lastName" name="lastName" v-validate.initial="user.lastName" data-vv-rules="required">
+          <input type="text" class="form-control" placeholder="Last Name" v-model="user.lastName" name="lastName" v-validate="'required'">
           <span v-show="errors.has('lastName')" class="help-block">{{ errors.first('lastName') }}</span>
         </div>
         <div class="form-group" :class="{'has-error': errors.has('phone')}">
           <label>Phone Number</label>
-          <input type="tel" class="form-control" placeholder="Phone Number" v-model="user.phoneNumber" name="phone" v-validate.initial="user.phoneNumber" data-vv-rules="required">
+          <input type="tel" class="form-control" placeholder="Phone Number" v-model="user.phoneNumber" name="phone" v-validate="'required'">
           <span v-show="errors.has('phone')" class="help-block">{{ errors.first('phone') }}</span>
         </div>
         <div>
@@ -52,7 +52,7 @@
 
 <script>
 import _ from 'lodash';
-import Constants from '../../constants';
+import Constants from 'src/constants';
 
 export default {
   data() {

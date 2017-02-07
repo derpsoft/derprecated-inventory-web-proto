@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import log from 'loglevel';
-import Constants from '../constants';
-import AuthApi from '../services/authApi';
+import Constants from 'src/constants';
+import AuthApi from 'services/authApi';
 
 const Permissions = Constants.permissions;
 
@@ -177,12 +177,12 @@ const INITIAL_STATE = {
   resetPassword: {
     isSuccess: false
   },
-  profile: {
+  profile: _.merge({
     userName: '',
     displayName: '',
     email: '',
     permissions: []
-  },
+  }, read('profile')),
   session: _.merge({
     isAuthenticated: false,
     sessionId: null,
@@ -206,6 +206,9 @@ const MUTATIONS = {
   },
   [Constants.SET_PROFILE]: (state, profile) => {
     state.profile = profile;
+    save('profile', {
+      permissions: profile.permissions
+    });
   },
   [Constants.CLEAR_SESSION]: (state) => {
     const session = {
@@ -216,6 +219,7 @@ const MUTATIONS = {
   },
   [Constants.CLEAR_PROFILE]: (state) => {
     state.profile = {};
+    save('profile', {});
   },
   [Constants.LOGIN_FAILED]: (state, value) => {
     state.login.error = value;
@@ -295,6 +299,15 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
+  canDeleteProducts: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_PRODUCTS.key,
+      Permissions.DELETE_PRODUCTS.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
   canReadWarehouses: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING.key,
@@ -364,6 +377,20 @@ const GETTERS = {
       Permissions.MANAGE_INVENTORY.key,
       Permissions.DISPATCH_INVENTORY.key,
       Permissions.RELEASE_INVENTORY.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
+  canReadSales: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
+  canUpsertSales: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },

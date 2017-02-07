@@ -18,9 +18,15 @@
         <hr>
       </div>
     </div>
+
     <div class="row">
       <div class="col-md-12">
-        <location-list></location-list>
+        <div class="panel panel-filled panel-main">
+          <div class="panel-body">
+            <search :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
+            <location-list></location-list>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -28,14 +34,22 @@
 </template>
 
 <script>
-import LocationList from '../../components/locations/list.vue';
+import Search from 'components/search';
+import Constants from 'src/constants';
+import LocationList from './list';
 
 export default {
-  data() {
-    return {};
-  },
   components: {
     LocationList,
+    Search,
+  },
+
+  data() {
+    return {
+      searchAction: Constants.SEARCH_LOCATIONS,
+      listAction: Constants.GET_LOCATIONS,
+      clearAction: Constants.CLEAR_LOCATION_SEARCH,
+    };
   },
 };
 </script>

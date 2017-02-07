@@ -1,3 +1,15 @@
+<style lang="less" scoped>
+.profil-link {
+    .btn {
+        &:active,
+        &:focus {
+            color: #000;
+        }
+        outline: none;
+    }
+}
+</style>
+
 <template>
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
@@ -43,20 +55,6 @@
                 <span class="profile-address">{{ userSession.userName }}</span>
                 <img src="/static/img/avatar.png" class="img-circle" alt="">
               </button>
-          <!-- <dropdown>
-            <ul class="dropdown-menu" slot="dropdown-menu">
-              <li>
-                <router-link href="#dropdown" :to="{ path: 'profile' }" title="Profile">
-                    Profile
-                  </router-link>
-                <li>
-                  <li>
-                    <router-link href="#dropdown" :to="{ path: 'logout' }" title="Logout">
-                    Logout
-                  </router-link>
-                    <li>
-            </ul>
-          </dropdown> -->
         </li>
       </ul>
     </div>
@@ -66,12 +64,8 @@
 
 <script>
 import {
-  dropdown
-} from 'vue-strap';
-import {
   version
 } from '../../../package.json';
-import store from '../../stores/store';
 
 export default {
   name: 'header',
@@ -81,24 +75,11 @@ export default {
     };
   },
   components: {
-    dropdown,
   },
   computed: {
-    userSession: () => {
-      return store.state.session;
+    userSession() {
+      return this.$store.state.session;
     }
   },
 };
 </script>
-
-<style lang="less" scoped>
-.profil-link {
-    .btn {
-        &:active,
-        &:focus {
-            color: #000;
-        }
-        outline: none;
-    }
-}
-</style>

@@ -5,6 +5,7 @@
       <div class="col-lg-12">
         <div class="view-header">
           <div class="pull-right">
+            <router-link class="btn btn-w-md btn-accent" :to="{path: '/products/import'}">Bulk Import Products</router-link>
             <router-link class="btn btn-w-md btn-accent add-control" :to="{path: '/products/add'}">Add New Product</router-link>
           </div>
           <div class="header-icon">
@@ -20,12 +21,12 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <product-search></product-search>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <product-list></product-list>
+        <div class="panel panel-filled panel-main">
+          <div class="panel-body">
+            <search :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
+            <product-list></product-list>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -34,17 +35,24 @@
 
 
 <script>
-import productList from './list.vue';
-import productSearch from './search.vue';
+import Constants from 'src/constants';
+import Search from 'components/search';
+import productList from './list';
 
 export default {
-  name: 'productsView',
+  data() {
+    return {
+      searchAction: Constants.SEARCH_PRODUCTS,
+      listAction: Constants.GET_PRODUCTS,
+      clearAction: Constants.CLEAR_PRODUCT_SEARCH,
+    };
+  },
+
   components: {
     productList,
-    productSearch,
+    Search,
   },
 };
-
 </script>
 
 <style scoped>

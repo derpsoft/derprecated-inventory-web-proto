@@ -46,10 +46,10 @@
 </template>
 
 <script>
-import Constants from '../../constants';
-import SalesByTotal from './salesByTotal.vue';
-import SalesByProduct from './salesByProduct.vue';
-import SalesByVendor from './salesByVendor.vue';
+import Constants from 'src/constants';
+import SalesByTotal from './salesByTotal';
+import SalesByProduct from './salesByProduct';
+import SalesByVendor from './salesByVendor';
 
 export default {
   name: 'reportView',

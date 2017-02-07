@@ -1,6 +1,6 @@
 <template>
 <div style="position:relative" :class="{'open':openSuggestion}">
-  <input class="form-control" type="text" v-model="query" @keydown.enter='enter' @keydown.down='down' @keydown.up='up' @input='change' />
+  <input class="form-control" type="text" v-model="query" v-focus="focused" @keydown.enter='enter' @keydown.down='down' @keydown.up='up' @input='change' @blur="focused = false" />
   <ul class="dropdown-menu" style="width:100%">
     <li v-for="(suggestion, index) in displays" :class="{'active': isActive(index)}" @click="suggestionClick(index)">
       <a>{{ suggestion }}</a>
@@ -11,14 +11,19 @@
 
 <script>
 import _ from 'lodash';
+import {
+  mixin as focusMixin
+} from 'vue-focus';
 
 export default {
+  mixins: [focusMixin],
 
   data() {
     return {
       open: false,
       current: 0,
       query: '',
+      focused: false,
     };
   },
 
@@ -28,35 +33,38 @@ export default {
       required: false,
       default: JSON.stringify,
     },
-
     valueSelector: {
       type: Function,
       required: false,
       default: v => v.id,
     },
-
     displaySelector: {
       type: Function,
       required: false,
       default: JSON.stringify,
     },
-
     suggestions: {
       type: Array,
       required: true
     },
-
     selected: {
       type: Object,
       required: false,
     },
+    focus: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
+
+  watch: {
+    selected: 'refresh'
   },
 
   mounted() {
-    if (this.selected) {
-      this.query = this.keySelector(this.selected);
-      this.change();
-    }
+    this.focused = this.focus;
+    this.refresh();
   },
 
   computed: {
@@ -82,6 +90,13 @@ export default {
   },
 
   methods: {
+    refresh() {
+      if (this.selected) {
+        this.query = this.keySelector(this.selected);
+        this.enter();
+      }
+    },
+
     up() {
       if (this.current > 0) {
         this.current -= 1;

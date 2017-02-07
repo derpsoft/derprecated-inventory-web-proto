@@ -1,10 +1,11 @@
-import Fetchable from './fetchable';
-import store from '../stores/store';
-import Constants from '../constants';
+import CrudApi from 'services/crudApi';
+import Constants from 'src/constants';
 
-class ProductApi extends Fetchable {
+export default class ProductApi extends CrudApi {
   constructor() {
-    super(Constants.API_ROOT, store);
+    super('product', {
+      SEARCH: () => '/api/v1/products/search'
+    });
 
     if (ProductApi.prototype.singleton) {
       return ProductApi.prototype.singleton;
@@ -14,61 +15,40 @@ class ProductApi extends Fetchable {
     return this;
   }
 
+  singleBySku(sku, includeDeleted = false) {
+    return super
+      .post(`${this.routes.SEARCH()}`, {
+        body: this.toJson({
+          sku,
+          includeDeleted,
+          take: 1,
+        })
+      })
+      .then(res => res.json())
+      .then(json => json.results[0]);
+  }
+
   imageUploadIntercept(file, xhr) {
     super.prepareXhr(xhr);
   }
 
   getImageUploadUrl(id) {
-    return `/api/v1/products/${id}/images`;
+    if (id < 1) {
+      throw new Error('id must be >= 1');
+    }
+    return `${Constants.API_ROOT}/api/v1/products/${id}/images`;
   }
 
-  list(skip = 0, take = 25) {
-    const body = new URLSearchParams();
-    body.set('skip', skip);
-    body.set('take', take);
-
-    return super.get(`/api/v1/products?${body}`)
+  deleteImage(productId, id) {
+    if (productId < 1) {
+      throw new Error('productId must be >= 1');
+    }
+    if (id < 1) {
+      throw new Error('id must be >= 1');
+    }
+    return super
+      .delete(`/api/v1/products/${productId}/images/${id}`)
       .then(res => res.json())
-      .then((json) => {
-        return json.result;
-      });
-  }
-
-  retrieve(id) {
-    return super.get(`/api/v1/products/${id}`)
-      .then(res => res.json())
-      .then((json) => {
-        return json.result;
-      });
-  }
-
-  search(query) {
-    return super.post('/api/v1/products/search', {
-      body: this.toForm({
-        query
-      })
-    })
-    .then(res => res.json());
-  }
-
-  typeahead(query) {
-    const body = new URLSearchParams();
-    body.set('query', query);
-
-    return super.get(`/api/v1/products/typeahead?${body}`)
-    .then(res => res.json())
-    .then(json => json.result);
-  }
-
-  save(product) {
-    const headers = new Headers();
-    headers.set('content-type', 'application/json');
-    return super.post('/api/v1/products', {
-      body: this.toJson(product),
-      headers
-    })
-    .then(res => res.json())
-    .then(json => json.result);
+      .then(json => json.result);
   }
 }
-export default ProductApi;

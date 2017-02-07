@@ -244,8 +244,7 @@
 </template>
 
 <script>
-import Constants from '../../constants';
-import store from '../../stores/store';
+import Constants from 'src/constants';
 
 export default {
   name: 'profileView',
@@ -253,8 +252,8 @@ export default {
     this.$store.dispatch(Constants.GET_PROFILE);
   },
   computed: {
-    user: () => {
-      return store.state.session;
+    user() {
+      return this.$store.state.session;
     },
   }
 };

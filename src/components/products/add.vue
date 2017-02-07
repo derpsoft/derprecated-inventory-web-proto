@@ -6,63 +6,48 @@
       <h4>Product Details</h4>
     </div>
   </div>
-
-  <product-form :product="product" @change="setProduct" @is-valid="setValid"></product-form>
+  <div class="panel panel-filled panel-main">
+    <div class="panel-body">
+      <product-form ref="productForm"></product-form>
+    </div>
+  </div>
 </div>
 </template>
 
-<style lang="less" scoped>
-</style>
-
 <script>
-import {
-  tabset,
-  tab
-} from 'vue-strap';
-import Constants from '../../constants';
-import ProductForm from './form.vue';
+import Constants from 'src/constants';
+import ProductForm from './form';
 
 export default {
   name: 'productsAdd',
   components: {
-    tabs: tabset,
-    tab,
     ProductForm,
   },
   data() {
-    return {
-      product: {},
-      isValid: false,
-    };
+    return {};
   },
   methods: {
-    validate() {
-      this.$validator.validateAll().then((success) => {
-        if (!success) {
-          return;
-        }
-        this.save();
+    redirect() {
+      this.$router.push({
+        path: '/products'
       });
     },
-    redirect() {
-      this.$router.push({ path: '/products' });
-    },
     save() {
-      if (this.isValid) {
-        const product = JSON.parse(JSON.stringify(this.product));
-        const redirect = this.redirect;
+      this.$refs.productForm
+        .validate()
+        .then(({
+          isValid,
+          product
+        }) => {
+          if (isValid) {
+            const redirect = this.redirect;
 
-        this.$store.dispatch(Constants.CREATE_PRODUCT, {
-          product,
-          redirect
+            this.$store.dispatch(Constants.CREATE_PRODUCT, {
+              product,
+              redirect
+            });
+          }
         });
-      }
-    },
-    setProduct(v) {
-      this.product = Object.assign({}, this.product, v);
-    },
-    setValid(flag) {
-      this.isValid = flag;
     },
   },
 };

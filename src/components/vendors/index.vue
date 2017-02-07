@@ -20,7 +20,12 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <vendor-list></vendor-list>
+        <div class="panel panel-filled panel-main">
+          <div class="panel-body">
+            <search :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
+            <vendor-list></vendor-list>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -28,14 +33,22 @@
 </template>
 
 <script>
-import VendorList from './list.vue';
+import Constants from 'src/constants';
+import Search from 'components/search';
+import VendorList from './list';
 
 export default {
-  data() {
-    return {};
-  },
   components: {
     VendorList,
+    Search,
+  },
+
+  data() {
+    return {
+      searchAction: Constants.SEARCH_VENDORS,
+      listAction: Constants.GET_VENDORS,
+      clearAction: Constants.CLEAR_VENDOR_SEARCH,
+    };
   },
 };
 </script>

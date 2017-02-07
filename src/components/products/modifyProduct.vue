@@ -1,3 +1,9 @@
+<style scoped>
+.btn-return {
+  margin-right: -15px;
+}
+</style>
+
 <template>
 <section class="content">
   <div class="container-fluid">
@@ -11,7 +17,9 @@
             <i class="pe page-header-icon pe-7s-plus"></i>
           </div>
           <div class="header-title">
-            <h3>{{ isAdd ? 'Add' : 'Edit'}} Product</h3>
+            <h3 v-if="isAdd">Add Product</h3>
+            <h3 v-if="isEdit">Edit Product</h3>
+            <h3 v-if="isImport">Import Products</h3>
             <small>Make modifications</small>
           </div>
         </div>
@@ -21,32 +29,35 @@
     <div class="row">
       <div class="col-md-12">
         <product-add v-if="isAdd"></product-add>
-        <product-edit v-else></product-edit>
+        <product-edit v-if="isEdit"></product-edit>
+        <product-import v-if="isImport"></product-import>
       </div>
     </div>
   </div>
 </section>
 </template>
 <script>
-import ProductAdd from './add.vue';
-import ProductEdit from './edit.vue';
+import ProductAdd from './add';
+import ProductEdit from './edit';
+import ProductImport from './import';
 
 export default {
   name: 'modifyProductView',
+  components: {
+    ProductAdd,
+    ProductEdit,
+    ProductImport,
+  },
   computed: {
     isAdd() {
       return this.$route && ~this.$route.path.indexOf('add');
     },
-  },
-  components: {
-    ProductAdd,
-    ProductEdit,
+    isEdit() {
+      return this.$route && ~this.$route.path.indexOf('edit');
+    },
+    isImport() {
+      return this.$route && ~this.$route.path.indexOf('import');
+    },
   },
 };
 </script>
-
-<style scoped>
-.btn-return {
-  margin-right: -15px;
-}
-</style>

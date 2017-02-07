@@ -1,41 +1,44 @@
 /* eslint-disable no-unused-vars */
 import VueRouter from 'vue-router';
-import Main from './components/main.vue';
-import Dashboard from './components/dashboard/index.vue';
+import Main from 'components/main';
+import Dashboard from 'components/dashboard/index';
+import NotFound from 'components/errors/notFound';
 
-import ForgotPassword from './components/password/forgot.vue';
-import ResetPassword from './components/password/reset.vue';
+import ForgotPassword from 'components/password/forgot';
+import ResetPassword from 'components/password/reset';
 
-import Profile from './components/profile/index.vue';
-import Register from './components/registration/index.vue';
-import Login from './components/login/index.vue';
-import Logout from './components/logout/index.vue';
+import Profile from 'components/profile/index';
+import Register from 'components/registration/index';
+import Login from 'components/login/index';
+import Logout from 'components/logout/index';
 
-import Reports from './components/reports/index.vue';
-import Inventory from './components/inventory/index.vue';
-import ReceiveInventory from './components/inventory/receiveInventory.vue';
-import DispatchInventory from './components/inventory/dispatchInventory.vue';
+import Reports from 'components/reports/index';
+import Inventory from 'components/inventory/index';
+import ModifyInventory from 'components/inventory/modify';
 
-import Products from './components/products/index.vue';
-import ModifyProducts from './components/products/modifyProduct.vue';
+import Products from 'components/products/index';
+import ModifyProducts from 'components/products/modifyProduct';
 
-import Warehouses from './components/warehouses/index.vue';
-import ModifyWarehouses from './components/warehouses/modifyWarehouses.vue';
+import Warehouses from 'components/warehouses/index';
+import ModifyWarehouses from 'components/warehouses/modifyWarehouses';
 
-import Locations from './components/locations/index.vue';
-import SaveLocation from './components/locations/save.vue';
+import Locations from 'components/locations/index';
+import ModifyLocation from 'components/locations/modify';
 
-import Users from './components/users/index.vue';
-import ModifyUsers from './components/users/modifyUser.vue';
+import Users from 'components/users/index';
+import ModifyUsers from 'components/users/modifyUser';
 
-import Categories from './components/categories/index.vue';
-import ModifyCategories from './components/categories/modify.vue';
+import Categories from 'components/categories/index';
+import ModifyCategories from 'components/categories/modify';
 
-import Vendors from './components/vendors/index.vue';
-import ModifyVendors from './components/vendors/modifyVendors.vue';
+import Vendors from 'components/vendors/index';
+import ModifyVendors from 'components/vendors/modifyVendors';
+
+import Sales from 'components/sales/index';
+import ModifySales from 'components/sales/modify';
 
 import Constants from './constants';
-// import NotFound from './views/notfound.vue';
+// import NotFound from './views/notfound';
 import store from './stores/store';
 
 const Permissions = Constants.permissions;
@@ -46,7 +49,7 @@ const guard = (g) => {
       return next();
     }
     // do something to tell the user that they're not allowed;
-    return next(false);
+    return next('/notfound');
   };
 };
 
@@ -119,7 +122,7 @@ const routes = [{
       requiresAuth: true,
     },
   }, {
-    path: '/products',
+    path: 'products',
     component: Products,
     beforeEnter: guard('canReadProducts'),
     meta: {
@@ -134,6 +137,13 @@ const routes = [{
     },
   }, {
     path: '/products/edit/:id',
+    component: ModifyProducts,
+    beforeEnter: guard('canUpsertProducts'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/products/import',
     component: ModifyProducts,
     beforeEnter: guard('canUpsertProducts'),
     meta: {
@@ -201,14 +211,21 @@ const routes = [{
     }
   }, {
     path: '/inventory/receive',
-    component: ReceiveInventory,
+    component: ModifyInventory,
+    beforeEnter: guard('canReceiveInventory'),
+    meta: {
+      requiresAuth: true,
+    }
+  }, {
+    path: '/inventory/import',
+    component: ModifyInventory,
     beforeEnter: guard('canReceiveInventory'),
     meta: {
       requiresAuth: true,
     }
   }, {
     path: '/inventory/dispatch',
-    component: DispatchInventory,
+    component: ModifyInventory,
     beforeEnter: guard('canDispatchInventory'),
     meta: {
       requiresAuth: true,
@@ -222,26 +239,40 @@ const routes = [{
     },
   }, {
     path: '/locations/add',
-    component: SaveLocation,
+    component: ModifyLocation,
     beforeEnter: guard('canUpsertLocations'),
     meta: {
       requiresAuth: true,
     },
   }, {
     path: '/locations/edit/:id',
-    component: SaveLocation,
+    component: ModifyLocation,
     beforeEnter: guard('canUpsertLocations'),
     meta: {
       requiresAuth: true,
     },
-  }]
-}, {
-  path: '*',
-  redirect: '/'
+  }, {
+    path: '/sales',
+    component: Sales,
+    beforeEnter: guard('canReadSales'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/sales/add',
+    component: ModifySales,
+    beforeEnter: guard('canUpsertSales'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '*',
+    component: NotFound,
+  }],
 }];
 
 const router = new VueRouter({
-  history: false,
+  mode: 'history',
   scrollBehavior: (to, from, savedPosition) => {
     return savedPosition || {
       x: 0,
@@ -253,6 +284,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = store.getters.isAuthenticated;
+
   if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
     next('/login');
   } else if (to.path.toLowerCase() === '/login' && isAuthenticated) {
@@ -262,8 +294,10 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-store.watch(() => store.getters.isAuthenticated, (current) => {
-  router.replace(current ? '/' : '/login');
+store.watch(() => store.getters.isAuthenticated, (current, previous) => {
+  if (current !== previous) {
+    router.replace(current ? '/' : '/login');
+  }
 });
 
 

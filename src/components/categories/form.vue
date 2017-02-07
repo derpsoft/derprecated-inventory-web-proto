@@ -1,33 +1,26 @@
 <template>
-  <form @submit.prevent="validate">
-    <div class="form-group" :class="{'has-error': errors.has('name')}">
-      <label>Name</label>
-      <input type="text" class="form-control" placeholder="Category Name" name="name"
-        v-model="value.name"
-        v-validate.initial="value.name" data-vv-rules="required"
-        @change="change">
-        <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
-    </div>
-    <div class="form-group">
-      <autocomplete
-        :suggestions="categories"
-        :selected="parent"
-        :key-selector="(v) => `${v.name}`"
-        :value-selector="(v) => v"
-        :display-selector="(v) => `${v.id}: ${v.name}`"
-        @change="setParent">
-      </autocomplete>
-    </div>
-  </form>
+<form @submit.prevent="validate">
+  <div class="form-group" :class="{'has-error': errors.has('name')}">
+    <label>Name</label>
+    <input type="text" class="form-control" placeholder="Category Name" name="name" v-model="value.name" v-validate="'required'">
+    <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
+  </div>
+  <div class="form-group">
+    <autocomplete :suggestions="categories" :selected="parent" :key-selector="(v) => `${v.name}`" :value-selector="(v) => v" :display-selector="(v) => `${v.id}: ${v.name}`" @change="setParent">
+    </autocomplete>
+  </div>
+</form>
 </template>
 
 <script>
 import _ from 'lodash';
-import Autocomplete from '../autocomplete.vue';
-import Constants from '../../constants';
+import Autocomplete from 'components/autocomplete';
+import Constants from 'src/constants';
 
 export default {
-  components: { Autocomplete },
+  components: {
+    Autocomplete
+  },
 
   data() {
     return {
@@ -47,7 +40,7 @@ export default {
       return _.filter(this.$store.getters.categories, v => v.id !== this.value.id);
     },
     parent() {
-      return _.find(this.$store.getters.categories, { id: this.value.parentId });
+      return this.$store.getters.category(this.value.parentId);
     },
   },
 
@@ -56,7 +49,10 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch(Constants.GET_CATEGORIES, { skip: 0, take: 1000 });
+    this.$store.dispatch(Constants.GET_CATEGORIES, {
+      skip: 0,
+      take: 1000
+    });
   },
 
   methods: {
@@ -67,19 +63,16 @@ export default {
       }
     },
     change() {
-      this.validate()
-        .then((isValid) => {
-          if (isValid) {
-            this.$emit('change', this.value);
-          }
-        });
+      this.validate();
     },
     validate() {
       return this.$validator
         .validateAll()
         .then((isValid) => {
-          this.$emit('is-valid', isValid);
-          return isValid;
+          return {
+            isValid,
+            category: this.value
+          };
         });
     },
     setParent(v) {

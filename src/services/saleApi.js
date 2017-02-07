@@ -1,10 +1,8 @@
-import Fetchable from './fetchable';
-import store from '../stores/store';
-import Constants from '../constants';
+import CrudApi from 'services/crudApi';
 
-class SaleApi extends Fetchable {
+export default class SaleApi extends CrudApi {
   constructor() {
-    super(Constants.API_ROOT, store);
+    super('sale');
 
     if (SaleApi.prototype.singleton) {
       return SaleApi.prototype.singleton;
@@ -13,16 +11,4 @@ class SaleApi extends Fetchable {
 
     return this;
   }
-
-  log(sale) {
-    const headers = new Headers();
-    headers.set('content-type', 'application/json');
-    return super.post('/api/v1/sales', {
-      body: this.toJson(sale),
-      headers
-    })
-    .then(res => res.json());
-  }
 }
-
-export default SaleApi;

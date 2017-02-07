@@ -21,7 +21,7 @@
       <form id="forgot-password" @submit.prevent="validate">
         <div class="form-group" :class="{'has-error': errors.has('email')}">
           <label class="control-label" for="email">Email address</label>
-          <input type="email" placeholder="example@email.com" title="Please enter you username" name="email" id="email" class="form-control" tabindex="0" autocomplete="off" v-model="email" v-validate.initial="email" data-vv-rules="required|email">
+          <input type="email" placeholder="example@email.com" title="Please enter you username" name="email" id="email" class="form-control" tabindex="0" autocomplete="off" v-model="email" v-validate="'required|email'">
           <span class="help-block small" v-show="!errors.has('email')">Your address email to retrieve new password.</span>
           <span v-show="errors.has('email')" class="help-block">{{ errors.first('email') }}</span>
         </div>
@@ -44,7 +44,7 @@
 }
 </style>
 <script>
-import Constants from '../../constants';
+import Constants from 'src/constants';
 
 export default {
   name: 'forgotPasswordView',

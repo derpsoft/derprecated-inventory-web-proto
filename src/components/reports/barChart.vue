@@ -9,7 +9,7 @@ export default Bar.extend({
   mixins: [mixins.reactiveProp],
   methods: {
     render() {
-      console.log(this.chartData);
+      // console.log(this.chartData);
       this.renderChart(this.chartData);
     }
   },
