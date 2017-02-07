@@ -38,8 +38,8 @@
           <tr v-for="product in products" v-on:click="edit(product.id)">
             <td class="id">{{product.id}}</td>
             <td>
-              <img v-if="product.images && product.images.length" :src="product.images[0].sourceUrl" width="50" height="50">
-              <img src="http://placehold.it/50x50" v-if="!product.images || !product.images.length"> {{product.title}}
+              <img v-if="product.images && product.images.length" :src="product.images[0].sourceUrl | toSsl" width="50" height="50">
+              <img src="https://placehold.it/50x50" v-if="!product.images || !product.images.length"> {{product.title}}
             </td>
             <td>{{product.quantityOnHand}}</td>
             <td>{{product.productType}}</td>
@@ -67,6 +67,14 @@ export default {
         return this.searchResults;
       }
       return this.list;
+    },
+  },
+
+  filters: {
+    filter: {
+      toSsl(src) {
+        return src.replace('http:', 'https:');
+      },
     },
   },
 
