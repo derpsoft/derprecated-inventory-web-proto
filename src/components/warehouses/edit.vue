@@ -64,7 +64,6 @@ export default {
     this.$store.watch(
       () => this.$store.getters.warehouse(this.id),
       (current) => {
-        console.log(JSON.stringify(current));
         this.warehouse = Object.assign({}, this.warehouse, current);
       }
     );
