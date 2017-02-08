@@ -87,7 +87,7 @@ const INITIAL_STATE = {
     dashboard: {
       dispatched: 0,
       received: 0,
-      total: 0.0,
+      totalSales: 0.0,
     },
   },
 };

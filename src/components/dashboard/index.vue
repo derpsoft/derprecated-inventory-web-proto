@@ -68,7 +68,7 @@
               </h2>
               <small>Inventory Dispatched
                 <br>
-                by <span class="c-white">Month</span>
+                by <span class="c-white">{{ groupBy }}</span>
               </small>
             </div>
           </div>
@@ -83,7 +83,7 @@
               <small>
                 Inventory Received
                 <br>
-                by <span class="c-white">Month</span>
+                by <span class="c-white">{{ groupBy }}</span>
               </small>
             </div>
           </div>
@@ -97,7 +97,7 @@
               </h2>
               <small>Total Sales
                 <br>
-                by <span class="c-white">Month</span>
+                by <span class="c-white">{{ groupBy }}</span>
               </small>
             </div>
           </div>
@@ -133,6 +133,7 @@ export default {
   data() {
     return {
       date: moment(),
+      groupBy: 'Month',
     };
   },
   filters: {
@@ -171,16 +172,13 @@ export default {
         height: '500px'
       };
     },
-    timespan() {
-      return '7.00:00:00';
-    },
     report() {
       return this.$store.getters.dashboard;
     },
   },
   mounted() {
     this.$store.dispatch(Constants.GET_DASHBOARD, {
-      timespan: this.timespan
+      groupBy: this.groupBy
     });
   },
   methods: {},
