@@ -42,12 +42,12 @@ textarea.form-control {
                     </autocomplete>
                   </div>
                 </div>
-                <div class="col-md-12">
+                <!-- <div class="col-md-12">
                   <div class="form-group">
                     <label for="qty">Quantity</label>
                     <input type="number" name="qty" class="form-control" id="qty" placeholder="Quantity" tabindex="0" v-model="value.quantity">
                   </div>
-                </div>
+                </div> -->
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>Price (USD)</label>
