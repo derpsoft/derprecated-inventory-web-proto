@@ -1,7 +1,7 @@
 import config from '../config';
 
 export default {
-  API_ROOT: process.env.NODE_ENV === 'production' ? config.build.api : config.dev.api,
+  API_ROOT: config.api,
 
   CLEAR_CATEGORY_SEARCH: 'CLEAR_CATEGORY_SEARCH',
   CLEAR_INVENTORY_SEARCH: 'CLEAR_INVENTORY_SEARCH',
