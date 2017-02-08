@@ -61,9 +61,9 @@ function getProfile({
   commit
 }) {
   new AuthApi().profile()
-    .then((json) => {
-      if (json) {
-        commit(Constants.SET_PROFILE, json.profile);
+    .then((x) => {
+      if (x) {
+        commit(Constants.SET_PROFILE, x);
       } else {
         clear({
           commit
@@ -207,7 +207,7 @@ const MUTATIONS = {
   [Constants.SET_PROFILE]: (state, profile) => {
     state.profile = profile;
     save('profile', {
-      permissions: profile.permissions
+      permissions: state.profile.permissions
     });
   },
   [Constants.CLEAR_SESSION]: (state) => {

@@ -58,17 +58,17 @@
         </div>
         <hr>
       </div>
-      <div class="row" v-is-dev>
+      <div class="row">
         <div class="col-lg-4 col-sm-12">
           <div class="panel panel-filled panel-c-success">
             <div class="panel-body">
               <i class="text-success fa fa-envelope-o pull-right fa-4x m-t-sm"></i>
               <h2 class="m-b-none">
-                200
+                {{ report.dispatched }}
               </h2>
               <small>Inventory Dispatched
                 <br>
-                by <span class="c-white">Month</span>
+                by <span class="c-white">{{ groupBy }}</span>
               </small>
             </div>
           </div>
@@ -78,12 +78,12 @@
             <div class="panel-body">
               <i class="text-info fa fa-plus pull-right fa-4x m-t-sm"></i>
               <h2 class="m-b-none">
-                100
+                {{ report.received }}
               </h2>
               <small>
                 Inventory Received
                 <br>
-                by <span class="c-white">Month</span>
+                by <span class="c-white">{{ groupBy }}</span>
               </small>
             </div>
           </div>
@@ -93,11 +93,11 @@
             <div class="panel-body">
               <i class="text-warning fa fa-dollar pull-right fa-4x m-t-sm"></i>
               <h2 class="m-b-none">
-                888.00
+                {{ report.totalSales | formatMoney }}
               </h2>
               <small>Total Sales
                 <br>
-                by <span class="c-white">Month</span>
+                by <span class="c-white">{{ groupBy }}</span>
               </small>
             </div>
           </div>
@@ -117,6 +117,7 @@
     </div>
   </div>
 </section>
+
 </template>
 
 <script>
@@ -132,12 +133,20 @@ export default {
   data() {
     return {
       date: moment(),
+      groupBy: 'Month',
     };
   },
   filters: {
     formatDate(x) {
       return x.format('LL');
-    }
+    },
+    formatMoney(x) {
+      return Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currencyDisplay: 'symbol',
+        currency: 'USD',
+      }).format(x);
+    },
   },
   computed: {
     labels() {
@@ -163,13 +172,16 @@ export default {
         height: '500px'
       };
     },
-    timespan() {
-      return '7.00:00:00';
+    report() {
+      return this.$store.getters.dashboard;
     },
   },
   mounted() {
-    this.$store.dispatch(Constants.GET_DASHBOARD, { timespan: this.timespan });
+    this.$store.dispatch(Constants.GET_DASHBOARD, {
+      groupBy: this.groupBy
+    });
   },
   methods: {},
 };
+
 </script>
