@@ -168,7 +168,7 @@ export default function(name, Api) {
             dispatch
           }));
       },
-      800, {
+      200, {
         leading: false,
         trailing: true
       }
