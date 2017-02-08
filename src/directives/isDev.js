@@ -4,7 +4,7 @@ const hide = (el) => {
 export default (Vue) => {
   Vue.directive('is-dev', {
     bind: (el) => {
-      if (process.env.NODE_ENV !== 'development') {
+      if (!~['local', 'development'].indexOf(process.env.NODE_ENV)) {
         hide(el);
       }
     }

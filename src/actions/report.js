@@ -1,5 +1,6 @@
 import log from 'loglevel';
 import moment from 'moment';
+import Vue from 'vue';
 import Constants from 'src/constants';
 import ReportApi from 'services/reportApi';
 
@@ -83,6 +84,11 @@ const INITIAL_STATE = {
       labels: [],
       data: [],
     },
+    dashboard: {
+      dispatched: 0,
+      received: 0,
+      total: 0.0,
+    },
   },
 };
 
@@ -117,6 +123,14 @@ const MUTATIONS = {
       data: dat.data,
       labels: dat.labels,
     };
+  },
+  [Constants.SET_DASHBOARD_REPORT]: (state, result) => {
+    Vue.set(state.reports, 'dashboard', {
+      ...result,
+      received: parseInt(result.received, 10),
+      dispatched: parseInt(result.dispatched, 10),
+      totalSales: parseFloat(result.totalSales, 10),
+    });
   },
 };
 

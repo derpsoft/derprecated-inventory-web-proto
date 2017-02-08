@@ -31,7 +31,7 @@ const sta = _.merge({}, pro, {
 });
 
 const local = _.merge({}, base, {
-  api: 'http://192.168.0.7:3413',
+  api: 'http://192.168.0.32:5000',
   autoOpenBrowser: true,
   cssSourceMap: false,
 });
