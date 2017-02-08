@@ -6,19 +6,20 @@
   "private": true,
   "scripts": {
     "postinstall": "npm run build",
-    "dev": "node build/dev-server.js",
-    "build": "node build/build.js",
+    "dev": "node -r dotenv/config build/dev-server.js dotenv_config_required=false",
+    "build": "node -r dotenv/config build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
-    "start": "node build/dev-server.js"
+    "start": "node -r dotenv/config build/dev-server.js  dotenv_config_required=false"
   },
   "dependencies": {
     "babel-runtime": "^6.0.0",
     "bootstrap": "^3.3.6",
     "chartist": "^0.10.1",
     "csv": "^1.1.1",
+    "dotenv": "^4.0.0",
     "font-awesome": "^4.6.3",
     "handsontable": "^0.30.1",
     "jquery": "^3.1.0",
