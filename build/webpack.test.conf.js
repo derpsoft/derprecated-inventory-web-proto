@@ -4,24 +4,25 @@ var utils = require('./utils');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
 var baseConfig = require('./webpack.base.conf');
+var config = require('../config');
 
 var webpackConfig = merge(baseConfig, {
   // use inline sourcemap for karma-sourcemap-loader
   module: {
     rules: [{
       test: /\.less$/,
-      loader: 'ignore-loader'
+      loader: 'ignore-loader',
     }].concat(utils.styleLoaders())
   },
   devtool: '#inline-source-map',
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': require('../config/test.env')
-    })
+      'process.env': config.env,
+    }),
   ]
 })
 
 // no need for app entry during tests
-delete webpackConfig.entry
+delete webpackConfig.entry;
 
-module.exports = webpackConfig
+module.exports = webpackConfig;

@@ -8,10 +8,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var env = config.env;
 
-// env = process.env.NODE_ENV === 'testing'
-//   ? require('../config/test.env')
-//   : config.build.env
-
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
