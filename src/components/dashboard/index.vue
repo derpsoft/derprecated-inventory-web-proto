@@ -64,7 +64,7 @@
             <div class="panel-body">
               <i class="text-success fa fa-envelope-o pull-right fa-4x m-t-sm"></i>
               <h2 class="m-b-none">
-                {{ report.dispatched }}
+                {{ report.dispatched.total }}
               </h2>
               <small>Inventory Dispatched
                 <br>
@@ -78,7 +78,7 @@
             <div class="panel-body">
               <i class="text-info fa fa-plus pull-right fa-4x m-t-sm"></i>
               <h2 class="m-b-none">
-                {{ report.received }}
+                {{ report.received.total }}
               </h2>
               <small>
                 Inventory Received
@@ -93,7 +93,7 @@
             <div class="panel-body">
               <i class="text-warning fa fa-dollar pull-right fa-4x m-t-sm"></i>
               <h2 class="m-b-none">
-                {{ report.totalSales | formatMoney }}
+                {{ report.sales.total | formatMoney }}
               </h2>
               <small>Total Sales
                 <br>
@@ -122,6 +122,7 @@
 
 <script>
 import moment from 'moment';
+import _ from 'lodash';
 import Constants from 'src/constants';
 import Chart from './chart';
 
@@ -141,27 +142,30 @@ export default {
       return x.format('LL');
     },
     formatMoney(x) {
-      return Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currencyDisplay: 'symbol',
-        currency: 'USD',
-      }).format(x);
+      return Intl
+        .NumberFormat('en-US', {
+          style: 'currency',
+          currencyDisplay: 'symbol',
+          currency: 'USD',
+        })
+        .format(x);
     },
   },
   computed: {
     labels() {
-      return ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+      const fmt = x => moment.utc(x).format('LL');
+      return [
+        _.map(this.$store.getters.dashboard.received.labels, fmt),
+        _.map(this.$store.getters.dashboard.dispatched.labels, fmt),
+        _.map(this.$store.getters.dashboard.sales.labels, fmt),
+      ];
     },
     series() {
-      // return this.$store.getters.dashboard;
-      return [{
-        name: 'Inventory Received',
-        data: [12, 9, 7, 8, 5],
-      }, {
-        data: [2, 1, 3.5, 7, 3],
-      }, {
-        data: [1, 3, 4, 5, 6]
-      }];
+      return [
+        this.$store.getters.dashboard.received.series,
+        this.$store.getters.dashboard.dispatched.series,
+        this.$store.getters.dashboard.sales.series
+      ];
     },
     options() {
       return {
