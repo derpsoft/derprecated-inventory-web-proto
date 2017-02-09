@@ -5,7 +5,7 @@
 
 <script>
 import {
-  Line
+  Bar
 } from 'chartist';
 import 'chartist/dist/chartist.min.css';
 
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     draw() {
-      return new Line(this.$el, {
+      return new Bar(this.$el, {
         labels: this.labels,
         series: this.series
       }, this.options);
