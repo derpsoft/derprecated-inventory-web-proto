@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="css" scoped>
 .product-list {
     td {
         vertical-align: middle;

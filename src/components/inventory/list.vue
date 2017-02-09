@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="css" scoped>
 table.log-list {
     tr {
         cursor: pointer;
