@@ -11,4 +11,15 @@ export default class UsersApi extends CrudApi {
 
     return this;
   }
+
+  typeahead(query, includeDeleted = false) {
+    const body = new URLSearchParams();
+    body.set('query', query);
+    body.set('includeDeleted', includeDeleted);
+
+    return super
+      .get(`${this.routes.TYPEAHEAD(this.name)}?${body}`)
+      .then(res => res.json())
+      .then(json => json.result);
+  }
 }
