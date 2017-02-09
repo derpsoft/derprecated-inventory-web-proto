@@ -136,15 +136,15 @@ export default {
   methods: {
     csvToProduct(csv) {
       return {
-        _id: Symbol(csv.Title),
-        title: csv.Title,
-        sku: csv['Variant SKU'],
-        upc: csv.Handle,
-        vendor: csv.Vendor,
-        price: csv['Variant Price'],
-        color: csv.Color,
-        tags: csv.Tags,
-        description: csv['Body (HTML)'],
+        _id: Symbol(csv.title),
+        title: csv.title,
+        sku: csv.sku,
+        upc: csv.upc,
+        vendor: csv.vendor,
+        price: csv.price,
+        color: csv.color,
+        tags: csv.tags,
+        description: csv.description,
       };
     },
 
