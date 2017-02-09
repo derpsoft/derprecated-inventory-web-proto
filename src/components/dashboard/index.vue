@@ -1,4 +1,4 @@
-<style lang="less">
+<style lang="css">
 .ct-chart {
     .ct-series-a {
         .ct-point {

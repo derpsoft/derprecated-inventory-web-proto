@@ -1,3 +1,11 @@
+<style lang="css" scoped>
+table.location-list {
+    tr {
+        cursor: pointer;
+    }
+}
+</style>
+
 <template>
 <div>
   <div v-if="!locations.length" class="col-md-12">
@@ -31,14 +39,6 @@
   </div>
 </div>
 </template>
-
-<style lang="less" scoped>
-table.location-list {
-    tr {
-        cursor: pointer;
-    }
-}
-</style>
 
 <script>
 export default {

@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="css" scoped>
 .panel-main {
     padding-top: 15px;
 }

@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="css" scoped>
 table.category-list {
   tr {
     cursor: pointer;

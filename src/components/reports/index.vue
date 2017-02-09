@@ -1,4 +1,4 @@
-<style scoped lang="less">
+<style scoped lang="css">
 </style>
 
 <template>

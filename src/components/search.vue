@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="css" scoped>
 .search {
     margin-bottom: 30px;
 }

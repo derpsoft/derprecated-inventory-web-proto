@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="css" scoped>
 .dz-image {
     img {
         margin: 0 auto;
