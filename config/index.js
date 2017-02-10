@@ -37,7 +37,7 @@ const local = _.merge({}, base, {
 });
 
 const dev = _.merge({}, local, {
-  api: 'https://inventory-api-dev.azurewebsites.net',
+  api: '//inventory-api-dev.azurewebsites.net',
 });
 
 const configs = {
