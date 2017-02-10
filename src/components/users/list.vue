@@ -1,11 +1,3 @@
-<style lang="css" scoped>
-table.user-list {
-  tr {
-    cursor: pointer;
-  }
-}
-</style>
-
 <template>
 <div>
   <div v-if="!users.length" class="col-md-12">

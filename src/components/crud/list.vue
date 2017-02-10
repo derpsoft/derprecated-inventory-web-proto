@@ -1,6 +1,6 @@
 <style lang="css" scoped>
 table.list {
-  tr {
+  tr.editable {
     cursor: pointer;
   }
 }
@@ -19,8 +19,8 @@ table.list {
           </tr>
         </thead>
         <tbody>
-          <slot name="row" v-for="record in records" :record="record">
-            <tr @click.prevent="edit(record.id)">
+          <slot name="body-row" v-for="record in records" :record="record">
+            <tr class="editable" @click.prevent="edit(record.id)">
               <td v-for="column in cols">{{record[column]}}</td>
             </tr>
           </slot>

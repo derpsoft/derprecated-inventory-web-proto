@@ -6,34 +6,19 @@
   <div class="col-md-12" v-if="!sales.length">
     There were no sales found. Please add sales or update the filters.
   </div>
-  <div v-if="sales.length">
-    <div class="col-md-12">
-      <div class="table-responsive">
-        <table class="table table-striped table-hover sale-list">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Product</th>
-              <th>User</th>
-              <th>Vendor</th>
-              <th>Total</th>
-              <th>Timestamp</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="sale in sales">
-              <td>{{sale.id}}</td>
-              <product-field tag="td" :id="sale.productId" field="title" :defaultValue="sale.productId"></product-field>
-              <user-field tag="td" :id="sale.userAuthId" field="userName" :defaultValue="sale.userAuthId"></user-field>
-              <td>{{sale.vendorId}}</td>
-              <td>${{sale.total}}</td>
-              <td>{{sale.timestamp | formatTimestamp}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+
+  <crud-list :records="sales" :columns="['id', 'product', 'user', 'vendor', 'total', 'timestamp']">
+    <template slot="body-row" scope="props">
+      <tr>
+        <td>{{props.record.id}}</td>
+        <product-field tag="td" :id="props.record.productId" field="title" :defaultValue="props.record.productId"></product-field>
+        <user-field tag="td" :id="props.record.userAuthId" field="userName" :defaultValue="props.record.userAuthId"></user-field>
+        <td>{{props.record.vendorId}}</td>
+        <td>{{props.record.total | formatCurrency}}</td>
+        <td>{{props.record.timestamp | formatTimestamp}}</td>
+      </tr>
+    </template>
+  </crud-list>
 </div>
 </template>
 
@@ -41,11 +26,13 @@
 import moment from 'moment';
 import ProductField from 'components/products/field';
 import UserField from 'components/users/field';
+import CrudList from 'components/crud/list';
 
 export default {
   components: {
     ProductField,
     UserField,
+    CrudList,
   },
   computed: {
     sales() {
@@ -60,6 +47,15 @@ export default {
   filters: {
     formatTimestamp(date) {
       return moment(date).format('lll');
+    },
+    formatCurrency(x) {
+      return Intl
+        .NumberFormat('en-US', {
+          style: 'currency',
+          currencyDisplay: 'symbol',
+          currency: 'USD',
+        })
+        .format(x);
     },
   },
 };
