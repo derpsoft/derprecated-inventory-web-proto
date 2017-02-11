@@ -1,38 +1,4 @@
 <style lang="css">
-.ct-chart {
-    .ct-series-a {
-        .ct-point {
-            stroke: #1bbf89;
-        }
-        .ct-line {
-            stroke: #1bbf89;
-        }
-    }
-
-    .ct-series-b {
-        .ct-point {
-            stroke: #56C0E0;
-        }
-        .ct-line {
-            stroke: #56C0E0;
-        }
-    }
-    .ct-series-c {
-        .ct-point {
-            stroke: #f7af3e;
-        }
-        .ct-line {
-            stroke: #f7af3e;
-        }
-    }
-    .ct-label {
-        color: #949ba2 !important;
-        font-size: 10px !important;
-    }
-    .ct-grid {
-        color: #f6a821 !important;
-    }
-}
 </style>
 
 <template>
@@ -46,11 +12,7 @@
           </div>
           <div class="header-title">
             <div class="pull-right">
-              <small>
-                Today is
-                <br>
-                <span class="c-white">{{ date | formatDate }}</span>
-              </small>
+              <today></today>
             </div>
             <h3 class="m-b-xs">Derprecated Dashboard Concept</h3>
             <small>Derp overview</small>
@@ -60,56 +22,20 @@
       </div>
       <div class="row">
         <div class="col-lg-4 col-sm-12">
-          <div class="panel panel-filled panel-c-success">
-            <div class="panel-body">
-              <i class="text-success fa fa-envelope-o pull-right fa-4x m-t-sm"></i>
-              <h2 class="m-b-none">
-                {{ report.dispatched.total }}
-              </h2>
-              <small>Inventory Dispatched
-                <br>
-                by <span class="c-white">{{ groupBy }}</span>
-              </small>
-            </div>
-          </div>
+          <inventory-dispatched></inventory-dispatched>
         </div>
         <div class="col-lg-4 col-sm-12">
-          <div class="panel panel-filled panel-c-info">
-            <div class="panel-body">
-              <i class="text-info fa fa-plus pull-right fa-4x m-t-sm"></i>
-              <h2 class="m-b-none">
-                {{ report.received.total }}
-              </h2>
-              <small>
-                Inventory Received
-                <br>
-                by <span class="c-white">{{ groupBy }}</span>
-              </small>
-            </div>
-          </div>
+          <inventory-received></inventory-received>
         </div>
         <div class="col-lg-4 col-sm-12">
-          <div class="panel panel-filled panel-c-warning">
-            <div class="panel-body">
-              <i class="text-warning fa fa-dollar pull-right fa-4x m-t-sm"></i>
-              <h2 class="m-b-none">
-                {{ report.sales.total | formatMoney }}
-              </h2>
-              <small>Total Sales
-                <br>
-                by <span class="c-white">{{ groupBy }}</span>
-              </small>
-            </div>
-          </div>
+          <total-sales></total-sales>
         </div>
       </div>
       <div class="row" v-is-dev>
         <div class="col-md-12">
           <div class="panel panel-filled">
             <div class="panel-body">
-              <chart :series="series" :labels="labels" :options="options">
-              </chart>
-              <div class="ct-chart"></div>
+              <chart></chart>
             </div>
           </div>
         </div>
@@ -117,75 +43,29 @@
     </div>
   </div>
 </section>
-
 </template>
 
 <script>
-import moment from 'moment';
-import _ from 'lodash';
 import Constants from 'src/constants';
+import Today from 'shared/today';
 import Chart from './chart';
+import TotalSales from './totalSales';
+import InventoryReceived from './inventoryReceived';
+import InventoryDispatched from './inventoryDispatched';
 
 export default {
-  name: 'dashboardView',
+  name: 'dashboard',
   components: {
-    Chart
-  },
-  data() {
-    return {
-      date: moment(),
-      groupBy: 'Month',
-    };
-  },
-  filters: {
-    formatDate(x) {
-      return x.format('LL');
-    },
-    formatMoney(x) {
-      return Intl
-        .NumberFormat('en-US', {
-          style: 'currency',
-          currencyDisplay: 'symbol',
-          currency: 'USD',
-        })
-        .format(x);
-    },
-  },
-  computed: {
-    labels() {
-      const fmt = x => moment.utc(x).format('LL');
-      return [
-        _.map(this.$store.getters.dashboard.received.labels, fmt),
-        _.map(this.$store.getters.dashboard.dispatched.labels, fmt),
-        _.map(this.$store.getters.dashboard.sales.labels, fmt),
-      ];
-    },
-    series() {
-      return [
-        this.$store.getters.dashboard.received.series,
-        this.$store.getters.dashboard.dispatched.series,
-        this.$store.getters.dashboard.sales.series
-      ];
-    },
-    options() {
-      return {
-        fullWidth: true,
-        chartPadding: {
-          right: 40
-        },
-        height: '500px'
-      };
-    },
-    report() {
-      return this.$store.getters.dashboard;
-    },
+    Chart,
+    Today,
+    TotalSales,
+    InventoryReceived,
+    InventoryDispatched
   },
   mounted() {
     this.$store.dispatch(Constants.GET_DASHBOARD, {
       groupBy: this.groupBy
     });
   },
-  methods: {},
 };
-
 </script>

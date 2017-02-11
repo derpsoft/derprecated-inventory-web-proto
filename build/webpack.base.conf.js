@@ -29,6 +29,7 @@ module.exports = {
       'src': resolve('src'),
       'assets': resolve('src/assets'),
       'components': resolve('src/components'),
+      'shared': resolve('src/components/shared'),
       'directives': resolve('src/directives'),
       'services': resolve('src/services'),
       'actions': resolve('src/actions'),
