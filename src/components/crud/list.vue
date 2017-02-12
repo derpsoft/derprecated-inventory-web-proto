@@ -21,7 +21,7 @@ table.list {
         <tbody>
           <slot name="body-row" v-for="record in records" :record="record">
             <tr class="editable" @click.prevent="edit(record.id)">
-              <td v-for="column in cols">{{record[column]}}</td>
+              <td v-for="column in cols">{{record[ typeof column === 'string' ? column : column.name ]}}</td>
             </tr>
           </slot>
         </tbody>
@@ -46,7 +46,8 @@ export default {
 
   filters: {
     formatColumnName(x) {
-      return _.startCase(x);
+      const name = typeof x === 'string' ? x : x.displayName;
+      return _.startCase(name);
     },
   },
 
