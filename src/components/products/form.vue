@@ -45,7 +45,7 @@ textarea.form-control {
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="qty">Quantity</label>
-                    <input type="number" name="qty" class="form-control" id="qty" placeholder="Quantity" tabindex="0" v-model="value.quantity">
+                    <input type="number" name="qty" class="form-control" id="qty" placeholder="Quantity" tabindex="0" v-model="value.quantityOnHand" disabled>
                   </div>
                 </div>
                 <div class="col-md-4">
