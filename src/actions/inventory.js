@@ -50,6 +50,10 @@ function receiveInventory({
           message: 'Error has occured while attempting to receiving inventory.'
         });
       }
+      commit(Constants.SET_INVENTORY_ERROR, {
+        e,
+        transaction
+      });
       log.error(e);
     });
 }
@@ -221,10 +225,23 @@ function clearSearch({
   commit(Constants.CLEAR_INVENTORY_SEARCH);
 }
 
+function setError({
+  commit
+}, args) {
+  commit(Constants.SET_INVENTORY_ERROR, args);
+}
+
+function clearErrors({
+  commit
+}) {
+  commit(Constants.CLEAR_INVENTORY_ERRORS);
+}
+
 const INITIAL_STATE = {
   inventory: {
     quantity: {},
     logs: [],
+    errors: {},
     logCount: 0,
     search: {
       results: [],
@@ -243,6 +260,8 @@ const ACTIONS = {
   [Constants.SEARCH_INVENTORY_TRANSACTION_LOGS]: searchInventoryLogs,
   [Constants.COUNT_INVENTORY_LOGS]: countInventoryLogs,
   [Constants.CLEAR_INVENTORY_SEARCH]: clearSearch,
+  [Constants.CLEAR_INVENTORY_ERRORS]: clearErrors,
+  [Constants.SET_INVENTORY_ERROR]: setError,
 };
 
 const MUTATIONS = {
@@ -265,6 +284,17 @@ const MUTATIONS = {
     state.inventory.search.results = {};
     state.inventory.search.query = {};
   },
+
+  [Constants.SET_INVENTORY_ERROR]: (state, {
+    e,
+    transaction
+  }) => {
+    state.inventory.errors[transaction.id] = e;
+  },
+
+  [Constants.CLEAR_INVENTORY_ERRORS]: (state) => {
+    state.inventory.errors = {};
+  },
 };
 
 const GETTERS = {
@@ -274,6 +304,7 @@ const GETTERS = {
   logCount(state) {
     return state.inventory.logCount;
   },
+  inventoryErrors: state => state.inventory.errors,
 };
 
 const InventoryActions = {
