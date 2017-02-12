@@ -16,6 +16,7 @@ _.mixin(inflection);
   Convenience templaters for the constants corresponding to actions/mutations.
  */
 const t = {
+  CLEAR_ERRORS: x => `CLEAR_${_(x).singularize().toUpper()}_ERRORS`,
   CLEAR_SEARCH_RESULTS: x => `CLEAR_${_(x).singularize().toUpper()}_SEARCH_RESULTS`,
   CLEAR_SEARCH: x => `CLEAR_${_(x).singularize().toUpper()}_SEARCH`,
   CREATE_ONE: x => `CREATE_${_(x).singularize().toUpper()}`,
@@ -30,6 +31,7 @@ const t = {
   SET_COUNT: x => `SET_${_(x).pluralize().toUpper()}_COUNT`,
   SET_SEARCH_QUERY: x => `SET_${_(x).singularize().toUpper()}_SEARCH_QUERY`,
   SET_SEARCH_RESULTS: x => `SET_${_(x).singularize().toUpper()}_SEARCH_RESULTS`,
+  SET_ERROR: x => `SET_${_(x).singularize().toUpper()}_ERROR`,
   SEARCH: x => `SEARCH_${_(x).pluralize().toUpper()}`,
 };
 
@@ -85,6 +87,7 @@ export default function(name, Api) {
       results: [],
       query: '',
     },
+    errors: {},
     count: 0,
   };
 
@@ -173,6 +176,12 @@ export default function(name, Api) {
         trailing: true
       }
     ),
+
+    [t.CLEAR_ERRORS(name)]: ({
+      commit
+    }) => {
+      commit(t.CLEAR_ERRORS(name));
+    },
 
     [t.CLEAR_SEARCH(name)]: ({
       commit
@@ -306,6 +315,14 @@ export default function(name, Api) {
 
     [t.SET_SEARCH_RESULTS(name)]: (state, x) => {
       state[many].search.results = x;
+    },
+
+    [t.CLEAR_ERRORS(name)]: (state) => {
+      state[many].errors = {};
+    },
+
+    [t.SET_ERROR(name)]: (state, x) => {
+      state[many].errors[x.id] = x;
     },
 
     [t.CLEAR_SEARCH(name)]: (state) => {

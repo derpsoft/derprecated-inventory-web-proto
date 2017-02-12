@@ -58,6 +58,7 @@
     </div>
   </div>
 </div>
+
 </template>
 
 <script>
@@ -101,11 +102,24 @@ export default {
     table() {
       return document.querySelector('#hands-on-table');
     },
+
+    error(id) {
+      return this.$getters.inventoryErrors[id];
+    }
+  },
+
+  mounted() {
+    this.reset();
   },
 
   methods: {
+    reset() {
+      this.$store.dispatch(Constants.CLEAR_INVENTORY_ERRORS);
+    },
+
     csvToTransaction(csv) {
       return {
+        _id: Symbol(csv['Variant SKU']),
         sku: csv['Variant SKU'],
         quantity: parseInt(csv['Variant Inventory Qty'], 10),
       };
@@ -135,11 +149,11 @@ export default {
 
     save() {
       const transactions = this.hot.getSourceData();
-      console.log(transactions);
+
       this.$store.dispatch(Constants.RECEIVE_INVENTORY_BULK, {
         transactions,
         locationId: 1,
-        toastError: true,
+        toastError: false,
         redirect: this.redirect
       });
     },
@@ -149,4 +163,5 @@ export default {
     },
   },
 };
+
 </script>
