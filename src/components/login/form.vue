@@ -1,3 +1,9 @@
+<style lang="css" scoped>
+.alert {
+    margin-top: 10px;
+}
+</style>
+
 <template>
 <form id="login-form" @submit.prevent="validate">
   <div class="form-group" :class="{'has-error': errors.has('username')}">
@@ -21,12 +27,6 @@
   </div>
 </form>
 </template>
-
-<style lang="less" scoped>
-.alert {
-    margin-top: 10px;
-}
-</style>
 
 <script>
 import Constants from 'src/constants';

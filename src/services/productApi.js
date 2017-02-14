@@ -16,16 +16,8 @@ export default class ProductApi extends CrudApi {
   }
 
   singleBySku(sku, includeDeleted = false) {
-    return super
-      .post(`${this.routes.SEARCH()}`, {
-        body: this.toJson({
-          sku,
-          includeDeleted,
-          take: 1,
-        })
-      })
-      .then(res => res.json())
-      .then(json => json.results[0]);
+    return this.typeahead(sku, includeDeleted)
+      .then(json => json[0]);
   }
 
   imageUploadIntercept(file, xhr) {

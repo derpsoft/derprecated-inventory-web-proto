@@ -49,7 +49,7 @@ const guard = (g) => {
       return next();
     }
     // do something to tell the user that they're not allowed;
-    return next('/notfound');
+    return next('/NotFound');
   };
 };
 
@@ -68,6 +68,9 @@ const routes = [{
 }, {
   path: '/logout',
   component: Logout,
+}, {
+  path: '/NotFound',
+  component: NotFound,
 }, {
   path: '/',
   component: Main,
@@ -268,8 +271,12 @@ const routes = [{
   }, {
     path: '*',
     component: NotFound,
+    beforeEnter(to, from, next) {
+      next('/NotFound');
+    }
   }],
-}];
+}
+];
 
 const router = new VueRouter({
   mode: 'history',

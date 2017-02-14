@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="css" scoped>
 .image-upload {
     margin-top: 10px;
     .dropzone {

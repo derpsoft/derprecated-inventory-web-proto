@@ -1,41 +1,51 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
-var path = require('path')
+var _ = require('lodash');
+var path = require('path');
 
-module.exports = {
-  build: {
-    env: require('./prod.env'),
-    index: path.resolve(__dirname, '../dist/index.html'),
-    assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-    productionSourceMap: true,
-    // Gzip off by default as many popular static hosts such as
-    // Surge or Netlify already gzip all static assets for you.
-    // Before setting to `true`, make sure to:
-    // npm install --save-dev compression-webpack-plugin
-    productionGzip: false,
-    productionGzipExtensions: ['js', 'css'],
-    // Run the build command with an extra argument to
-    // View the bundle analyzer report after build finishes:
-    // `npm run build --report`
-    // Set to `true` or `false` to always turn it on or off
-    bundleAnalyzerReport: process.env.npm_config_report,
-    api: 'https://inventory-api-pro.azurewebsites.net'
+const base = {
+  assetsPublicPath: '/',
+  assetsRoot: path.resolve(__dirname, '../dist'),
+  assetsSubDirectory: 'static',
+  autoOpenBrowser: false,
+  bundleAnalyzerReport: process.env.npm_config_report,
+  cssSourceMap: false,
+  env: {
+    NODE_ENV: JSON.stringify(process.env.NODE_ENV),
   },
-  dev: {
-    env: require('./dev.env'),
-    port: 8080,
-    autoOpenBrowser: true,
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-    proxyTable: {},
-    // CSS Sourcemaps off by default because relative paths are "buggy"
-    // with this option, according to the CSS-Loader README
-    // (https://github.com/webpack/css-loader#sourcemaps)
-    // In our experience, they generally work as expected,
-    // just be aware of this issue when enabling this option.
-    cssSourceMap: false,
-    api: 'https://inventory-api-dev.azurewebsites.net'
-    // api: 'http://192.168.0.7:3413'
-  }
-}
+  port: 8080,
+  productionGzip: false,
+  productionGzipExtensions: ['js', 'css'],
+  proxyTable: {},
+};
+
+const pro = _.merge({}, base, {
+  api: 'https://inventory-api-pro.azurewebsites.net',
+  cssSourceMap: true,
+  index: path.resolve(__dirname, '../dist/index.html'),
+});
+
+const build = _.merge({}, pro, {});
+
+const sta = _.merge({}, pro, {
+  api: 'https://inventory-api-sta.azurewebsites.net',
+});
+
+const local = _.merge({}, base, {
+  api: 'http://192.168.0.32:5000',
+  autoOpenBrowser: true,
+  cssSourceMap: false,
+});
+
+const dev = _.merge({}, local, {
+  api: '//inventory-api-dev.azurewebsites.net',
+});
+
+const configs = {
+  'production': pro,
+  'local': local,
+  'development': dev,
+  'staging': sta,
+  'testing': pro,
+};
+
+module.exports = configs[process.env.NODE_ENV || 'development'];

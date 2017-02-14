@@ -61,9 +61,9 @@ function getProfile({
   commit
 }) {
   new AuthApi().profile()
-    .then((json) => {
-      if (json) {
-        commit(Constants.SET_PROFILE, json.profile);
+    .then((x) => {
+      if (x) {
+        commit(Constants.SET_PROFILE, x);
       } else {
         clear({
           commit
@@ -207,7 +207,7 @@ const MUTATIONS = {
   [Constants.SET_PROFILE]: (state, profile) => {
     state.profile = profile;
     save('profile', {
-      permissions: profile.permissions
+      permissions: state.profile.permissions
     });
   },
   [Constants.CLEAR_SESSION]: (state) => {
@@ -281,6 +281,15 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
+  canDeleteVendors: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_VENDORS.key,
+      Permissions.DELETE_VENDORS.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
   canReadProducts: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING.key,
@@ -326,6 +335,15 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
+  canDeleteWarehouses: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_WAREHOUSES.key,
+      Permissions.DELETE_WAREHOUSES.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
   canReadLocations: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING.key,
@@ -344,6 +362,15 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
+  canDeleteLocations: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_LOCATIONS.key,
+      Permissions.DELETE_LOCATIONS.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
   canReadCategories: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING.key,
@@ -358,6 +385,15 @@ const GETTERS = {
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_CATEGORIES.key,
       Permissions.UPSERT_CATEGORIES.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
+  canDeleteCategories: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_CATEGORIES.key,
+      Permissions.DELETE_CATEGORIES.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },

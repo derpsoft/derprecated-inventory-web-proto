@@ -1,6 +1,6 @@
 <template>
 <div style="position:relative" :class="{'open':openSuggestion}">
-  <input class="form-control" type="text" v-model="query" v-focus="focused" @keydown.enter='enter' @keydown.down='down' @keydown.up='up' @input='change' @blur="focused = false" />
+  <input class="form-control" type="text" v-model="query" v-focus.lazy="focus" @keydown.enter="enter" @keydown.down="down" @keydown.up="up" @input="change" />
   <ul class="dropdown-menu" style="width:100%">
     <li v-for="(suggestion, index) in displays" :class="{'active': isActive(index)}" @click="suggestionClick(index)">
       <a>{{ suggestion }}</a>
@@ -23,7 +23,6 @@ export default {
       open: false,
       current: 0,
       query: '',
-      focused: false,
     };
   },
 
@@ -63,7 +62,6 @@ export default {
   },
 
   mounted() {
-    this.focused = this.focus;
     this.refresh();
   },
 

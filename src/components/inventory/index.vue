@@ -5,6 +5,7 @@
       <div class="col-lg-12">
         <div class="view-header">
           <div class="pull-right">
+            <router-link class="btn btn-w-md btn-accent" :to="{path: '/inventory/import'}" v-is-dev>Import</router-link>
             <router-link class="btn btn-w-md btn-accent" :to="{path: '/inventory/receive'}">Receive</router-link>
             <router-link class="btn btn-w-md btn-accent" :to="{path: '/inventory/dispatch'}">Dispatch</router-link>
           </div>

@@ -12,6 +12,7 @@
     </div>
   </div>
 </div>
+
 </template>
 
 <script>
@@ -30,9 +31,11 @@ export default {
   methods: {
     save() {
       this.validate()
-        .then((isValid) => {
+        .then(({
+          isValid,
+          location
+        }) => {
           if (isValid) {
-            const location = JSON.parse(JSON.stringify(this.location));
             this.$store.dispatch(Constants.CREATE_LOCATION, {
               location
             });
@@ -47,4 +50,5 @@ export default {
     },
   }
 };
+
 </script>

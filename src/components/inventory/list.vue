@@ -1,44 +1,31 @@
-<style lang="less" scoped>
-table.log-list {
-    tr {
-        cursor: pointer;
-    }
-}
-</style>
-
 <template>
 <div>
   <div v-if="!logs.length">
     There are no inventory logs found.
   </div>
-  <div class="col-md-12">
-    <div class="table-responsive">
-      <table class="table table-striped table-hover log-list">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Type</th>
-            <th>Unit of Measure ID</th>
-            <th>User</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="log in logs">
-            <td>{{log.id}}</td>
-            <product-field tag="td" :id="log.productId" field="title"></product-field>
-            <td>{{log.quantity}}</td>
-            <td>{{log.transactionType}}</td>
-            <td>{{log.unitOfMeasureId}}</td>
-            <user-field tag="td" :id="log.userId" field="userName"></user-field>
-            <td>{{log.createDate | formatCreateDate}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+
+  <crud-list :records="logs">
+    <header-row>
+      <th>ID</th>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Type</th>
+      <th>Unit of Measure ID</th>
+      <th>User</th>
+      <th>Date</th>
+    </header-row>
+    <template slot="body-row" scope="props">
+      <tr>
+        <td>{{props.record.id}}</td>
+        <product-field tag="td" :id="props.record.productId" field="title"></product-field>
+        <td>{{props.record.quantity}}</td>
+        <td>{{props.record.transactionType}}</td>
+        <td>{{props.record.unitOfMeasureId}}</td>
+        <user-field tag="td" :id="props.record.userId" field="userName"></user-field>
+        <td>{{props.record.createDate | formatCreateDate}}</td>
+      </tr>
+    </template>
+  </crud-list>
 </div>
 </template>
 
@@ -47,11 +34,13 @@ import moment from 'moment';
 import Constants from 'src/constants';
 import ProductField from 'components/products/field';
 import UserField from 'components/users/field';
+import CrudList from 'components/crud/list';
 
 export default {
   components: {
     ProductField,
     UserField,
+    CrudList,
   },
 
   mounted() {
@@ -73,8 +62,10 @@ export default {
 
   filters: {
     formatCreateDate(date) {
-      return moment(date).format('lll');
+      return moment(date)
+        .format('lll');
     }
   },
 };
+
 </script>
