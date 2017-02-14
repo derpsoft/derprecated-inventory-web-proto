@@ -29,7 +29,7 @@ export default function getErrorCodeHandler({
     } else if (typeof handler === 'object') {
       return () => {
         if (handler.actions) {
-          handler.actions.map(dispatch);
+          handler.actions.map(x => dispatch(x));
         }
         throw new Error(handler.message);
       };

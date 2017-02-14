@@ -70,8 +70,9 @@ export default class CrudApi extends Fetchable {
 
   save(thing) {
     const id = thing.id;
-    const headers = new Headers();
-    headers.set('content-type', 'application/json');
+    const headers = {
+      'Content-Type': 'application/json',
+    };
     delete thing.id;
 
     return super
@@ -84,8 +85,9 @@ export default class CrudApi extends Fetchable {
   }
 
   create(thing) {
-    const headers = new Headers();
-    headers.set('content-type', 'application/json');
+    const headers = {
+      'Content-Type': 'application/json',
+    };
     delete thing.id;
     return super
       .post(this.routes.CREATE(this.name), {
