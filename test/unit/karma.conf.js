@@ -3,7 +3,7 @@
 // we are also using it with karma-webpack
 //   https://github.com/webpack/karma-webpack
 
-var webpackConfig = require('../../build/webpack.test.conf');
+var webpackConfig = require('../../build/webpack.testing.conf');
 
 module.exports = function(config) {
   config.set({
@@ -14,6 +14,17 @@ module.exports = function(config) {
     browsers: ['PhantomJS'],
     // browsers: ['Chrome'],
     frameworks: ['mocha', 'sinon-chai'],
+    plugins: [
+      'karma-mocha',
+      'karma-sinon',
+      'karma-sinon-chai',
+      'karma-sinon-as-promised',
+      'karma-webpack',
+      'karma-sourcemap-loader',
+      'karma-spec-reporter',
+      'karma-coverage',
+      'karma-phantomjs-launcher'
+    ],
     reporters: ['spec', 'coverage'],
     files: [
       '../../node_modules/babel-polyfill/dist/polyfill.js',

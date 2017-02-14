@@ -1,23 +1,21 @@
 import _ from 'lodash';
 import getErrorCodeHandler from 'services/apiErrorCodes';
+import {
+  fetch as defaultFetch
+} from 'isomorphic-fetch';
 
-const _fetch = function(url, options, {
-  dispatch
-}) {
-  // console.log(url, options);
-  return fetch(url, options)
-    .then((res) => {
-      getErrorCodeHandler({
-        dispatch,
-        code: res.status
-      })();
-      return res;
-    });
-};
+const verbs = [
+  'get',
+  'put',
+  'post',
+  'patch',
+  'delete',
+  'search',
+];
 
 export default class Fetchable {
-  constructor(baseUrl, store) {
-    if (!baseUrl) {
+  constructor(baseUrl, store, fetch = defaultFetch) {
+    if (!baseUrl || baseUrl === '') {
       throw new Error('baseUrl may not be empty');
     }
     if (!store) {
@@ -26,6 +24,32 @@ export default class Fetchable {
 
     this.baseUrl = baseUrl;
     this.store = store;
+    this.fetch = fetch;
+
+    _.each(verbs, (v) => {
+      this[v] = (url, options = {}) => {
+        if (!url) {
+          throw new Error('url may not be empty');
+        }
+        options.method = _(v).toUpper();
+        return this._fetch(this.baseUrl + url, this.prepare(options), this.store);
+      };
+    });
+  }
+
+  _fetch(url, options, {
+    dispatch
+  }) {
+    // console.log(url, options);
+    return this.fetch(url, options)
+      .then((res) => {
+        console.log(res);
+        getErrorCodeHandler({
+          dispatch,
+          code: res.status
+        })();
+        return res;
+      });
   }
 
   toForm(body) {
@@ -69,53 +93,5 @@ export default class Fetchable {
     });
 
     return options;
-  }
-
-  get(url, options = {}) {
-    if (!url) {
-      throw new Error('url may not be empty');
-    }
-    options.method = 'GET';
-    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
-  }
-
-  post(url, options = {}) {
-    if (!url) {
-      throw new Error('url may not be empty');
-    }
-    options.method = 'POST';
-    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
-  }
-
-  put(url, options = {}) {
-    if (!url) {
-      throw new Error('url may not be empty');
-    }
-    options.method = 'PUT';
-    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
-  }
-
-  patch(url, options = {}) {
-    if (!url) {
-      throw new Error('url may not be empty');
-    }
-    options.method = 'PATCH';
-    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
-  }
-
-  delete(url, options = {}) {
-    if (!url) {
-      throw new Error('url may not be empty');
-    }
-    options.method = 'DELETE';
-    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
-  }
-
-  search(url, options = {}) {
-    if (!url) {
-      throw new Error('url may not be empty');
-    }
-    options.method = 'SEARCH';
-    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
   }
 }
