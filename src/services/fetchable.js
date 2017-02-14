@@ -1,8 +1,6 @@
 import _ from 'lodash';
 import getErrorCodeHandler from 'services/apiErrorCodes';
-import {
-  fetch as defaultFetch
-} from 'isomorphic-fetch';
+import fetch from 'isomorphic-fetch';
 
 const verbs = [
   'get',
@@ -14,7 +12,7 @@ const verbs = [
 ];
 
 export default class Fetchable {
-  constructor(baseUrl, store, fetch = defaultFetch) {
+  constructor(baseUrl, store, fetcher = fetch) {
     if (!baseUrl || baseUrl === '') {
       throw new Error('baseUrl may not be empty');
     }
@@ -24,15 +22,13 @@ export default class Fetchable {
 
     this.baseUrl = baseUrl;
     this.store = store;
-    this.fetch = fetch;
+    this.fetch = fetcher;
 
-    _.each(verbs, (v) => {
-      this[v] = (url, options = {}) => {
-        if (!url) {
-          throw new Error('url may not be empty');
-        }
-        options.method = _(v).toUpper();
-        return this._fetch(this.baseUrl + url, this.prepare(options), this.store);
+    _.each(verbs, (verb) => {
+      Fetchable.prototype[verb] = (url, options = {}) => {
+        const opts = _.merge({}, options);
+        opts.method = _(verb).toUpper();
+        return this._fetch(url, this.prepare(opts), this.store);
       };
     });
   }
@@ -40,10 +36,11 @@ export default class Fetchable {
   _fetch(url, options, {
     dispatch
   }) {
-    // console.log(url, options);
-    return this.fetch(url, options)
+    if (!url) {
+      throw new Error('url may not be empty');
+    }
+    return this.fetch(this.baseUrl + url, options)
       .then((res) => {
-        console.log(res);
         getErrorCodeHandler({
           dispatch,
           code: res.status
@@ -82,15 +79,9 @@ export default class Fetchable {
         Accept: 'application/json',
       }
     };
-    options.headers = options.headers || new Headers();
+    options.headers = _.merge({}, defaults.headers, options.headers);
     options.credentials = 'include';
     options.mode = 'cors';
-
-    _.each(defaults.headers, (v, k) => {
-      if (!options.headers.has(k)) {
-        options.headers.set(k, v);
-      }
-    });
 
     return options;
   }
