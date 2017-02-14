@@ -18,7 +18,6 @@
   <div v-if="!products.length">
     There are no products found. Please add products or update the filters.
   </div>
-
   <crud-list :records="products" :columns="['id', 'title', { name: 'quantityOnHand', displayName: 'Quantity' }, 'category', 'upc', 'sku']">
     <template slot="body-row" scope="props">
       <tr class="editable" v-on:click="edit(props.record.id)">
