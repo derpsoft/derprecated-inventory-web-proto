@@ -16,6 +16,8 @@ module.exports = function(config) {
     frameworks: ['mocha', 'sinon-chai'],
     plugins: [
       'karma-mocha',
+      'karma-chai',
+      'karma-chai-as-promised',
       'karma-sinon',
       'karma-sinon-chai',
       'karma-sinon-as-promised',

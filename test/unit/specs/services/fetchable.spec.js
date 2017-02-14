@@ -1,4 +1,5 @@
 import Fetchable from 'services/fetchable';
+import fetchMock from 'fetch-mock';
 
 describe('Fetchable', () => {
   it('throws if baseUrl is empty', () => {
@@ -9,17 +10,15 @@ describe('Fetchable', () => {
     expect(() => new Fetchable('http://')).to.throw();
   });
 
-  it('throws error on authentication failed', () => {
-    const fetch = sinon
-      .stub()
-      .resolves({
-        status: 401,
-      });
+  it('rejects on authentication failed', () => {
+    const host = 'http://0.0.0.0';
+    const fetch = fetchMock.sandbox().mock(`begin:${host}`, 401);
+    const dispatch = sinon.spy();
+    const fetchable = new Fetchable(host, {
+      dispatch,
+    }, fetch);
 
-    const fetchable = new Fetchable('http://0.0.0.0', {}, fetch);
-
-    expect(() => fetchable.get('/')).to.throw();
-    expect(fetch.calledWith('http://0.0.0.0/')).to.be.ok;
+    return expect(fetchable.get('/')).to.be.rejected;
   });
 
   describe('#get()', () => {
@@ -29,7 +28,7 @@ describe('Fetchable', () => {
       expect(fetchable.get).to.be.a('function');
     });
 
-    it('should throw on empty path', () => {
+    it('throws on empty path', () => {
       const fetchable = new Fetchable('http://0.0.0.0', {}, () => {});
 
       expect(() => fetchable.get()).to.throw();
@@ -37,18 +36,14 @@ describe('Fetchable', () => {
     });
 
     it('should handle requests', () => {
-      const fetch = sinon
-        .stub()
-        .returns(new Promise((resolve) => {
-          resolve({
-            status: 200,
-          });
-        }));
+      const host = 'http://0.0.0.0';
+      const fetch = fetchMock.sandbox().mock(`begin:${host}`, 200);
+      const dispatch = sinon.spy();
+      const fetchable = new Fetchable(host, {
+        dispatch,
+      }, fetch);
 
-      const fetchable = new Fetchable('http://0.0.0.0', {}, fetch);
-
-      expect(() => fetchable.get('/')).to.not.throw();
-      expect(fetch.calledWith('http://0.0.0.0/')).to.be.ok;
+      return expect(fetchable.get('/')).to.be.fulfilled;
     });
   });
 
@@ -60,18 +55,14 @@ describe('Fetchable', () => {
     });
 
     it('should handle requests', () => {
-      const fetch = sinon
-        .stub()
-        .returns(new Promise((resolve) => {
-          resolve({
-            status: 200,
-          });
-        }));
+      const host = 'http://0.0.0.0';
+      const fetch = fetchMock.sandbox().mock(`begin:${host}`, 200);
+      const dispatch = sinon.spy();
+      const fetchable = new Fetchable(host, {
+        dispatch,
+      }, fetch);
 
-      const fetchable = new Fetchable('http://0.0.0.0', {}, fetch);
-
-      expect(() => fetchable.post('/')).to.not.throw();
-      expect(fetch.calledWith('http://0.0.0.0/')).to.be.ok;
+      return expect(fetchable.post('/')).to.be.fulfilled;
     });
   });
 });
