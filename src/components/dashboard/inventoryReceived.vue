@@ -2,7 +2,7 @@
 </style>
 
 <template>
-    <achievement :value="report.received.total" title="title" by="groupBy" icon="fa-plus" brand="info"></achievement>
+    <achievement :value="report.received.total" title="Inventory Received" by="Month" icon="fa-plus" brand="info"></achievement>
 </template>
 
 <script>
