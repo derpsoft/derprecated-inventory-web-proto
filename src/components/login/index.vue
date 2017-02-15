@@ -34,7 +34,20 @@ export default {
 
 <style scoped>
 .content {
-  margin-left: auto;
-  margin-right: auto;
+  width: 400px;
+  margin: 0 auto;
+  padding:0;
+  height: 100%;
 }
+
+.container-center {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 360px;
+  padding: 0;
+  margin: 0;
+  margin-top: -180px;
+}
+
 </style>
