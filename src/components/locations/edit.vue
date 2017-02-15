@@ -86,6 +86,7 @@ export default {
     delete() {
       this.$store.dispatch(Constants.DELETE_LOCATION, {
         id: this.id,
+        rowVersion: this.location.rowVersion,
         redirect: this.redirect,
       });
     },

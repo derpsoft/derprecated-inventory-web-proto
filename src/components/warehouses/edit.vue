@@ -71,6 +71,7 @@ export default {
     delete() {
       this.$store.dispatch(Constants.DELETE_WAREHOUSE, {
         id: this.id,
+        rowVersion: this.warehouse.rowVersion,
         redirect: this.redirect,
       });
     },

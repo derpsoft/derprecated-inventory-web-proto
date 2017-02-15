@@ -265,11 +265,12 @@ export default function(name, Api) {
       dispatch
     }, {
       id,
+      rowVersion,
       redirect = null,
       toastError = true,
     }) => {
       new Api()
-        .delete(id)
+        .delete(id, rowVersion)
         .then(() => {
           commit(t.DELETE_ONE(name), id);
           toastInfo({

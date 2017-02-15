@@ -32,7 +32,10 @@ export default {
   computed: {
     id() {
       return parseInt(this.$route.params.id, 10);
-    }
+    },
+    vendor() {
+      return this.$store.getters.vendor(this.id);
+    },
   },
 
   methods: {
@@ -61,6 +64,7 @@ export default {
     delete() {
       this.$store.dispatch(Constants.DELETE_VENDOR, {
         id: this.id,
+        rowVersion: this.vendor.rowVersion,
         redirect: this.redirect,
       });
     },
