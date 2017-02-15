@@ -13,6 +13,7 @@
     </div>
   </div>
 </div>
+
 </template>
 
 <script>
@@ -70,6 +71,7 @@ export default {
     delete() {
       this.$store.dispatch(Constants.DELETE_CATEGORY, {
         id: this.id,
+        rowVersion: this.category.rowVersion,
         redirect: this.redirect,
       });
     },
@@ -84,4 +86,5 @@ export default {
     this.load();
   }
 };
+
 </script>
