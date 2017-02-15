@@ -5,33 +5,28 @@ import Constants from 'src/constants';
 class InventoryApi extends Fetchable {
   constructor() {
     super(Constants.API_ROOT, store);
-
-    if (InventoryApi.prototype.singleton) {
-      return InventoryApi.prototype.singleton;
-    }
-    InventoryApi.prototype.singleton = this;
-
-    return this;
   }
 
   _createTransaction({
     locationId,
     productId,
-    quantity
+    quantity,
   }) {
-    const headers = new Headers();
-    headers.set('content-type', 'application/json');
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
     const xact = {
       locationId,
       productId,
       quantity
     };
-    return super.post('/api/v1/inventory-transactions', {
-      body: this.toJson({ ...xact
-      }),
-      headers
-    })
-    .then(res => res.json());
+    return super
+      .post('/api/v1/inventory-transactions', {
+        body: this.toJson(xact),
+        headers,
+      })
+      .then(res => res.json());
   }
 
 

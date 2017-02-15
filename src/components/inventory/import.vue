@@ -149,7 +149,6 @@ export default {
 
     save() {
       const transactions = this.hot.getSourceData();
-
       this.$store.dispatch(Constants.RECEIVE_INVENTORY_BULK, {
         transactions,
         locationId: 1,
