@@ -11,6 +11,7 @@ const base = {
   cssSourceMap: false,
   env: {
     NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+    APPINSIGHTS_INSTRUMENTATIONKEY: JSON.stringify('cbaf9617-1418-417b-a69f-2084f3ade0e3'),
   },
   port: 8080,
   productionGzip: false,
