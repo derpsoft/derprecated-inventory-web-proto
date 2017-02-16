@@ -1,4 +1,4 @@
-<template>
+ <template>
 <form @submit.prevent="validate">
   <div class="form-group">
     <label>Product</label>
@@ -17,7 +17,7 @@
   <div class="form-group" :class="{'has-error': errors.has('location')}">
     <label>Location</label>
 
-    <autocomplete :suggestions="locations" :value-selector="(v) => v" :key-selector="(v) => `${v.name}`" :display-selector="(v) => `${v.id}: ${v.name}`" @change="setLocation">
+    <autocomplete :selected="defaultLocation" :suggestions="locations" :value-selector="(v) => v" :key-selector="(v) => `${v.name}`" :display-selector="(v) => `${v.id}: ${v.name}`" @change="setLocation">
     </autocomplete>
   </div>
 </form>
@@ -66,6 +66,9 @@ export default {
       return _.find(this.locations, {
         id: this.locationId
       });
+    },
+    defaultLocation() {
+      return _.find(this.locations, { name: 'Receiving' });
     },
   },
 
