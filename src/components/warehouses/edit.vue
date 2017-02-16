@@ -12,7 +12,7 @@
       <div class="panel-body">
         <div class="form-group" :class="{'has-error': errors.has('warehouseName')}">
           <label>Name</label>
-          <input type="text" class="form-control" placeholder="Name" name="warehouseName" v-model="warehouse.name" v-validate="'required'">
+          <input type="text" class="form-control" placeholder="Name" name="warehouseName" v-model="warehouse.name" v-validate="'required'" v-focus="true">
           <span v-show="errors.has('warehouseName')" class="help-block">{{ errors.first('warehouseName') }}</span>
         </div>
       </div>

@@ -6,6 +6,8 @@
     <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
   </div>
   <div class="form-group">
+    <label>Parent Category</label>
+    <small>(Leave blank if no parent)</small>
     <autocomplete :suggestions="categories" :selected="parent" :key-selector="(v) => `${v.name}`" :value-selector="(v) => v" :display-selector="(v) => `${v.id}: ${v.name}`" @change="setParent">
     </autocomplete>
   </div>

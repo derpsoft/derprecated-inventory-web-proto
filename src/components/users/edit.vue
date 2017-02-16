@@ -29,7 +29,7 @@
         </div>
         <div class="form-group" :class="{'has-error': errors.has('username')}">
           <label>Username</label>
-          <input type="text" class="form-control" placeholder="Username" name="username" v-model="value.userName" v-validate="'required'">
+          <input type="text" class="form-control" placeholder="Username" name="username" v-model="value.userName" v-validate="'required'" v-focus="true">
           <span v-show="errors.has('username')" class="help-block">{{ errors.first('username') }}</span>
         </div>
         <div class="form-group" :class="{'has-error': errors.has('firstName')}">
