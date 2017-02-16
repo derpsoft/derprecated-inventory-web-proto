@@ -31,6 +31,7 @@ module.exports = {
       'components': resolve('src/components'),
       'shared': resolve('src/components/shared'),
       'directives': resolve('src/directives'),
+      'mixins': resolve('src/mixins'),
       'services': resolve('src/services'),
       'actions': resolve('src/actions'),
       'stores': resolve('src/stores'),

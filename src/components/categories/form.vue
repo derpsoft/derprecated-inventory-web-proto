@@ -2,10 +2,12 @@
 <form @submit.prevent="validate">
   <div class="form-group" :class="{'has-error': errors.has('name')}">
     <label>Name</label>
-    <input type="text" class="form-control" placeholder="Category Name" name="name" v-model="value.name" v-validate="'required'">
+    <input type="text" class="form-control" placeholder="Category Name" name="name" v-model="value.name" v-validate="'required'" v-focus="true">
     <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
   </div>
   <div class="form-group">
+    <label>Parent Category</label>
+    <small>(Leave blank if no parent)</small>
     <autocomplete :suggestions="categories" :selected="parent" :key-selector="(v) => `${v.name}`" :value-selector="(v) => v" :display-selector="(v) => `${v.id}: ${v.name}`" @change="setParent">
     </autocomplete>
   </div>

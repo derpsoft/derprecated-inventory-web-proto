@@ -8,6 +8,7 @@ import store from 'stores/store';
 import Constants from 'src/constants';
 import App from 'components/app';
 import Directives from 'directives';
+import Mixins from 'mixins';
 import router from 'src/router';
 
 const vvConfig = {
@@ -20,6 +21,7 @@ Vue.use(VeeValidate, vvConfig);
 sync(store, router);
 
 Directives.map(d => d(Vue));
+Mixins.map(x => x(Vue));
 
 /* eslint-disable no-new */
 new Vue({
