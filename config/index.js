@@ -23,12 +23,18 @@ const pro = _.merge({}, base, {
   api: 'https://inventory-api-pro.azurewebsites.net',
   cssSourceMap: true,
   index: path.resolve(__dirname, '../dist/index.html'),
+  env: {
+    APPINSIGHTS_INSTRUMENTATIONKEY: JSON.stringify('6c7d6219-60d2-44d0-9173-fe8e8e46c2ea'),
+  },
 });
 
 const build = _.merge({}, pro, {});
 
 const sta = _.merge({}, pro, {
   api: 'https://inventory-api-sta.azurewebsites.net',
+  env: {
+    APPINSIGHTS_INSTRUMENTATIONKEY: JSON.stringify('da2f726a-8f62-40ca-a6d3-2374c714aa3b'),
+  },
 });
 
 const local = _.merge({}, base, {
