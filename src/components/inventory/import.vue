@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import Handsontable from 'handsontable/dist/handsontable.full';
 import 'handsontable/dist/handsontable.min.css';
 import Constants from 'src/constants';
@@ -105,11 +106,20 @@ export default {
 
     error(id) {
       return this.$getters.inventoryErrors[id];
-    }
+    },
+
+    location() {
+      return _.find(this.$store.getters.locations, {
+        name: 'Receiving'
+      });
+    },
   },
 
   mounted() {
     this.reset();
+    this.$store.dispatch(Constants.GET_LOCATIONS, {
+      take: 1000
+    });
   },
 
   methods: {
@@ -151,7 +161,7 @@ export default {
       const transactions = this.hot.getSourceData();
       this.$store.dispatch(Constants.RECEIVE_INVENTORY_BULK, {
         transactions,
-        locationId: 1,
+        locationId: this.location.id,
         toastError: false,
         redirect: this.redirect
       });
