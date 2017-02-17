@@ -1,16 +1,20 @@
 {
   "extends": "airbnb-base",
   "env": {
-    "mocha": true
+    "mocha": true,
+    "es6": true,
+    "browser": true,
+    "node": true,
   },
   "globals": {
     "expect": true,
-    "sinon": true
+    "sinon": true,
+    "assert": true
   },
   "rules": {
-    'import/extensions': ['error', 'always', {
-      'js': 'never',
-      'vue': 'never'
+    "import/extensions": ["error", "always", {
+      "js": "never",
+      "vue": "never"
     }],
     "no-unused-expressions": "off"
   }

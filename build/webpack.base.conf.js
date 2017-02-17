@@ -35,7 +35,8 @@ module.exports = {
       'services': resolve('src/services'),
       'actions': resolve('src/actions'),
       'stores': resolve('src/stores'),
-      'unit': resolve('test/unit')
+      'unit': resolve('test/unit'),
+      'testUtils': resolve('test/utils')
     }
   },
   module: {
