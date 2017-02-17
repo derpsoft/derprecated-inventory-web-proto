@@ -2,13 +2,20 @@
 .tags {
   background: #FFFFFF;
   border: solid 1px #CCCCCC;
+  cursor: text;
   padding: 3px;
 
   .tag {
-    border: solid 1px #CCCCCC;
-    padding: 2px 5px;
-    margin: 0 2px;
+    display: inline-block;
     border-radius: 5px;
+    border: solid 1px #CCCCCC;
+    margin: 0 2px;
+    padding: 2px 5px;
+
+    .close {
+      cursor: pointer;
+      color: #666666;
+    }
   }
   input {
     border: none;
@@ -26,7 +33,7 @@
   <span class="head">
     <span class="tag" v-for="(tag, i) in head">
       {{tag}}
-      <span @click.stop="removeTag()">x</span>
+      <span class="close" @click.stop="removeTag()">x</span>
     </span>
   </span>
 
