@@ -1,9 +1,10 @@
 <style scoped>
 .tags {
-  background: #FFFFFF;
-  border: solid 1px #CCCCCC;
   cursor: text;
+  background: #494b54;
   padding: 3px;
+  border-radius: 4px;
+  height: 34px;
 
   .tag {
     display: inline-block;
@@ -18,6 +19,7 @@
     }
   }
   input {
+    height: 100%;
     border: none;
     outline: none;
 
@@ -38,7 +40,7 @@
   </span>
 
   <input ref="tagInput" type="text" v-model="newTag" @keyup.space="addTag" @keyup.enter="addTag"
-      @keyup.backspace="deleteTag" @keyup.left="left" @keyup.right="right" :style="{width}">
+      @keyup.backspace="deleteTag" @keyup.left="left" @keyup.right="right" :style="{width}" class="form-control">
 
   <span class="tail">
     <span class="tag" v-for="(tag, i) in tail">
