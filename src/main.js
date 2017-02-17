@@ -18,6 +18,8 @@ const vvConfig = {
 Vue.use(VueRouter);
 Vue.use(VeeValidate, vvConfig);
 
+Vue.config.keyCodes.backspace = 8;
+
 sync(store, router);
 
 Directives.map(d => d(Vue));

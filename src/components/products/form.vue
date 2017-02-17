@@ -17,8 +17,9 @@ textarea.form-control {
         <div class="media-body">
           <div class="form-group" :class="{'has-error': errors.has('productTitle')}">
             <label>Product Title</label>
-            <input type="text" class="form-control" placeholder="Enter a title..." name="productTitle" v-model="value.title" v-validate="'required'" v-focus="true">
-            <span v-show="errors.has('productTitle')" class="help-block">Product Title is required.</span>
+            <input type="text" class="form-control" placeholder="Enter a title..." name="productTitle"
+                v-model="value.title" v-validate="'required'" v-focus="true">
+              <span v-show="errors.has('productTitle')" class="help-block">Product Title is required.</span>
           </div>
           <div class="form-group">
             <label>Product Description</label>
@@ -35,11 +36,19 @@ textarea.form-control {
                 Specifications
               </div>
               <div class="panel-body">
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label>Categories</label>
-                    <autocomplete :suggestions="categories" :selected="category" :key-selector="(v) => `${v.name}`" :value-selector="(v) => v" :display-selector="(v) => `${v.id}: ${v.name}`" @change="setCategory">
-                    </autocomplete>
+                    <label>Category</label>
+                    <autocomplete :suggestions="categories" :selected="category" :key-selector="(v) => `${v.name}`"
+                        :value-selector="(v) => v" :display-selector="(v) => `${v.id}: ${v.name}`"
+                        @change="setCategory">
+                      </autocomplete>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Tags</label>
+                    <tag-input></tag-input>
                   </div>
                 </div>
                 <!-- <div class="col-md-12">
@@ -69,8 +78,10 @@ textarea.form-control {
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>Vendor</label>
-                    <autocomplete :suggestions="vendors" :selected="vendor" :key-selector="(v) => `${v.name}`" :value-selector="(v) => v" :display-selector="(v) => `${v.id}: ${v.name}`" @change="setVendor">
-                    </autocomplete>
+                    <autocomplete :suggestions="vendors" :selected="vendor" :key-selector="(v) => `${v.name}`"
+                        :value-selector="(v) => v" :display-selector="(v) => `${v.id}: ${v.name}`"
+                        @change="setVendor">
+                      </autocomplete>
                   </div>
                 </div>
               </div>
@@ -81,18 +92,21 @@ textarea.form-control {
     </div>
   </div>
 </form>
+
 </template>
 
 <script>
 import _ from 'lodash';
 import Constants from 'src/constants';
 import Autocomplete from 'components/autocomplete';
+import TagInput from 'components/taginput';
 
 export default {
   name: 'productForm',
 
   components: {
     Autocomplete,
+    TagInput,
   },
 
   data() {
@@ -172,4 +186,5 @@ export default {
     },
   },
 };
+
 </script>
