@@ -19,6 +19,7 @@ Vue.use(VueRouter);
 Vue.use(VeeValidate, vvConfig);
 
 Vue.config.keyCodes.backspace = 8;
+Vue.config.keyCodes.space = 32;
 
 sync(store, router);
 

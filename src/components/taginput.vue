@@ -1,25 +1,50 @@
 <style scoped>
 .tags {
+  background: #FFFFFF;
+  border: solid 1px #CCCCCC;
+  padding: 3px;
+
   .tag {
-    border: solid 1px white;
-    padding: 3px;
+    border: solid 1px #CCCCCC;
+    padding: 2px 5px;
+    margin: 0 2px;
+    border-radius: 5px;
+  }
+  input {
+    border: none;
+    outline: none;
+
+    &:focus {
+      border: none;
+    }
   }
 }
-
 </style>
 
 <template>
-<div class="tags">
-  <span class="tag" v-for="(tag, i) in source">
-    {{tag}} <span @click="removeTag()">x</span> {{ i == this.index ? '|' : '' }}
+<div class="tags" @click.stop="refocus">
+  <span class="head">
+    <span class="tag" v-for="(tag, i) in head">
+      {{tag}}
+      <span @click.stop="removeTag()">x</span>
+    </span>
   </span>
-  <input type="text" v-model="newTag" @keydown.space="addTag" @keydown.backspace="deleteTag"
-      @keydown.left="left" @keydown.right="right" />
-</div>
 
+  <input ref="tagInput" type="text" v-model="newTag" @keyup.space="addTag" @keyup.enter="addTag"
+      @keyup.backspace="deleteTag" @keyup.left="left" @keyup.right="right" :style="{width}">
+
+  <span class="tail">
+    <span class="tag" v-for="(tag, i) in tail">
+      {{tag}}
+      <span @click.stop="removeTag()">x</span>
+    </span>
+  </span>
+</div>
 </template>
 
 <script>
+import _ from 'lodash';
+
 export default {
   props: {
     tags: {
@@ -38,7 +63,25 @@ export default {
   },
 
   watch: {
-    tags: 'refresh'
+    tags: 'refresh',
+    head: 'refocus',
+    tail: 'refocus',
+  },
+
+  computed: {
+    head() {
+      return _.take(this.source, this.index);
+    },
+    tail() {
+      console.log(_.takeRight(this.source, this.source.length - this.index));
+      return _.takeRight(this.source, this.source.length - this.index);
+    },
+    input() {
+      return this.$refs.tagInput;
+    },
+    width() {
+      return `${Math.max(50, (this.newTag.length * 8) + 10)}px`;
+    },
   },
 
   methods: {
@@ -46,28 +89,37 @@ export default {
       this.source = this.tags;
     },
     typing() {
-
+      this.newTag = this.newTag.trim();
     },
     addTag() {
-      if (this.newTag.length) {
+      const x = this.newTag.trim();
+      if (x.length) {
+        this.source.splice(this.index, 0, x);
         this.index += 1;
-        this.source.splice(this.index, 0, this.newTag);
-        this.newTag = '';
       }
+      this.newTag = '';
     },
     deleteTag() {
-      if (~this.index) {
-        this.source.splice(this.index, 1);
-        this.index -= 1;
+      if (this.index) {
+        this.source.splice(this.index - 1, 1);
+        this.index = this.clamp(this.index, 0, this.source.length);
       }
     },
     left() {
       this.index = Math.max(0, this.index - 1);
+      this.refocus();
     },
     right() {
       this.index = Math.min(this.source.length, this.index + 1);
+      this.refocus();
     },
+    refocus() {
+      this.input.focus();
+      this.input.selectionEnd = this.input.selectionStart = this.newTag.length;
+    },
+    clamp(val, min, max) {
+      return Math.max(Math.min(val, max), min);
+    }
   },
 };
-
 </script>
