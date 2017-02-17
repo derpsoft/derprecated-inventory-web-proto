@@ -22,7 +22,9 @@ var webpackConfig = merge(baseConfig, {
   ]
 })
 
-// no need for app entry during tests
+// no need for app entry during karma tests
+// (will error if trying to run the site with NODE_ENV set to "testing"),
+// comment next line to prevent
 delete webpackConfig.entry;
 
 module.exports = webpackConfig;

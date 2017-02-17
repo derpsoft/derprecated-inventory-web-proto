@@ -8,15 +8,19 @@ import appInsights from 'applicationinsights';
 
 export default {
   data() {
-    return {
+    const data = {};
+    if (process.env.NODE_ENV !== 'testing') {
+      console.log('APP INSIGHTS');
       // key is read from env APPINSIGHTS_INSTRUMENTATIONKEY
-      appInsights: appInsights.setup(),
-    };
+      data.appInsights = appInsights.setup();
+    }
+    return {};
   },
 
   created() {
-    this.appInsights.start();
+    if (this.appInsights) {
+      this.appInsights.start();
+    }
   },
 };
-
 </script>
