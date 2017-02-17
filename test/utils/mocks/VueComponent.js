@@ -1,3 +1,4 @@
+
 import Vue from 'vue';
 
 function VueComponent(component) {
