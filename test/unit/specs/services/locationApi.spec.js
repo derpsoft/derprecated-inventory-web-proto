@@ -1,14 +1,14 @@
 import {
   URLSearchParams,
 } from 'testUtils';
-import VendorApi from 'services/vendorApi';
+import LocationApi from 'services/locationApi';
 
-describe('VendorApi', () => {
-  let vendorApi;
+describe('LocationApi', () => {
+  let locationApi;
 
   beforeEach(() => {
     window.URLSearchParams = URLSearchParams;
-    vendorApi = new VendorApi();
+    locationApi = new LocationApi();
   });
 
   afterEach(() => {
@@ -16,27 +16,27 @@ describe('VendorApi', () => {
   });
 
   it('should create only a single instance', () => {
-    const duplicateVendorApi = new VendorApi();
+    const duplicateLocationApi = new LocationApi();
 
-    expect(vendorApi).to.be.an.instanceof(VendorApi);
-    expect(duplicateVendorApi).to.be.an.instanceof(VendorApi);
-    expect(vendorApi).to.deep.equal(duplicateVendorApi);
+    expect(locationApi).to.be.an.instanceof(LocationApi);
+    expect(duplicateLocationApi).to.be.an.instanceof(LocationApi);
+    expect(locationApi).to.deep.equal(duplicateLocationApi);
   });
 
   it('should have the base CRUD commands', () => {
-    expect(vendorApi.count).to.be.an('function');
-    expect(vendorApi.list).to.be.an('function');
-    expect(vendorApi.single).to.be.an('function');
-    expect(vendorApi.typeahead).to.be.an('function');
-    expect(vendorApi.save).to.be.an('function');
-    expect(vendorApi.create).to.be.an('function');
-    expect(vendorApi.delete).to.be.an('function');
+    expect(locationApi.count).to.be.an('function');
+    expect(locationApi.list).to.be.an('function');
+    expect(locationApi.single).to.be.an('function');
+    expect(locationApi.typeahead).to.be.an('function');
+    expect(locationApi.save).to.be.an('function');
+    expect(locationApi.create).to.be.an('function');
+    expect(locationApi.delete).to.be.an('function');
   });
 
   describe('count', () => {
     it('should retrieve promise', () => {
       const mock = sinon.mock(URLSearchParams);
-      const promise = vendorApi.count();
+      const promise = locationApi.count();
       mock.verify();
       expect(promise).to.be.an('Promise');
     });
@@ -45,7 +45,7 @@ describe('VendorApi', () => {
   describe('list', () => {
     it('should retrieve promise', () => {
       const mock = sinon.mock(URLSearchParams);
-      const promise = vendorApi.list();
+      const promise = locationApi.list();
       mock.verify();
       expect(promise).to.be.an('Promise');
     });
@@ -54,7 +54,7 @@ describe('VendorApi', () => {
   describe('single', () => {
     it('should retrieve promise', () => {
       const mock = sinon.mock(URLSearchParams);
-      const promise = vendorApi.single();
+      const promise = locationApi.single();
       mock.verify();
       expect(promise).to.be.an('Promise');
     });
@@ -63,7 +63,7 @@ describe('VendorApi', () => {
   describe('typeahead', () => {
     it('should retrieve promise', () => {
       const mock = sinon.mock(URLSearchParams);
-      const promise = vendorApi.typeahead();
+      const promise = locationApi.typeahead();
       mock.verify();
       expect(promise).to.be.an('Promise');
     });
@@ -75,7 +75,7 @@ describe('VendorApi', () => {
         id: 1,
       };
       const mock = sinon.mock(URLSearchParams);
-      const promise = vendorApi.save(thing);
+      const promise = locationApi.save(thing);
       mock.verify();
       expect(promise).to.be.an('Promise');
     });
@@ -87,7 +87,7 @@ describe('VendorApi', () => {
         id: 1,
       };
       const mock = sinon.mock(URLSearchParams);
-      const promise = vendorApi.create(thing);
+      const promise = locationApi.create(thing);
       mock.verify();
       expect(promise).to.be.an('Promise');
     });
@@ -98,7 +98,7 @@ describe('VendorApi', () => {
     let spy;
 
     beforeEach(() => {
-      spy = sinon.spy(vendorApi, 'delete');
+      spy = sinon.spy(locationApi, 'delete');
       urlMock = sinon.mock(URLSearchParams);
     });
 
@@ -110,7 +110,7 @@ describe('VendorApi', () => {
     it('should retrieve promise', () => {
       const id = 1;
       const rowVersion = 1;
-      const promise = vendorApi.delete(id, rowVersion);
+      const promise = locationApi.delete(id, rowVersion);
       expect(promise).to.be.an('Promise');
     });
 
@@ -122,7 +122,7 @@ describe('VendorApi', () => {
       spy.withArgs(id, rowVersion);
 
       expect(() => {
-        vendorApi.delete(id, rowVersion);
+        locationApi.delete(id, rowVersion);
       }).to.throw(errorMessage);
 
       sinon.assert.threw(spy.withArgs(id, rowVersion));
@@ -136,7 +136,7 @@ describe('VendorApi', () => {
       spy.withArgs(id, rowVersion);
 
       expect(() => {
-        vendorApi.delete(id, rowVersion);
+        locationApi.delete(id, rowVersion);
       }).to.throw(errorMessage);
 
       sinon.assert.threw(spy.withArgs(id, rowVersion));

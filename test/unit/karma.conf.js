@@ -11,8 +11,8 @@ module.exports = function(config) {
     // 1. install corresponding karma launcher
     //    http://karma-runner.github.io/0.13/config/browsers.html
     // 2. add it to the `browsers` array below.
-    // browsers: ['PhantomJS'],
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
+    // browsers: ['Chrome'],
     frameworks: ['mocha', 'sinon-chai'],
     plugins: [
       'karma-mocha',
@@ -44,13 +44,12 @@ module.exports = function(config) {
     coverageReporter: {
       dir: './coverage',
       reporters: [{
-          type: 'lcov',
-          subdir: '.'
-        },
-        {
-          type: 'text-summary'
-        },
-      ]
+        type: 'lcov',
+        subdir: '.'
+      },
+      {
+        type: 'text-summary'
+      }]
     },
   });
 };
