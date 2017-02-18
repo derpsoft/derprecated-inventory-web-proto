@@ -1,14 +1,14 @@
 import {
   URLSearchParams,
 } from 'testUtils';
-import VendorApi from 'services/vendorApi';
+import WarehouseApi from 'services/warehouseApi';
 
-describe('VendorApi', () => {
-  let vendorApi;
+describe('warehouseApi', () => {
+  let warehouseApi;
 
   beforeEach(() => {
     window.URLSearchParams = URLSearchParams;
-    vendorApi = new VendorApi();
+    warehouseApi = new WarehouseApi();
   });
 
   afterEach(() => {
@@ -16,27 +16,27 @@ describe('VendorApi', () => {
   });
 
   it('should create only a single instance', () => {
-    const duplicateVendorApi = new VendorApi();
+    const duplicateWarehouseApi = new WarehouseApi();
 
-    expect(vendorApi).to.be.an.instanceof(VendorApi);
-    expect(duplicateVendorApi).to.be.an.instanceof(VendorApi);
-    expect(vendorApi).to.deep.equal(duplicateVendorApi);
+    expect(warehouseApi).to.be.an.instanceof(WarehouseApi);
+    expect(duplicateWarehouseApi).to.be.an.instanceof(WarehouseApi);
+    expect(warehouseApi).to.deep.equal(duplicateWarehouseApi);
   });
 
   it('should have the base CRUD commands', () => {
-    expect(vendorApi.count).to.be.an('function');
-    expect(vendorApi.list).to.be.an('function');
-    expect(vendorApi.single).to.be.an('function');
-    expect(vendorApi.typeahead).to.be.an('function');
-    expect(vendorApi.save).to.be.an('function');
-    expect(vendorApi.create).to.be.an('function');
-    expect(vendorApi.delete).to.be.an('function');
+    expect(warehouseApi.count).to.be.an('function');
+    expect(warehouseApi.list).to.be.an('function');
+    expect(warehouseApi.single).to.be.an('function');
+    expect(warehouseApi.typeahead).to.be.an('function');
+    expect(warehouseApi.save).to.be.an('function');
+    expect(warehouseApi.create).to.be.an('function');
+    expect(warehouseApi.delete).to.be.an('function');
   });
 
   describe('count', () => {
     it('should retrieve promise', () => {
       const mock = sinon.mock(URLSearchParams);
-      const promise = vendorApi.count();
+      const promise = warehouseApi.count();
       mock.verify();
       expect(promise).to.be.an('Promise');
     });
@@ -45,7 +45,7 @@ describe('VendorApi', () => {
   describe('list', () => {
     it('should retrieve promise', () => {
       const mock = sinon.mock(URLSearchParams);
-      const promise = vendorApi.list();
+      const promise = warehouseApi.list();
       mock.verify();
       expect(promise).to.be.an('Promise');
     });
@@ -54,7 +54,7 @@ describe('VendorApi', () => {
   describe('single', () => {
     it('should retrieve promise', () => {
       const mock = sinon.mock(URLSearchParams);
-      const promise = vendorApi.single();
+      const promise = warehouseApi.single();
       mock.verify();
       expect(promise).to.be.an('Promise');
     });
@@ -63,7 +63,7 @@ describe('VendorApi', () => {
   describe('typeahead', () => {
     it('should retrieve promise', () => {
       const mock = sinon.mock(URLSearchParams);
-      const promise = vendorApi.typeahead();
+      const promise = warehouseApi.typeahead();
       mock.verify();
       expect(promise).to.be.an('Promise');
     });
@@ -75,7 +75,7 @@ describe('VendorApi', () => {
         id: 1,
       };
       const mock = sinon.mock(URLSearchParams);
-      const promise = vendorApi.save(thing);
+      const promise = warehouseApi.save(thing);
       mock.verify();
       expect(promise).to.be.an('Promise');
     });
@@ -87,7 +87,7 @@ describe('VendorApi', () => {
         id: 1,
       };
       const mock = sinon.mock(URLSearchParams);
-      const promise = vendorApi.create(thing);
+      const promise = warehouseApi.create(thing);
       mock.verify();
       expect(promise).to.be.an('Promise');
     });
@@ -98,7 +98,7 @@ describe('VendorApi', () => {
     let spy;
 
     beforeEach(() => {
-      spy = sinon.spy(vendorApi, 'delete');
+      spy = sinon.spy(warehouseApi, 'delete');
       urlMock = sinon.mock(URLSearchParams);
     });
 
@@ -110,7 +110,7 @@ describe('VendorApi', () => {
     it('should retrieve promise', () => {
       const id = 1;
       const rowVersion = 1;
-      const promise = vendorApi.delete(id, rowVersion);
+      const promise = warehouseApi.delete(id, rowVersion);
       expect(promise).to.be.an('Promise');
     });
 
@@ -122,7 +122,7 @@ describe('VendorApi', () => {
       spy.withArgs(id, rowVersion);
 
       expect(() => {
-        vendorApi.delete(id, rowVersion);
+        warehouseApi.delete(id, rowVersion);
       }).to.throw(errorMessage);
 
       sinon.assert.threw(spy.withArgs(id, rowVersion));
@@ -136,7 +136,7 @@ describe('VendorApi', () => {
       spy.withArgs(id, rowVersion);
 
       expect(() => {
-        vendorApi.delete(id, rowVersion);
+        warehouseApi.delete(id, rowVersion);
       }).to.throw(errorMessage);
 
       sinon.assert.threw(spy.withArgs(id, rowVersion));
