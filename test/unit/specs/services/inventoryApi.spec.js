@@ -3,7 +3,7 @@ import {
 } from 'testUtils';
 import InventoryApi from 'services/inventoryApi';
 
-describe('InventoryApi', () => {
+describe('Inventory API', () => {
   let inventoryApi;
 
   beforeEach(() => {
