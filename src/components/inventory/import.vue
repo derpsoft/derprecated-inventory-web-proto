@@ -41,6 +41,7 @@
                   <csv-import ref="csvImport" :transform="csvToTransaction" @done="bulkImport"></csv-import>
                 </div>
                 <div class="col-md-6 text-right">
+                  <a class="btn btn-info" href="/static/docs/inventory-receive-import-template.csv">Download CSV Template</a>
                   <button type="submit" class="btn btn-warning" @click="save" v-if="hasUpload" v-can-receive-inventory>Import Inventory</button>
                 </div>
               </div>
