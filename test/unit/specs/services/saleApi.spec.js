@@ -24,5 +24,4 @@ describe('saleApi', () => {
     expect(saleApi.create).to.be.an('function');
     expect(saleApi.delete).to.be.an('function');
   });
-
 });
