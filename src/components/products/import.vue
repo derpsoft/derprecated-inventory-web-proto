@@ -45,6 +45,13 @@
                   <button type="submit" class="btn btn-warning" @click="save" v-if="hasUpload" v-can-upsert-products>Import Products</button>
                 </div>
               </div>
+              <div class="row" v-if="importErrors">
+                <div class="col-md-12">
+                  <div class="alert alert-error" v-for="error in importErrors">
+                    {{error}}
+                  </div>
+                </div>
+              </div>
               <div class="row bs-example table-wrapper">
                 <div class="col-md-12">
                   <div id="hands-on-table" class="table">
@@ -81,6 +88,9 @@ export default {
   },
 
   computed: {
+    importErrors() {
+      return this.$store.getters.products.importErrors;
+    },
     columns() {
       return [{
         data: 'title',
@@ -173,7 +183,7 @@ export default {
 
     save() {
       const products = this.hot.getSourceData();
-      this.$store.dispatch(Constants.CREATE_PRODUCTS, {
+      this.$store.dispatch(Constants.IMPORT_PRODUCTS, {
         products,
         toastError: true,
         redirect: this.redirect
