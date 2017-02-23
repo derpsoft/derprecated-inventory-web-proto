@@ -9,6 +9,7 @@ _.mixin(inflection);
 const t = {
   COUNT: x => `/api/v1/${_(x).pluralize().toLower()}/count`,
   CREATE: x => `/api/v1/${_(x).pluralize().toLower()}`,
+  CREATE_MANY: x => `/api/v1/${_(x).pluralize().toLower()}/bulk`,
   DELETE: x => `/api/v1/${_(x).pluralize().toLower()}`,
   LIST: x => `/api/v1/${_(x).pluralize().toLower()}`,
   SAVE: x => `/api/v1/${_(x).pluralize().toLower()}`,
@@ -31,7 +32,6 @@ export default class CrudApi extends Fetchable {
 
     return super
       .get(`${this.routes.COUNT(this.name)}?${body}`)
-      .then(res => res.json())
       .then(json => json.result);
   }
 
@@ -43,7 +43,6 @@ export default class CrudApi extends Fetchable {
 
     return super
       .get(`${this.routes.LIST(this.name)}?${body}`)
-      .then(res => res.json())
       .then(json => json.result || json[this.many]);
   }
 
@@ -53,7 +52,6 @@ export default class CrudApi extends Fetchable {
 
     return super
       .get(`${this.routes.SINGLE(this.name)}/${id}?${body}`)
-      .then(res => res.json())
       .then(json => json.result || json[this.one]);
   }
 
@@ -64,7 +62,6 @@ export default class CrudApi extends Fetchable {
 
     return super
       .search(`${this.routes.TYPEAHEAD(this.name)}?${body}`)
-      .then(res => res.json())
       .then(json => json.result);
   }
 
@@ -80,7 +77,6 @@ export default class CrudApi extends Fetchable {
         body: this.toJson(thing),
         headers
       })
-      .then(res => res.json())
       .then(json => json.result || json[this.one]);
   }
 
@@ -94,8 +90,20 @@ export default class CrudApi extends Fetchable {
         body: this.toJson(thing),
         headers
       })
-      .then(res => res.json())
       .then(json => json.result || json[this.one]);
+  }
+
+  createMany(things) {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    return super
+      .post(this.routes.CREATE_MANY(this.name), {
+        body: this.toJson(things),
+        headers
+      })
+      .then(json => json.result || json[this.many]);
   }
 
   delete(id, rowVersion) {
@@ -109,7 +117,6 @@ export default class CrudApi extends Fetchable {
     body.set('rowVersion', rowVersion);
     return super
       .delete(`${this.routes.DELETE(this.name)}/${id}?${body}`)
-      .then(res => res.json())
       .then(json => json.result || json[this.one]);
   }
 }

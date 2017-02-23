@@ -33,6 +33,23 @@ export default class Fetchable {
     });
   }
 
+  deserialize(response) {
+    return response.json()
+      .then((json) => {
+        return {
+          json,
+          response,
+        };
+      })
+      .catch((e) => {
+        return {
+          json: {},
+          error: e,
+          response,
+        };
+      });
+  }
+
   _fetch(url, options, {
     dispatch
   }) {
@@ -40,10 +57,16 @@ export default class Fetchable {
       throw new Error('url may not be empty');
     }
     return this.fetch(this.baseUrl + url, options)
+      .then(res => this.deserialize(res))
       .then((res) => {
+        const {
+          response,
+          json
+        } = res;
         getErrorCodeHandler({
           dispatch,
-          code: res.status
+          response,
+          json,
         })();
         return res;
       });

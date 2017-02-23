@@ -137,7 +137,6 @@ export default {
   methods: {
     csvToProduct(csv) {
       return {
-        _id: Symbol(csv.Title),
         title: csv.Title,
         sku: csv['Variant SKU'],
         upc: csv.Handle,
@@ -173,7 +172,7 @@ export default {
 
     save() {
       const products = this.hot.getSourceData();
-      this.$store.dispatch(Constants.IMPORT_PRODUCTS, {
+      this.$store.dispatch(Constants.CREATE_PRODUCTS, {
         products,
         toastError: true,
         redirect: this.redirect

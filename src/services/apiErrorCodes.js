@@ -1,4 +1,7 @@
 import Constants from 'src/constants';
+import {
+  FetchError
+} from 'src/errors';
 
 const knownCodes = {
   302: 'Redirect',
@@ -9,7 +12,11 @@ const knownCodes = {
   },
   403: 'Forbidden',
   405: 'Not Implemented',
-  500: 'Server Error',
+  500: {
+    message: 'Server Error',
+    actions: [],
+    formatter: m => m,
+  },
 };
 
 /*
@@ -18,22 +25,41 @@ const knownCodes = {
  */
 export default function getErrorCodeHandler({
   dispatch,
-  code
+  response,
+  json,
 }) {
+  if (response.ok) {
+    return () => {};
+  }
+
+  const {
+    code
+  } = response;
   const handler = knownCodes[code];
   if (handler) {
     if (typeof handler === 'string') {
       return () => {
-        throw new Error(handler);
+        throw new FetchError(json, handler);
       };
     } else if (typeof handler === 'object') {
       return () => {
-        if (handler.actions) {
-          handler.actions.map(x => dispatch(x));
+        const {
+          actions,
+          formatter,
+        } = handler;
+        let {
+          message
+        } = handler;
+        if (actions) {
+          actions.map(x => dispatch(x));
         }
-        throw new Error(handler.message);
+        if (formatter) {
+          message = formatter(message);
+        }
+        throw new FetchError(json, message);
       };
     }
   }
+
   return () => {};
 }
