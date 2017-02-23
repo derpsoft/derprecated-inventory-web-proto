@@ -173,7 +173,7 @@ export default {
 
     save() {
       const products = this.hot.getSourceData();
-      this.$store.dispatch(Constants.CREATE_PRODUCTS, {
+      this.$store.dispatch(Constants.IMPORT_PRODUCTS, {
         products,
         toastError: true,
         redirect: this.redirect
