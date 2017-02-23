@@ -23,6 +23,7 @@ function deleteProductImage({
 
 
 function importProducts({
+  dispatch,
   commit,
 }, args) {
   const productApi = new ProductApi();
@@ -32,8 +33,13 @@ function importProducts({
         return productApi
           .create(single)
           .then(x => commit(Constants.SET_PRODUCT, x))
-          .catch((error) => {
-            commit(Constants.SET_PRODUCT_ERROR, error);
+          .catch(() => {
+            console.log('Failed ->');
+            console.log(single);
+            dispatch(Constants.SHOW_TOASTR, {
+              type: 'error',
+              message: 'Import Failed.',
+            });
           });
       }));
 }
@@ -43,7 +49,6 @@ const BASE = crud('product', ProductApi);
 const INITIAL_STATE = {
   products: {
     ...BASE.INITIAL_STATE,
-    importErrors: []
   }
 };
 
@@ -56,18 +61,12 @@ const ACTIONS = {
 
 const MUTATIONS = {
   ...BASE.MUTATORS,
-  [Constants.SET_PRODUCT_ERROR]: (state, error) => {
-    state.products.importErrors.push(error);
-  },
 };
 
 const GETTERS = {
   ...BASE.GETTERS,
 
   productImages: state => id => state.products.all[id].images,
-  importProductErrors(state) {
-    return state.products.importErrors;
-  }
 };
 
 const ProductActions = {
