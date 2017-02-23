@@ -5,7 +5,7 @@ export default class ProductApi extends CrudApi {
   constructor() {
     super('product', {
       SEARCH: () => '/api/v1/products/search',
-      GET_ONE_WITH_SKU: (sku) => `/api/v1/products/sku/${sku}`,
+      GET_ONE_WITH_SKU: sku => `/api/v1/products/sku/${sku}`,
     });
 
     if (ProductApi.prototype.singleton) {
