@@ -4,11 +4,14 @@ import Constants from 'src/constants';
 describe('apiErrorCodes', () => {
   it('should not throw on 200 responses', () => {
     const dispatch = sinon.spy();
-    const code = 200;
+    const response = {
+      ok: true,
+      statusCode: 200,
+    };
 
     expect(getErrorCodeHandler({
       dispatch,
-      code,
+      response,
     })).to.not.throw();
 
     expect(dispatch.called).to.not.be.ok;
@@ -17,11 +20,14 @@ describe('apiErrorCodes', () => {
 
   it('should not throw on 204 responses', () => {
     const dispatch = sinon.spy();
-    const code = 204;
+    const response = {
+      ok: true,
+      statusCode: 204,
+    };
 
     expect(getErrorCodeHandler({
       dispatch,
-      code,
+      response,
     })).to.not.throw();
 
     expect(dispatch.called).to.not.be.ok;
@@ -30,31 +36,40 @@ describe('apiErrorCodes', () => {
 
   it('should throw redirect errors', () => {
     const dispatch = sinon.spy();
-    const code = 302;
+    const response = {
+      ok: true,
+      statusCode: 302,
+    };
 
     expect(getErrorCodeHandler({
       dispatch,
-      code,
+      response,
     })).to.throw();
   });
 
   it('should throw validation errors', () => {
     const dispatch = sinon.spy();
-    const code = 400;
+    const response = {
+      ok: true,
+      statusCode: 400,
+    };
 
     expect(getErrorCodeHandler({
       dispatch,
-      code,
+      response,
     })).to.throw();
   });
 
   it('should throw authorization errors', () => {
     const dispatch = sinon.spy();
-    const code = 401;
+    const response = {
+      ok: true,
+      statusCode: 401,
+    };
 
     expect(getErrorCodeHandler({
       dispatch,
-      code,
+      response,
     })).to.throw();
 
     expect(dispatch.calledWithExactly(Constants.LOGOUT)).to.be.ok;
@@ -62,31 +77,40 @@ describe('apiErrorCodes', () => {
 
   it('should throw permission errors', () => {
     const dispatch = sinon.spy();
-    const code = 403;
+    const response = {
+      ok: true,
+      statusCode: 403,
+    };
 
     expect(getErrorCodeHandler({
       dispatch,
-      code,
+      response,
     })).to.throw();
   });
 
   it('should throw implementation errors', () => {
     const dispatch = sinon.spy();
-    const code = 405;
+    const response = {
+      ok: false,
+      statusCode: 405,
+    };
 
     expect(getErrorCodeHandler({
       dispatch,
-      code,
+      response,
     })).to.throw();
   });
 
   it('should throw server errors', () => {
     const dispatch = sinon.spy();
-    const code = 500;
+    const response = {
+      ok: false,
+      statusCode: 500,
+    };
 
     expect(getErrorCodeHandler({
       dispatch,
-      code,
+      response,
     })).to.throw();
   });
 });

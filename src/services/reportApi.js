@@ -18,7 +18,6 @@ class ReportApi extends Fetchable {
     const body = new URLSearchParams();
 
     return super.get(`/api/v1/reports/dashboard?${body}`)
-      .then(res => res.json())
       .then(json => json.result);
   }
 
@@ -28,7 +27,6 @@ class ReportApi extends Fetchable {
     body.set('productId', productId);
 
     return super.get(`/api/v1/reports/salesByProduct?${body}`)
-      .then(res => res.json())
       .then(json => json.report);
   }
 
@@ -37,7 +35,6 @@ class ReportApi extends Fetchable {
     body.set('groupBy', groupBy);
 
     return super.get(`/api/v1/reports/salesByTotal?${body}`)
-      .then(res => res.json())
       .then(json => json.report);
   }
 
@@ -47,7 +44,6 @@ class ReportApi extends Fetchable {
     body.set('vendorId', vendorId);
 
     return super.get(`/api/v1/reports/salesByVendor?${body}`)
-      .then(res => res.json())
       .then(json => json.report);
   }
 

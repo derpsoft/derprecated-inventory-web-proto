@@ -46,6 +46,13 @@
                 </div>
               </div>
               <div class="row bs-example table-wrapper">
+                <div class="col-md-12" v-show="importIsFiltered">
+                  Note:
+
+                  <span>{{products.length - tableData.length}} product(s) were excluded because they reference a SKU that already exists in the database.</span>
+
+                  <span v-if="!hasUpload">The given CSV does not contain any new products.</span>
+                </div>
                 <div class="col-md-12">
                   <div id="hands-on-table" class="table">
                     <span class="empty">Import CSV...</span>
@@ -59,9 +66,11 @@
     </div>
   </div>
 </div>
+
 </template>
 
 <script>
+import _ from 'lodash';
 import Handsontable from 'handsontable/dist/handsontable.full';
 import 'handsontable/dist/handsontable.min.css';
 import Constants from 'src/constants';
@@ -76,7 +85,6 @@ export default {
     return {
       products: [],
       hot: null,
-      hasUpload: false,
     };
   },
 
@@ -132,12 +140,36 @@ export default {
     table() {
       return document.querySelector('#hands-on-table');
     },
+    tableData() {
+      return _.reject(
+        this.products,
+        x => !!this.$store.getters.productBySku(x.sku)
+      );
+    },
+    importIsFiltered() {
+      return this.tableData.length !== this.products.length;
+    },
+    hasUpload() {
+      return this.products.length > 0 && this.tableData.length > 0;
+    },
+  },
+
+  watch: {
+    products: 'redrawTable',
+    tableData: 'redrawTable',
+  },
+
+  mounted() {
+    this.$store.dispatch(Constants.GET_PRODUCTS, {
+      skip: 0,
+      take: 1000,
+      includeDeleted: true
+    });
   },
 
   methods: {
     csvToProduct(csv) {
       return {
-        _id: Symbol(csv.Title),
         title: csv.Title,
         sku: csv['Variant SKU'],
         upc: csv.Handle,
@@ -150,12 +182,13 @@ export default {
     },
 
     bulkImport(value) {
-      const data = JSON.parse(JSON.stringify(value));
+      this.products = JSON.parse(JSON.stringify(value));
+    },
 
-      this.hasUpload = true;
+    redrawTable() {
       this.hot = new Handsontable(
         this.table, {
-          data,
+          data: this.tableData,
           columns: this.columns,
           colHeaders: this.headers,
           width: '100%',
@@ -173,7 +206,7 @@ export default {
 
     save() {
       const products = this.hot.getSourceData();
-      this.$store.dispatch(Constants.IMPORT_PRODUCTS, {
+      this.$store.dispatch(Constants.CREATE_PRODUCTS, {
         products,
         toastError: true,
         redirect: this.redirect
@@ -185,4 +218,5 @@ export default {
     },
   },
 };
+
 </script>
