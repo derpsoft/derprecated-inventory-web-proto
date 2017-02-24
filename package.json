@@ -16,6 +16,7 @@
     "start-unit": "cross-env BABEL_ENV=testing karma start test/unit/karma.conf.js"
   },
   "dependencies": {
+    "applicationinsights": "^0.18.0",
     "babel-runtime": "^6.0.0",
     "bootstrap": "^3.3.6",
     "chartist": "^0.10.1",

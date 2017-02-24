@@ -11,7 +11,7 @@
       <div class="panel-body">
         <div class="form-group" :class="{'has-error': errors.has('email')}">
           <label>Email</label>
-          <input type="email" name="email" class="form-control" placeholder="Email" v-model="user.email" v-validate="'required|email'">
+          <input type="email" name="email" class="form-control" placeholder="Email" v-model="user.email" v-validate="'required|email'" v-focus="true">
           <span v-show="errors.has('email')" class="help-block">{{ errors.first('email') }}</span>
         </div>
         <div class="form-group" :class="{'has-error': errors.has('username')}">

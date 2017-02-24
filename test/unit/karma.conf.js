@@ -14,19 +14,6 @@ module.exports = function(config) {
     browsers: ['PhantomJS'],
     // browsers: ['Chrome'],
     frameworks: ['mocha', 'sinon-chai'],
-    plugins: [
-      'karma-mocha',
-      'karma-chai',
-      'karma-chai-as-promised',
-      'karma-sinon',
-      'karma-sinon-chai',
-      'karma-sinon-as-promised',
-      'karma-webpack',
-      'karma-sourcemap-loader',
-      'karma-spec-reporter',
-      'karma-coverage',
-      'karma-phantomjs-launcher'
-    ],
     reporters: ['spec', 'coverage'],
     files: [
       '../../node_modules/babel-polyfill/dist/polyfill.js',
@@ -40,15 +27,15 @@ module.exports = function(config) {
       noInfo: true,
     },
     coverageReporter: {
+      // includeAllSources: true,
       dir: './coverage',
       reporters: [{
-          type: 'lcov',
-          subdir: '.'
-        },
-        {
-          type: 'text-summary'
-        },
-      ]
+        type: 'lcov',
+        subdir: '.'
+      },
+      {
+        type: 'text-summary'
+      }]
     },
   });
 };

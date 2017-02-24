@@ -31,10 +31,12 @@ module.exports = {
       'components': resolve('src/components'),
       'shared': resolve('src/components/shared'),
       'directives': resolve('src/directives'),
+      'mixins': resolve('src/mixins'),
       'services': resolve('src/services'),
       'actions': resolve('src/actions'),
       'stores': resolve('src/stores'),
-      'unit': resolve('test/unit')
+      'unit': resolve('test/unit'),
+      'testUtils': resolve('test/utils')
     }
   },
   module: {
@@ -78,5 +80,8 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  node: {
+    fs: 'empty',
+  },
 };

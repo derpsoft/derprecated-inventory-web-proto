@@ -3,7 +3,7 @@
   <div class="form-group">
     <label>Product</label>
 
-    <autocomplete :suggestions="products" :key-selector="(v) => `${v.sku} ${v.title} ${v.description} ${v.color}`" :value-selector="(v) => v" :display-selector="(v) => `${v.sku}: ${v.title}`" @change="setProduct">
+    <autocomplete v-focus="true" :suggestions="products" :key-selector="(v) => `${v.sku} ${v.title} ${v.description} ${v.color}`" :value-selector="(v) => v" :display-selector="(v) => `${v.sku}: ${v.title}`" @change="setProduct">
     </autocomplete>
   </div>
 

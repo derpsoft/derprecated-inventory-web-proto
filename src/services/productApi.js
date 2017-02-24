@@ -4,7 +4,8 @@ import Constants from 'src/constants';
 export default class ProductApi extends CrudApi {
   constructor() {
     super('product', {
-      SEARCH: () => '/api/v1/products/search'
+      SEARCH: () => '/api/v1/products/search',
+      GET_ONE_WITH_SKU: sku => `/api/v1/products/sku/${sku}`,
     });
 
     if (ProductApi.prototype.singleton) {
@@ -16,8 +17,10 @@ export default class ProductApi extends CrudApi {
   }
 
   singleBySku(sku, includeDeleted = false) {
-    return this.typeahead(sku, includeDeleted)
-      .then(json => json[0]);
+    return super
+      .get(`${this.routes.GET_ONE_WITH_SKU(sku)}?includeDeleted=${includeDeleted}`)
+      .then(res => res.json())
+      .then(json => json.result);
   }
 
   imageUploadIntercept(file, xhr) {
