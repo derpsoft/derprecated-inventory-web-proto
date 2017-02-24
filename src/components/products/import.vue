@@ -93,11 +93,14 @@ export default {
       return [{
         data: 'title',
         type: 'text',
-        width: 100
+        width: 100,
+        validator: (v, cb) => {
+          cb(v.length > 0 && v.length < 500);
+        },
       }, {
         data: 'sku',
         type: 'text',
-        width: 100
+        width: 100,
       }, {
         data: 'upc',
         type: 'text',
@@ -111,6 +114,9 @@ export default {
         type: 'numeric',
         format: '0.00',
         width: 100,
+        validator: (v, cb) => {
+          cb(v > 0);
+        },
       }, {
         data: 'color',
         type: 'text',
@@ -123,6 +129,9 @@ export default {
         data: 'description',
         type: 'text',
         width: 300,
+        validator: (v, cb) => {
+          cb(v.length < 8000);
+        },
       }];
     },
     headers() {
@@ -155,7 +164,6 @@ export default {
   },
 
   watch: {
-    products: 'redrawTable',
     tableData: 'redrawTable',
   },
 
