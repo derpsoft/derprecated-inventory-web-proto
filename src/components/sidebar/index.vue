@@ -24,6 +24,9 @@
       <li v-can-read-products>
         <router-link :to="{ path: '/products', activeClass: 'active'}" active-class="active">Products</router-link>
       </li>
+      <li v-can-read-images>
+        <router-link :to="{ path: '/images', activeClass: 'active'}" active-class="active">Images</router-link>
+      </li>
       <li v-can-read-categories v-is-dev>
         <router-link :to="{ path: '/categories', activeClass: 'active'}" active-class="active">Categories</router-link>
       </li>

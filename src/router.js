@@ -19,6 +19,9 @@ import ModifyInventory from 'components/inventory/modify';
 import Products from 'components/products/index';
 import ModifyProducts from 'components/products/modifyProduct';
 
+import Images from 'components/images/index';
+import ModifyImages from 'components/images/modify';
+
 import Warehouses from 'components/warehouses/index';
 import ModifyWarehouses from 'components/warehouses/modifyWarehouses';
 
@@ -125,7 +128,7 @@ const routes = [{
       requiresAuth: true,
     },
   }, {
-    path: 'products',
+    path: '/products',
     component: Products,
     beforeEnter: guard('canReadProducts'),
     meta: {
@@ -149,6 +152,20 @@ const routes = [{
     path: '/products/import',
     component: ModifyProducts,
     beforeEnter: guard('canUpsertProducts'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/images',
+    component: Images,
+    beforeEnter: guard('canReadImages'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/images/edit/:id',
+    component: ModifyImages,
+    beforeEnter: guard('canUpsertImages'),
     meta: {
       requiresAuth: true,
     },
@@ -275,8 +292,7 @@ const routes = [{
       next('/NotFound');
     }
   }],
-}
-];
+}];
 
 const router = new VueRouter({
   mode: 'history',

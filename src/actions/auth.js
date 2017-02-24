@@ -317,6 +317,33 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
+  canReadImages: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_IMAGES.key,
+      Permissions.READ_IMAGES.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
+  canUpsertImages: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_IMAGES.key,
+      Permissions.UPSERT_IMAGES.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
+  canDeleteImages: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_IMAGES.key,
+      Permissions.DELETE_IMAGES.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
   canReadWarehouses: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING.key,
