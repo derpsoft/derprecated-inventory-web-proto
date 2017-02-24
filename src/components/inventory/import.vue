@@ -46,6 +46,13 @@
                 </div>
               </div>
               <div class="row bs-example table-wrapper">
+                <div class="col-md-12" v-show="importIsFiltered">
+                  Note:
+
+                  <span>{{inventory.length - tableData.length}} rows(s) were excluded because they reference a SKU that does not exist in the database.</span>
+
+                  <span v-if="!hasUpload">The given CSV does not contain references to any existing products.</span>
+                </div>
                 <div class="col-md-12">
                   <div id="hands-on-table" class="table">
                     <span class="empty">Import CSV...</span>
@@ -78,7 +85,6 @@ export default {
     return {
       inventory: [],
       hot: null,
-      hasUpload: false,
     };
   },
 
@@ -87,12 +93,18 @@ export default {
       return [{
         data: 'sku',
         type: 'text',
-        width: 100
+        width: 100,
+        validate: (v, cb) => {
+          cb(v.length > 0 && v.length < 200);
+        },
       }, {
         data: 'quantity',
         type: 'numeric',
         format: '0',
         width: 100,
+        validate: (v, cb) => {
+          cb(v > 0);
+        },
       }];
     },
     headers() {
@@ -101,6 +113,7 @@ export default {
         'quantity',
       ];
     },
+
     table() {
       return document.querySelector('#hands-on-table');
     },
@@ -114,12 +127,36 @@ export default {
         name: 'Receiving'
       });
     },
+
+    tableData() {
+      return _.reject(
+        this.inventory,
+        x => !this.$store.getters.productBySku(x.sku)
+      );
+    },
+
+    importIsFiltered() {
+      return this.tableData.length !== this.inventory.length;
+    },
+
+    hasUpload() {
+      return this.inventory.length > 0 && this.tableData.length > 0;
+    },
+  },
+
+  watch: {
+    tableData: 'redrawTable',
   },
 
   mounted() {
     this.reset();
     this.$store.dispatch(Constants.GET_LOCATIONS, {
       take: 1000
+    });
+    this.$store.dispatch(Constants.GET_PRODUCTS, {
+      skip: 0,
+      take: 1000,
+      includeDeleted: true
     });
   },
 
@@ -130,19 +167,19 @@ export default {
 
     csvToTransaction(csv) {
       return {
-        _id: Symbol(csv['Variant SKU']),
         sku: csv['Variant SKU'],
         quantity: parseInt(csv['Variant Inventory Qty'], 10),
       };
     },
 
     bulkImport(value) {
-      const data = JSON.parse(JSON.stringify(value));
+      this.inventory = JSON.parse(JSON.stringify(value));
+    },
 
-      this.hasUpload = true;
+    redrawTable() {
       this.hot = new Handsontable(
         this.table, {
-          data,
+          data: this.tableData,
           columns: this.columns,
           colHeaders: this.headers,
           width: '100%',
