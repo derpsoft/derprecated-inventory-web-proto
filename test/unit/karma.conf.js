@@ -27,7 +27,6 @@ module.exports = function(config) {
       noInfo: true,
     },
     coverageReporter: {
-      // includeAllSources: true,
       dir: './coverage',
       reporters: [{
         type: 'lcov',
