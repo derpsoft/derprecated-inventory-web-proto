@@ -68,7 +68,6 @@ export default class Fetchable {
           response,
           json,
         })();
-        console.debug(json);
         return json;
       });
   }
