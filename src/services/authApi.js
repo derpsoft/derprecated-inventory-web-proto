@@ -24,7 +24,6 @@ class AuthApi extends Fetchable {
         lastName
       })
     })
-    .then(res => res.json())
     .then((json) => {
       return this.setUser(json);
     });
@@ -37,7 +36,6 @@ class AuthApi extends Fetchable {
         password
       })
     })
-    .then(res => res.json())
     .then((json) => {
       return this.setUser(json);
     });
@@ -63,7 +61,6 @@ class AuthApi extends Fetchable {
 
   profile() {
     return super.get('/api/v1/me')
-      .then(res => res.json())
       .then(json => json.result);
   }
 
@@ -73,7 +70,6 @@ class AuthApi extends Fetchable {
         email
       })
     })
-    .then(res => res.json())
     .then((json) => {
       return json;
     });
@@ -87,8 +83,7 @@ class AuthApi extends Fetchable {
         password,
         passwordRepeat
       })
-    })
-    .then(res => res.json());
+    });
   }
 }
 

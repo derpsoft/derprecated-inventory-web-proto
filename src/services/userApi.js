@@ -19,7 +19,6 @@ export default class UsersApi extends CrudApi {
 
     return super
       .get(`${this.routes.TYPEAHEAD(this.name)}?${body}`)
-      .then(res => res.json())
       .then(json => json.result);
   }
 }

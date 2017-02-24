@@ -19,7 +19,6 @@ export default class ProductApi extends CrudApi {
   singleBySku(sku, includeDeleted = false) {
     return super
       .get(`${this.routes.GET_ONE_WITH_SKU(sku)}?includeDeleted=${includeDeleted}`)
-      .then(res => res.json())
       .then(json => json.result);
   }
 
@@ -43,7 +42,6 @@ export default class ProductApi extends CrudApi {
     }
     return super
       .delete(`/api/v1/products/${productId}/images/${id}`)
-      .then(res => res.json())
       .then(json => json.result);
   }
 }
