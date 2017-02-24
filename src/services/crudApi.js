@@ -100,7 +100,9 @@ export default class CrudApi extends Fetchable {
 
     return super
       .post(this.routes.CREATE_MANY(this.name), {
-        body: this.toJson(things),
+        body: this.toJson({
+          [this.many]: things
+        }),
         headers
       })
       .then(json => json.result || json[this.many]);
