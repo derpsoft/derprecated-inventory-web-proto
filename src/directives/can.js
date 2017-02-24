@@ -13,6 +13,10 @@ const guards = [
   'canUpsertProducts',
   'canDeleteProducts',
 
+  'canReadImages',
+  'canUpsertImages',
+  'canDeleteImages',
+
   'canReadWarehouses',
   'canUpsertWarehouses',
   'canDeleteWarehouses',
