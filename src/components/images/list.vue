@@ -1,30 +1,20 @@
 <template>
 <div>
   <div class="col-md-12" v-if="!images.length">
-    There were no images found. Please add images or update the filters.
+    There were no images found. Add images, or try a different query.
   </div>
-  <crud-list :records="images" :columns="['id', 'url']">
-    <template slot="body-row" scope="props">
-      <tr class="editable" v-on:click="edit(props.record.id)">
-        <td class="id">{{props.record.id}}</td>
-        <td>
-          <img :src="props.record.url | toSsl" width="50" height="50">
-        </td>
-      </tr>
-    </template>
-  </crud-list>
+
+  <div class="col-md-4" v-for="image in images">
+    <img :src="image.url | toSsl" class="img-rounded" v-on:click="edit(image.id)"/>
+  </div>
 </div>
 </template>
 
 <script>
-import CrudList from 'components/crud/list';
-
 export default {
   name: 'imageList',
 
-  components: {
-    CrudList
-  },
+  components: {},
 
   filters: {
     toSsl(src) {
