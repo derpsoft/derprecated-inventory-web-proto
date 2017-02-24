@@ -28,14 +28,10 @@ export default function getErrorCodeHandler({
   response,
   json,
 }) {
-  if (response.ok) {
-    return () => {};
-  }
-
   const {
-    code
+    statusCode
   } = response;
-  const handler = knownCodes[code];
+  const handler = knownCodes[statusCode];
   if (handler) {
     if (typeof handler === 'string') {
       return () => {
