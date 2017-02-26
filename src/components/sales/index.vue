@@ -38,6 +38,7 @@ import Search from 'components/search';
 import SaleList from './list';
 
 export default {
+  name: 'sales',
   data() {
     return {
       searchAction: Constants.SEARCH_SALES,

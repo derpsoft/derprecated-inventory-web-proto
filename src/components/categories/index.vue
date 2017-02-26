@@ -39,6 +39,7 @@ import Search from 'components/search';
 import CategoryList from './list';
 
 export default {
+  name: 'categories',
   components: {
     CategoryList,
     Search,

@@ -38,6 +38,7 @@ import Search from 'components/search';
 import VendorList from './list';
 
 export default {
+  name: 'vendors',
   components: {
     VendorList,
     Search,
