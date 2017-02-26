@@ -13,6 +13,7 @@ describe('Report API', () => {
 
   afterEach(() => {
     window.URLSearchParams = null;
+    reportApi = null;
   });
 
   it('should create only a single instance', () => {

@@ -1,4 +1,4 @@
-import Achievement from 'components/shared/achievement';
+import Achievement from 'shared/achievement';
 
 describe('Achievement Component', () => {
   it('should have a name', () => {
@@ -52,15 +52,12 @@ describe('Achievement Component', () => {
       expect(props.brand.default).to.equal('info');
       expect(props.brand.required).to.be.ok;
     });
-
   });
 
   describe('methods', () => {
     describe('format', () => {
       it('should format', () => {
-        Achievement.filter = (value) => {
-          return 1 + value;
-        };
+        Achievement.filter = value => 1 + value;
         const val = Achievement.val = 1;
         const spy = sinon.spy(Achievement, 'filter');
         Achievement.methods.format.apply(Achievement, [val]);

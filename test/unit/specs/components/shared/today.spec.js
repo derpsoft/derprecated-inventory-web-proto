@@ -1,5 +1,5 @@
 import moment from 'moment';
-import Today from 'components/shared/today';
+import Today from 'shared/today';
 
 describe('Today - component', () => {
   it('should have a name', () => {
@@ -13,7 +13,7 @@ describe('Today - component', () => {
   });
 
   it('should format dates', () => {
-    const date = moment('9/30/2017');
+    const date = moment('9/30/2017', 'MM/DD/YYYY');
     const result = Today.filters.formatDate.apply(Today, [date]);
 
     expect(result).to.equal('September 30, 2017');
