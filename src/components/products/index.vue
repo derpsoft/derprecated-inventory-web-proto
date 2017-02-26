@@ -40,6 +40,7 @@ import Search from 'components/search';
 import productList from './list';
 
 export default {
+  name: 'productIndex',
   data() {
     return {
       searchAction: Constants.SEARCH_PRODUCTS,

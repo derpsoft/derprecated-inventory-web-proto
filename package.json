@@ -13,7 +13,7 @@
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
     "start": "node -r dotenv/config build/dev-server.js  dotenv_config_required=false",
-    "start-unit": "cross-env BABEL_ENV=testing karma start test/unit/karma.conf.js"
+    "start-unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js"
   },
   "dependencies": {
     "applicationinsights": "^0.18.0",

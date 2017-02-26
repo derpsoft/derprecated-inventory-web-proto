@@ -39,6 +39,7 @@ import Constants from 'src/constants';
 import LocationList from './list';
 
 export default {
+  name: 'location',
   components: {
     LocationList,
     Search,

@@ -35,6 +35,7 @@ import Search from 'components/search';
 import UserList from './list';
 
 export default {
+  name: 'users',
   components: {
     UserList,
     Search,

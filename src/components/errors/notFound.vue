@@ -30,7 +30,6 @@
 <script>
 export default {
   name: 'notFound',
-  components: {},
 };
 </script>
 

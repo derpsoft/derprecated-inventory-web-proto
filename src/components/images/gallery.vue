@@ -70,10 +70,6 @@ import Dropzone from 'vue2-dropzone';
 export default {
   name: 'imageGallery',
 
-  data() {
-    return {};
-  },
-
   components: {
     Dropzone,
   },
