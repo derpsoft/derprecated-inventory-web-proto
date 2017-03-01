@@ -91,6 +91,7 @@ export default class Fetchable {
       }
     };
 
+    xhr.withCredentials = true;
     _.each(defaults.headers, (v, k) => {
       xhr.setRequestHeader(k, v);
     });

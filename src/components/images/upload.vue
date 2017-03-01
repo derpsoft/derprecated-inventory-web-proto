@@ -16,7 +16,7 @@
 
 <template>
 <div class="image-upload">
-  <dropzone id="dropzone" :url="uploadUrl" accepted-file-types="image/*" show-remove-link="false"
+  <dropzone ref="dz" id="dropzone" :url="uploadUrl" accepted-file-types="image/*" show-remove-link="false"
       max-file-size-in-mb="8" auto-process-queue="true" :show-remove-link="false" :max-file-size-in-mb="8"
       :auto-process-queue="true" @vdropzone-sending="onSending" @vdropzone-success="onSuccess"
       :use-font-awesome="true"></dropzone>
@@ -70,10 +70,17 @@ export default {
     return {};
   },
 
+  computed: {
+    zone() {
+      return this.$refs.dz;
+    }
+  },
+
   methods: {
-    onSuccess(file, json) {
-      this.images.push(json.result);
-    },
+    onSuccess(file) {
+      this.zone.removeFile(file);
+      this.$emit('success');
+    }
   },
 };
 
