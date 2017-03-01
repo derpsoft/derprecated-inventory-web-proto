@@ -1,38 +1,4 @@
-<style lang="less">
-.ct-chart {
-    .ct-series-a {
-        .ct-point {
-            stroke: #1bbf89;
-        }
-        .ct-line {
-            stroke: #1bbf89;
-        }
-    }
-
-    .ct-series-b {
-        .ct-point {
-            stroke: #56C0E0;
-        }
-        .ct-line {
-            stroke: #56C0E0;
-        }
-    }
-    .ct-series-c {
-        .ct-point {
-            stroke: #f7af3e;
-        }
-        .ct-line {
-            stroke: #f7af3e;
-        }
-    }
-    .ct-label {
-        color: #949ba2 !important;
-        font-size: 10px !important;
-    }
-    .ct-grid {
-        color: #f6a821 !important;
-    }
-}
+<style lang="css">
 </style>
 
 <template>
@@ -46,11 +12,7 @@
           </div>
           <div class="header-title">
             <div class="pull-right">
-              <small>
-                Today is
-                <br>
-                <span class="c-white">{{ date | formatDate }}</span>
-              </small>
+              <today></today>
             </div>
             <h3 class="m-b-xs">Derprecated Dashboard Concept</h3>
             <small>Derp overview</small>
@@ -58,58 +20,22 @@
         </div>
         <hr>
       </div>
-      <div class="row" v-is-dev>
+      <div class="row">
         <div class="col-lg-4 col-sm-12">
-          <div class="panel panel-filled panel-c-success">
-            <div class="panel-body">
-              <i class="text-success fa fa-envelope-o pull-right fa-4x m-t-sm"></i>
-              <h2 class="m-b-none">
-                200
-              </h2>
-              <small>Inventory Dispatched
-                <br>
-                by <span class="c-white">Month</span>
-              </small>
-            </div>
-          </div>
+          <inventory-dispatched></inventory-dispatched>
         </div>
         <div class="col-lg-4 col-sm-12">
-          <div class="panel panel-filled panel-c-info">
-            <div class="panel-body">
-              <i class="text-info fa fa-plus pull-right fa-4x m-t-sm"></i>
-              <h2 class="m-b-none">
-                100
-              </h2>
-              <small>
-                Inventory Received
-                <br>
-                by <span class="c-white">Month</span>
-              </small>
-            </div>
-          </div>
+          <inventory-received></inventory-received>
         </div>
         <div class="col-lg-4 col-sm-12">
-          <div class="panel panel-filled panel-c-warning">
-            <div class="panel-body">
-              <i class="text-warning fa fa-dollar pull-right fa-4x m-t-sm"></i>
-              <h2 class="m-b-none">
-                888.00
-              </h2>
-              <small>Total Sales
-                <br>
-                by <span class="c-white">Month</span>
-              </small>
-            </div>
-          </div>
+          <total-sales></total-sales>
         </div>
       </div>
       <div class="row" v-is-dev>
         <div class="col-md-12">
           <div class="panel panel-filled">
             <div class="panel-body">
-              <chart :series="series" :labels="labels" :options="options">
-              </chart>
-              <div class="ct-chart"></div>
+              <chart></chart>
             </div>
           </div>
         </div>
@@ -120,56 +46,26 @@
 </template>
 
 <script>
-import moment from 'moment';
 import Constants from 'src/constants';
+import Today from 'shared/today';
 import Chart from './chart';
+import TotalSales from './totalSales';
+import InventoryReceived from './inventoryReceived';
+import InventoryDispatched from './inventoryDispatched';
 
 export default {
-  name: 'dashboardView',
+  name: 'dashboard',
   components: {
-    Chart
-  },
-  data() {
-    return {
-      date: moment(),
-    };
-  },
-  filters: {
-    formatDate(x) {
-      return x.format('LL');
-    }
-  },
-  computed: {
-    labels() {
-      return ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-    },
-    series() {
-      // return this.$store.getters.dashboard;
-      return [{
-        name: 'Inventory Received',
-        data: [12, 9, 7, 8, 5],
-      }, {
-        data: [2, 1, 3.5, 7, 3],
-      }, {
-        data: [1, 3, 4, 5, 6]
-      }];
-    },
-    options() {
-      return {
-        fullWidth: true,
-        chartPadding: {
-          right: 40
-        },
-        height: '500px'
-      };
-    },
-    timespan() {
-      return '7.00:00:00';
-    },
+    Chart,
+    Today,
+    TotalSales,
+    InventoryReceived,
+    InventoryDispatched
   },
   mounted() {
-    this.$store.dispatch(Constants.GET_DASHBOARD, { timespan: this.timespan });
+    this.$store.dispatch(Constants.GET_DASHBOARD, {
+      groupBy: this.groupBy
+    });
   },
-  methods: {},
 };
 </script>

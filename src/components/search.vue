@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="css" scoped>
 .search {
     margin-bottom: 30px;
 }
@@ -13,13 +13,7 @@
 </template>
 
 <script>
-import {
-  mixin as focusMixin
-} from 'vue-focus';
-
 export default {
-  mixins: [focusMixin],
-
   data() {
     return {
       searchTerm: '',

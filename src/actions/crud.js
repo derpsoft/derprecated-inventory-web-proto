@@ -16,6 +16,7 @@ _.mixin(inflection);
   Convenience templaters for the constants corresponding to actions/mutations.
  */
 const t = {
+  CLEAR_ERRORS: x => `CLEAR_${_(x).singularize().toUpper()}_ERRORS`,
   CLEAR_SEARCH_RESULTS: x => `CLEAR_${_(x).singularize().toUpper()}_SEARCH_RESULTS`,
   CLEAR_SEARCH: x => `CLEAR_${_(x).singularize().toUpper()}_SEARCH`,
   CREATE_ONE: x => `CREATE_${_(x).singularize().toUpper()}`,
@@ -30,6 +31,7 @@ const t = {
   SET_COUNT: x => `SET_${_(x).pluralize().toUpper()}_COUNT`,
   SET_SEARCH_QUERY: x => `SET_${_(x).singularize().toUpper()}_SEARCH_QUERY`,
   SET_SEARCH_RESULTS: x => `SET_${_(x).singularize().toUpper()}_SEARCH_RESULTS`,
+  SET_ERROR: x => `SET_${_(x).singularize().toUpper()}_ERROR`,
   SEARCH: x => `SEARCH_${_(x).pluralize().toUpper()}`,
 };
 
@@ -85,6 +87,7 @@ export default function(name, Api) {
       results: [],
       query: '',
     },
+    errors: {},
     count: 0,
   };
 
@@ -174,110 +177,140 @@ export default function(name, Api) {
       }
     ),
 
+    [t.CLEAR_ERRORS(name)]: ({
+      commit
+    }) => {
+      commit(t.CLEAR_ERRORS(name));
+    },
+
     [t.CLEAR_SEARCH(name)]: ({
       commit
     }) => {
       commit(t.CLEAR_SEARCH(name));
     },
 
-    [t.CREATE_ONE(name)]: ({
-      commit,
-      dispatch
-    }, args) => {
-      new Api()
-        .create(args[one])
-        .then((x) => {
-          commit(t.SET_ONE(name), x);
-          toastSuccess({
+    [t.CREATE_ONE(name)]: _.debounce(
+      ({
+        commit,
+        dispatch,
+      }, args) => {
+        const api = new Api();
+
+        return api.create(args[one])
+          .then((x) => {
+            commit(t.SET_ONE(name), x);
+            toastSuccess({
+              dispatch,
+              message: `Created ${name} successfully.`
+            });
+            if (args.redirect) {
+              args.redirect();
+            }
+          })
+          .catch(createErrorHandler({
             dispatch,
-            message: `Created ${name} successfully.`
-          });
-          if (args.redirect) {
-            args.redirect();
-          }
-        })
-        .catch(createErrorHandler({
-          dispatch,
-          toastError: args.toastError,
-          message: `Error creating ${one}.`
-        }));
-    },
+            toastError: args.toastError,
+            message: `Error creating ${one}.`
+          }));
+      },
+      5000, {
+        leading: true,
+        trailing: false,
+      }),
 
-    [t.CREATE_MANY(name)]: ({
-      commit,
-      dispatch
-    }, args) => {
-      const api = new Api();
+    [t.CREATE_MANY(name)]: _.throttle(
+      ({
+        commit,
+        dispatch
+      }, args) => {
+        const api = new Api();
 
-      return Promise.all(
-          _.map(args[many], (single) => {
-            return api
-              .create(single)
-              .then(x => commit(t.SET_ONE(name), x));
-          }))
-        .then((results) => {
-          toastSuccess({
+        return Promise.all(
+            _.map(args[many], (single) => {
+              return api
+                .create(single)
+                .then(x => commit(t.SET_ONE(name), x));
+            }))
+          .then((results) => {
+            toastSuccess({
+              dispatch,
+              message: `Created ${results.length} ${many} successfully.`
+            });
+            if (args.redirect) {
+              args.redirect();
+            }
+          })
+          .catch(createErrorHandler({
             dispatch,
-            message: `Created ${results.length} ${many} successfully.`
-          });
-          if (args.redirect) {
-            args.redirect();
-          }
-        })
-        .catch(createErrorHandler({
-          dispatch,
-          toastError: args.toastError,
-          message: `Error creating one or more ${many}.`,
-        }));
-    },
+            toastError: args.toastError,
+            message: `Error creating one or more ${many}.`,
+          }));
+      },
+      10000, {
+        leading: true,
+        trailing: false,
+      }),
 
-    [t.UPDATE_ONE(name)]: ({
-      commit,
-      dispatch
-    }, args) => {
-      new Api()
-        .save(args[one])
-        .then((x) => {
-          commit(t.SET_ONE(name), x);
-          toastSuccess({
+    [t.UPDATE_ONE(name)]: _.debounce(
+      ({
+        commit,
+        dispatch
+      }, args) => {
+        const api = new Api();
+
+        api.save(args[one])
+          .then((x) => {
+            commit(t.SET_ONE(name), x);
+            toastSuccess({
+              dispatch,
+              message: `Saved ${name} successfully.`
+            });
+          })
+          .catch(createErrorHandler({
             dispatch,
-            message: `Saved ${name} successfully.`
-          });
-        })
-        .catch(createErrorHandler({
-          dispatch,
-          toastError: args.toastError,
-          message: `Error saving ${one}.`
-        }));
-    },
+            toastError: args.toastError,
+            message: `Error saving ${one}.`
+          }));
+      },
+      5000, {
+        leading: true,
+        trailing: false,
+      }),
 
-    [t.DELETE_ONE(name)]: ({
-      commit,
-      dispatch
-    }, {
-      id,
-      redirect = null,
-      toastError = true,
-    }) => {
-      new Api()
-        .delete(id)
-        .then(() => {
-          commit(t.DELETE_ONE(name), id);
-          toastInfo({
+    [t.DELETE_ONE(name)]: _.debounce(
+      ({
+        commit,
+        dispatch
+      }, {
+        id,
+        rowVersion,
+        redirect = null,
+        toastError = true,
+      }) => {
+        const api = new Api();
+
+        api.delete(id, rowVersion)
+          .then(() => {
+            commit(t.DELETE_ONE(name), id);
+            toastInfo({
+              dispatch,
+              message: `Deleted ${one}.`
+            });
+
+            if (redirect) {
+              redirect();
+            }
+          })
+          .catch(createErrorHandler({
             dispatch,
-            message: `Deleted ${one}.`
-          });
-
-          if (redirect) {
-            redirect();
-          }
-        })
-        .catch(createErrorHandler({
-          dispatch,
-          toastError,
-          message: `Error deleting ${one}`
-        }));
-    },
+            toastError,
+            message: `Error deleting ${one}`
+          }));
+      },
+      10000, {
+        leading: true,
+        trailing: false,
+      }),
   };
 
   const MUTATORS = {
@@ -306,6 +339,14 @@ export default function(name, Api) {
 
     [t.SET_SEARCH_RESULTS(name)]: (state, x) => {
       state[many].search.results = x;
+    },
+
+    [t.CLEAR_ERRORS(name)]: (state) => {
+      state[many].errors = {};
+    },
+
+    [t.SET_ERROR(name)]: (state, x) => {
+      state[many].errors[x.id] = x;
     },
 
     [t.CLEAR_SEARCH(name)]: (state) => {

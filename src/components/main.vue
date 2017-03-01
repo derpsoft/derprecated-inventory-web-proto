@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <app-header></app-header>
-    <app-sidebar></app-sidebar>
-    <router-view></router-view>
-  </div>
+<div>
+  <app-header></app-header>
+  <app-sidebar></app-sidebar>
+  <router-view></router-view>
+</div>
 </template>
 
 <script>
@@ -17,4 +17,5 @@ export default {
     appSidebar,
   }
 };
+
 </script>

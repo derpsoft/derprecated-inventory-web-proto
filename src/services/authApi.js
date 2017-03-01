@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import Fetchable from 'services/fetchable';
 import store from 'stores/store';
 import Constants from 'src/constants';
@@ -65,15 +64,7 @@ class AuthApi extends Fetchable {
   profile() {
     return super.get('/api/v1/me')
       .then(res => res.json())
-      .then((json) => {
-        let profile = {};
-
-        if (json) {
-          profile = _.merge(profile, json);
-        }
-
-        return profile;
-      });
+      .then(json => json.result);
   }
 
   forgotPassword(email) {

@@ -70,8 +70,9 @@ export default class CrudApi extends Fetchable {
 
   save(thing) {
     const id = thing.id;
-    const headers = new Headers();
-    headers.set('content-type', 'application/json');
+    const headers = {
+      'Content-Type': 'application/json',
+    };
     delete thing.id;
 
     return super
@@ -84,8 +85,9 @@ export default class CrudApi extends Fetchable {
   }
 
   create(thing) {
-    const headers = new Headers();
-    headers.set('content-type', 'application/json');
+    const headers = {
+      'Content-Type': 'application/json',
+    };
     delete thing.id;
     return super
       .post(this.routes.CREATE(this.name), {
@@ -96,12 +98,17 @@ export default class CrudApi extends Fetchable {
       .then(json => json.result || json[this.one]);
   }
 
-  delete(id) {
+  delete(id, rowVersion) {
     if (id < 1) {
       throw new Error('id must be >= 1');
     }
+    if (rowVersion < 1) {
+      throw new Error('rowVersion must be >= 1');
+    }
+    const body = new URLSearchParams();
+    body.set('rowVersion', rowVersion);
     return super
-      .delete(`${this.routes.DELETE(this.name)}/${id}`)
+      .delete(`${this.routes.DELETE(this.name)}/${id}?${body}`)
       .then(res => res.json())
       .then(json => json.result || json[this.one]);
   }

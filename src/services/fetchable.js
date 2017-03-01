@@ -1,42 +1,19 @@
 import _ from 'lodash';
-import Constants from 'src/constants';
+import getErrorCodeHandler from 'services/apiErrorCodes';
+import fetch from 'isomorphic-fetch';
 
-const _fetch = function(url, options, {
-  dispatch
-}) {
-  // console.log(url, options);
-  return fetch(url, options)
-    .then((res) => {
-      if (res.status === 302) {
-        throw new Error('Redirect');
-      }
-
-      if (res.status === 400) {
-        throw new Error('Validation');
-      }
-
-      if (res.status === 401) {
-        dispatch(Constants.LOGOUT);
-        throw new Error('Unauthorized');
-      }
-
-      if (res.status === 403) {
-        // Eventually handle a missing permissions error.
-        throw new Error('Forbidden');
-      }
-
-      if (res.status >= 500) {
-        throw new Error('Server Error');
-      }
-
-      return res;
-    });
-};
-
+const verbs = [
+  'get',
+  'put',
+  'post',
+  'patch',
+  'delete',
+  'search',
+];
 
 export default class Fetchable {
-  constructor(baseUrl, store) {
-    if (!baseUrl) {
+  constructor(baseUrl, store, fetcher = fetch) {
+    if (!baseUrl || baseUrl === '') {
       throw new Error('baseUrl may not be empty');
     }
     if (!store) {
@@ -45,6 +22,31 @@ export default class Fetchable {
 
     this.baseUrl = baseUrl;
     this.store = store;
+    this.fetch = fetcher;
+
+    _.each(verbs, (verb) => {
+      Fetchable.prototype[verb] = (url, options = {}) => {
+        const opts = _.merge({}, options);
+        opts.method = _(verb).toUpper();
+        return this._fetch(url, this.prepare(opts), this.store);
+      };
+    });
+  }
+
+  _fetch(url, options, {
+    dispatch
+  }) {
+    if (!url) {
+      throw new Error('url may not be empty');
+    }
+    return this.fetch(this.baseUrl + url, options)
+      .then((res) => {
+        getErrorCodeHandler({
+          dispatch,
+          code: res.status
+        })();
+        return res;
+      });
   }
 
   toForm(body) {
@@ -77,64 +79,10 @@ export default class Fetchable {
         Accept: 'application/json',
       }
     };
-    options.headers = options.headers || new Headers();
+    options.headers = _.merge({}, defaults.headers, options.headers);
     options.credentials = 'include';
     options.mode = 'cors';
 
-    _.each(defaults.headers, (v, k) => {
-      if (!options.headers.has(k)) {
-        options.headers.set(k, v);
-      }
-    });
-
     return options;
-  }
-
-  get(url, options = {}) {
-    if (!url) {
-      throw new Error('url may not be empty');
-    }
-    options.method = 'GET';
-    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
-  }
-
-  post(url, options = {}) {
-    if (!url) {
-      throw new Error('url may not be empty');
-    }
-    options.method = 'POST';
-    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
-  }
-
-  put(url, options = {}) {
-    if (!url) {
-      throw new Error('url may not be empty');
-    }
-    options.method = 'PUT';
-    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
-  }
-
-  patch(url, options = {}) {
-    if (!url) {
-      throw new Error('url may not be empty');
-    }
-    options.method = 'PATCH';
-    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
-  }
-
-  delete(url, options = {}) {
-    if (!url) {
-      throw new Error('url may not be empty');
-    }
-    options.method = 'DELETE';
-    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
-  }
-
-  search(url, options = {}) {
-    if (!url) {
-      throw new Error('url may not be empty');
-    }
-    options.method = 'SEARCH';
-    return _fetch(this.baseUrl + url, this.prepare(options), this.store);
   }
 }

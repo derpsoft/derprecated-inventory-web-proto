@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="css" scoped>
 .panel-main {
     min-height: 600px;
 }
@@ -41,6 +41,7 @@
                   <csv-import ref="csvImport" :transform="csvToProduct" @done="bulkImport"></csv-import>
                 </div>
                 <div class="col-md-6 text-right">
+                  <a class="btn btn-info" href="/static/docs/product-import-template.csv">Download CSV Template</a>
                   <button type="submit" class="btn btn-warning" @click="save" v-if="hasUpload" v-can-upsert-products>Import Products</button>
                 </div>
               </div>
@@ -172,7 +173,7 @@ export default {
 
     save() {
       const products = this.hot.getSourceData();
-      this.$store.dispatch(Constants.CREATE_PRODUCTS, {
+      this.$store.dispatch(Constants.IMPORT_PRODUCTS, {
         products,
         toastError: true,
         redirect: this.redirect

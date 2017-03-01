@@ -7,6 +7,7 @@ const guards = [
 
   'canReadVendors',
   'canUpsertVendors',
+  'canDeleteVendors',
 
   'canReadProducts',
   'canUpsertProducts',
@@ -14,12 +15,15 @@ const guards = [
 
   'canReadWarehouses',
   'canUpsertWarehouses',
+  'canDeleteWarehouses',
 
   'canReadLocations',
   'canUpsertLocations',
+  'canDeleteLocations',
 
   'canReadCategories',
   'canUpsertCategories',
+  'canDeleteCategories',
 
   'canReceiveInventory',
   'canDispatchInventory',

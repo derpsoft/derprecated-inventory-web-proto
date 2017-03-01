@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="css" scoped>
 .panel-main {
     min-height: 600px;
 }
@@ -41,6 +41,7 @@
                   <csv-import ref="csvImport" :transform="csvToTransaction" @done="bulkImport"></csv-import>
                 </div>
                 <div class="col-md-6 text-right">
+                  <a class="btn btn-info" href="/static/docs/inventory-receive-import-template.csv">Download CSV Template</a>
                   <button type="submit" class="btn btn-warning" @click="save" v-if="hasUpload" v-can-receive-inventory>Import Inventory</button>
                 </div>
               </div>
@@ -58,9 +59,11 @@
     </div>
   </div>
 </div>
+
 </template>
 
 <script>
+import _ from 'lodash';
 import Handsontable from 'handsontable/dist/handsontable.full';
 import 'handsontable/dist/handsontable.min.css';
 import Constants from 'src/constants';
@@ -101,11 +104,33 @@ export default {
     table() {
       return document.querySelector('#hands-on-table');
     },
+
+    error(id) {
+      return this.$getters.inventoryErrors[id];
+    },
+
+    location() {
+      return _.find(this.$store.getters.locations, {
+        name: 'Receiving'
+      });
+    },
+  },
+
+  mounted() {
+    this.reset();
+    this.$store.dispatch(Constants.GET_LOCATIONS, {
+      take: 1000
+    });
   },
 
   methods: {
+    reset() {
+      this.$store.dispatch(Constants.CLEAR_INVENTORY_ERRORS);
+    },
+
     csvToTransaction(csv) {
       return {
+        _id: Symbol(csv['Variant SKU']),
         sku: csv['Variant SKU'],
         quantity: parseInt(csv['Variant Inventory Qty'], 10),
       };
@@ -135,11 +160,10 @@ export default {
 
     save() {
       const transactions = this.hot.getSourceData();
-      console.log(transactions);
       this.$store.dispatch(Constants.RECEIVE_INVENTORY_BULK, {
         transactions,
-        locationId: 1,
-        toastError: true,
+        locationId: this.location.id,
+        toastError: false,
         redirect: this.redirect
       });
     },
@@ -149,4 +173,5 @@ export default {
     },
   },
 };
+
 </script>

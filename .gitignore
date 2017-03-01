@@ -1,4 +1,6 @@
 .DS_Store
+.env*
+*.swp
 node_modules/
 dist/
 npm-debug.log

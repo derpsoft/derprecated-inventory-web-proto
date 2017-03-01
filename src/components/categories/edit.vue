@@ -2,6 +2,7 @@
 <div>
   <div class="row control-row">
     <div class="col-md-12">
+      <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-delete-categories>Delete</button>
       <button class="btn btn-primary pull-right" @click="save">Save Category</button>
       <h4>Category Details</h4>
     </div>
@@ -12,6 +13,7 @@
     </div>
   </div>
 </div>
+
 </template>
 
 <script>
@@ -58,6 +60,21 @@ export default {
           }
         });
     },
+    deleteConfirm() {
+      /* eslint-disable no-alert */
+      if (window.confirm('Are you sure you want to delete?')) {
+        this.delete();
+      }
+      /* eslint-enable no-alert */
+    },
+
+    delete() {
+      this.$store.dispatch(Constants.DELETE_CATEGORY, {
+        id: this.id,
+        rowVersion: this.category.rowVersion,
+        redirect: this.redirect,
+      });
+    },
   },
   mounted() {
     this.$store.watch(
@@ -69,4 +86,5 @@ export default {
     this.load();
   }
 };
+
 </script>

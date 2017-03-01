@@ -3,7 +3,7 @@
 // we are also using it with karma-webpack
 //   https://github.com/webpack/karma-webpack
 
-var webpackConfig = require('../../build/webpack.test.conf');
+var webpackConfig = require('../../build/webpack.testing.conf');
 
 module.exports = function(config) {
   config.set({
@@ -27,15 +27,15 @@ module.exports = function(config) {
       noInfo: true,
     },
     coverageReporter: {
+      // includeAllSources: true,
       dir: './coverage',
       reporters: [{
-          type: 'lcov',
-          subdir: '.'
-        },
-        {
-          type: 'text-summary'
-        },
-      ]
+        type: 'lcov',
+        subdir: '.'
+      },
+      {
+        type: 'text-summary'
+      }]
     },
   });
 };

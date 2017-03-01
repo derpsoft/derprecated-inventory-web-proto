@@ -1,3 +1,13 @@
+<style lang="css" scoped>
+.alert {
+    margin-top: 10px;
+
+    &.alert-info {
+      margin-bottom: 10px;
+    }
+}
+</style>
+
 <template>
 <div class="container-center animated slideInDown">
   <div class="view-header">
@@ -34,15 +44,6 @@
   </div>
 </template>
 
-<style lang="less" scoped>
-.alert {
-    margin-top: 10px;
-
-    &.alert-info {
-      margin-bottom: 10px;
-    }
-}
-</style>
 <script>
 import Constants from 'src/constants';
 
