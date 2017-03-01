@@ -20,14 +20,14 @@
     </div>
 
     <div class="row" v-show="showUpload">
-      <image-upload ref="imageGallery" :allowRemove="false" :uploadUrl="uploadUrl" :on-sending="xhrIntercept"></image-upload>
+      <image-upload ref="imageGallery" :allowRemove="false" :uploadUrl="uploadUrl" :on-sending="xhrIntercept" @success="imageUploaded"></image-upload>
     </div>
 
     <div class="row">
       <div class="col-md-12">
         <div class="panel panel-filled panel-main">
           <div class="panel-body">
-            <search :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
+            <search refs="search" :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
             <image-list></image-list>
           </div>
         </div>
@@ -75,6 +75,9 @@ export default {
   methods: {
     xhrIntercept(file, xhr) {
       return this.api.imageUploadIntercept(file, xhr);
+    },
+    imageUploaded() {
+      this.$refs.search.search();
     },
   },
 };
