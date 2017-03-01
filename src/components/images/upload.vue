@@ -18,7 +18,7 @@
 <div class="image-upload">
   <dropzone id="dropzone" :url="uploadUrl" accepted-file-types="image/*" show-remove-link="false"
       max-file-size-in-mb="8" auto-process-queue="true" :show-remove-link="false" :max-file-size-in-mb="8"
-      :auto-process-queue="true" @vdropzone-sending="onSending" @vdropzone-success="onSuccess"
+      :auto-process-queue="true" @vdropzone-sending="onSending"
       :use-font-awesome="true"></dropzone>
 </div>
 
@@ -71,9 +71,6 @@ export default {
   },
 
   methods: {
-    onSuccess(file, json) {
-      this.images.push(json.result);
-    },
   },
 };
 
