@@ -27,7 +27,7 @@
       <div class="col-md-12">
         <div class="panel panel-filled panel-main">
           <div class="panel-body">
-            <search refs="search" :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
+            <search ref="search" :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
             <image-list></image-list>
           </div>
         </div>
