@@ -3,13 +3,20 @@
   position: absolute;
   top: 30px;
 }
+.selection-list {
+  a {
+    display: inline-block;
+    padding: 3px;
+    cursor: pointer;
+  }
+}
 </style>
 
 <template>
 <div style="position:relative" :class="{'open':openSuggestion}">
   <input class="form-control" type="text" v-model="query" v-focus.lazy="focus" @keydown.enter="enter"
       @keydown.down="down" @keydown.up="up" @input="change" />
-  <ul>
+  <ul class="selection-list">
     <li v-for="(selected, index) in selectionList">
       {{ selected }}<a @click="removeSelected(index)">X</a>
     </li>
@@ -59,8 +66,9 @@ export default {
       required: true
     },
     selected: {
-      type: Object,
+      type: Array,
       required: false,
+      default: () => [],
     },
     focus: {
       type: Boolean,
@@ -113,10 +121,8 @@ export default {
 
   methods: {
     refresh() {
-      if (this.selected) {
-        this.query = this.keySelector(this.selected);
-        this.enter();
-      }
+      this.selections = this.selected.slice();
+      console.log(this.selections);
     },
 
     up() {

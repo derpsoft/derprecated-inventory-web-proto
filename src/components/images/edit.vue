@@ -9,7 +9,12 @@
   </div>
   <div class="panel panel-filled panel-main">
     <div class="panel-body">
-      <image-form ref="imageForm" :image="image"></image-form>
+      <div class="col-md-3">
+        <img :src="image.url | toSsl" class="img-responsive center-block img-rounded" />
+      </div>
+      <div class="col-md-9">
+        <image-form ref="imageForm" :image="image"></image-form>
+      </div>
     </div>
   </div>
 </div>
@@ -21,22 +26,37 @@ import Constants from 'src/constants';
 import ImageForm from './form';
 
 export default {
+  name: 'imageEdit',
+
   components: {
-    ImageForm
+    ImageForm,
   },
-  data() {
-    return {
-      image: {},
-    };
-  },
+
   computed: {
     id() {
       return parseInt(this.$route.params.id, 10);
-    }
+    },
+    image() {
+      return this.$store.getters.image(this.id) || {
+        url: 'http://placehold.it/50x50',
+      };
+    },
   },
+
   watch: {
     id: 'load'
   },
+
+  filters: {
+    toSsl(src) {
+      return src.replace('http:', 'https:');
+    },
+  },
+
+  mounted() {
+    this.load();
+  },
+
   methods: {
     load() {
       this.$store.dispatch(Constants.GET_IMAGE, {
@@ -76,15 +96,6 @@ export default {
       });
     },
   },
-  mounted() {
-    this.$store.watch(
-      () => this.$store.getters.image(this.id),
-      (current) => {
-        this.image = Object.assign({}, this.image, current);
-      }
-    );
-    this.load();
-  }
 };
 
 </script>
