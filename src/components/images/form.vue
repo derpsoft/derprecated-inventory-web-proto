@@ -79,7 +79,6 @@ export default {
     },
     setProducts(v) {
       this.value.productIds = v;
-      console.log(this.value.productIds);
     }
   }
 };

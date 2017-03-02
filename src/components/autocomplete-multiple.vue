@@ -122,7 +122,6 @@ export default {
   methods: {
     refresh() {
       this.selections = this.selected.slice();
-      console.log(this.selections);
     },
 
     up() {
