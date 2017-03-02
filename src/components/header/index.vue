@@ -78,7 +78,7 @@ export default {
   },
   computed: {
     userSession() {
-      return this.$store.state.session;
+      return this.$store.getters.profile;
     }
   },
 };
