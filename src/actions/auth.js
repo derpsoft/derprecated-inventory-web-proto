@@ -55,7 +55,6 @@ function authenticated({
   accessToken,
   idToken
 }) {
-  console.debug(profile);
   commit(Constants.SET_PROFILE, profile);
   commit(Constants.SET_TOKENS, {
     accessToken,
@@ -69,8 +68,7 @@ function login({
 }) {
   const auth = new Auth();
 
-  const err = (e) => {
-    console.error(e);
+  const err = () => {
     logout({
       commit
     });
@@ -92,7 +90,6 @@ function login({
       return err(e);
     }
     if (authResult) {
-      console.debug(authResult);
       return auth.getUserInfo(authResult)
         .then(user => authenticated({
           dispatch,

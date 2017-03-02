@@ -320,7 +320,6 @@ router.beforeEach((to, from, next) => {
 
 store.watch(() => store.getters.isAuthenticated, (current, previous) => {
   if (current !== previous) {
-    // console.log(`isAuthenticated: ${previous} -> ${current}`);
     router.replace(current ? '/' : '/login');
   }
 });
