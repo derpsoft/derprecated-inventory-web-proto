@@ -5,12 +5,16 @@
     <input type="text" class="form-control" placeholder="Image Name" name="name" v-model="value.name" v-validate="'required'" v-focus="true">
     <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
   </div>
+  <div class="form-group">
+    <label>Products</label>
+    <autocomplete :selected="associatedProducts" :suggestions="products" :value-selector="(v) => v.id" :key-selector="(v) => v.title" :display-selector="(v) => `${v.id}: ${v.title}`" @change="setProducts">
+    </autocomplete>
+  </div>
 </form>
 </template>
 
 <script>
-import _ from 'lodash';
-import Autocomplete from 'components/autocomplete';
+import Autocomplete from 'components/autocomplete-multiple';
 import Constants from 'src/constants';
 
 export default {
@@ -20,7 +24,9 @@ export default {
 
   data() {
     return {
-      value: {},
+      value: {
+        productIds: []
+      },
     };
   },
 
@@ -32,12 +38,12 @@ export default {
   },
 
   computed: {
-    images() {
-      return _.filter(this.$store.getters.images, v => v.id !== this.value.id);
+    products() {
+      return this.$store.getters.products;
     },
-    parent() {
-      return this.$store.getters.image(this.value.parentId);
-    },
+    associatedProducts() {
+      return this.value.products;
+    }
   },
 
   watch: {
@@ -45,7 +51,7 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch(Constants.GET_IMAGES, {
+    this.$store.dispatch(Constants.GET_PRODUCTS, {
       skip: 0,
       take: 1000
     });
@@ -71,8 +77,8 @@ export default {
           };
         });
     },
-    setParent(v) {
-      this.value.parentId = v.id;
+    setProducts(v) {
+      this.value.productIds = v;
     }
   }
 };
