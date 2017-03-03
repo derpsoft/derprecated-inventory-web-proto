@@ -13,13 +13,13 @@ describe('Header - Index.vue', () => {
 
   it('should retrieve the computed user session', () => {
     const session = Header.$store = {
-      state: {
-        session: {},
+      getters: {
+        profile: {},
       },
     };
 
     const computedSession = Header.computed.userSession.apply(Header);
 
-    expect(computedSession).to.equal(session.state.session);
+    expect(computedSession).to.equal(session.getters.profile);
   });
 });
