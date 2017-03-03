@@ -34,6 +34,4 @@ new Vue({
   render: h => h(App)
 });
 
-if (store.getters.isAuthenticated) {
-  store.dispatch(Constants.GET_PROFILE);
-}
+store.dispatch(Constants.GET_PROFILE);

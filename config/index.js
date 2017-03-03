@@ -17,10 +17,6 @@ const base = {
   productionGzip: false,
   productionGzipExtensions: ['js', 'css'],
   proxyTable: {},
-  auth0: {
-    clientId: 'O38f3G7ukrF78usF70dcnSkd3BsZ92ue',
-    domain: 'derprecated.auth0.com',
-  }
 };
 
 const pro = _.merge({}, base, {
