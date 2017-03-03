@@ -14,7 +14,7 @@ describe('Edit Categories Component', () => {
 
   describe('computed', () => {
     it('should return the id', () => {
-      const route = Edit.$route = {
+      Edit.$route = {
         params: {
           id: 1,
         },
@@ -119,14 +119,14 @@ describe('Edit Categories Component', () => {
 
   describe('mounted', () => {
     it('should load', () => {
-      Edit.load = () => {};
-      const category = Edit.category = {};
       const id = Edit.id = 1;
+      Edit.load = () => {};
+      Edit.category = {};
       Edit.$store = {
         getters: {
           category: id,
         },
-        watch: () => {}
+        watch: () => {},
       };
 
       const watchSpy = sinon.spy(Edit.$store, 'watch');
