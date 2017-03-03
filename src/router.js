@@ -306,16 +306,15 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    const isAuthenticated = store.getters.isAuthenticated;
-    if (isAuthenticated) {
-      return next();
-    }
+  const isAuthenticated = store.getters.isAuthenticated;
 
-    const isLogin = ~to.path.toLowerCase().indexOf('/login');
-    return next(isLogin ? to : '/login');
+  if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
+    next('/login');
+  } else if (to.path.toLowerCase() === '/login' && isAuthenticated) {
+    next('/');
   }
-  return next();
+
+  next();
 });
 
 store.watch(() => store.getters.isAuthenticated, (current, previous) => {
@@ -323,5 +322,6 @@ store.watch(() => store.getters.isAuthenticated, (current, previous) => {
     router.replace(current ? '/' : '/login');
   }
 });
+
 
 module.exports = router;

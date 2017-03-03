@@ -5,9 +5,27 @@
 </style>
 
 <template>
-<div v-once>
-</div>
-
+<form id="login-form" @submit.prevent="validate">
+  <div class="form-group" :class="{'has-error': errors.has('username')}">
+    <label class="control-label" for="username">Username</label>
+    <input v-model="username" type="text" placeholder="Username" title="User Name" name="username" id="username" class="form-control" v-validate="'required'">
+    <span class="help-block small" v-show="!errors.has('username')">Your unique username to app</span>
+    <span v-show="errors.has('username')" class="help-block">{{ errors.first('username') }}</span>
+  </div>
+  <div class="form-group" :class="{'has-error': errors.has('password')}">
+    <label class="control-label" for="password">Password</label>
+    <input v-model="password" type="password" title="Please enter your password" placeholder="Password" name="password" id="password" class="form-control" v-validate="'required'">
+    <span class="help-block small" v-show="!errors.has('password')">Your strong password</span>
+    <span v-show="errors.has('password')" class="help-block">{{ errors.first('password') }}</span>
+  </div>
+  <div>
+    <button type="submit" class="btn btn-accent">Login</button>
+    <div class="pull-right">
+      <router-link class="btn btn-link" :to="{path: '/register'}">Register</router-link>
+      <router-link class="btn btn-link" :to="{path: '/forgot-password'}">Forgot Password?</router-link>
+    </div>
+  </div>
+</form>
 </template>
 
 <script>
@@ -15,30 +33,27 @@ import Constants from 'src/constants';
 
 export default {
   name: 'loginForm',
-
-  computed: {
-    isAuthenticated() {
-      return this.$store.getters.isAuthenticated;
-    }
+  data() {
+    return {
+      username: '',
+      password: '',
+    };
   },
-
-  watch: {
-    isAuthenticated: 'refresh'
-  },
-
-  mounted() {
-    this.refresh();
-  },
-
   methods: {
-    refresh() {
-      if (!this.isAuthenticated) {
-        this.$store.dispatch(Constants.LOGIN);
-      } else {
-        this.$router.go('/');
-      }
+    validate() {
+      this.$validator.validateAll().then((success) => {
+        if (!success) {
+          return;
+        }
+        this.login();
+      });
+    },
+    login() {
+      this.$store.dispatch(Constants.LOGIN, {
+        username: this.username,
+        password: this.password
+      });
     },
   },
 };
-
 </script>

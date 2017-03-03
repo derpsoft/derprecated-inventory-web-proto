@@ -1,8 +1,139 @@
 import _ from 'lodash';
-// import log from 'loglevel';
+import log from 'loglevel';
 import Constants from 'src/constants';
-// import AuthApi from 'services/authApi';
-import Auth from 'services/authentication';
+import AuthApi from 'services/authApi';
+
+const Permissions = Constants.permissions;
+
+function clear({
+  commit
+}) {
+  commit(Constants.CLEAR_PROFILE);
+  commit(Constants.CLEAR_SESSION);
+}
+
+function clearLoginError({
+  commit
+}) {
+  commit(Constants.LOGIN_FAILED, false);
+}
+
+function login({
+  dispatch,
+  commit
+}, {
+  username,
+  password
+}) {
+  new AuthApi().login(username, password)
+    .then((json) => {
+      if (json.sessionId) {
+        commit(Constants.SET_SESSION, json);
+        dispatch(Constants.GET_PROFILE);
+      } else {
+        clear({
+          dispatch,
+          commit
+        });
+      }
+    })
+    .catch(() => {
+      clear({
+        commit
+      });
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Incorrect username/password combination.'
+      });
+    });
+}
+
+function logout({
+  commit
+}) {
+  clear({
+    commit
+  });
+  new AuthApi().logout().catch(e => log.error(e));
+}
+
+function getProfile({
+  commit
+}) {
+  new AuthApi().profile()
+    .then((x) => {
+      if (x) {
+        commit(Constants.SET_PROFILE, x);
+      } else {
+        clear({
+          commit
+        });
+      }
+    });
+}
+
+function register({
+  commit,
+  dispatch,
+}, {
+  username,
+  password,
+  firstName,
+  lastName,
+  email,
+}) {
+  new AuthApi().register(username, password, email, firstName, lastName)
+    .then((json) => {
+      if (json) {
+        commit(Constants.SET_SESSION, json);
+        dispatch(Constants.GET_PROFILE);
+      } else {
+        clear({
+          commit
+        });
+      }
+    })
+    .catch((e) => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'error',
+        message: 'Registration failed.'
+      });
+      log.error(e);
+    });
+}
+
+function forgotPassword({
+  commit
+}, {
+  email
+}) {
+  new AuthApi().forgotPassword(email)
+    .then(() => {
+      commit(Constants.SET_PASSWORD_RESET_STATUS, true);
+    });
+}
+
+function resetPassword({
+  dispatch
+}, {
+  email,
+  password,
+  passwordRepeat,
+  token,
+  redirect
+}) {
+  new AuthApi().resetPassword(email, token, password, passwordRepeat)
+    .then(() => {
+      dispatch(Constants.SHOW_TOASTR, {
+        type: 'success',
+        message: 'Password reset was successful.'
+      });
+
+      if (typeof redirect === 'function') {
+        redirect.apply();
+      }
+    });
+}
 
 /*
 this is a temporary mechanism to keep the user logged in beyond
@@ -12,17 +143,17 @@ but it'd be better to rely on the existence of the session cookie.
 /* TODO this should be split into separate module for reuse */
 function read(k) {
   const disk = window.localStorage;
-  let data = {};
+  let user = {};
 
   if (disk) {
     try {
-      data = JSON.parse(disk.getItem(`@derprecated:${k}`));
+      user = JSON.parse(disk.getItem(`@derprecated:${k}`));
     } catch (e) {
       // ignore
     }
   }
 
-  return data;
+  return user;
 }
 
 /*
@@ -39,140 +170,81 @@ function save(k, v) {
   }
 }
 
-const Permissions = Constants.permissions;
-
-function logout({
-  commit,
-}) {
-  commit(Constants.LOGOUT);
-}
-
-function authenticated({
-  dispatch,
-  commit
-}, {
-  profile,
-  accessToken,
-  idToken
-}) {
-  commit(Constants.SET_PROFILE, profile);
-  commit(Constants.SET_TOKENS, {
-    accessToken,
-    idToken
-  });
-}
-
-function login({
-  dispatch,
-  commit
-}) {
-  const auth = new Auth();
-
-  const err = () => {
-    logout({
-      commit
-    });
-    dispatch(Constants.SHOW_TOASTR, {
-      type: 'error',
-      message: 'Incorrect username/password combination.'
-    });
-  };
-
-  auth.onAuthenticated(user => authenticated({
-    dispatch,
-    commit
-  }, user));
-
-  auth.onAuthorizationError(err);
-
-  auth.lock.resumeAuth(window.location.hash, (e, authResult) => {
-    if (e) {
-      return err(e);
-    }
-    if (authResult) {
-      return auth.getUserInfo(authResult)
-        .then(user => authenticated({
-          dispatch,
-          commit
-        }, user))
-        .catch(err);
-    }
-    return auth.show();
-  });
-}
-
-function getProfile({
-  commit,
-  dispatch
-}) {
-  new Auth()
-    .getUserInfo(read('tokens'))
-    .then(user => authenticated({
-      commit,
-      dispatch
-    }, user))
-    .catch(() => logout({
-      commit
-    }));
-}
-
 const INITIAL_STATE = {
-  tokens: _.merge({
-    accessToken: '',
-    idToken: '',
-  }, read('tokens')),
+  login: {
+    error: false,
+  },
+  resetPassword: {
+    isSuccess: false
+  },
   profile: _.merge({
     userName: '',
     displayName: '',
     email: '',
     permissions: []
   }, read('profile')),
+  session: _.merge({
+    isAuthenticated: false,
+    sessionId: null,
+  }, read('session'))
 };
 
 const ACTIONS = {
   [Constants.LOGIN]: login,
   [Constants.GET_PROFILE]: getProfile,
   [Constants.LOGOUT]: logout,
+  [Constants.REGISTER]: register,
+  [Constants.FORGOT_PASSWORD]: forgotPassword,
+  [Constants.CLEAR_LOGIN_ERROR]: clearLoginError,
+  [Constants.RESET_PASSWORD]: resetPassword,
 };
 
 const MUTATIONS = {
+  [Constants.SET_SESSION]: (state, session) => {
+    state.session = session;
+    save('session', session);
+  },
   [Constants.SET_PROFILE]: (state, profile) => {
-    save('profile', profile);
     state.profile = profile;
+    save('profile', {
+      permissions: state.profile.permissions
+    });
   },
-  [Constants.SET_TOKENS]: (state, tokens) => {
-    save('tokens', tokens);
-    state.tokens = tokens;
+  [Constants.CLEAR_SESSION]: (state) => {
+    const session = {
+      isAuthenticated: false,
+    };
+    state.session = session;
+    save('session', session);
   },
-  [Constants.LOGOUT]: (state) => {
-    save('profile', {});
-    save('tokens', {});
+  [Constants.CLEAR_PROFILE]: (state) => {
     state.profile = {};
-    state.tokens = null;
+    save('profile', {});
+  },
+  [Constants.LOGIN_FAILED]: (state, value) => {
+    state.login.error = value;
+  },
+  [Constants.SET_PASSWORD_RESET_STATUS]: (state, value) => {
+    state.resetPassword.isSuccess = value;
   },
 };
 
 const GETTERS = {
-  isAuthenticated: (state, getters) => {
-    const {
-      accessToken,
-      // idToken
-    } = getters.tokens;
-    return !_.isEmpty(accessToken); // && tokens.idToken;
-  },
-  tokens: (state) => {
-    return state.tokens || {};
+  isAuthenticated: (state) => {
+    return state.session.isAuthenticated;
   },
   profile: (state) => {
     return state.profile;
   },
-  authorization: (state, getters) => {
-    return getters.profile.authorization || {};
+  loginError: (state) => {
+    return state.login.error;
   },
-  currentUserPermissions: (state, getters) => {
-    return getters.authorization.permissions;
+  isResetPasswordSuccess: (state) => {
+    return state.resetPassword.isSuccess;
   },
-
+  currentUserPermissions: (state) => {
+    return (state.profile || {}).permissions;
+  },
   canReadUsers: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING.key,
