@@ -1,5 +1,5 @@
 import Auth0Lock from 'auth0-lock';
-import config from 'src/../config';
+import config from 'root/config';
 
 const {
   clientId,
