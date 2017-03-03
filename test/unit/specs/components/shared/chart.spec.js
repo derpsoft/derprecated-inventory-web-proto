@@ -52,17 +52,19 @@ describe('Chart - Shared Component', () => {
   });
 
   it('should draw the chart', () => {
+    Chart.$el = '<div></div>';
     const propsData = {
-      labels: [
-        '12/17/2016',
+      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      series: [
+        [12, 9, 7, 8, 5],
+        [2, 1, 3.5, 7, 3],
+        [1, 3, 4, 5, 6]
       ],
-      series: [{
-        Received: [1],
-      }],
       options: {},
     };
-    const ctor = VueComponent(Chart, propsData);
+    let ctor = VueComponent(Chart, propsData);
     const result = ctor.draw();
     expect(result).to.an.instanceof(Bar);
+    ctor = null;
   });
 });
