@@ -34,8 +34,6 @@ function importProducts({
         .create(single)
         .then(x => commit(Constants.SET_PRODUCT, x))
         .catch(() => {
-          console.log('Failed ->');
-          console.log(single);
           dispatch(Constants.SHOW_TOASTR, {
             type: 'error',
             message: 'Import Failed.',

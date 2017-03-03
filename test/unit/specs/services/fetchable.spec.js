@@ -16,6 +16,9 @@ describe('Fetchable', () => {
     const dispatch = sinon.spy();
     const fetchable = new Fetchable(host, {
       dispatch,
+      getters: {
+        tokens: {},
+      },
     }, fetch);
 
     return expect(fetchable.get('/')).to.be.rejected;
@@ -41,6 +44,9 @@ describe('Fetchable', () => {
       const dispatch = sinon.spy();
       const fetchable = new Fetchable(host, {
         dispatch,
+        getters: {
+          tokens: {},
+        },
       }, fetch);
 
       return expect(fetchable.get('/')).to.be.fulfilled;
@@ -60,6 +66,9 @@ describe('Fetchable', () => {
       const dispatch = sinon.spy();
       const fetchable = new Fetchable(host, {
         dispatch,
+        getters: {
+          tokens: {},
+        },
       }, fetch);
 
       return expect(fetchable.post('/')).to.be.fulfilled;

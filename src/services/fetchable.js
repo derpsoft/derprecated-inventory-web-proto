@@ -88,9 +88,11 @@ export default class Fetchable {
     const defaults = {
       headers: {
         Accept: 'application/json',
+        Authorization: `Bearer ${this.store.getters.tokens.idToken}`,
       }
     };
 
+    xhr.withCredentials = false;
     _.each(defaults.headers, (v, k) => {
       xhr.setRequestHeader(k, v);
     });
@@ -100,10 +102,11 @@ export default class Fetchable {
     const defaults = {
       headers: {
         Accept: 'application/json',
+        Authorization: `Bearer ${this.store.getters.tokens.idToken}`,
       }
     };
     options.headers = _.merge({}, defaults.headers, options.headers);
-    options.credentials = 'include';
+    options.credentials = 'omit';
     options.mode = 'cors';
 
     return options;

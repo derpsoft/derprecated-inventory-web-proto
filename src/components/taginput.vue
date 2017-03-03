@@ -82,7 +82,6 @@ export default {
       return _.take(this.source, this.index);
     },
     tail() {
-      console.log(_.takeRight(this.source, this.source.length - this.index));
       return _.takeRight(this.source, this.source.length - this.index);
     },
     input() {
