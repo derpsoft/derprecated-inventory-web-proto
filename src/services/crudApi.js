@@ -38,7 +38,7 @@ export default class CrudApi extends Fetchable {
   list(skip = 0, take = 25, includeDeleted = false) {
     const body = new URLSearchParams();
     body.set('skip', skip);
-    body.set('take', take);
+    // body.set('take', take);
     body.set('includeDeleted', includeDeleted);
 
     return super

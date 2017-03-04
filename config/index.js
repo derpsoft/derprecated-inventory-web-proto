@@ -18,8 +18,10 @@ const base = {
   productionGzipExtensions: ['js', 'css'],
   proxyTable: {},
   auth0: {
-    clientId: 'O38f3G7ukrF78usF70dcnSkd3BsZ92ue',
+    clientId: 'HgdpKajxywOUlc52Uv6rASdiABMsnYd4',
     domain: 'derprecated.auth0.com',
+    scope: 'openid user_metadata app_metadata',
+    audience: 'https://inventory.derprecated.com/',
   }
 };
 

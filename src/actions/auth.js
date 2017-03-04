@@ -125,7 +125,8 @@ const INITIAL_STATE = {
     userName: '',
     displayName: '',
     email: '',
-    permissions: []
+    permissions: [],
+    roles: [],
   }, read('profile')),
 };
 
@@ -171,6 +172,9 @@ const GETTERS = {
   },
   currentUserPermissions: (state, getters) => {
     return getters.authorization.permissions;
+  },
+  currentUserRoles: (state, getters) => {
+    return getters.authorization.roles;
   },
 
   canReadUsers: (state, getters) => {
