@@ -21,6 +21,7 @@ import Constants from 'src/constants';
 import VendorForm from './form';
 
 export default {
+  name: 'editVendor',
   components: {
     VendorForm
   },
