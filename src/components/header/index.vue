@@ -37,7 +37,7 @@
 <script>
 import {
   version
-} from 'src/../package.json';
+} from 'root/package.json';
 
 export default {
   name: 'header',

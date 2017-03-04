@@ -40,6 +40,7 @@ import Constants from 'src/constants';
 import InventoryLog from './list';
 
 export default {
+  name: 'inventoryLog',
   data() {
     return {
       searchAction: Constants.SEARCH_INVENTORY_TRANSACTION_LOGS,

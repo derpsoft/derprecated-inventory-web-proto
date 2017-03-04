@@ -36,7 +36,8 @@ module.exports = {
       'actions': resolve('src/actions'),
       'stores': resolve('src/stores'),
       'unit': resolve('test/unit'),
-      'testUtils': resolve('test/utils')
+      'testUtils': resolve('test/utils'),
+      'root': resolve('/'),
     }
   },
   module: {
