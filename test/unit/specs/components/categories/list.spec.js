@@ -1,6 +1,6 @@
 import List from 'components/categories/list';
 
-describe('List Warehouses', () => {
+describe('List Categories', () => {
   describe('computed', () => {
     describe('categories', () => {
       let store;
