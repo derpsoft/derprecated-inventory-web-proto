@@ -25,6 +25,7 @@
 import Constants from 'src/constants';
 
 export default {
+  name: 'editWarehouse',
   data() {
     return {
       warehouse: {},
