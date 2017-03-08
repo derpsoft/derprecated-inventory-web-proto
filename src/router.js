@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Main from 'components/main';
 import Dashboard from 'components/dashboard/index';
 import NotFound from 'components/errors/notFound';
+import PrivacyPolicy from 'components/legal/privacy';
 
 import ForgotPassword from 'components/password/forgot';
 import ResetPassword from 'components/password/reset';
@@ -71,6 +72,9 @@ const routes = [{
 }, {
   path: '/logout',
   component: Logout,
+}, {
+  path: '/privacy-policy',
+  component: PrivacyPolicy,
 }, {
   path: '/NotFound',
   component: NotFound,
