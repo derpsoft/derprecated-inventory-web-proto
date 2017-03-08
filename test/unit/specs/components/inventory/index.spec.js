@@ -3,7 +3,7 @@ import InventoryLog from 'components/inventory/index';
 
 describe('Inventory Log Index - Component', () => {
   it('should have a name', () => {
-    expect(InventoryLog.name).to.equal('inventoryLog');
+    expect(InventoryLog.name).to.equal('inventory');
   });
 
   it('should default data', () => {

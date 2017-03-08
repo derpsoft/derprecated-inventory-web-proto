@@ -1,4 +1,3 @@
-import moment from 'moment';
 import Constants from 'src/constants';
 import List from 'components/inventory/list';
 
