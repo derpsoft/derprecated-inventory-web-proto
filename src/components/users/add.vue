@@ -34,17 +34,6 @@
           <input type="tel" class="form-control" placeholder="Phone Number" v-model="user.phoneNumber" name="phone" v-validate="'required'">
           <span v-show="errors.has('phone')" class="help-block">{{ errors.first('phone') }}</span>
         </div>
-        <div>
-          <h4>Permissions</h4>
-          <div class="col-md-3 col-xs-12" v-for="p in allPermissions">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" v-bind:id="permission" v-bind:value="permission.key" v-model="permissions">
-                {{ permission.description }}
-              </label>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </form>
