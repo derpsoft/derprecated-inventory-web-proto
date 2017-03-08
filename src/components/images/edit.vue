@@ -2,7 +2,7 @@
 <div>
   <div class="row control-row">
     <div class="col-md-12">
-      <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-delete-images>Delete</button>
+      <button class="btn btn-danger" @click="deleteConfirm" v-can-delete-images>Delete</button>
       <button class="btn btn-primary pull-right" @click="save">Save Image</button>
       <h4>Image Details</h4>
     </div>
@@ -92,7 +92,7 @@ export default {
       this.$store.dispatch(Constants.DELETE_IMAGE, {
         id: this.id,
         rowVersion: this.image.rowVersion,
-        redirect: this.redirect,
+        redirect: () => this.$router.replace('/images'),
       });
     },
   },
