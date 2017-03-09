@@ -39,8 +39,8 @@
       <li v-can-read-vendors>
         <router-link :to="{ path: '/vendors', activeClass: 'active'}" active-class="active">Vendors</router-link>
       </li>
-      <li v-can-read-users>
-        <router-link :to="{ path: '/users', activeClass: 'active'}" active-class="active">Users</router-link>
+      <li v-can-manage-users>
+        <a :href="userManagementDashboard" target="_blank">Users</a>
       </li>
 
       <li class="nav-category">
@@ -64,7 +64,14 @@
 </template>
 
 <script>
+import config from 'root/config';
+
 export default {
-  name: 'sidebar'
+  name: 'sidebar',
+  data() {
+    return {
+      userManagementDashboard: config.auth0.userManagementDashboard,
+    };
+  },
 };
 </script>

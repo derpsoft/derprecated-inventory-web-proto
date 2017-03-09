@@ -163,6 +163,11 @@ export default {
   UPDATE_VENDOR: 'UPDATE_VENDOR',
   UPDATE_WAREHOUSE: 'UPDATE_WAREHOUSE',
 
+  roles: {
+    DELEGATED_ADMIN_ADMINISTRATOR: 'Delegated Admin - Administrator',
+    DELEGATED_ADMIN_USER: 'Delegated Admin - User',
+  },
+
   permissions: {
     EVERYTHING: {
       key: 'everything',
