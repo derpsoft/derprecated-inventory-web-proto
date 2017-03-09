@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Main from 'components/main';
 import Dashboard from 'components/dashboard/index';
 import NotFound from 'components/errors/notFound';
+import NotAuthorized from 'components/errors/notAuthorized';
 import PrivacyPolicy from 'components/legal/privacy';
 
 import ForgotPassword from 'components/password/forgot';
@@ -53,7 +54,7 @@ const guard = (g) => {
       return next();
     }
     // do something to tell the user that they're not allowed;
-    return next('/NotFound');
+    return next('/not-found');
   };
 };
 
@@ -76,8 +77,11 @@ const routes = [{
   path: '/privacy-policy',
   component: PrivacyPolicy,
 }, {
-  path: '/NotFound',
+  path: '/not-found',
   component: NotFound,
+}, {
+  path: '/not-authorized',
+  component: NotAuthorized,
 }, {
   path: '/',
   component: Main,
@@ -293,7 +297,7 @@ const routes = [{
     path: '*',
     component: NotFound,
     beforeEnter(to, from, next) {
-      next('/NotFound');
+      next('/not-found');
     }
   }],
 }];
@@ -312,8 +316,12 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     const isAuthenticated = store.getters.isAuthenticated;
+    const canLogin = store.getters.canLogin;
     if (isAuthenticated) {
-      return next();
+      if (canLogin) {
+        return next();
+      }
+      return next('/not-authorized');
     }
 
     const isLogin = ~to.path.toLowerCase().indexOf('/login');
