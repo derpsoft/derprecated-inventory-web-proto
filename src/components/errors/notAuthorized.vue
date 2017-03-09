@@ -27,10 +27,10 @@
         <p>You're not authorized</p>
         <p>If you've recently registered, it can take up to 24 hours for your account
           to be approved.</p>
+
+        <a class="btn btn-primary pull-right" href="/">Retry</a>
+        <a class="btn btn-link pull-right" href="/logout">Logout</a>
       </div>
-    </div>
-    <div>
-      <!-- <router-link :to="{path: '/'}" class="btn btn-accent">Back to app</router-link> -->
     </div>
   </div>
 </section>
@@ -40,4 +40,5 @@
 export default {
   name: 'notAuthorized',
 };
+
 </script>

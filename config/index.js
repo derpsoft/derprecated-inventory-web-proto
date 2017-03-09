@@ -22,6 +22,7 @@ const base = {
     domain: 'derprecated.auth0.com',
     scope: 'openid user_metadata app_metadata',
     audience: 'https://inventory.derprecated.com/',
+    userManagementDashboard: 'https://derprecated.us.webtask.io/auth0-delegated-admin/users',
   }
 };
 
