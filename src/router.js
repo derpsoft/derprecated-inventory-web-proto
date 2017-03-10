@@ -85,11 +85,12 @@ const routes = [{
 }, {
   path: '/',
   component: Main,
-  meta: {
-    requiresAuth: true
-  },
+  // meta: {
+  //   requiresAuth: true
+  // },
   children: [{
-    path: '',
+    path: '/dashboard',
+    alias: '',
     component: Dashboard,
     meta: {
       requiresAuth: true,
