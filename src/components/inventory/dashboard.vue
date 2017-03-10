@@ -14,44 +14,37 @@
             <div class="pull-right">
               <today></today>
             </div>
-            <h3 class="m-b-xs">Sales Dashboard Concept</h3>
+            <h3 class="m-b-xs">Inventory Dashboard Concept</h3>
             <small></small>
           </div>
         </div>
         <hr>
       </div>
       <div class="row">
-        <h3>My Stats</h3>
+        <h2>Stats</h2>
         <div class="col-lg-2 col-sm-12">
-          <listings></listings>
+          <shipped></shipped>
         </div>
-        <div class="col-lg-2 col-sm-12">
-          <revenue></revenue>
-        </div>
-        <div class="col-lg-2 col-sm-12">
-          <sales></sales>
-        </div>
-        <div class="col-lg-6 col-sm-12">
 
+        <div class="col-lg-2 col-sm-12">
+          <received></received>
+        </div>
+
+        <div class="col-lg-2 col-sm-12">
+        </div>
+
+        <div class="col-lg-6 col-sm-12">
         </div>
       </div>
 
       <div class="row">
         <div class="col-lg-6">
-          <h3>Trending</h3>
-          <trending></trending>
+          <h2>Incoming</h2>
+          <receiving-queue></receiving-queue>
         </div>
         <div class="col-lg-6">
-          <h3>New Products</h3>
-          <new-products></new-products>
-        </div>
-        <div class="col-lg-6">
-          <h3>Reduced Price</h3>
-          <on-sale></on-sale>
-        </div>
-        <div class="col-lg-6">
-          <h3>New Inventory</h3>
-          <new-inventory></new-inventory>
+          <h2>Outgoing</h2>
+          <shipping-queue></shipping-queue>
         </div>
       </div>
     </div>
@@ -61,35 +54,37 @@
 </template>
 
 <script>
+import Constants from 'src/constants';
 import Today from 'shared/today';
-import Chart from './charts/chart';
-import Sales from './metrics/sales';
-import Revenue from './metrics/revenue';
-import Listings from './metrics/listings';
-import Trending from './tables/trending';
-import OnSale from './tables/onSale';
-import NewInventory from './tables/newInventory';
-import NewProducts from './tables/newProducts';
+import Shipped from './metrics/shipped';
+import Received from './metrics/received';
+import ShippingQueue from './tables/shipping';
+import ReceivingQueue from './tables/receiving';
 
 export default {
-  name: 'sales-dashboard',
+  name: 'inventory-dashboard',
 
   components: {
-    Chart,
     Today,
-    Sales,
-    Revenue,
-    Listings,
-    Trending,
-    OnSale,
-    NewInventory,
-    NewProducts,
+    // Tasks,
+    Shipped,
+    Received,
+    ShippingQueue,
+    ReceivingQueue,
   },
 
   computed: {
     groupBy() {
       return 'Month';
     },
+  },
+
+  mounted() {
+    this.$store.dispatch(Constants.GET_INVENTORY_TRANSACTION_LOGS, {
+      skip: 0,
+      take: 200,
+    });
+    this.$store.dispatch(Constants.COUNT_INVENTORY_LOGS);
   },
 };
 

@@ -44,9 +44,6 @@
         <li>
           <router-link :to="{ path: '/inventory/dashboard', activeClass: 'active' }" active-class="active">Dashboard</router-link>
         </li>
-        <li>
-          <router-link :to="{ path: '/inventory', activeClass: 'active' }" active-class="active">Inventory</router-link>
-        </li>
         <li v-is-dev>
           <router-link :to="{ path: '/reports', activeClass: 'active' }" active-class="active">Reports</router-link>
         </li>

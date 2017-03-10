@@ -48,7 +48,7 @@ export default {
     },
     brand: {
       type: String,
-      required: true,
+      required: false,
       default: 'info'
     }
   },

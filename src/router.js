@@ -15,7 +15,9 @@ import Login from 'components/login/index';
 import Logout from 'components/logout/index';
 
 import Reports from 'components/reports/index';
+
 import Inventory from 'components/inventory/index';
+import InventoryDashboard from 'components/inventory/dashboard';
 import ModifyInventory from 'components/inventory/modify';
 
 import Products from 'components/products/index';
@@ -235,7 +237,8 @@ const routes = [{
     },
   }, {
     path: '/inventory',
-    component: Inventory,
+    alias: '/inventory/dashboard',
+    component: InventoryDashboard,
     meta: {
       requiresAuth: true,
     }

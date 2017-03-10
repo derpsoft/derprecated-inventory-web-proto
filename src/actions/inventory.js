@@ -305,6 +305,8 @@ const GETTERS = {
     return state.inventory.logCount;
   },
   inventoryErrors: state => state.inventory.errors,
+  shipped: () => Math.random(30),
+  received: () => Math.random(30),
 };
 
 const InventoryActions = {
