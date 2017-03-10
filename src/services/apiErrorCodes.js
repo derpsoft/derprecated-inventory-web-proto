@@ -29,9 +29,9 @@ export default function getErrorCodeHandler({
   json,
 }) {
   const {
-    statusCode
+    status
   } = response;
-  const handler = knownCodes[statusCode];
+  const handler = knownCodes[status];
   if (handler) {
     if (typeof handler === 'string') {
       return () => {
@@ -47,7 +47,7 @@ export default function getErrorCodeHandler({
           message
         } = handler;
         if (actions) {
-          actions.map(x => dispatch(x));
+          actions.map(dispatch);
         }
         if (formatter) {
           message = formatter(message);
