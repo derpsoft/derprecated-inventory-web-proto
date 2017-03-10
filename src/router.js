@@ -43,7 +43,9 @@ import ModifyVendors from 'components/vendors/modifyVendors';
 
 import Sales from 'components/sales/index';
 import SalesDashboard from 'components/sales/dashboard';
-import ModifySales from 'components/sales/modify';
+
+import Orders from 'components/orders/index';
+import ModifyOrders from 'components/orders/modify';
 
 import Constants from './constants';
 // import NotFound from './views/notfound';
@@ -88,9 +90,6 @@ const routes = [{
 }, {
   path: '/',
   component: Main,
-  // meta: {
-  //   requiresAuth: true
-  // },
   children: [{
     path: '/dashboard',
     alias: '',
@@ -293,9 +292,16 @@ const routes = [{
       requiresAuth: true,
     },
   }, {
-    path: '/sales/add',
-    component: ModifySales,
-    beforeEnter: guard('canUpsertSales'),
+    path: '/orders',
+    component: Orders,
+    beforeEnter: guard('canManageOrders'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/orders/add',
+    component: ModifyOrders,
+    beforeEnter: guard('canManageOrders'),
     meta: {
       requiresAuth: true,
     },

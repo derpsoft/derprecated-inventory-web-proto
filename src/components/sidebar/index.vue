@@ -24,6 +24,9 @@
         <li v-is-dev>
           <router-link :to="{ path: '/reports', activeClass: 'active' }" active-class="active">Reports</router-link>
         </li>
+        <li>
+          <router-link :to="{ path: '/orders', activeClass: 'active' }" active-class="active">Orders</router-link>
+        </li>
         <li v-can-read-products>
           <router-link :to="{ path: '/products', activeClass: 'active'}" active-class="active">Products</router-link>
         </li>
@@ -32,6 +35,9 @@
         </li>
         <li v-can-read-categories v-is-dev>
           <router-link :to="{ path: '/categories', activeClass: 'active'}" active-class="active">Categories</router-link>
+        </li>
+        <li v-can-read-vendors>
+          <router-link :to="{ path: '/vendors', activeClass: 'active'}" active-class="active">Vendors</router-link>
         </li>
       </template>
     </ul>
@@ -52,9 +58,6 @@
         </li>
         <li v-can-read-locations>
           <router-link :to="{ path: '/locations', activeClass: 'active'}" active-class="active">Locations</router-link>
-        </li>
-        <li v-can-read-vendors>
-          <router-link :to="{ path: '/vendors', activeClass: 'active'}" active-class="active">Vendors</router-link>
         </li>
       </template>
     </ul>

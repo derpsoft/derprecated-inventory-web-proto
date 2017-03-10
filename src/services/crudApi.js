@@ -6,16 +6,7 @@ import Constants from 'src/constants';
 
 _.mixin(inflection);
 
-const t = {
-  COUNT: x => `/api/v1/${_(x).pluralize().toLower()}/count`,
-  CREATE: x => `/api/v1/${_(x).pluralize().toLower()}`,
-  CREATE_MANY: x => `/api/v1/${_(x).pluralize().toLower()}/import`,
-  DELETE: x => `/api/v1/${_(x).pluralize().toLower()}`,
-  LIST: x => `/api/v1/${_(x).pluralize().toLower()}`,
-  SAVE: x => `/api/v1/${_(x).pluralize().toLower()}`,
-  SINGLE: x => `/api/v1/${_(x).pluralize().toLower()}`,
-  TYPEAHEAD: x => `/api/v1/${_(x).pluralize().toLower()}/typeahead`,
-};
+const t = Constants.apiTemplates;
 
 export default class CrudApi extends Fetchable {
   constructor(name, routes = {}) {

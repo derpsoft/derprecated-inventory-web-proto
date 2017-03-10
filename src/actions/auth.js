@@ -42,11 +42,14 @@ function save(k, v) {
 const Permissions = Constants.permissions;
 const Roles = Constants.roles;
 
-function logout({
+const logout = _.throttle(({
   commit,
-}) {
+}) => {
   commit(Constants.LOGOUT);
-}
+}, 5000, {
+  leading: true,
+  trailing: false,
+});
 
 function authenticated({
   dispatch,
