@@ -13,25 +13,55 @@
 <template>
 <aside class="navigation">
   <nav>
-    <ul class="nav luna-nav">
-      <li class="nav-category" @click="showGeneral = !showGeneral">
-        General
+    <ul class="nav luna-nav" v-can-manage-sales>
+      <li class="nav-category" @click="showSales = !showSales">
+        Sales
       </li>
-      <template v-if="showGeneral">
+      <template v-if="showSales">
         <li>
-          <router-link :to="{ path: '/dashboard', activeClass: 'active' }" active-class="active">Dashboard</router-link>
-        </li>
-        <li>
-          <router-link :to="{ path: '/inventory', activeClass: 'active' }" active-class="active">Inventory</router-link>
-        </li>
-        <li v-can-read-sales>
-          <router-link :to="{ path: '/sales', activeClass: 'active' }" active-class="active">Sales</router-link>
+          <router-link :to="{ path: '/sales/dashboard', activeClass: 'active' }" active-class="active">Dashboard</router-link>
         </li>
         <li v-is-dev>
           <router-link :to="{ path: '/reports', activeClass: 'active' }" active-class="active">Reports</router-link>
         </li>
+        <li v-can-read-products>
+          <router-link :to="{ path: '/products', activeClass: 'active'}" active-class="active">Products</router-link>
+        </li>
+        <li v-can-read-images>
+          <router-link :to="{ path: '/images', activeClass: 'active'}" active-class="active">Images</router-link>
+        </li>
+        <li v-can-read-categories v-is-dev>
+          <router-link :to="{ path: '/categories', activeClass: 'active'}" active-class="active">Categories</router-link>
+        </li>
       </template>
     </ul>
+
+    <ul class="nav luna-nav" v-can-manage-inventory>
+      <li class="nav-category" @click="showInventory = !showInventory">
+        Inventory
+      </li>
+      <template v-if="showInventory">
+        <li>
+          <router-link :to="{ path: '/inventory/dashboard', activeClass: 'active' }" active-class="active">Dashboard</router-link>
+        </li>
+        <li>
+          <router-link :to="{ path: '/inventory', activeClass: 'active' }" active-class="active">Inventory</router-link>
+        </li>
+        <li v-is-dev>
+          <router-link :to="{ path: '/reports', activeClass: 'active' }" active-class="active">Reports</router-link>
+        </li>
+        <li v-can-read-warehouses>
+          <router-link :to="{ path: '/warehouses', activeClass: 'active'}" active-class="active">Warehouses</router-link>
+        </li>
+        <li v-can-read-locations>
+          <router-link :to="{ path: '/locations', activeClass: 'active'}" active-class="active">Locations</router-link>
+        </li>
+        <li v-can-read-vendors>
+          <router-link :to="{ path: '/vendors', activeClass: 'active'}" active-class="active">Vendors</router-link>
+        </li>
+      </template>
+    </ul>
+
     <ul class="nav luna-nav">
       <li class="nav-category" @click="showAccount = !showAccount">
         Account
@@ -45,6 +75,7 @@
         </li>
       </template>
     </ul>
+
     <ul class="nav luna-nav" v-can-any="{ term: 'or', guards: ['canReadProducts', 'canReadCategories', 'canReadWarehouses', 'canReadLocations', 'canReadVendors', 'canReadUsers'] }">
       <li class="nav-category" @click="showAdmin = !showAdmin">
         Admin
@@ -97,6 +128,8 @@ export default {
       showAccount: true,
       showAdmin: true,
       showGeneral: true,
+      showSales: true,
+      showInventory: true,
     };
   },
 };

@@ -40,6 +40,7 @@ import Vendors from 'components/vendors/index';
 import ModifyVendors from 'components/vendors/modifyVendors';
 
 import Sales from 'components/sales/index';
+import SalesDashboard from 'components/sales/dashboard';
 import ModifySales from 'components/sales/modify';
 
 import Constants from './constants';
@@ -282,7 +283,8 @@ const routes = [{
     },
   }, {
     path: '/sales',
-    component: Sales,
+    alias: '/sales/dashboard',
+    component: SalesDashboard,
     beforeEnter: guard('canReadSales'),
     meta: {
       requiresAuth: true,

@@ -209,6 +209,10 @@ export default {
       key: 'manageCategories',
       description: 'Manage Categories',
     },
+    MANAGE_SALES: {
+      key: 'manageSales',
+      description: 'Manage Sales',
+    },
 
     READ_LOCATIONS: {
       key: 'readLocations',

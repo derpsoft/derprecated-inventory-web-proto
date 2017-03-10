@@ -5,6 +5,13 @@ const guards = [
   'canReadUsers',
   'canManageUsers',
 
+  'canManageInventory',
+  'canManageSales',
+  'canManageProducts',
+  'canManageLocations',
+  'canManageWarehouses',
+  'canManageVendors',
+
   'canReadVendors',
   'canUpsertVendors',
   'canDeleteVendors',
