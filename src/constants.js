@@ -87,6 +87,10 @@ const constants = {
       key: 'manageSales',
       description: 'Manage Sales',
     },
+    MANAGE_ORDERS: {
+      key: 'manageOrders',
+      description: 'Manage Orders',
+    },
 
     READ_LOCATIONS: {
       key: 'readLocations',

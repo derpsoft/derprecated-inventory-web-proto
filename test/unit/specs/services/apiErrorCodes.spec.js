@@ -6,7 +6,7 @@ describe('apiErrorCodes', () => {
     const dispatch = sinon.spy();
     const response = {
       ok: true,
-      statusCode: 200,
+      status: 200,
     };
 
     expect(getErrorCodeHandler({
@@ -22,7 +22,7 @@ describe('apiErrorCodes', () => {
     const dispatch = sinon.spy();
     const response = {
       ok: true,
-      statusCode: 204,
+      status: 204,
     };
 
     expect(getErrorCodeHandler({
@@ -38,7 +38,7 @@ describe('apiErrorCodes', () => {
     const dispatch = sinon.spy();
     const response = {
       ok: true,
-      statusCode: 302,
+      status: 302,
     };
 
     expect(getErrorCodeHandler({
@@ -51,7 +51,7 @@ describe('apiErrorCodes', () => {
     const dispatch = sinon.spy();
     const response = {
       ok: true,
-      statusCode: 400,
+      status: 400,
     };
 
     expect(getErrorCodeHandler({
@@ -64,7 +64,7 @@ describe('apiErrorCodes', () => {
     const dispatch = sinon.spy();
     const response = {
       ok: true,
-      statusCode: 401,
+      status: 401,
     };
 
     expect(getErrorCodeHandler({
@@ -79,7 +79,7 @@ describe('apiErrorCodes', () => {
     const dispatch = sinon.spy();
     const response = {
       ok: true,
-      statusCode: 403,
+      status: 403,
     };
 
     expect(getErrorCodeHandler({
@@ -92,7 +92,7 @@ describe('apiErrorCodes', () => {
     const dispatch = sinon.spy();
     const response = {
       ok: false,
-      statusCode: 405,
+      status: 405,
     };
 
     expect(getErrorCodeHandler({
@@ -105,7 +105,7 @@ describe('apiErrorCodes', () => {
     const dispatch = sinon.spy();
     const response = {
       ok: false,
-      statusCode: 500,
+      status: 500,
     };
 
     expect(getErrorCodeHandler({

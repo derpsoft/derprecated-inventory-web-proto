@@ -196,6 +196,14 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
+  canManageOrders: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_ORDERS.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
   canManageInventory: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING.key,

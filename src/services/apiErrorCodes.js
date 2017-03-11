@@ -47,7 +47,7 @@ export default function getErrorCodeHandler({
           message
         } = handler;
         if (actions) {
-          actions.map(dispatch);
+          actions.map(x => dispatch(x));
         }
         if (formatter) {
           message = formatter(message);

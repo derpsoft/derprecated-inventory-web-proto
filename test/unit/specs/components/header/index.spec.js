@@ -18,7 +18,7 @@ describe('Header - Index.vue', () => {
       },
     };
 
-    const computedSession = Header.computed.userSession.apply(Header);
+    const computedSession = Header.computed.user.apply(Header);
 
     expect(computedSession).to.equal(session.getters.profile);
   });

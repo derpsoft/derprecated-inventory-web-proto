@@ -50,7 +50,7 @@ describe('Achievement Component', () => {
       expect(props.brand).to.be.defined;
       expect(props.brand.type).to.equal(String);
       expect(props.brand.default).to.equal('info');
-      expect(props.brand.required).to.be.ok;
+      expect(props.brand.required).to.be.false;
     });
   });
 

@@ -24,5 +24,5 @@
 <script>
 export default {
   name: 'recent-sales',
-}
+};
 </script>

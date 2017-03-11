@@ -11,6 +11,7 @@ const guards = [
   'canManageLocations',
   'canManageWarehouses',
   'canManageVendors',
+  'canManageOrders',
 
   'canReadVendors',
   'canUpsertVendors',

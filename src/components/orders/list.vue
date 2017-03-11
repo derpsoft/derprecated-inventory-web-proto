@@ -6,7 +6,7 @@
   <div class="col-md-12" v-if="!orders.length">
     There were no orders found. Please add orders or update the filters.
   </div>
-  <crud-list :records="orders" :columns="['id', 'name']">
+  <crud-list :records="orders" :columns="['orderNumber', 'merchant']">
   </crud-list>
 </div>
 </template>
