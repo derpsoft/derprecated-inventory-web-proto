@@ -2,7 +2,7 @@
 <form>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-6 col-sm-12">
+      <div class="col-sm-12">
         <h4>Order</h4>
 
         <div class="form-group">
@@ -17,6 +17,7 @@
               <table class="table table-striped table-hover list">
                 <thead>
                   <tr>
+                    <th>SKU</th>
                     <th>Product</th>
                     <th>Quantity</th>
                     <th>Price</th>
@@ -25,11 +26,12 @@
                 </thead>
                 <tbody>
                   <tr v-for="offer in value.acceptedOffers">
+                    <td>{{ offer.product.sku }}</td>
                     <td>{{ offer.product.title | formatTitle }}</td>
                     <td>
                       <input type="number" class="form-control" min=1 step=1 v-model.number="offer.quantity"></td>
-                    <td>{{ (offer.product.price * Math.max(offer.quantity, 1)) | formatCurrency
-                      }}</td>
+                    <td>{{ offer | price | | formatCurrency }}
+                    </td>
                     <td>
                       <button type="button" class="btn-xs btn-default" @click="removeOffer(offer)">X</button>
                     </td>
@@ -39,6 +41,7 @@
                   <tr>
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td>Total: {{ value.acceptedOffers | total | formatCurrency }}</td>
                   </tr>
                 </tfoot>
@@ -46,18 +49,18 @@
             </div>
         </div>
 
-        <!-- <div class="form-group" :class="{'has-error': errors.has('name')}">
-          <label>Name</label>
-          <input type="text" class="form-control" placeholder="Order Name" name="name" v-model="value.name"
-              v-validate="'required'">
-            <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
-        </div> -->
-
       </div>
 
       <div class="col-lg-6 col-sm-12">
-        <h4>Customer</h4>
+        <h4>Shipping</h4>
         <customer-form ref="customerForm" :id="value.customer.id"></customer-form>
+        <address-form ref="shippingAddressForm" :address="value.shippingAddress"></address-form>
+      </div>
+
+      <div class="col-lg-6 col-sm-12">
+        <h4>Billing</h4>
+        <billing-form ref="billingForm"></billing-form>
+        <address-form ref="billingAddressForm" :address="value.billingAddress"></address-form>
       </div>
     </div>
   </div>
@@ -70,30 +73,16 @@ import _ from 'lodash';
 import Vue from 'vue';
 import Constants from 'src/constants';
 import CustomerForm from 'components/customers/form';
+import BillingForm from 'components/billing/form';
+import AddressForm from 'components/addresses/form';
 import Autocomplete from 'components/autocomplete-multiple';
-
-function calculatePrice(offer) {
-  const {
-    product,
-    quantity
-  } = offer;
-  console.debug(offer, product, quantity);
-  let q = 1;
-  if (typeof quantity === 'string') {
-    q = parseInt(quantity, 10);
-  }
-  q = Math.max(q, 1);
-  return product.price * q;
-}
-
-function calculateTotal(acceptedOffers) {
-  return _(acceptedOffers).map(offer => calculatePrice(offer)).sum();
-}
 
 export default {
   components: {
     CustomerForm,
     Autocomplete,
+    AddressForm,
+    BillingForm,
   },
   data() {
     return {
@@ -103,6 +92,7 @@ export default {
         products: [],
         acceptedOffers: {},
         billingAddress: {},
+        shippingAddress: {},
         merchant: {},
         orderStatus: 'new',
         paymentMethod: '',
@@ -120,10 +110,25 @@ export default {
   },
 
   filters: {
-    formatTitle(x) {
-      return `${x.substring(0, 30)}${x.length > 30 ? '...' : ''}`;
+    price({
+      product,
+      quantity
+    }) {
+      return product.price * Math.max(quantity, 1);
     },
-    calcPrice: calculatePrice,
+    total(offers) {
+      return _(offers)
+        .map(({
+          product,
+          quantity
+        }) => product.price * Math.max(quantity, 1))
+        .sum();
+    },
+    formatTitle(x) {
+      return _.truncate(x, {
+        length: 50
+      });
+    },
     formatCurrency(x) {
       return Intl
         .NumberFormat('en-US', {
@@ -133,7 +138,6 @@ export default {
         })
         .format(x);
     },
-    total: calculateTotal,
   },
 
   computed: {
@@ -142,6 +146,12 @@ export default {
     },
     customerForm() {
       return this.$refs.customerForm;
+    },
+    shippingAddressForm() {
+      return this.$refs.shippingAddressForm;
+    },
+    billingAddressForm() {
+      return this.$refs.billingAddressForm;
     },
     products() {
       return this.$store.getters.products;
@@ -191,24 +201,32 @@ export default {
       this.$refs.productList.removeSelected(product.id);
     },
     validate() {
-      return Promise.all(
+      return Promise
+        .all([
           this.customerForm.validate(),
+          this.shippingAddressForm.validate(),
+          this.billingAddressForm.validate(),
           this.$validator.validateAll()
-        )
-        .then(([customerResult, orderResult]) => {
+        ])
+        .then(([customerResult, shippingAddressResult, billingAddressResult,
+          orderResult
+        ]) => {
           const {
             order
           } = orderResult;
-          const {
-            customer
-          } = customerResult;
 
-          order.customer = customer;
+          order.customer = customerResult.customer;
+          order.shippingAddress = shippingAddressResult.address;
+          order.billingAddress = billingAddressResult.address;
 
-          console.debug(order);
+          const valid = _.every([customerResult, shippingAddressResult,
+            billingAddressResult, orderResult
+          ], ({
+            isValid
+          }) => isValid);
 
           return {
-            isValid: customerResult.isValid && orderResult.isValid,
+            isValid: valid,
             order
           };
         });

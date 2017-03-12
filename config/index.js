@@ -23,7 +23,10 @@ const base = {
     scope: 'openid user_metadata app_metadata',
     audience: 'https://inventory.derprecated.com/',
     userManagementDashboard: 'https://derprecated.us.webtask.io/auth0-delegated-admin/users',
-  }
+  },
+  stripe: {
+    publishableKey: 'pk_test_rHkL66ikBDq2X6WT3NYJDx4W',
+  },
 };
 
 const pro = _.merge({}, base, {
@@ -32,6 +35,9 @@ const pro = _.merge({}, base, {
   index: path.resolve(__dirname, '../dist/index.html'),
   env: {
     APPINSIGHTS_INSTRUMENTATIONKEY: JSON.stringify('6c7d6219-60d2-44d0-9173-fe8e8e46c2ea'),
+  },
+  stripe: {
+    publishableKey: '',
   },
 });
 
