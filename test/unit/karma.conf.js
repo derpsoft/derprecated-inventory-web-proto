@@ -26,15 +26,25 @@ module.exports = function(config) {
     webpackMiddleware: {
       noInfo: true,
     },
+    specReporter: {
+      maxLogLines: 5,
+      suppressErrorSummary: false,
+      suppressFailed: false,
+      suppressPassed: true,
+      suppressSkipped: false,
+      showSpecTiming: false,
+      failFast: true
+    },
     coverageReporter: {
       dir: './coverage',
       reporters: [{
-        type: 'lcov',
-        subdir: '.'
-      },
-      {
-        type: 'text-summary'
-      }]
+          type: 'lcov',
+          subdir: '.'
+        },
+        {
+          type: 'text-summary'
+        }
+      ]
     },
   });
 };
