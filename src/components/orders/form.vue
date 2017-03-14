@@ -25,15 +25,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="offer in value.acceptedOffers">
+                  <tr v-for="(offer, id, index) in value.acceptedOffers">
                     <td>{{ offer.product.sku }}</td>
                     <td>{{ offer.product.title | formatTitle }}</td>
                     <td>
                       <input type="number" class="form-control" min=1 step=1 v-model.number="offer.quantity"></td>
-                    <td>{{ offer | price | | formatCurrency }}
+                    <td>{{ offer | price | formatCurrency }}
                     </td>
                     <td>
-                      <button type="button" class="btn-xs btn-default" @click="removeOffer(offer)">X</button>
+                      <button type="button" class="btn-xs btn-default" @click="removeOffer(index)">X</button>
                     </td>
                   </tr>
                 </tbody>
@@ -53,14 +53,20 @@
 
       <div class="col-lg-6 col-sm-12">
         <h4>Shipping</h4>
-        <customer-form ref="customerForm" :id="value.customer.id"></customer-form>
+        <customer-form ref="shippingCustomerForm" :id="value.shippingCustomer.id"></customer-form>
         <address-form ref="shippingAddressForm" :address="value.shippingAddress"></address-form>
       </div>
 
       <div class="col-lg-6 col-sm-12">
         <h4>Billing</h4>
-        <billing-form ref="billingForm"></billing-form>
-        <address-form ref="billingAddressForm" :address="value.billingAddress"></address-form>
+        <div class="checkbox-inline">
+          <label for="sameAsShipping">
+            <input type="checkbox" class="form-input" id="sameAsShipping" v-model="sameAsShipping" />
+            Same as Shipping
+          </label>
+        </div>
+        <customer-form ref="billingCustomerForm" :id="value.billingCustomer.id" :disabled="sameAsShipping"></customer-form>
+        <address-form ref="billingAddressForm" :address="value.billingAddress" :disabled="sameAsShipping"></address-form>
       </div>
     </div>
   </div>
@@ -70,7 +76,7 @@
 
 <script>
 import _ from 'lodash';
-import Vue from 'vue';
+// import Vue from 'vue';
 import Constants from 'src/constants';
 import CustomerForm from 'components/customers/form';
 import BillingForm from 'components/billing/form';
@@ -78,6 +84,8 @@ import AddressForm from 'components/addresses/form';
 import Autocomplete from 'components/autocomplete-multiple';
 
 export default {
+  name: 'order-form',
+
   components: {
     CustomerForm,
     Autocomplete,
@@ -86,13 +94,15 @@ export default {
   },
   data() {
     return {
+      sameAsShipping: true,
       value: {
         orderNumber: '',
-        customer: {},
         products: [],
         acceptedOffers: {},
-        billingAddress: {},
+        shippingCustomer: {},
         shippingAddress: {},
+        billingCustomer: {},
+        billingAddress: {},
         merchant: {},
         orderStatus: 'new',
         paymentMethod: '',
@@ -111,17 +121,17 @@ export default {
 
   filters: {
     price({
-      product,
+      price,
       quantity
     }) {
-      return product.price * Math.max(quantity, 1);
+      return price * Math.max(quantity, 1);
     },
     total(offers) {
       return _(offers)
         .map(({
-          product,
+          price,
           quantity
-        }) => product.price * Math.max(quantity, 1))
+        }) => price * Math.max(quantity, 1))
         .sum();
     },
     formatTitle(x) {
@@ -144,8 +154,11 @@ export default {
     order() {
       return this.$store.getters.order(this.id);
     },
-    customerForm() {
-      return this.$refs.customerForm;
+    shippingCustomerForm() {
+      return this.$refs.shippingCustomerForm;
+    },
+    billingCustomerForm() {
+      return this.$refs.billingCustomerForm;
     },
     shippingAddressForm() {
       return this.$refs.shippingAddressForm;
@@ -186,50 +199,62 @@ export default {
       this.value = Object.assign({}, this.value, this.order);
     },
     setProducts(list) {
-      this.value.products = list;
-      _.each(list, (product) => {
-        const offer = _.defaults({}, this.value.acceptedOffers[product.id], {
-          product,
-          quantity: 1,
+      const ids = _.map(list, 'id');
+      const updates = _.keyBy(list, 'id');
+
+      // remove existing products that don't exist in the new list
+      const offers = Object.assign({}, _.pick(this.value.acceptedOffers, ids));
+
+      // merge in new products with a default quantity
+      this.value.acceptedOffers = _.mergeWith(
+        offers,
+        updates,
+        (existing, update) => {
+          if (!updates) {
+            return null;
+          }
+          return _.defaults({}, existing, {
+            price: update.price,
+            product: update,
+            productId: update.id,
+            quantity: 1,
+          });
         });
-        Vue.set(this.value.acceptedOffers, product.id, offer);
-      });
+      this.value.products = list;
     },
-    removeOffer({
-      product
-    }) {
-      this.$refs.productList.removeSelected(product.id);
+    removeOffer(index) {
+      this.$refs.productList.removeSelected(index);
     },
     validate() {
       return Promise
         .all([
-          this.customerForm.validate(),
+          this.$validator.validateAll(),
+          this.shippingCustomerForm.validate(),
           this.shippingAddressForm.validate(),
+          this.billingCustomerForm.validate(),
           this.billingAddressForm.validate(),
-          this.$validator.validateAll()
         ])
-        .then(([customerResult, shippingAddressResult, billingAddressResult,
-          orderResult
-        ]) => {
-          const {
-            order
-          } = orderResult;
+        .then((results) => {
+          const order = _.pick(this.value, ['acceptedOffers']);
+          const valid = _.head(results) && _(results)
+            .tail()
+            .map('isValid')
+            .every();
 
-          order.customer = customerResult.customer;
-          order.shippingAddress = shippingAddressResult.address;
-          order.billingAddress = billingAddressResult.address;
-
-          const valid = _.every([customerResult, shippingAddressResult,
-            billingAddressResult, orderResult
-          ], ({
-            isValid
-          }) => isValid);
+          order.acceptedOffers = _.values(order.acceptedOffers);
+          order.shippingCustomer = results[1].customer;
+          order.shippingAddress = results[2].address;
+          order.billingCustomer = this.sameAsShipping ? order.shippingCustomer :
+            results[3].customer;
+          order.billingAddress = this.sameAsShipping ? order.shippingAddress :
+            results[4].address;
 
           return {
             isValid: valid,
             order
           };
-        });
+        })
+        .catch(e => console.error(e));
     },
   }
 };

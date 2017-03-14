@@ -3,8 +3,10 @@
   <div class="row control-row">
     <div class="col-md-12">
       <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-delete-orders>Delete</button>
-      <button class="btn btn-primary pull-right" @click="save">Save Order</button>
-      <h4>Order Details</h4>
+      <billing-form ref="billingForm" :amount="order.acceptedOffers | total | toCents"
+          v-if="isBillable"></billing-form>
+        <button class="btn btn-primary pull-right" @click="save">Save Order</button>
+        <h4>Order Details</h4>
     </div>
   </div>
   <div class="panel panel-filled panel-main">
@@ -17,6 +19,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import Constants from 'src/constants';
 import OrderForm from './form';
 
@@ -30,12 +33,29 @@ export default {
     return {};
   },
 
+  filters: {
+    total(offers) {
+      return _(offers)
+        .map(({
+          product,
+          quantity
+        }) => product.price * Math.max(quantity, 1))
+        .sum();
+    },
+    toCents(dollars) {
+      return (dollars * 100) >> 0;
+    },
+  },
+
   computed: {
     id() {
       return parseInt(this.$route.params.id, 10);
     },
     order() {
       return this.$store.getters.order(this.id);
+    },
+    isBillable() {
+      return this.order && this.order.status === 'created';
     },
   },
 

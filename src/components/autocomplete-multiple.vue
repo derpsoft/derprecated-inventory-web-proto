@@ -82,6 +82,11 @@ export default {
       required: false,
       default: true,
     },
+    caseSensitive: {
+      type: Boolean,
+      required: false,
+      default: false,
+    }
   },
 
   watch: {
@@ -98,10 +103,14 @@ export default {
     },
 
     matches() {
+      const needle = this.caseSensitive ? this.query : this.query.toLowerCase();
       return _.filter(
         this.availableChoices,
-        v => ~this.keySelector(v).indexOf(this.query)
-      );
+        (v) => {
+          const key = this.keySelector(v);
+          const haystack = this.caseSensitive ? key : key.toLowerCase();
+          return ~haystack.indexOf(needle);
+        });
     },
 
     keys() {
@@ -169,6 +178,7 @@ export default {
 
     removeSelected(index) {
       this.selections.splice(index, 1);
+      this.$emit('change', this.selectionValues);
     }
   }
 };

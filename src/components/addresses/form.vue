@@ -4,37 +4,37 @@
 
     <div class="row">
 
-      <div class="col-sm-12 form-group" :class="{'has-error': errors.has('line1')}">
+      <div class="col-sm-12 form-group" :class="{'has-error': !this.disabled && errors.has('line1')}">
         <label>Address</label>
         <input type="text" class="form-control" placeholder="Line 1" name="line1" v-model="value.line1"
-            v-validate="'required'">
-          <span v-show="errors.has('line1')" class="help-block">{{ errors.first('line1') }}</span>
+            v-validate="'required'" :disabled="disabled">
+          <span v-show="!this.disabled && errors.has('line1')" class="help-block">{{ errors.first('line1') }}</span>
       </div>
 
-      <div class="col-sm-12 form-group" :class="{'has-error': errors.has('line2')}">
+      <div class="col-sm-12 form-group" :class="{'has-error': !this.disabled && errors.has('line2')}">
         <input type="text" class="form-control" placeholder="Line 2" name="line2" v-model="value.line2"
-            v-validate="'required'">
+            :disabled="disabled">
       </div>
 
-      <div class="col-sm-7 form-group" :class="{'has-error': errors.has('city')}">
+      <div class="col-sm-7 form-group" :class="{'has-error': !this.disabled && errors.has('city')}">
         <label>City</label>
         <input type="text" class="form-control" placeholder="City" name="city" v-model="value.city"
-            v-validate="'required'">
-          <span v-show="errors.has('city')" class="help-block">{{ errors.first('city') }}</span>
+            v-validate="'required'" :disabled="disabled">
+          <span v-show="!this.disabled && errors.has('city')" class="help-block">{{ errors.first('city') }}</span>
       </div>
 
-      <div class="col-sm-2 form-group" :class="{'has-error': errors.has('state')}">
+      <div class="col-sm-2 form-group" :class="{'has-error': !this.disabled && errors.has('state')}">
         <label>State</label>
         <input type="text" class="form-control" placeholder="State" name="state" v-model="value.state"
-            v-validate="'required'">
-          <span v-show="errors.has('state')" class="help-block">{{ errors.first('state') }}</span>
+            v-validate="'required'" :disabled="disabled">
+          <span v-show="!this.disabled && errors.has('state')" class="help-block">{{ errors.first('state') }}</span>
       </div>
 
-      <div class="col-sm-3 form-group" :class="{'has-error': errors.has('zipcode')}">
+      <div class="col-sm-3 form-group" :class="{'has-error': !this.disabled && errors.has('zipcode')}">
         <label>Zip</label>
         <input type="tel" class="form-control" placeholder="Zip" name="zipcode" v-model="value.zipcode"
-            v-validate="'required'">
-          <span v-show="errors.has('zipcode')" class="help-block">{{ errors.first('zipcode') }}</span>
+            v-validate="'required'" :disabled="disabled">
+          <span v-show="!this.disabled && errors.has('zipcode')" class="help-block">{{ errors.first('zipcode') }}</span>
       </div>
     </div>
   </div>
@@ -62,6 +62,11 @@ export default {
       type: Object,
       required: false,
       default: null,
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
 
@@ -96,7 +101,13 @@ export default {
         .validateAll()
         .then((isValid) => {
           return {
-            isValid,
+            isValid: this.disabled || isValid,
+            address: this.value
+          };
+        })
+        .catch(() => {
+          return {
+            isValid: this.disabled,
             address: this.value
           };
         });

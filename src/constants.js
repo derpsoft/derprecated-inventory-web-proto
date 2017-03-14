@@ -37,6 +37,18 @@ const constants = {
   SET_TOKENS: 'SET_TOKENS',
   SHOW_TOASTR: 'SHOW_TOASTR',
 
+  shippingStatus: {
+    PENDING: 'pending',
+    AWAITING_PAYMENT: 'awaitingPayment',
+    AWAITING_FULFILLMENT: 'awaitingFulfillment',
+    AWAITING_SHIPMENT: 'awaitingShipment',
+    PARTIALLY_SHIPPED: 'partiallyShipped',
+    SHIPPED: 'shipped',
+    CANCELLED: 'cancelled',
+    DECLINED: 'declined',
+    REFUNDED: 'refunded',
+  },
+
   roles: {
     DELEGATED_ADMIN_ADMINISTRATOR: 'Delegated Admin - Administrator',
     DELEGATED_ADMIN_USER: 'Delegated Admin - User',

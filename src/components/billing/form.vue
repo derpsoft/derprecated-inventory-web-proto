@@ -1,27 +1,37 @@
 <template>
 <form>
-  <!-- <stripe-checkout :stripe-key="stripeKey" :products="stripeProducts"></stripe-checkout> -->
+  <stripe-checkout :stripe-key="stripeKey" :product="product"></stripe-checkout>
 </form>
+
 </template>
 
 <script>
-import _ from 'lodash';
 import config from 'root/config';
-import {
-  StripeCheckout
-} from 'vue-stripe';
+import StripeCheckout from 'vue-stripe';
 
 export default {
+  name: 'billing-form',
+
   components: {
-    StripeCheckout
+    'stripe-checkout': StripeCheckout.StripeCheckout
   },
 
   props: {
-    products: {
-      type: Array,
+    amount: {
+      type: Number,
       required: true,
     },
-    stipeKey: {
+    name: {
+      type: String,
+      required: false,
+      default: 'derprecated, LLC'
+    },
+    description: {
+      type: String,
+      required: false,
+      default: 'Custom order'
+    },
+    stripeKey: {
       type: String,
       required: false,
       default: config.stripe.publishableKey,
@@ -29,13 +39,12 @@ export default {
   },
 
   computed: {
-    stripeProducts() {
-      return _(this.products)
-        .map((product) => {
-          return {
-            ...product
-          };
-        });
+    product() {
+      return {
+        name: this.name,
+        description: this.description,
+        amount: this.amount,
+      };
     }
   },
 };

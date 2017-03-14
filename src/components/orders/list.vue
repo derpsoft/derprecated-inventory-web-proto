@@ -1,22 +1,38 @@
-<style lang="less" scoped>
-</style>
-
 <template>
 <div>
   <div class="col-md-12" v-if="!orders.length">
     There were no orders found. Please add orders or update the filters.
   </div>
-  <crud-list :records="orders" :columns="['orderNumber', 'merchant']">
+  <crud-list :records="orders" :columns="['Order Number', 'Status', 'Date', 'City', 'State', 'Customer']">
+    <template slot="body-row" scope="props">
+      <tr class="editable" v-on:click="edit(props.record.id)">
+        <td>{{props.record.orderNumber}}</td>
+        <td>{{props.record.orderStatus}}</td>
+        <td>{{props.record.createDate | formatCreateDate}}</td>
+        <td>{{props.record.shippingAddress.city}}</td>
+        <td>{{props.record.shippingAddress.state}}</td>
+        <td>{{props.record.billingCustomer.name}}</td>
+      </tr>
+    </template>
   </crud-list>
 </div>
 </template>
 
 <script>
+import moment from 'moment';
 import CrudList from 'components/crud/list';
 
 export default {
   components: {
     CrudList
+  },
+
+  filters: {
+    formatCreateDate(date) {
+      return moment.utc(date)
+        .local()
+        .format('lll');
+    },
   },
 
   computed: {

@@ -4,25 +4,25 @@
 
     <div class="row">
 
-      <div class="col-sm-12 form-group" :class="{'has-error': errors.has('name')}">
+      <div class="col-sm-12 form-group" :class="{'has-error': !this.disabled && errors.has('name')}">
         <label>Name</label>
         <input type="text" class="form-control" placeholder="Name" name="name" v-model="value.name"
-            v-validate="'required'">
-          <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
+            v-validate="'required'" :disabled="disabled">
+          <span v-show="!this.disabled && errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
       </div>
 
-      <div class="col-sm-8 form-group" :class="{'has-error': errors.has('email')}">
+      <div class="col-sm-8 form-group" :class="{'has-error': !this.disabled && errors.has('email')}">
         <label>Email</label>
         <input type="email" class="form-control" placeholder="Email" name="email" v-model="value.email"
-            v-validate="'required'">
-          <span v-show="errors.has('email')" class="help-block">{{ errors.first('email') }}</span>
+            v-validate="'required'" :disabled="disabled">
+          <span v-show="!this.disabled && errors.has('email')" class="help-block">{{ errors.first('email') }}</span>
       </div>
 
-      <div class="col-sm-4 form-group" :class="{'has-error': errors.has('phone')}">
+      <div class="col-sm-4 form-group" :class="{'has-error': !this.disabled && errors.has('phoneNumber')}">
         <label>Phone</label>
-        <input type="tel" class="form-control" placeholder="Phone" name="phone" v-model="value.phone"
-            v-validate="'required'">
-          <span v-show="errors.has('phone')" class="help-block">{{ errors.first('phone') }}</span>
+        <input type="tel" class="form-control" placeholder="Phone" name="phoneNumber" v-model="value.phoneNumber"
+            v-validate="'required'" :disabled="disabled">
+          <span v-show="!this.disabled && errors.has('phoneNumber')" class="help-block">{{ errors.first('phoneNumber') }}</span>
       </div>
     </div>
   </div>
@@ -45,7 +45,17 @@ export default {
       type: Number,
       required: false,
       default: 0,
-    }
+    },
+    customer: {
+      type: Object,
+      required: false,
+      default: null,
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
 
   watch: {
@@ -54,8 +64,8 @@ export default {
   },
 
   computed: {
-    customer() {
-      return this.$store.getters.customer(this.id);
+    customerPropOrStored() {
+      return this.customer || this.$store.getters.customer(this.id);
     },
   },
 
@@ -72,15 +82,21 @@ export default {
       }
     },
     refresh() {
-      this.value = Object.assign({}, this.value, this.customer);
+      this.value = Object.assign({}, this.value, this.customerPropOrStored);
     },
     validate() {
       return this.$validator
         .validateAll()
         .then((isValid) => {
           return {
-            isValid,
+            isValid: this.disabled || isValid,
             customer: this.value
+          };
+        })
+        .catch(() => {
+          return {
+            isValid: this.disabled,
+            address: this.value
           };
         });
     },
