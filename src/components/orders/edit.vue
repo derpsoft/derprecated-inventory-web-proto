@@ -2,14 +2,17 @@
 <div>
   <div class="row control-row">
     <div class="col-md-12">
-      <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-manage-orders>Delete</button>
-      <button class="btn btn-primary pull-right" @click="save">Save Order</button>
-      <button class="btn btn-primary pull-right" @click="fulfilled" v-if="isFulfillable">Mark as Fulfilled</button>
-      <button class="btn btn-primary pull-right" @click="shipped" v-if="isShippable">Mark as Shipped</button>
-      <billing-form ref="billingForm" cssClass="pull-right" :amount="order.acceptedOffers | total | toCents"
+      <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-manage-orders
+          v-if="isBillable">Delete</button>
+        <button class="btn btn-primary pull-right" @click="save" v-if="isSaveable">Save Order</button>
+        <button class="btn btn-primary pull-right" @click="fulfilled" v-if="isFulfillable">Mark as Fulfilled</button>
+        <button class="btn btn-primary pull-right" @click="shipped" v-if="isShippable">Mark as Shipped</button>
+        <billing-form ref="billingForm" cssClass="pull-right" :amount="order.acceptedOffers | total | toCents"
           :description="`Custom order ${order.orderNumber}`" @success="billingCaptured"
           v-if="isBillable"></billing-form>
-        <h4>Order Details</h4>
+        <h4>Order Details
+          <small v-if="!isSaveable" class="pull-right">Order has shipped and may not be edited</small>
+        </h4>
     </div>
   </div>
   <div class="panel panel-filled panel-main">
@@ -58,6 +61,9 @@ export default {
     },
     order() {
       return this.$store.getters.order(this.id);
+    },
+    isSaveable() {
+      return this.isBillable || this.isFulfillable || this.isShippable;
     },
     isBillable() {
       return this.order && this.order.status === Constants.orderStatus.AWAITING_PAYMENT;
