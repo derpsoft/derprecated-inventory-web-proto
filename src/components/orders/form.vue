@@ -53,7 +53,7 @@
 
       <div class="col-lg-6 col-sm-12">
         <h4>Shipping</h4>
-        <customer-form ref="shippingCustomerForm" :id="value.shippingCustomer.id"></customer-form>
+        <customer-form ref="shippingCustomerForm" :customer="value.shippingCustomer"></customer-form>
         <address-form ref="shippingAddressForm" :address="value.shippingAddress"></address-form>
       </div>
 
@@ -65,7 +65,7 @@
             Same as Shipping
           </label>
         </div>
-        <customer-form ref="billingCustomerForm" :id="value.billingCustomer.id" :disabled="sameAsShipping"></customer-form>
+        <customer-form ref="billingCustomerForm" :customer="value.billingCustomer" :disabled="sameAsShipping"></customer-form>
         <address-form ref="billingAddressForm" :address="value.billingAddress" :disabled="sameAsShipping"></address-form>
       </div>
     </div>
@@ -76,7 +76,6 @@
 
 <script>
 import _ from 'lodash';
-// import Vue from 'vue';
 import Constants from 'src/constants';
 import CustomerForm from 'components/customers/form';
 import BillingForm from 'components/billing/form';
@@ -104,9 +103,10 @@ export default {
         billingCustomer: {},
         billingAddress: {},
         merchant: {},
-        orderStatus: 'new',
+        status: Constants.orderStatus.PENDING,
         paymentMethod: '',
         paymentMethodId: '',
+        rowVersion: 0,
       },
     };
   },
@@ -235,7 +235,7 @@ export default {
           this.billingAddressForm.validate(),
         ])
         .then((results) => {
-          const order = _.pick(this.value, ['acceptedOffers']);
+          const order = _.pick(this.value, ['acceptedOffers', 'rowVersion', 'id']);
           const valid = _.head(results) && _(results)
             .tail()
             .map('isValid')

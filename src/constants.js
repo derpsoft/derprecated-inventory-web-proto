@@ -37,7 +37,7 @@ const constants = {
   SET_TOKENS: 'SET_TOKENS',
   SHOW_TOASTR: 'SHOW_TOASTR',
 
-  shippingStatus: {
+  orderStatus: {
     PENDING: 'pending',
     AWAITING_PAYMENT: 'awaitingPayment',
     AWAITING_FULFILLMENT: 'awaitingFulfillment',

@@ -306,6 +306,13 @@ const routes = [{
       requiresAuth: true,
     },
   }, {
+    path: '/orders/edit/:id',
+    component: ModifyOrders,
+    beforeEnter: guard('canManageOrders'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
     path: '*',
     component: NotFound,
     beforeEnter(to, from, next) {
@@ -323,23 +330,6 @@ const router = new VueRouter({
     };
   },
   routes,
-});
-
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    const isAuthenticated = store.getters.isAuthenticated;
-    const canLogin = store.getters.canLogin;
-    if (isAuthenticated) {
-      if (canLogin) {
-        return next();
-      }
-      return next('/not-authorized');
-    }
-
-    const isLogin = ~to.path.toLowerCase().indexOf('/login');
-    return next(isLogin ? to : '/login');
-  }
-  return next();
 });
 
 store.watch(() => store.getters.isAuthenticated, (current, previous) => {

@@ -30,11 +30,11 @@
           <span v-show="!this.disabled && errors.has('state')" class="help-block">{{ errors.first('state') }}</span>
       </div>
 
-      <div class="col-sm-3 form-group" :class="{'has-error': !this.disabled && errors.has('zipcode')}">
+      <div class="col-sm-3 form-group" :class="{'has-error': !this.disabled && errors.has('zip')}">
         <label>Zip</label>
-        <input type="tel" class="form-control" placeholder="Zip" name="zipcode" v-model="value.zipcode"
+        <input type="tel" class="form-control" placeholder="Zip" name="zip" v-model="value.zip"
             v-validate="'required'" :disabled="disabled">
-          <span v-show="!this.disabled && errors.has('zipcode')" class="help-block">{{ errors.first('zipcode') }}</span>
+          <span v-show="!this.disabled && errors.has('zip')" class="help-block">{{ errors.first('zip') }}</span>
       </div>
     </div>
   </div>

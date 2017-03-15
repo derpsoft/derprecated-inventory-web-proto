@@ -44,6 +44,12 @@ export default {
       return this.$store.getters.orders;
     },
   },
+
+  methods: {
+    edit(id) {
+      this.$router.push(`/orders/edit/${id}`);
+    },
+  },
 };
 
 </script>

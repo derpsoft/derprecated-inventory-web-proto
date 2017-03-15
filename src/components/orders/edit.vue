@@ -2,7 +2,7 @@
 <div>
   <div class="row control-row">
     <div class="col-md-12">
-      <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-delete-orders>Delete</button>
+      <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-manage-orders>Delete</button>
       <billing-form ref="billingForm" :amount="order.acceptedOffers | total | toCents"
           v-if="isBillable"></billing-form>
         <button class="btn btn-primary pull-right" @click="save">Save Order</button>
