@@ -4,6 +4,8 @@
     <div class="col-md-12">
       <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-manage-orders>Delete</button>
       <button class="btn btn-primary pull-right" @click="save">Save Order</button>
+      <button class="btn btn-primary pull-right" @click="fulfilled" v-if="isFulfillable">Mark as Fulfilled</button>
+      <button class="btn btn-primary pull-right" @click="shipped" v-if="isShippable">Mark as Shipped</button>
       <billing-form ref="billingForm" cssClass="pull-right" :amount="order.acceptedOffers | total | toCents"
           :description="`Custom order ${order.orderNumber}`" @success="billingCaptured"
           v-if="isBillable"></billing-form>
@@ -60,6 +62,12 @@ export default {
     isBillable() {
       return this.order && this.order.status === Constants.orderStatus.AWAITING_PAYMENT;
     },
+    isFulfillable() {
+      return this.order && this.order.status === Constants.orderStatus.AWAITING_FULFILLMENT;
+    },
+    isShippable() {
+      return this.order && this.order.status === Constants.orderStatus.AWAITING_SHIPMENT;
+    },
   },
 
   methods: {
@@ -102,7 +110,22 @@ export default {
         order: this.order,
         token,
       });
-    }
+    },
+
+    updateStatus(status) {
+      this.$store.dispatch(Constants.ORDER_STATUS_UPDATE, {
+        order: this.order,
+        status,
+      });
+    },
+
+    shipped() {
+      this.updateStatus('shipped');
+    },
+
+    fulfilled() {
+      this.updateStatus('fulfilled');
+    },
   }
 };
 
