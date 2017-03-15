@@ -9,17 +9,17 @@
 <script>
 import _ from 'lodash';
 import Constants from 'src/constants';
-import CustomerSummary from 'components/customers/summary';
-import AddressSummary from 'components/addresses/summary';
+// import CustomerSummary from 'components/customers/summary';
+// import AddressSummary from 'components/addresses/summary';
 import Autocomplete from 'components/autocomplete-multiple';
 
 export default {
   name: 'order-summary',
 
   components: {
-    CustomerSummary,
     Autocomplete,
-    AddressSummary,
+    // CustomerSummary,
+    // AddressSummary,
   },
   data() {
     return {
