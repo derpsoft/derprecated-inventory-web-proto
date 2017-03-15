@@ -3,9 +3,10 @@
   <div class="row control-row">
     <div class="col-md-12">
       <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-manage-orders>Delete</button>
-      <billing-form ref="billingForm" :amount="order.acceptedOffers | total | toCents"
+      <button class="btn btn-primary pull-right" @click="save">Save Order</button>
+      <billing-form ref="billingForm" cssClass="pull-right" :amount="order.acceptedOffers | total | toCents"
+          :description="`Custom order ${order.orderNumber}`" @success="billingCaptured"
           v-if="isBillable"></billing-form>
-        <button class="btn btn-primary pull-right" @click="save">Save Order</button>
         <h4>Order Details</h4>
     </div>
   </div>
@@ -21,12 +22,14 @@
 <script>
 import _ from 'lodash';
 import Constants from 'src/constants';
+import BillingForm from 'components/billing/form';
 import OrderForm from './form';
 
 export default {
   name: 'editOrder',
   components: {
-    OrderForm
+    OrderForm,
+    BillingForm,
   },
 
   data() {
@@ -55,7 +58,7 @@ export default {
       return this.$store.getters.order(this.id);
     },
     isBillable() {
-      return this.order && this.order.status === 'created';
+      return this.order && this.order.status === Constants.orderStatus.AWAITING_PAYMENT;
     },
   },
 
@@ -74,6 +77,7 @@ export default {
           }
         });
     },
+
     deleteConfirm() {
       /* eslint-disable no-alert */
       if (window.confirm('Are you sure you want to delete?')) {
@@ -89,6 +93,16 @@ export default {
         redirect: this.redirect,
       });
     },
+
+    billingCaptured({
+      // email,
+      token,
+    }) {
+      this.$store.dispatch(Constants.ORDER_BILLING_CAPTURED, {
+        order: this.order,
+        token,
+      });
+    }
   }
 };
 

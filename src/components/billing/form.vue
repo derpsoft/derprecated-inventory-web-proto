@@ -1,6 +1,6 @@
 <template>
-<form>
-  <stripe-checkout :stripe-key="stripeKey" :product="product"></stripe-checkout>
+<form :class="cssClass">
+  <stripe-checkout :stripe-key="stripeKey" :product="product" on-success="broadcast"></stripe-checkout>
 </form>
 
 </template>
@@ -35,7 +35,18 @@ export default {
       type: String,
       required: false,
       default: config.stripe.publishableKey,
-    }
+    },
+    cssClass: {
+      type: String,
+      required: false,
+      default: '',
+    },
+  },
+
+  mounted() {
+    StripeCheckout.Bus.$on('vue-stripe.success', (payload) => {
+      this.onSuccess(payload);
+    });
   },
 
   computed: {
@@ -45,6 +56,12 @@ export default {
         description: this.description,
         amount: this.amount,
       };
+    }
+  },
+
+  methods: {
+    onSuccess(payload) {
+      this.$emit('success', payload);
     }
   },
 };

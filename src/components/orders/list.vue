@@ -7,7 +7,7 @@
     <template slot="body-row" scope="props">
       <tr class="editable" v-on:click="edit(props.record.id)">
         <td>{{props.record.orderNumber}}</td>
-        <td>{{props.record.orderStatus}}</td>
+        <td>{{props.record.status}}</td>
         <td>{{props.record.createDate | formatCreateDate}}</td>
         <td>{{props.record.shippingAddress.city}}</td>
         <td>{{props.record.shippingAddress.state}}</td>

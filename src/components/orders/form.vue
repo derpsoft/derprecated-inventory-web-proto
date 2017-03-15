@@ -78,7 +78,6 @@
 import _ from 'lodash';
 import Constants from 'src/constants';
 import CustomerForm from 'components/customers/form';
-import BillingForm from 'components/billing/form';
 import AddressForm from 'components/addresses/form';
 import Autocomplete from 'components/autocomplete-multiple';
 
@@ -89,7 +88,6 @@ export default {
     CustomerForm,
     Autocomplete,
     AddressForm,
-    BillingForm,
   },
   data() {
     return {

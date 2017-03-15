@@ -37,7 +37,6 @@ export default {
           isValid,
           order
         }) => {
-          console.debug(isValid, order);
           if (isValid) {
             const redirect = this.redirect;
 
