@@ -7109,7 +7109,7 @@ vue-router@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-2.2.0.tgz#65a29ce23d718ddf09237938a58a01b3d1acc77c"
 
-vue-stripe@jamesearl/vue-stripe#master:
+vue-stripe@jamesearl/vue-stripe:
   version "0.1.2"
   resolved "https://codeload.github.com/jamesearl/vue-stripe/tar.gz/1b096994272d0f62a5b54f0d70fd959688a715a5"
   dependencies:
