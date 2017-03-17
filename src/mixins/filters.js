@@ -30,6 +30,9 @@ const filters = {
       length
     });
   },
+  ago(x) {
+    return moment(x).fromNow();
+  },
 };
 
 export default (Vue) => {

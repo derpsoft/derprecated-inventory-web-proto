@@ -39,12 +39,8 @@
 
       <div class="row">
         <div class="col-lg-6">
-          <h2>Incoming</h2>
-          <receiving-queue></receiving-queue>
-        </div>
-        <div class="col-lg-6">
-          <h2>Outgoing</h2>
-          <shipping-queue></shipping-queue>
+          <h2>Recent</h2>
+          <churn></churn>
         </div>
       </div>
     </div>
@@ -58,8 +54,7 @@ import Constants from 'src/constants';
 import Today from 'shared/today';
 import Shipped from './metrics/shipped';
 import Received from './metrics/received';
-import ShippingQueue from './tables/shipping';
-import ReceivingQueue from './tables/receiving';
+import Churn from './tables/churn';
 
 export default {
   name: 'inventory-dashboard',
@@ -69,8 +64,7 @@ export default {
     // Tasks,
     Shipped,
     Received,
-    ShippingQueue,
-    ReceivingQueue,
+    Churn,
   },
 
   computed: {

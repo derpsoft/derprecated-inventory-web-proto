@@ -1,10 +1,12 @@
 <template>
-  <crud-list :records="logs" :columns="['Product', 'Quantity', 'Date']">
+  <crud-list :records="logs" :columns="['', '', '']">
     <template slot="body-row" scope="props">
       <tr>
+        <td>
+          <big><strong :class="{'text-success': props.record.quantity>0, 'text-warning': props.record.quantity<0}">{{props.record.quantity > 0 ? '+' : ''}}{{props.record.quantity}}</strong></big>
+        </td>
         <product-field tag="td" :id="props.record.productId" field="title"></product-field>
-        <td>{{props.record.quantity}}</td>
-        <td>{{props.record.createDate | formatCreateDate}}</td>
+        <td>{{props.record.createDate | ago}}</td>
       </tr>
     </template>
   </crud-list>
@@ -17,7 +19,7 @@ import UserField from 'components/users/field';
 import CrudList from 'components/crud/list';
 
 export default {
-  name: 'receiving',
+  name: 'churn',
 
   components: {
     ProductField,
