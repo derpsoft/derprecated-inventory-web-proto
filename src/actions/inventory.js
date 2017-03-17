@@ -173,8 +173,8 @@ function getInventoryLogs({
 }) {
   new InventoryApi()
     .getLogs(skip, take)
-    .then((response) => {
-      commit(Constants.SET_INVENTORY_TRANSACTION_LOGS, response.results);
+    .then((results) => {
+      commit(Constants.SET_INVENTORY_TRANSACTION_LOGS, results);
     })
     .catch((e) => {
       dispatch(Constants.SHOW_TOASTR, {
