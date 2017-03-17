@@ -40,6 +40,7 @@ function save(k, v) {
 }
 
 const Permissions = Constants.permissions;
+const Roles = Constants.roles;
 
 function logout({
   commit,
@@ -177,6 +178,13 @@ const GETTERS = {
     return getters.authorization.roles;
   },
 
+  canLogin: (state, getters) => {
+    const allowed = [
+      Permissions.LOGIN.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
   canReadUsers: (state, getters) => {
     const allowed = [
       Permissions.EVERYTHING.key,
@@ -193,6 +201,14 @@ const GETTERS = {
       Permissions.UPSERT_USERS.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
+  canManageUsers: (state, getters) => {
+    const allowed = [
+      Roles.DELEGATED_ADMIN_USER,
+      Roles.DELEGATED_ADMIN_ADMINISTRATOR,
+    ];
+    return !!_.intersection(getters.currentUserRoles, allowed).length;
   },
 
   canReadVendors: (state, getters) => {

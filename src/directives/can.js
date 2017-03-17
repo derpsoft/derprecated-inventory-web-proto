@@ -3,7 +3,7 @@ import store from 'stores/store';
 
 const guards = [
   'canReadUsers',
-  'canUpsertUsers',
+  'canManageUsers',
 
   'canReadVendors',
   'canUpsertVendors',
