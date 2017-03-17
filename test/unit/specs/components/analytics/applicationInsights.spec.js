@@ -1,15 +1,31 @@
 // import appInsights from 'applicationinsights';
+// import {
+//   VueComponent,
+// } from 'utils';
 // import AppInsights from 'components/analytics/applicationInsights';
 
 describe('Application Insights', () => {
-  describe('created', () => {
-    it('it should start application insights', () => {
-      // const spy = sinon.spy(appInsights, 'start');
-      //
-      // AppInsights.created.apply(AppInsights);
-      //
-      // sinon.assert.calledOnce(spy);
-      // spy.to.have.been.called();
-    });
-  });
+  // let appInsights;
+  // let mock;
+  //
+  // beforeEach(() => {
+  //   AppInsights.appInsights = {
+  //     start: sinon.spy(),
+  //   };
+  //   appInsights = VueComponent(AppInsights);
+  //   // mock = sinon.mock(mock);
+  // });
+  //
+  // afterEach(() => {
+  //   appInsights = null;
+  // });
+  //
+  // describe('created', () => {
+  //   it('it should start application insights', () => {
+  //     // const spy = sinon.spy(appInsights.appInsights, 'start');
+  //     appInsights.created();
+  //
+  //     expect(mock.start).to.have.been.called;
+  //   });
+  // });
 });
