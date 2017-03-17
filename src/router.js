@@ -46,6 +46,7 @@ import SalesDashboard from 'components/sales/dashboard';
 
 import Orders from 'components/orders/index';
 import ModifyOrders from 'components/orders/modify';
+import OrderSummary from 'components/orders/summary';
 
 import Constants from './constants';
 // import NotFound from './views/notfound';
@@ -87,6 +88,9 @@ const routes = [{
 }, {
   path: '/not-authorized',
   component: NotAuthorized,
+}, {
+  path: '/orders/summary/:orderKey/:orderNumber',
+  component: OrderSummary,
 }, {
   path: '/',
   component: Main,

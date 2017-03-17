@@ -27,7 +27,7 @@
                 <tbody>
                   <tr v-for="(offer, id, index) in value.acceptedOffers">
                     <td>{{ offer.product.sku }}</td>
-                    <td>{{ offer.product.title | formatTitle }}</td>
+                    <td>{{ offer.product.title | truncate }}</td>
                     <td>
                       <input type="number" class="form-control" min=1 step=1 v-model.number="offer.quantity"></td>
                     <td>{{ offer | price | formatCurrency }}
@@ -131,20 +131,6 @@ export default {
           quantity
         }) => price * Math.max(quantity, 1))
         .sum();
-    },
-    formatTitle(x) {
-      return _.truncate(x, {
-        length: 50
-      });
-    },
-    formatCurrency(x) {
-      return Intl
-        .NumberFormat('en-US', {
-          style: 'currency',
-          currencyDisplay: 'symbol',
-          currency: 'USD',
-        })
-        .format(x);
     },
   },
 

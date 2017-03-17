@@ -17,6 +17,9 @@ const base = {
   productionGzip: false,
   productionGzipExtensions: ['js', 'css'],
   proxyTable: {},
+  app: {
+    orderPrefix: 'DERP',
+  },
   auth0: {
     clientId: 'HgdpKajxywOUlc52Uv6rASdiABMsnYd4',
     domain: 'derprecated.auth0.com',
