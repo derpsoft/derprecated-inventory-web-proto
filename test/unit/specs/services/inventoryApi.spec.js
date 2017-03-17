@@ -97,7 +97,7 @@ describe('Inventory API', () => {
     it('should get logs', () => {
       const skip = 0;
       const take = 25;
-      const spy = sinon.spy(inventoryApi, 'searchLogs');
+      const spy = sinon.spy(inventoryApi, 'getLogs');
       spy.withArgs(skip, take);
 
       inventoryApi.getLogs(skip, take);
