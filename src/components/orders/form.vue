@@ -95,8 +95,14 @@ export default {
     billingAddressForm() {
       return this.$refs.billingAddressForm;
     },
+    isNew() {
+      return this.value && this.value.status === Constants.orderStatus.PENDING;
+    },
     isBillable() {
-      return this.value && this.value.status === Constants.orderStatus.AWAITING_PAYMENT;
+      return this.isNew ||
+        (
+          this.value && this.value.status === Constants.orderStatus.AWAITING_PAYMENT
+        );
     },
     isShippable() {
       return this.isBillable ||
@@ -149,6 +155,7 @@ export default {
 
           if (this.isBillable) {
             order.offers = results[1].offers;
+            order.price = results[1].price;
             order.billingCustomer = this.sameAsShipping ? order.shippingCustomer :
               results[4].customer;
             order.billingAddress = this.sameAsShipping ? order.shippingAddress :
@@ -158,6 +165,7 @@ export default {
             order.shippingCustomer = results[2].customer;
             order.shippingAddress = results[3].address;
           }
+
 
           return {
             isValid: valid,

@@ -1,5 +1,15 @@
+<style lang="css">
+.order-products {
+  tfoot {
+    tr, td {
+      border-top: none;
+      text-align: right;
+    }
+  }
+}
+</style>
 <template>
-<div>
+<div class="order-products">
   <autocomplete ref="productList" :editable="true" :selected="products" :suggestions="allProducts"
       :value-selector="(v) => v" :key-selector="(v) => v.title" :display-selector="(v) => `${v.id}: ${v.title}`"
       :draw-selections="false" :disabled="disabled" @change="setProducts">
@@ -22,7 +32,8 @@
             <td>{{ product(offer.productId, 'sku') }}</td>
             <td>{{ product(offer.productId, 'title') | truncate }}</td>
             <td>
-              <input type="number" class="form-control" min=1 step=1 v-model.number="offer.quantity" :disabled="disabled"></td>
+              <input type="number" class="form-control" min=1 step=1 v-model.number="offer.quantity"
+                  :disabled="disabled"></td>
             <td>{{ offer | offerPrice | formatCurrency }}</td>
             <td>
               <button type="button" class="btn-xs btn-default" @click="removeOffer(index)" v-if="!disabled">X</button>
@@ -31,10 +42,16 @@
         </tbody>
         <tfoot>
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>Total: {{ value | total | formatCurrency }}</td>
+            <td colspan="3">Subtotal:</td>
+            <td>{{ subtotal | formatCurrency }}</td>
+          </tr>
+          <tr>
+            <td colspan="3">Tax:</td>
+            <td>{{ tax | formatCurrency }}</td>
+          </tr>
+          <tr>
+            <td colspan="3">Total:</td>
+            <td>{{ total | formatCurrency }}</td>
           </tr>
         </tfoot>
       </table>
@@ -71,6 +88,11 @@ export default {
       required: false,
       default: false,
     },
+    taxRate: {
+      type: Number,
+      required: false,
+      default: 0.09250,
+    },
   },
 
   filters: {
@@ -80,9 +102,12 @@ export default {
       }
       return 0;
     },
-    total(offers) {
-      if (offers && offers.length) {
-        return _(offers)
+  },
+
+  computed: {
+    subtotal() {
+      if (this.value) {
+        return _(this.value)
           .map((offer) => {
             if (offer) {
               return offer.price * Math.max(offer.quantity, 1);
@@ -93,9 +118,12 @@ export default {
       }
       return 0;
     },
-  },
-
-  computed: {
+    tax() {
+      return this.subtotal * this.taxRate;
+    },
+    total() {
+      return (this.subtotal + this.tax).toFixed(3);
+    },
     allProducts() {
       return this.$store.getters.products;
     },
@@ -165,13 +193,15 @@ export default {
         .then((isValid) => {
           return {
             isValid: this.disabled || isValid,
-            offers: JSON.parse(JSON.stringify(this.value))
+            offers: JSON.parse(JSON.stringify(this.value)),
+            price: this.total,
           };
         })
         .catch(() => {
           return {
             isValid: this.disabled,
-            offers: JSON.parse(JSON.stringify(this.value))
+            offers: JSON.parse(JSON.stringify(this.value)),
+            price: this.total,
           };
         });
     },
