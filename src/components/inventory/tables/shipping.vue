@@ -1,44 +1,81 @@
+<style lang="css" scoped>
+.order-list {
+    td {
+        vertical-align: middle;
+    }
+}
+</style>
+
 <template>
-  <crud-list :records="logs" :columns="['Product', 'Quantity', 'Date']">
+<div class="order-list">
+  <crud-list :records="value" :columns="['', '', '']">
     <template slot="body-row" scope="props">
-      <tr>
-        <product-field tag="td" :id="props.record.productId" field="title"></product-field>
-        <td>{{props.record.quantity}}</td>
-        <td>{{props.record.createDate | formatCreateDate}}</td>
+      <tr class="editable" @click="showOrder(props.record.id)">
+        <td>{{props.record.orderNumber}}</td>
+        <td>{{props.record | quantity}} pcs</td>
+        <td>{{props.record.shippingAddress.city}}, {{props.record.shippingAddress.state}}</td>
       </tr>
-    </template>
+
+</template>
   </crud-list>
+</div>
 </template>
 
 <script>
-import moment from 'moment';
-import ProductField from 'components/products/field';
-import UserField from 'components/users/field';
+import _ from 'lodash';
 import CrudList from 'components/crud/list';
+import Constants from 'src/constants';
 
 export default {
   name: 'shipping',
 
   components: {
-    ProductField,
-    UserField,
     CrudList,
   },
 
+  data() {
+    return {
+      value: [],
+    };
+  },
+
   computed: {
-    count() {
-      return this.$store.getters.logCount;
-    },
-    logs() {
-      return this.$store.getters.logs;
+    needsShipping() {
+      const filter = ['status', Constants.orderStatus.AWAITING_SHIPMENT];
+      return _.filter(this.$store.getters.orders, filter);
     },
   },
 
   filters: {
-    formatCreateDate(date) {
-      return moment(date)
-        .format('MMM d, Y');
+    quantity({
+      offers
+    }) {
+      return _.sumBy(offers, ({
+        quantity
+      }) => quantity);
     }
   },
+
+  watch: {
+    needsShipping: 'refresh',
+  },
+
+  mounted() {
+    this.$store.dispatch(Constants.GET_ORDERS, {
+      skip: 0,
+      take: 200,
+    });
+    // this.$store.dispatch(Constants.COUNT_ORDERS);
+  },
+
+  methods: {
+    refresh() {
+      this.value = this.needsShipping;
+    },
+    showOrder(id) {
+      this.$router.push(`/orders/edit/${id}`);
+    },
+  },
 };
+
 </script>

@@ -10,19 +10,15 @@
       <th>Product</th>
       <th>Quantity</th>
       <th>Type</th>
-      <th>Unit of Measure ID</th>
-      <th>User</th>
       <th>Date</th>
     </header-row>
     <template slot="body-row" scope="props">
       <tr>
         <td>{{props.record.id}}</td>
-        <product-field tag="td" :id="props.record.productId" field="title"></product-field>
+        <td>{{props.record.produc.title | truncate(100)}}</td>
         <td>{{props.record.quantity}}</td>
         <td>{{props.record.transactionType}}</td>
-        <td>{{props.record.unitOfMeasureId}}</td>
-        <user-field tag="td" :id="props.record.userId" field="userName"></user-field>
-        <td>{{props.record.createDate | formatCreateDate}}</td>
+        <td>{{props.record.createDate | ago}}</td>
       </tr>
     </template>
   </crud-list>
@@ -30,25 +26,12 @@
 </template>
 
 <script>
-import moment from 'moment';
 import Constants from 'src/constants';
-import ProductField from 'components/products/field';
-import UserField from 'components/users/field';
 import CrudList from 'components/crud/list';
 
 export default {
   components: {
-    ProductField,
-    UserField,
     CrudList,
-  },
-
-  mounted() {
-    this.$store.dispatch(Constants.GET_INVENTORY_TRANSACTION_LOGS, {
-      skip: 0,
-      take: 200,
-    });
-    this.$store.dispatch(Constants.COUNT_INVENTORY_LOGS);
   },
 
   computed: {
@@ -60,11 +43,12 @@ export default {
     },
   },
 
-  filters: {
-    formatCreateDate(date) {
-      return moment(date)
-        .format('lll');
-    }
+  mounted() {
+    this.$store.dispatch(Constants.GET_INVENTORY_TRANSACTION_LOGS, {
+      skip: 0,
+      take: 200,
+    });
+    this.$store.dispatch(Constants.COUNT_INVENTORY_LOGS);
   },
 };
 

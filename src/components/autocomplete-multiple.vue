@@ -13,7 +13,7 @@
 </style>
 
 <template>
-<div style="position:relative" :class="{'open':openSuggestion}">
+<div style="position:relative" :class="{'open':openSuggestion}" v-if="!disabled">
   <input class="form-control" type="text" v-model="query" v-focus.lazy="focus" @keydown.enter="enter"
       @keydown.down="down" @keydown.up="up" @input="change" />
   <slot name="selection-list" :selectionList="selectionList" :selectionValues="selectionValues">
@@ -86,7 +86,12 @@ export default {
       type: Boolean,
       required: false,
       default: false,
-    }
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
   },
 
   watch: {

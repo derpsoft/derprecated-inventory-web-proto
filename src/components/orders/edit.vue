@@ -7,7 +7,7 @@
         <button class="btn btn-primary pull-right" @click="save" v-if="isSaveable">Save Order</button>
         <button class="btn btn-primary pull-right" @click="fulfilled" v-if="isFulfillable">Mark as Fulfilled</button>
         <button class="btn btn-primary pull-right" @click="shipped" v-if="isShippable">Mark as Shipped</button>
-        <billing-form ref="billingForm" cssClass="pull-right" :amount="order.acceptedOffers | total | toCents"
+        <billing-form ref="billingForm" cssClass="pull-right" :amount="order.price | toCents"
           :description="`Custom order ${order.orderNumber}`" @success="billingCaptured"
           v-if="isBillable"></billing-form>
         <h4>Order Details
@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import _ from 'lodash';
 import Constants from 'src/constants';
 import BillingForm from 'components/billing/form';
 import OrderForm from './form';
@@ -42,14 +41,6 @@ export default {
   },
 
   filters: {
-    total(offers) {
-      return _(offers)
-        .map(({
-          product,
-          quantity
-        }) => product.price * Math.max(quantity, 1))
-        .sum();
-    },
     toCents(dollars) {
       return (dollars * 100) >> 0;
     },

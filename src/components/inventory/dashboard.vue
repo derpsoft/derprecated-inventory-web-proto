@@ -39,8 +39,12 @@
 
       <div class="row">
         <div class="col-lg-6">
-          <h2>Recent</h2>
+          <h3>Recent</h3>
           <churn></churn>
+        </div>
+        <div class="col-lg-6">
+          <h3>Needs Shipping</h3>
+          <needs-shipping></needs-shipping>
         </div>
       </div>
     </div>
@@ -50,11 +54,11 @@
 </template>
 
 <script>
-import Constants from 'src/constants';
 import Today from 'shared/today';
 import Shipped from './metrics/shipped';
 import Received from './metrics/received';
 import Churn from './tables/churn';
+import NeedsShipping from './tables/shipping';
 
 export default {
   name: 'inventory-dashboard',
@@ -65,20 +69,7 @@ export default {
     Shipped,
     Received,
     Churn,
-  },
-
-  computed: {
-    groupBy() {
-      return 'Month';
-    },
-  },
-
-  mounted() {
-    this.$store.dispatch(Constants.GET_INVENTORY_TRANSACTION_LOGS, {
-      skip: 0,
-      take: 200,
-    });
-    this.$store.dispatch(Constants.COUNT_INVENTORY_LOGS);
+    NeedsShipping,
   },
 };
 

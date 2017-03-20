@@ -42,13 +42,4 @@ describe('Inventory List', () => {
       expect(result).to.equal(count.getters.logs);
     });
   });
-
-  describe('filters', () => {
-    it('should format create date', () => {
-      const date = new Date('1/2/1984');
-      const result = List.filters.formatCreateDate(date);
-
-      expect(result).to.equal('Jan 2, 1984 12:00 AM');
-    });
-  });
 });

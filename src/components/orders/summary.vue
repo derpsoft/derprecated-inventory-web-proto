@@ -36,7 +36,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(offer, index) in value.acceptedOffers">
+            <tr v-for="(offer, index) in value.offers">
               <td>
                 {{offer.quantity}} of: {{offer.product.title}}
               </td>
@@ -71,7 +71,7 @@ export default {
       value: {
         shippingAddress: {},
         billingAddress: {},
-        acceptedOffers: [],
+        offers: [],
       },
     };
   },

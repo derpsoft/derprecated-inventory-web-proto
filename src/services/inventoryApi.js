@@ -44,8 +44,8 @@ class InventoryApi extends Fetchable {
       .then(res => res.inventoryTransaction);
   }
 
-  getLogs() {
-    return super.get('/api/v1/inventory-transactions')
+  getLogs(skip = 0, take = 25) {
+    return super.get(`/api/v1/inventory-transactions?skip=${skip}&take=${take}`)
       .then(json => json.result);
   }
 
