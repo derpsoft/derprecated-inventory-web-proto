@@ -12,6 +12,7 @@
     </div>
   </div>
 </div>
+
 </template>
 
 <script>
@@ -32,8 +33,11 @@ export default {
         }) => {
           if (isValid) {
             const redirect = this.redirect;
-            this.$store.dispatch(Constants.DISPATCH_INVENTORY, {
-              transaction,
+            this.$store.dispatch(Constants.CREATE_INVENTORY_TRANSACTION, {
+              transaction: {
+                ...transaction,
+                quantity: -Math.abs(transaction.quantity),
+              },
               redirect
             });
           }
@@ -49,4 +53,5 @@ export default {
     },
   },
 };
+
 </script>

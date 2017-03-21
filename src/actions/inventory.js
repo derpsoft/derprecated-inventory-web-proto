@@ -24,7 +24,7 @@ function getQuantityOnHand({
     });
 }
 
-function receiveInventory({
+function createTransaction({
   dispatch,
   commit
 }, {
@@ -33,7 +33,7 @@ function receiveInventory({
   toastError = true,
 }) {
   return new InventoryApi()
-    .receiveInventory(transaction)
+    .create(transaction)
     .then((q) => {
       commit(Constants.SET_QUANTITY_ON_HAND, {
         ...transaction,
@@ -79,7 +79,7 @@ function bulkReceiveInventory({
 
   const receives = Promise.all(withProducts)
     .then(results =>
-      results.map(transaction => receiveInventory({
+      results.map(transaction => createTransaction({
         commit,
         dispatch
       }, {
@@ -101,45 +101,6 @@ function bulkReceiveInventory({
           message: 'Error has occured while attempting to import inventory.'
         });
       }
-      log.error(e);
-    });
-}
-
-function dispatchInventory({
-  dispatch,
-  commit
-}, {
-  transaction,
-  redirect,
-}) {
-  new InventoryApi()
-    .dispatchInventory({
-      ...transaction,
-      quantity: -Math.abs(transaction.quantity),
-    })
-    .then((q) => {
-      commit(Constants.SET_QUANTITY_ON_HAND, {
-        ...transaction,
-        quantity: q.quantity,
-      });
-
-      return q;
-    })
-    .then((q) => {
-      commit(Constants.SET_QUANTITY_ON_HAND, {
-        ...transaction,
-        quantity: q.quantity,
-      });
-
-      if (typeof redirect === 'function') {
-        redirect();
-      }
-    })
-    .catch((e) => {
-      dispatch(Constants.SHOW_TOASTR, {
-        type: 'error',
-        message: 'Error has occured while attempting to dispatch inventory.'
-      });
       log.error(e);
     });
 }
@@ -252,9 +213,8 @@ const INITIAL_STATE = {
 
 const ACTIONS = {
   [Constants.GET_QUANTITY_ON_HAND]: getQuantityOnHand,
-  [Constants.RECEIVE_INVENTORY]: receiveInventory,
+  [Constants.CREATE_INVENTORY_TRANSACTION]: createTransaction,
   [Constants.RECEIVE_INVENTORY_BULK]: bulkReceiveInventory,
-  [Constants.DISPATCH_INVENTORY]: dispatchInventory,
   [Constants.LOCATE_INVENTORY]: locateInventory,
   [Constants.GET_INVENTORY_TRANSACTION_LOGS]: getInventoryLogs,
   [Constants.SEARCH_INVENTORY_TRANSACTION_LOGS]: searchInventoryLogs,

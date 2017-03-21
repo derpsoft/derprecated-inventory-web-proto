@@ -7,7 +7,7 @@ class InventoryApi extends Fetchable {
     super(Constants.API_ROOT, store);
   }
 
-  _createTransaction({
+  create({
     locationId,
     productId,
     quantity,
@@ -28,21 +28,6 @@ class InventoryApi extends Fetchable {
       });
   }
 
-
-  receiveInventory(xact) {
-    if (xact.quantity <= 0) {
-      throw new Error('quantity must be >= 0');
-    }
-    return this._createTransaction(xact);
-  }
-
-  dispatchInventory(xact) {
-    if (xact.quantity >= 0) {
-      throw new Error('quantity must be <= 0');
-    }
-    return this._createTransaction(xact)
-      .then(res => res.inventoryTransaction);
-  }
 
   getLogs(skip = 0, take = 25) {
     return super.get(`/api/v1/inventory-transactions?skip=${skip}&take=${take}`)

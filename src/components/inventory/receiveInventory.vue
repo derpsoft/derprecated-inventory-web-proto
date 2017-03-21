@@ -32,7 +32,7 @@ export default {
         }) => {
           if (isValid) {
             const redirect = this.redirect;
-            this.$store.dispatch(Constants.RECEIVE_INVENTORY, {
+            this.$store.dispatch(Constants.CREATE_INVENTORY_TRANSACTION, {
               transaction,
               redirect
             });
