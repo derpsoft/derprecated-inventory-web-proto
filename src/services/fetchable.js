@@ -1,3 +1,5 @@
+// @flow
+
 import _ from 'lodash';
 import getErrorCodeHandler from 'services/apiErrorCodes';
 import fetch from 'isomorphic-fetch';
@@ -12,7 +14,11 @@ const verbs = [
 ];
 
 export default class Fetchable {
-  constructor(baseUrl, store, fetcher = fetch) {
+  baseUrl : string;
+  store : Object;
+  fetch : function;
+
+  constructor(baseUrl : string, store : any, fetcher : function = fetch) {
     if (!baseUrl || baseUrl === '') {
       throw new Error('baseUrl may not be empty');
     }
@@ -33,7 +39,7 @@ export default class Fetchable {
     });
   }
 
-  deserialize(response) {
+  deserialize(response:Object) : Promise<Object> {
     return response.json()
       .then((json) => {
         return {
@@ -50,9 +56,9 @@ export default class Fetchable {
       });
   }
 
-  _fetch(url, options, {
+  _fetch(url : string, options : Object, {
     dispatch
-  }) {
+  }:*) {
     if (!url) {
       throw new Error('url may not be empty');
     }
@@ -72,7 +78,7 @@ export default class Fetchable {
       });
   }
 
-  toForm(body) {
+  toForm(body:Object) {
     const form = new FormData();
     _.each(body, (v, k) => {
       form.append(k, v);
@@ -80,11 +86,11 @@ export default class Fetchable {
     return form;
   }
 
-  toJson(body) {
+  toJson(body:Object) {
     return JSON.stringify(body);
   }
 
-  prepareXhr(xhr) {
+  prepareXhr(xhr:XMLHttpRequest) {
     const defaults = {
       headers: {
         Accept: 'application/json',
@@ -98,7 +104,7 @@ export default class Fetchable {
     });
   }
 
-  prepare(options) {
+  prepare(options:Object) {
     const defaults = {
       headers: {
         Accept: 'application/json',
