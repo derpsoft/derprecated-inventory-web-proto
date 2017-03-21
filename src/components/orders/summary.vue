@@ -28,21 +28,19 @@
     <div class="col-sm-12">
       <h4>Items Ordered</h4>
       <div class="table-responsive">
-        <table class="table table-striped list">
+        <table class="table table-striped">
           <thead>
             <tr>
-              <th>Item</th>
-              <th>Price</th>
+              <th>Quantity</th>
+              <th>SKU</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(offer, index) in value.offers">
-              <td>
-                {{offer.quantity}} of: {{offer.product.title}}
-              </td>
-              <td>
-                {{offer.price | formatCurrency}}
-              </td>
+              <td>{{offer.quantity}}</td>
+              <td>{{product(offer.productId, 'sku')}}</td>
+              <td>{{product(offer.productId, 'title')}}</td>
             </tr>
           </tbody>
         </table>
@@ -54,6 +52,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import Constants from 'src/constants';
 import AddressSummary from 'components/addresses/summary';
 import Autocomplete from 'components/autocomplete-multiple';
@@ -86,6 +85,26 @@ export default {
     order() {
       return this.$store.getters.order(this.orderNumber);
     },
+    product() {
+      return (productId, field) => {
+        let x = Object.assign({}, this.$store.getters.product(productId));
+        if (x && field) {
+          x = x[field];
+        }
+        return x;
+      };
+    },
+    offeredProducts() {
+      return _.map(this.value.offers, ({
+        productId,
+        product
+      }) => {
+        return product || this.product(productId);
+      });
+    },
+    offeredProductIds() {
+      return _.pick(this.offeredProducts, 'productId');
+    },
     isBilled() {
       return this.value && this.value.billDate;
     },
@@ -95,8 +114,8 @@ export default {
   },
 
   watch: {
-    order: 'refresh',
     $route: 'load',
+    order: 'refresh',
   },
 
   mounted() {
@@ -115,6 +134,14 @@ export default {
 
     refresh() {
       this.value = Object.assign({}, this.value, this.order);
+      _.forEach(this.value.offers, ({
+        productId
+      }) => {
+        this.$store.dispatch(Constants.GET_PRODUCT, {
+          id: productId,
+          includeDeleted: true
+        });
+      });
     },
   }
 };

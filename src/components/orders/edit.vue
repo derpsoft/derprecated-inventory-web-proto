@@ -14,6 +14,9 @@
           <small v-if="!isSaveable" class="pull-right">Order has shipped and may not be edited</small>
         </h4>
     </div>
+    <div class="col-md-12">
+      <order-status :id="id"></order-status>
+    </div>
   </div>
   <div class="panel panel-filled panel-main">
     <div class="panel-body">
@@ -28,12 +31,14 @@
 import Constants from 'src/constants';
 import BillingForm from 'components/billing/form';
 import OrderForm from './form';
+import OrderStatus from './status';
 
 export default {
   name: 'editOrder',
   components: {
     OrderForm,
     BillingForm,
+    OrderStatus,
   },
 
   data() {
