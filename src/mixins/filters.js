@@ -31,7 +31,7 @@ const filters = {
     });
   },
   ago(x) {
-    return moment(x).fromNow();
+    return moment.utc(x).fromNow();
   },
 };
 

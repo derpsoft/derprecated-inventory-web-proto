@@ -8,7 +8,7 @@
   </div>
   <div class="panel panel-filled panel-main">
     <div class="panel-body">
-      <inventory-form ref="inventoryForm"></inventory-form>
+      <inventory-form ref="inventoryForm" default-location-name="Shipping"></inventory-form>
     </div>
   </div>
 </div>
@@ -22,6 +22,7 @@ export default {
   components: {
     InventoryForm
   },
+
   methods: {
     save() {
       this.validate()

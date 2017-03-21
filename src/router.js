@@ -240,7 +240,12 @@ const routes = [{
     },
   }, {
     path: '/inventory',
-    alias: '/inventory/dashboard',
+    component: Inventory,
+    meta: {
+      requiresAuth: true,
+    }
+  }, {
+    path: '/inventory/dashboard',
     component: InventoryDashboard,
     meta: {
       requiresAuth: true,

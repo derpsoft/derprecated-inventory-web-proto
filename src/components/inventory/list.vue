@@ -4,23 +4,16 @@
     There are no inventory logs found.
   </div>
 
-  <crud-list :records="logs">
-    <header-row>
-      <th>ID</th>
-      <th>Product</th>
-      <th>Quantity</th>
-      <th>Type</th>
-      <th>Date</th>
-    </header-row>
+  <crud-list :records="logs" :columns="['Quantity', 'Type', 'Title', '']">
     <template slot="body-row" scope="props">
       <tr>
-        <td>{{props.record.id}}</td>
-        <td>{{props.record.produc.title | truncate(100)}}</td>
         <td>{{props.record.quantity}}</td>
         <td>{{props.record.transactionType}}</td>
+        <td>{{product(props.record, 'title') | truncate(100)}}</td>
         <td>{{props.record.createDate | ago}}</td>
       </tr>
-    </template>
+
+</template>
   </crud-list>
 </div>
 </template>
@@ -40,6 +33,18 @@ export default {
     },
     logs() {
       return this.$store.getters.logs;
+    },
+    product() {
+      return ({
+        productId,
+        product
+      }, field) => {
+        let x = Object.assign({}, this.$store.getters.product(productId), product);
+        if (x && field) {
+          x = x[field];
+        }
+        return x;
+      };
     },
   },
 

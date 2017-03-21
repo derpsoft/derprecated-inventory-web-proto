@@ -129,9 +129,9 @@ export default {
     },
 
     tableData() {
-      return _.reject(
+      return _.filter(
         this.inventory,
-        x => !this.$store.getters.productBySku(x.sku)
+        x => this.$store.getters.productBySku(x.sku)
       );
     },
 
@@ -140,7 +140,7 @@ export default {
     },
 
     hasUpload() {
-      return this.inventory.length > 0 && this.tableData.length > 0;
+      return this.inventory.length && this.tableData.length;
     },
   },
 

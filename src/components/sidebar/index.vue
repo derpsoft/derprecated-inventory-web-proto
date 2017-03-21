@@ -6,6 +6,10 @@
     &:first {
       padding-top: 15px;
     }
+
+    .nav-category {
+      cursor: pointer;
+    }
   }
 }
 </style>
@@ -14,8 +18,8 @@
 <aside class="navigation">
   <nav>
     <ul class="nav luna-nav" v-can-manage-sales>
-      <li class="nav-category" @click="showSales = !showSales">
-        Sales
+      <li class="nav-category" :class="{dropup: showSales}" @click="showSales = !showSales">
+        <big>Sales <span class="caret text-muted"></span></big>
       </li>
       <template v-if="showSales">
         <li>
@@ -43,12 +47,15 @@
     </ul>
 
     <ul class="nav luna-nav" v-can-manage-inventory>
-      <li class="nav-category" @click="showInventory = !showInventory">
-        Inventory
+      <li class="nav-category" :class="{dropup: showInventory}" @click="showInventory = !showInventory">
+        <big>Logistics <span class="caret text-muted"></span></big>
       </li>
       <template v-if="showInventory">
         <li>
           <router-link :to="{ path: '/inventory/dashboard', activeClass: 'active' }" active-class="active">Dashboard</router-link>
+        </li>
+        <li>
+          <router-link :to="{ path: '/inventory', activeClass: 'active'}" active-class="active" exact>Inventory</router-link>
         </li>
         <li v-is-dev>
           <router-link :to="{ path: '/reports', activeClass: 'active' }" active-class="active">Reports</router-link>
@@ -63,8 +70,8 @@
     </ul>
 
     <ul class="nav luna-nav">
-      <li class="nav-category" @click="showAccount = !showAccount">
-        Account
+      <li class="nav-category" :class="{dropup: showAccount}" @click="showAccount = !showAccount">
+        <big>Account <span class="caret text-muted"></span></big>
       </li>
       <template v-if="showAccount">
         <li v-is-dev>
@@ -77,8 +84,8 @@
     </ul>
 
     <ul class="nav luna-nav" v-can-any="{ term: 'or', guards: ['canReadProducts', 'canReadCategories', 'canReadWarehouses', 'canReadLocations', 'canReadVendors', 'canReadUsers'] }">
-      <li class="nav-category" @click="showAdmin = !showAdmin">
-        Admin
+      <li class="nav-category" :class="{dropup: showAdmin}" @click="showAdmin = !showAdmin">
+        <big>Admin <span class="caret text-muted"></span></big>
       </li>
       <template v-if="showAdmin">
         <li v-can-read-products>
