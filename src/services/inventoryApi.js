@@ -12,6 +12,9 @@ class InventoryApi extends Fetchable {
     productId,
     quantity,
   }) {
+    if (quantity === 0) {
+      throw new Error('quantity must be != 0');
+    }
     const headers = {
       'Content-Type': 'application/json',
     };
