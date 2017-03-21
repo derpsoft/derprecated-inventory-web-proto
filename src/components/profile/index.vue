@@ -10,8 +10,8 @@
                 <div class="media">
                   <i class="pe pe-7s-user c-accent fa-3x"></i>
                   <h2 class="m-t-xs m-b-none">
-                      {{ user.firstName }} {{user.LastName }}
-                </h2>
+                      {{user.displayName }}
+                  </h2>
                   <small>
                  There are many variations of passages of Lorem Ipsum available, but the majority
                  have suffered alteration in some form Ipsum available.
@@ -253,7 +253,7 @@ export default {
   },
   computed: {
     user() {
-      return this.$store.state.session;
+      return this.$store.getters.profile;
     },
   }
 };

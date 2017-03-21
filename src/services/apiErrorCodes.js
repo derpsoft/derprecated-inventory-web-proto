@@ -29,9 +29,9 @@ export default function getErrorCodeHandler({
   json,
 }) {
   const {
-    statusCode
+    status
   } = response;
-  const handler = knownCodes[statusCode];
+  const handler = knownCodes[status];
   if (handler) {
     if (typeof handler === 'string') {
       return () => {

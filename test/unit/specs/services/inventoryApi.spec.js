@@ -23,11 +23,11 @@ describe('Inventory API', () => {
     expect(inventoryApi).to.deep.equal(duplicateInventoryApi);
   });
 
-  describe('Receive Inventory', () => {
+  describe('Manage Inventory', () => {
     let spy;
 
     beforeEach(() => {
-      spy = sinon.spy(inventoryApi, 'receiveInventory');
+      spy = sinon.spy(inventoryApi, 'create');
     });
 
     afterEach(() => {
@@ -38,12 +38,12 @@ describe('Inventory API', () => {
       const xact = {
         quantity: 1,
       };
-      const promise = inventoryApi.receiveInventory(xact);
+      const promise = inventoryApi.create(xact);
       expect(promise).to.be.an('Promise');
     });
 
-    it('should throw an error when quantity is lower or equal than 0', () => {
-      const errorMessage = 'quantity must be >= 0';
+    it('should throw an error when quantity is equal to 0', () => {
+      const errorMessage = 'quantity must be != 0';
       const xact = {
         quantity: 0,
       };
@@ -51,42 +51,7 @@ describe('Inventory API', () => {
       spy.withArgs(xact);
 
       expect(() => {
-        inventoryApi.receiveInventory(xact);
-      }).to.throw(errorMessage);
-
-      sinon.assert.threw(spy.withArgs(xact));
-    });
-  });
-
-  describe('Dispatch Inventory', () => {
-    let spy;
-
-    beforeEach(() => {
-      spy = sinon.spy(inventoryApi, 'dispatchInventory');
-    });
-
-    afterEach(() => {
-      spy.restore();
-    });
-
-    it('should create transaction', () => {
-      const xact = {
-        quantity: -1,
-      };
-      const promise = inventoryApi.dispatchInventory(xact);
-      expect(promise).to.be.an('Promise');
-    });
-
-    it('should throw an error when quantity is greater or equal than 0', () => {
-      const errorMessage = 'quantity must be <= 0';
-      const xact = {
-        quantity: 0,
-      };
-
-      spy.withArgs(xact);
-
-      expect(() => {
-        inventoryApi.dispatchInventory(xact);
+        inventoryApi.create(xact);
       }).to.throw(errorMessage);
 
       sinon.assert.threw(spy.withArgs(xact));
@@ -97,7 +62,7 @@ describe('Inventory API', () => {
     it('should get logs', () => {
       const skip = 0;
       const take = 25;
-      const spy = sinon.spy(inventoryApi, 'searchLogs');
+      const spy = sinon.spy(inventoryApi, 'getLogs');
       spy.withArgs(skip, take);
 
       inventoryApi.getLogs(skip, take);

@@ -8,7 +8,7 @@
   </div>
   <div class="panel panel-filled panel-main">
     <div class="panel-body">
-      <inventory-form ref="inventoryForm"></inventory-form>
+      <inventory-form ref="inventoryForm" default-location-name="Receiving"></inventory-form>
     </div>
   </div>
 </div>
@@ -22,6 +22,7 @@ export default {
   components: {
     InventoryForm
   },
+
   methods: {
     save() {
       this.validate()
@@ -31,7 +32,7 @@ export default {
         }) => {
           if (isValid) {
             const redirect = this.redirect;
-            this.$store.dispatch(Constants.RECEIVE_INVENTORY, {
+            this.$store.dispatch(Constants.CREATE_INVENTORY_TRANSACTION, {
               transaction,
               redirect
             });

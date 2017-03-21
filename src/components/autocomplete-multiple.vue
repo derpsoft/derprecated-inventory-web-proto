@@ -13,14 +13,16 @@
 </style>
 
 <template>
-<div style="position:relative" :class="{'open':openSuggestion}">
+<div style="position:relative" :class="{'open':openSuggestion}" v-if="!disabled">
   <input class="form-control" type="text" v-model="query" v-focus.lazy="focus" @keydown.enter="enter"
       @keydown.down="down" @keydown.up="up" @input="change" />
-  <ul class="selection-list">
-    <li v-for="(selected, index) in selectionList">
-      {{ selected }}<a @click="removeSelected(index)">X</a>
-    </li>
-  </ul>
+  <slot name="selection-list" :selectionList="selectionList" :selectionValues="selectionValues">
+    <ul class="selection-list" v-if="drawSelections">
+      <li v-for="(selection, index) in selectionList">
+        {{ selection }}<a @click="removeSelected(index)">X</a>
+      </li>
+    </ul>
+  </slot>
   <ul class="dropdown-menu" style="width:100%">
     <li v-for="(suggestion, index) in displays" :class="{'active': isActive(index)}"
         @click="suggestionClick(index)">
@@ -75,6 +77,21 @@ export default {
       required: false,
       default: false,
     },
+    drawSelections: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+    caseSensitive: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
   },
 
   watch: {
@@ -91,8 +108,14 @@ export default {
     },
 
     matches() {
-      return _.filter(this.availableChoices, v => ~this.keySelector(v)
-        .indexOf(this.query));
+      const needle = this.caseSensitive ? this.query : this.query.toLowerCase();
+      return _.filter(
+        this.availableChoices,
+        (v) => {
+          const key = this.keySelector(v);
+          const haystack = this.caseSensitive ? key : key.toLowerCase();
+          return ~haystack.indexOf(needle);
+        });
     },
 
     keys() {
@@ -160,6 +183,7 @@ export default {
 
     removeSelected(index) {
       this.selections.splice(index, 1);
+      this.$emit('change', this.selectionValues);
     }
   }
 };

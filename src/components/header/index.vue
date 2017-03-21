@@ -23,8 +23,8 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="profil-link">
           <button type="button" class="btn btn-link" slot="button">
-              <span class="profile-address">{{ userSession.userName }}</span>
-              <img src="/static/img/avatar.png" class="img-circle" alt="">
+              <span class="profile-address">{{ user.displayName }}</span>
+              <img :src="user.picture" class="img-circle" :alt="user.displayName">
         </button>
         </li>
       </ul>
@@ -48,7 +48,7 @@ export default {
   },
   components: {},
   computed: {
-    userSession() {
+    user() {
       return this.$store.getters.profile;
     }
   },

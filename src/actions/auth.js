@@ -42,11 +42,14 @@ function save(k, v) {
 const Permissions = Constants.permissions;
 const Roles = Constants.roles;
 
-function logout({
+const logout = _.throttle(({
   commit,
-}) {
+}) => {
   commit(Constants.LOGOUT);
-}
+}, 5000, {
+  leading: true,
+  trailing: false,
+});
 
 function authenticated({
   dispatch,
@@ -181,6 +184,30 @@ const GETTERS = {
   canLogin: (state, getters) => {
     const allowed = [
       Permissions.LOGIN.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
+  canManageSales: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_SALES.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
+  canManageOrders: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_ORDERS.key,
+    ];
+    return !!_.intersection(getters.currentUserPermissions, allowed).length;
+  },
+
+  canManageInventory: (state, getters) => {
+    const allowed = [
+      Permissions.EVERYTHING.key,
+      Permissions.MANAGE_INVENTORY.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },

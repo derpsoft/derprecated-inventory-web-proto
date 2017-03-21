@@ -15,7 +15,9 @@ import Login from 'components/login/index';
 import Logout from 'components/logout/index';
 
 import Reports from 'components/reports/index';
+
 import Inventory from 'components/inventory/index';
+import InventoryDashboard from 'components/inventory/dashboard';
 import ModifyInventory from 'components/inventory/modify';
 
 import Products from 'components/products/index';
@@ -40,7 +42,11 @@ import Vendors from 'components/vendors/index';
 import ModifyVendors from 'components/vendors/modifyVendors';
 
 import Sales from 'components/sales/index';
-import ModifySales from 'components/sales/modify';
+import SalesDashboard from 'components/sales/dashboard';
+
+import Orders from 'components/orders/index';
+import ModifyOrders from 'components/orders/modify';
+import OrderSummary from 'components/orders/summary';
 
 import Constants from './constants';
 // import NotFound from './views/notfound';
@@ -83,13 +89,14 @@ const routes = [{
   path: '/not-authorized',
   component: NotAuthorized,
 }, {
+  path: '/orders/summary/:orderKey/:orderNumber',
+  component: OrderSummary,
+}, {
   path: '/',
   component: Main,
-  meta: {
-    requiresAuth: true
-  },
   children: [{
-    path: '',
+    path: '/dashboard',
+    alias: '',
     component: Dashboard,
     meta: {
       requiresAuth: true,
@@ -238,6 +245,12 @@ const routes = [{
       requiresAuth: true,
     }
   }, {
+    path: '/inventory/dashboard',
+    component: InventoryDashboard,
+    meta: {
+      requiresAuth: true,
+    }
+  }, {
     path: '/inventory/receive',
     component: ModifyInventory,
     beforeEnter: guard('canReceiveInventory'),
@@ -281,15 +294,30 @@ const routes = [{
     },
   }, {
     path: '/sales',
-    component: Sales,
+    alias: '/sales/dashboard',
+    component: SalesDashboard,
     beforeEnter: guard('canReadSales'),
     meta: {
       requiresAuth: true,
     },
   }, {
-    path: '/sales/add',
-    component: ModifySales,
-    beforeEnter: guard('canUpsertSales'),
+    path: '/orders',
+    component: Orders,
+    beforeEnter: guard('canManageOrders'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/orders/add',
+    component: ModifyOrders,
+    beforeEnter: guard('canManageOrders'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/orders/edit/:id',
+    component: ModifyOrders,
+    beforeEnter: guard('canManageOrders'),
     meta: {
       requiresAuth: true,
     },
@@ -311,23 +339,6 @@ const router = new VueRouter({
     };
   },
   routes,
-});
-
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    const isAuthenticated = store.getters.isAuthenticated;
-    const canLogin = store.getters.canLogin;
-    if (isAuthenticated) {
-      if (canLogin) {
-        return next();
-      }
-      return next('/not-authorized');
-    }
-
-    const isLogin = ~to.path.toLowerCase().indexOf('/login');
-    return next(isLogin ? to : '/login');
-  }
-  return next();
 });
 
 store.watch(() => store.getters.isAuthenticated, (current, previous) => {

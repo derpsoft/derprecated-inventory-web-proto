@@ -174,6 +174,7 @@ describe('Autocomplete Multiple', () => {
     });
 
     it('should remove selected', () => {
+      Autocomplete.$emit = () => {};
       const selection = Autocomplete.selections = [1, 2, 3, 4];
 
       Autocomplete.methods.removeSelected.apply(Autocomplete, [2]);

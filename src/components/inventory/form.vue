@@ -10,7 +10,7 @@
   <div class="form-group" :class="{'has-error': errors.has('quantity')}">
     <label>Quantity</label>
 
-    <input type="number" name="quantity" class="form-control" placeholder="Quantity" v-model="value.quantity" v-validate="'required|numeric|between:1, 9999'">
+    <input type="number" name="quantity" class="form-control" placeholder="Quantity" v-model.number="value.quantity" v-validate="'required|numeric|between:1, 9999'">
     <span v-show="errors.has('quantity')" class="help-block">{{ errors.first('quantity') }}</span>
   </div>
 
@@ -43,6 +43,13 @@ export default {
     };
   },
 
+  props: {
+    defaultLocationName: {
+      type: String,
+      required: false,
+    },
+  },
+
   computed: {
     products() {
       return this.$store.getters.products;
@@ -67,8 +74,9 @@ export default {
         id: this.locationId
       });
     },
+
     defaultLocation() {
-      return _.find(this.locations, { name: 'Receiving' });
+      return _.find(this.locations, { name: this.defaultLocationName });
     },
   },
 

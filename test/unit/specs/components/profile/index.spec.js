@@ -21,12 +21,15 @@ describe('Profile Index - Component', () => {
     it('should return user data', () => {
       const store = Profile.$store = {
         state: {
-          session: true,
+          profile: true,
+        },
+        getters: {
+          profile: true,
         },
       };
       const result = Profile.computed.user.apply(Profile);
 
-      expect(result).to.equal(store.state.session);
+      expect(result).to.equal(store.state.profile);
     });
   });
 });

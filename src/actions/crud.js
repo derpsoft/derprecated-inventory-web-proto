@@ -15,29 +15,7 @@ import {
 
 _.mixin(inflection);
 
-/*
-  Convenience templaters for the constants corresponding to actions/mutations.
- */
-const t = {
-  CLEAR_ERRORS: x => `CLEAR_${_(x).singularize().toUpper()}_ERRORS`,
-  CLEAR_SEARCH_RESULTS: x => `CLEAR_${_(x).singularize().toUpper()}_SEARCH_RESULTS`,
-  CLEAR_SEARCH: x => `CLEAR_${_(x).singularize().toUpper()}_SEARCH`,
-  CREATE_ONE: x => `CREATE_${_(x).singularize().toUpper()}`,
-  CREATE_MANY: x => `CREATE_${_(x).pluralize().toUpper()}`,
-  COUNT: x => `COUNT_${_(x).pluralize().toUpper()}`,
-  UPDATE_ONE: x => `UPDATE_${_(x).singularize().toUpper()}`,
-  DELETE_ONE: x => `DELETE_${_(x).singularize().toUpper()}`,
-  GET_MANY: x => `GET_${_(x).pluralize().toUpper()}`,
-  GET_ONE: x => `GET_${_(x).singularize().toUpper()}`,
-  SET_MANY: x => `SET_${_(x).pluralize().toUpper()}`,
-  SET_ONE: x => `SET_${_(x).singularize().toUpper()}`,
-  SET_COUNT: x => `SET_${_(x).pluralize().toUpper()}_COUNT`,
-  SET_SEARCH_QUERY: x => `SET_${_(x).singularize().toUpper()}_SEARCH_QUERY`,
-  SET_SEARCH_RESULTS: x => `SET_${_(x).singularize().toUpper()}_SEARCH_RESULTS`,
-  SET_ERROR: x => `SET_${_(x).singularize().toUpper()}_ERROR`,
-  SET_ERRORS: x => `SET_${_(x).singularize().toUpper()}_ERRORS`,
-  SEARCH: x => `SEARCH_${_(x).pluralize().toUpper()}`,
-};
+const t = Constants.fluxTemplates;
 
 function toast({
   dispatch,
@@ -84,6 +62,8 @@ function createErrorHandler({
 export default function(name, Api) {
   const one = _(name).singularize().toLower();
   const many = _(one).pluralize();
+
+  Constants.addFluxCrud(name);
 
   const INITIAL_STATE = {
     all: {},
