@@ -5,16 +5,18 @@ module.exports = {
     browser: true,
     node: true,
   },
+  parser: 'babel-eslint',
   parserOptions: {
     sourceType: 'module',
     ecmaFeatures: {
       experimentalObjectRestSpread: true
     }
   },
-  extends: 'airbnb-base',
+  extends: ["airbnb-base"],
   // required to lint *.vue files
   plugins: [
-    'html'
+    'html',
+    'flowtype-errors'
   ],
   // check if imports actually resolve
   'settings': {
@@ -26,6 +28,7 @@ module.exports = {
   },
   // add your custom rules here
   'rules': {
+    "flowtype-errors/show-errors": 2,
     // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {
       'js': 'never',
@@ -43,6 +46,7 @@ module.exports = {
     'comma-dangle': 0,
     'class-methods-use-this': 0,
     'no-bitwise': 0,
+    'new-cap': 0,
   },
   globals: {
     'store': true,

@@ -1,14 +1,19 @@
+// @flow
+
 import CrudApi from 'services/crudApi';
+
+let singleton : any = null;
 
 export default class WarehouseApi extends CrudApi {
   constructor() {
     super('warehouse');
 
-    if (WarehouseApi.prototype.singleton) {
-      return WarehouseApi.prototype.singleton;
+    if (singleton) {
+      return singleton;
     }
-    WarehouseApi.prototype.singleton = this;
 
-    return this;
+    singleton = this;
+
+    return singleton;
   }
 }

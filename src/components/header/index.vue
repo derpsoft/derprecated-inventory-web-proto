@@ -8,6 +8,7 @@
     }
   }
 }
+
 </style>
 
 <template>
