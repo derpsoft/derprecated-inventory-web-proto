@@ -5,7 +5,7 @@
   "author": "Allen Tong <sleepyxivo@gmail.com>",
   "private": true,
   "scripts": {
-    "postinstall": "yarn run flow-typed install",
+    "postinstall": "yarn run flow-typed install && yarn run build",
     "dev": "node -r dotenv/config build/dev-server.js dotenv_config_required=false",
     "build": "node -r dotenv/config build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
