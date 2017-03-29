@@ -1,20 +1,23 @@
+// @flow
 import Fetchable from 'services/fetchable';
 import store from 'stores/store';
 import Constants from 'src/constants';
+
+let singleton : any = null;
 
 class PermissionApi extends Fetchable {
   constructor() {
     super(Constants.API_ROOT, store);
 
-    if (PermissionApi.prototype.singleton) {
-      return PermissionApi.prototype.singleton;
+    if (singleton) {
+      return singleton;
     }
-    PermissionApi.prototype.singleton = this;
+    singleton = this;
 
-    return this;
+    return singleton;
   }
 
-  set(user, permissions) {
+  set(user : Object, permissions : Object) : Promise<Object> {
     return super.patch(`/api/users/${user.id}/permissions`, {
       body: this.toForm({
         permissions

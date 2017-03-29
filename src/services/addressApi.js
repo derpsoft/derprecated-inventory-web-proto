@@ -1,14 +1,17 @@
+// @flow
 import CrudApi from 'services/crudApi';
+
+let singleton : any = null;
 
 export default class AddressApi extends CrudApi {
   constructor() {
     super('address');
 
-    if (AddressApi.prototype.singleton) {
-      return AddressApi.prototype.singleton;
+    if (singleton) {
+      return singleton;
     }
-    AddressApi.prototype.singleton = this;
+    singleton = this;
 
-    return this;
+    return singleton;
   }
 }

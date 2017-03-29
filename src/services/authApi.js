@@ -1,20 +1,27 @@
+// @flow
 import Fetchable from 'services/fetchable';
 import store from 'stores/store';
 import Constants from 'src/constants';
+
+let singleton : any = null;
 
 class AuthApi extends Fetchable {
   constructor() {
     super(Constants.API_ROOT, store);
 
-    if (AuthApi.prototype.singleton) {
-      return AuthApi.prototype.singleton;
+    if (singleton) {
+      return singleton;
     }
-    AuthApi.prototype.singleton = this;
+    singleton = this;
 
-    return this;
+    return singleton;
   }
 
-  register(username, password, email, firstName, lastName) {
+  register(username: string,
+    password : string,
+    email : string,
+    firstName : string,
+    lastName : string) : Promise<Object> {
     return super.post('/register', {
       body: this.toForm({
         username,
@@ -29,7 +36,7 @@ class AuthApi extends Fetchable {
     });
   }
 
-  login(username, password) {
+  login(username: string, password: string) : Promise<Object> {
     return super.post('/auth/credentials', {
       body: this.toForm({
         username,
@@ -41,14 +48,22 @@ class AuthApi extends Fetchable {
     });
   }
 
-  logout() {
+  logout() : Promise<Object> {
     return super.delete('/auth/credentials');
   }
 
-  setUser(response) {
+  setUser(response: Object) : Object {
     const isAuthenticated = !!response.sessionId;
-    const user = {
-      isAuthenticated
+    const user: {
+      isAuthenticated: boolean,
+      userName: string,
+      sessionId: number,
+      userId: number
+    } = {
+      isAuthenticated: false,
+      userName: '',
+      sessionId: 0,
+      userId: 0
     };
 
     if (isAuthenticated) {
@@ -59,12 +74,12 @@ class AuthApi extends Fetchable {
     return user;
   }
 
-  profile() {
+  profile() : Promise<Object> {
     return super.get('/api/v1/me')
       .then(json => json.result);
   }
 
-  forgotPassword(email) {
+  forgotPassword(email: string) : Promise<Object> {
     return super.post('/api/v1/password/forgot', {
       body: this.toForm({
         email
@@ -75,7 +90,12 @@ class AuthApi extends Fetchable {
     });
   }
 
-  resetPassword(email, token, password, passwordRepeat) {
+  resetPassword(
+    email: string,
+    token: string,
+    password: string,
+    passwordRepeat: string)
+    : Promise<Object> {
     return super.post('/api/v1/password/reset', {
       body: this.toForm({
         email,

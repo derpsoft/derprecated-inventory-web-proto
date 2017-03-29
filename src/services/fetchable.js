@@ -24,37 +24,37 @@ export default class Fetchable {
     this.fetch = fetcher;
   }
 
-  request(verb: string, url : string, options : any = {}) : Promise < Object > {
+  request(verb: string, url : string, options : any = {}) : Promise<Object> {
     const opts = _.merge({}, options);
     opts.method = _(verb).toUpper();
     return this._fetch(url, this.prepare(opts), this.store);
   }
 
-  get(url : string, options : any = {}) : Promise < Object > {
+  get(url : string, options : any = {}) : Promise<Object> {
     return this.request('GET', url, options);
   }
 
-  put(url : string, options : any = {}) : Promise < Object > {
+  put(url : string, options : any = {}) : Promise<Object> {
     return this.request('PUT', url, options);
   }
 
-  post(url : string, options : any = {}) : Promise < Object > {
+  post(url : string, options : any = {}) : Promise<Object> {
     return this.request('POST', url, options);
   }
 
-  patch(url : string, options : any = {}) : Promise < Object > {
+  patch(url : string, options : any = {}) : Promise<Object> {
     return this.request('PATCH', url, options);
   }
 
-  delete(url : string, options : any = {}) : Promise < Object > {
+  delete(url : string, options : any = {}) : Promise<Object> {
     return this.request('DELETE', url, options);
   }
 
-  search(url : string, options : any = {}) : Promise < Object > {
+  search(url : string, options : any = {}) : Promise<Object> {
     return this.request('SEARCH', url, options);
   }
 
-  deserialize(response : Object) : Promise < Object > {
+  deserialize(response : Object) : Promise<Object> {
     return response.json().then((json) => {
       return { json, response };
     }).catch((e) => {
@@ -62,7 +62,7 @@ export default class Fetchable {
     });
   }
 
-  _fetch(url : string, options : Object, { dispatch } :*) {
+  _fetch(url : string, options : Object, { dispatch } :*) : Promise<Object> {
     if (!url) {
       throw new Error('url may not be empty');
     }
@@ -75,7 +75,7 @@ export default class Fetchable {
       });
   }
 
-  toForm(body : Object) {
+  toForm(body : Object) : Object {
     const form = new FormData();
     _.each(body, (v, k) => {
       form.append(k, v);
@@ -83,11 +83,11 @@ export default class Fetchable {
     return form;
   }
 
-  toJson(body : Object) {
+  toJson(body : Object) : string {
     return JSON.stringify(body);
   }
 
-  prepareXhr(xhr : XMLHttpRequest) {
+  prepareXhr(xhr : XMLHttpRequest) : void {
     const defaults = {
       headers: {
         Accept: 'application/json',
@@ -101,7 +101,7 @@ export default class Fetchable {
     });
   }
 
-  prepare(options : Object) {
+  prepare(options : Object) : Object {
     const defaults = {
       headers: {
         Accept: 'application/json',

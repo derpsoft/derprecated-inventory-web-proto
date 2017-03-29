@@ -1,5 +1,8 @@
+// @flow
 import CrudApi from 'services/crudApi';
 import Constants from 'src/constants';
+
+let singleton : any = null;
 
 export default class ProductApi extends CrudApi {
   constructor() {
@@ -8,32 +11,32 @@ export default class ProductApi extends CrudApi {
       GET_ONE_WITH_SKU: sku => `/api/v1/products/sku/${sku}`,
     });
 
-    if (ProductApi.prototype.singleton) {
-      return ProductApi.prototype.singleton;
+    if (singleton) {
+      return singleton;
     }
-    ProductApi.prototype.singleton = this;
+    singleton = this;
 
-    return this;
+    return singleton;
   }
 
-  singleBySku(sku, includeDeleted = false) {
+  singleBySku(sku : string, includeDeleted : boolean = false) {
     return super
-      .get(`${this.routes.GET_ONE_WITH_SKU(sku)}?includeDeleted=${includeDeleted}`)
+      .get(`${this.routes.GET_ONE_WITH_SKU(sku)}?includeDeleted=${includeDeleted.toString()}`)
       .then(json => json.result);
   }
 
-  imageUploadIntercept(file, xhr) {
+  imageUploadIntercept(file : any, xhr : Object) {
     super.prepareXhr(xhr);
   }
 
-  getImageUploadUrl(id) {
+  getImageUploadUrl(id : number) {
     if (id < 1) {
       throw new Error('id must be >= 1');
     }
     return `${Constants.API_ROOT}/api/v1/products/${id}/images`;
   }
 
-  deleteImage(productId, id) {
+  deleteImage(productId : number, id : number) {
     if (productId < 1) {
       throw new Error('productId must be >= 1');
     }
