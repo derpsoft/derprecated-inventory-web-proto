@@ -1,3 +1,5 @@
+// @flow
+
 import crud from 'actions/crud';
 import AddressApi from 'services/addressApi';
 

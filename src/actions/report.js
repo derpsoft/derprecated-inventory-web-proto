@@ -1,3 +1,4 @@
+// @flow
 import log from 'loglevel';
 import moment from 'moment';
 import _ from 'lodash';
@@ -7,9 +8,9 @@ import ReportApi from 'services/reportApi';
 
 function dashboard({
   commit
-}, {
+} : Object, {
   timespan
-}) {
+} : Object) : void {
   new ReportApi()
     .dashboard(timespan)
     .then(report => commit(Constants.SET_DASHBOARD_REPORT, report))
@@ -18,10 +19,10 @@ function dashboard({
 
 function salesByProduct({
   commit
-}, {
+} : Object, {
   groupBy,
   productId,
-}) {
+} : Object) : void {
   new ReportApi()
     .salesByProduct(groupBy, productId)
     .then((reports) => {
@@ -32,9 +33,9 @@ function salesByProduct({
 
 function salesByTotal({
   commit
-}, {
+} : Object, {
   groupBy
-}) {
+} : Object) : void {
   new ReportApi()
     .salesByTotal(groupBy)
     .then((reports) => {
@@ -45,10 +46,10 @@ function salesByTotal({
 
 function salesByVendor({
   commit
-}, {
+} : Object, {
   groupBy,
   vendorId,
-}) {
+} : Object) : void {
   new ReportApi()
     .salesByVendor(groupBy, vendorId)
     .then((reports) => {
@@ -57,7 +58,7 @@ function salesByVendor({
     .catch(e => log.error(e));
 }
 
-function toChartData(results) {
+function toChartData(results : Object) : Object {
   const dat = {
     labels: [],
     data: [],
@@ -113,7 +114,7 @@ const ACTIONS = {
 };
 
 const MUTATIONS = {
-  [Constants.SET_SALES_BY_PRODUCT]: (state, results) => {
+  [Constants.SET_SALES_BY_PRODUCT]: (state : Object, results : Object) : void => {
     const dat = toChartData(results);
 
     state.reports.salesByTotal = {
@@ -121,7 +122,7 @@ const MUTATIONS = {
       labels: dat.labels,
     };
   },
-  [Constants.SET_SALES_BY_TOTAL]: (state, results) => {
+  [Constants.SET_SALES_BY_TOTAL]: (state : Object, results : Object) : void => {
     const dat = toChartData(results);
 
     state.reports.salesByTotal = {
@@ -129,7 +130,7 @@ const MUTATIONS = {
       labels: dat.labels,
     };
   },
-  [Constants.SET_SALES_BY_VENDOR]: (state, results) => {
+  [Constants.SET_SALES_BY_VENDOR]: (state : Object, results : Object) : void => {
     const dat = toChartData(results);
 
     state.reports.salesByTotal = {
@@ -137,7 +138,7 @@ const MUTATIONS = {
       labels: dat.labels,
     };
   },
-  [Constants.SET_DASHBOARD_REPORT]: (state, result) => {
+  [Constants.SET_DASHBOARD_REPORT]: (state : Object, result : Object) : void => {
     const split = (src) => {
       const pairs = _.chain(src)
         .toPairs()
@@ -160,10 +161,10 @@ const MUTATIONS = {
 };
 
 const GETTERS = {
-  salesByProduct: state => state.reports.salesByProduct,
-  salesByTotal: state => state.reports.salesByTotal,
-  salesByVendor: state => state.reports.salesByVendor,
-  dashboard: state => state.reports.dashboard,
+  salesByProduct: (state : Object) : Object => state.reports.salesByProduct,
+  salesByTotal: (state : Object) : Object => state.reports.salesByTotal,
+  salesByVendor: (state : Object) : Object => state.reports.salesByVendor,
+  dashboard: (state : Object) : Object => state.reports.dashboard,
 };
 
 const ReportActions = {

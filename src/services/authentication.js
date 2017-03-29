@@ -56,7 +56,7 @@ class Auth {
     this.lock = new Auth0Lock(clientId, domain, options);
   }
 
-  getUserInfo(tokens : string) : Promise<Object> {
+  getUserInfo(tokens : Object) : Promise<Object> {
     return _getUserInfo(this.lock, tokens);
   }
 

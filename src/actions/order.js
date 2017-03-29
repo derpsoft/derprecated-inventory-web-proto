@@ -1,3 +1,4 @@
+// @flow
 import _ from 'lodash';
 import Vue from 'vue';
 import crud from 'actions/crud';

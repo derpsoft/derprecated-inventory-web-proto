@@ -1,3 +1,4 @@
+// @flow
 import _ from 'lodash';
 import log from 'loglevel';
 import Constants from 'src/constants';

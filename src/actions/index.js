@@ -1,3 +1,4 @@
+// @flow
 import AuthActions from './auth';
 import ProductActions from './product';
 import UserActions from './user';

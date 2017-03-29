@@ -1,3 +1,4 @@
+// @flow
 import _ from 'lodash';
 // import log from 'loglevel';
 import Constants from 'src/constants';
@@ -10,7 +11,7 @@ just the current pageload. might be worth keeping around,
 but it'd be better to rely on the existence of the session cookie.
 */
 /* TODO this should be split into separate module for reuse */
-function read(k) {
+function read(k : string) : Object {
   const disk = window.localStorage;
   let data = {};
 
@@ -31,7 +32,7 @@ just the current pageload. might be worth keeping around,
 but it'd be better to rely on the existence of the session cookie.
 */
 /* TODO this should be split into separate module for reuse */
-function save(k, v) {
+function save(k : string, v : any) : void {
   const disk = window.localStorage;
 
   if (disk) {
@@ -39,8 +40,8 @@ function save(k, v) {
   }
 }
 
-const Permissions = Constants.permissions;
-const Roles = Constants.roles;
+const Permissions : Object = Constants.permissions;
+const Roles : Object = Constants.roles;
 
 const logout = _.throttle(({
   commit,
@@ -54,11 +55,11 @@ const logout = _.throttle(({
 function authenticated({
   dispatch,
   commit
-}, {
+} : Object, {
   profile,
   accessToken,
   idToken
-}) {
+} : Object) : void {
   commit(Constants.SET_PROFILE, profile);
   commit(Constants.SET_TOKENS, {
     accessToken,
@@ -69,7 +70,7 @@ function authenticated({
 function login({
   dispatch,
   commit
-}) {
+} : Object) : void {
   const auth = new Auth();
 
   const err = () => {
@@ -108,7 +109,7 @@ function login({
 function getProfile({
   commit,
   dispatch
-}) {
+} : Object) : void {
   new Auth()
     .getUserInfo(read('tokens'))
     .then(user => authenticated({
@@ -120,7 +121,10 @@ function getProfile({
     }));
 }
 
-const INITIAL_STATE = {
+const INITIAL_STATE: {
+  tokens: Object,
+  profile: Object
+} = {
   tokens: _.merge({
     accessToken: '',
     idToken: '',
@@ -158,37 +162,37 @@ const MUTATIONS = {
 };
 
 const GETTERS = {
-  isAuthenticated: (state, getters) => {
+  isAuthenticated: (state : Object, getters: Object) : boolean => {
     const {
       accessToken,
       // idToken
     } = getters.tokens;
     return !_.isEmpty(accessToken); // && tokens.idToken;
   },
-  tokens: (state) => {
+  tokens: (state : Object) => {
     return state.tokens || {};
   },
-  profile: (state) => {
+  profile: (state : Object) => {
     return state.profile;
   },
-  authorization: (state, getters) => {
+  authorization: (state : Object, getters : Object) : Object => {
     return getters.profile.authorization || {};
   },
-  currentUserPermissions: (state, getters) => {
+  currentUserPermissions: (state : Object, getters : Object) : Object => {
     return getters.authorization.permissions;
   },
-  currentUserRoles: (state, getters) => {
+  currentUserRoles: (state : Object, getters : Object) : Object => {
     return getters.authorization.roles;
   },
 
-  canLogin: (state, getters) => {
+  canLogin: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.LOGIN.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canManageSales: (state, getters) => {
+  canManageSales: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_SALES.key,
@@ -196,7 +200,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canManageOrders: (state, getters) => {
+  canManageOrders: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_ORDERS.key,
@@ -204,7 +208,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canManageInventory: (state, getters) => {
+  canManageInventory: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_INVENTORY.key,
@@ -212,7 +216,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canReadUsers: (state, getters) => {
+  canReadUsers: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_USERS.key,
@@ -221,7 +225,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canUpsertUsers: (state, getters) => {
+  canUpsertUsers: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_USERS.key,
@@ -230,7 +234,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canManageUsers: (state, getters) => {
+  canManageUsers: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Roles.DELEGATED_ADMIN_USER,
       Roles.DELEGATED_ADMIN_ADMINISTRATOR,
@@ -238,7 +242,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserRoles, allowed).length;
   },
 
-  canReadVendors: (state, getters) => {
+  canReadVendors: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_VENDORS.key,
@@ -247,7 +251,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canUpsertVendors: (state, getters) => {
+  canUpsertVendors: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_VENDORS.key,
@@ -256,7 +260,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canDeleteVendors: (state, getters) => {
+  canDeleteVendors: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_VENDORS.key,
@@ -265,7 +269,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canReadProducts: (state, getters) => {
+  canReadProducts: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_PRODUCTS.key,
@@ -274,7 +278,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canUpsertProducts: (state, getters) => {
+  canUpsertProducts: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_PRODUCTS.key,
@@ -283,7 +287,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canDeleteProducts: (state, getters) => {
+  canDeleteProducts: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_PRODUCTS.key,
@@ -292,7 +296,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canReadImages: (state, getters) => {
+  canReadImages: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_IMAGES.key,
@@ -301,7 +305,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canUpsertImages: (state, getters) => {
+  canUpsertImages: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_IMAGES.key,
@@ -310,7 +314,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canDeleteImages: (state, getters) => {
+  canDeleteImages: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_IMAGES.key,
@@ -319,7 +323,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canReadWarehouses: (state, getters) => {
+  canReadWarehouses: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_WAREHOUSES.key,
@@ -328,7 +332,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canUpsertWarehouses: (state, getters) => {
+  canUpsertWarehouses: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_WAREHOUSES.key,
@@ -337,7 +341,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canDeleteWarehouses: (state, getters) => {
+  canDeleteWarehouses: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_WAREHOUSES.key,
@@ -346,7 +350,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canReadLocations: (state, getters) => {
+  canReadLocations: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_LOCATIONS.key,
@@ -355,7 +359,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canUpsertLocations: (state, getters) => {
+  canUpsertLocations: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_LOCATIONS.key,
@@ -364,7 +368,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canDeleteLocations: (state, getters) => {
+  canDeleteLocations: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_LOCATIONS.key,
@@ -373,7 +377,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canReadCategories: (state, getters) => {
+  canReadCategories: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_CATEGORIES.key,
@@ -382,7 +386,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canUpsertCategories: (state, getters) => {
+  canUpsertCategories: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_CATEGORIES.key,
@@ -391,7 +395,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canDeleteCategories: (state, getters) => {
+  canDeleteCategories: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_CATEGORIES.key,
@@ -400,7 +404,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canReceiveInventory: (state, getters) => {
+  canReceiveInventory: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_INVENTORY.key,
@@ -409,7 +413,7 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canDispatchInventory: (state, getters) => {
+  canDispatchInventory: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
       Permissions.MANAGE_INVENTORY.key,
@@ -419,14 +423,14 @@ const GETTERS = {
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canReadSales: (state, getters) => {
+  canReadSales: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
     ];
     return !!_.intersection(getters.currentUserPermissions, allowed).length;
   },
 
-  canUpsertSales: (state, getters) => {
+  canUpsertSales: (state : Object, getters : Object) : boolean => {
     const allowed = [
       Permissions.EVERYTHING.key,
     ];

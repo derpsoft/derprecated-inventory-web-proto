@@ -1,3 +1,4 @@
+// @flow
 import SaleApi from 'services/saleApi';
 import crud from 'actions/crud';
 
@@ -17,9 +18,9 @@ const MUTATIONS = {
 
 const GETTERS = {
   ...BASE.GETTERS,
-  mySales: () => Math.random(0, 30),
-  myRevenue: () => Math.random(0, 30),
-  activeListings: () => Math.random(0, 30),
+  mySales: () : number => Math.random(0, 30),
+  myRevenue: () : number => Math.random(0, 30),
+  activeListings: () : number => Math.random(0, 30),
 };
 
 const SaleActions = {

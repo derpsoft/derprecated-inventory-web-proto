@@ -1,3 +1,4 @@
+// @flow
 import crud from 'actions/crud';
 import CategoryApi from 'services/categoryApi';
 

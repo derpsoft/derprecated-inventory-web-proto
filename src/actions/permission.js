@@ -1,3 +1,4 @@
+// @flow
 import log from 'loglevel';
 import Constants from 'src/constants';
 import PermissionApi from 'services/permissionApi';
@@ -8,7 +9,7 @@ function setManyPermissions({ commit }, { user, permissions }) {
     .catch(e => log.errror(e));
 }
 
-function setOnePermission({ commit }, { user, permission }) {
+function setOnePermission({ commit } : Object, { user, permission } : Object) : void {
   new PermissionApi()
     .set(user, [permission])
     .catch(e => log.error(e));

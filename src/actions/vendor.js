@@ -1,3 +1,4 @@
+// @flow
 import crud from './crud';
 import VendorApi from '../services/vendorApi';
 

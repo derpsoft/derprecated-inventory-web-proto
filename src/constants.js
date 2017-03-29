@@ -1,8 +1,9 @@
+// @flow
 import _ from 'lodash';
 import inflection from 'lodash-inflection';
 import config from '../config';
 
-_.mixin(inflection);
+_.mixin(inflection, {});
 
 const constants = {
   API_ROOT: config.api,
@@ -211,42 +212,42 @@ const constants = {
   },
 
   apiTemplates: {
-    COUNT: x => `/api/v1/${_(x).pluralize().toLower()}/count`,
-    CREATE: x => `/api/v1/${_(x).pluralize().toLower()}`,
-    CREATE_MANY: x => `/api/v1/${_(x).pluralize().toLower()}/import`,
-    DELETE: x => `/api/v1/${_(x).pluralize().toLower()}`,
-    LIST: x => `/api/v1/${_(x).pluralize().toLower()}`,
-    SAVE: x => `/api/v1/${_(x).pluralize().toLower()}`,
-    SINGLE: x => `/api/v1/${_(x).pluralize().toLower()}`,
-    TYPEAHEAD: x => `/api/v1/${_(x).pluralize().toLower()}/typeahead`,
+    COUNT: (x : string) => `/api/v1/${_(x).pluralize().toLower()}/count`,
+    CREATE: (x : string) => `/api/v1/${_(x).pluralize().toLower()}`,
+    CREATE_MANY: (x : string) => `/api/v1/${_(x).pluralize().toLower()}/import`,
+    DELETE: (x : string) => `/api/v1/${_(x).pluralize().toLower()}`,
+    LIST: (x : string) => `/api/v1/${_(x).pluralize().toLower()}`,
+    SAVE: (x : string) => `/api/v1/${_(x).pluralize().toLower()}`,
+    SINGLE: (x : string) => `/api/v1/${_(x).pluralize().toLower()}`,
+    TYPEAHEAD: (x : string) => `/api/v1/${_(x).pluralize().toLower()}/typeahead`,
   },
 
   fluxTemplates: {
-    CLEAR_ERRORS: x => `CLEAR_${_(x).singularize().toUpper()}_ERRORS`,
-    CLEAR_SEARCH_RESULTS: x => `CLEAR_${_(x).singularize().toUpper()}_SEARCH_RESULTS`,
-    CLEAR_SEARCH: x => `CLEAR_${_(x).singularize().toUpper()}_SEARCH`,
-    CREATE_ONE: x => `CREATE_${_(x).singularize().toUpper()}`,
-    CREATE_MANY: x => `CREATE_${_(x).pluralize().toUpper()}`,
-    COUNT: x => `COUNT_${_(x).pluralize().toUpper()}`,
-    UPDATE_ONE: x => `UPDATE_${_(x).singularize().toUpper()}`,
-    DELETE_ONE: x => `DELETE_${_(x).singularize().toUpper()}`,
-    GET_MANY: x => `GET_${_(x).pluralize().toUpper()}`,
-    GET_ONE: x => `GET_${_(x).singularize().toUpper()}`,
-    SET_MANY: x => `SET_${_(x).pluralize().toUpper()}`,
-    SET_ONE: x => `SET_${_(x).singularize().toUpper()}`,
-    SET_COUNT: x => `SET_${_(x).pluralize().toUpper()}_COUNT`,
-    SET_SEARCH_QUERY: x => `SET_${_(x).singularize().toUpper()}_SEARCH_QUERY`,
-    SET_SEARCH_RESULTS: x => `SET_${_(x).singularize().toUpper()}_SEARCH_RESULTS`,
-    SET_ERROR: x => `SET_${_(x).singularize().toUpper()}_ERROR`,
-    SET_ERRORS: x => `SET_${_(x).singularize().toUpper()}_ERRORS`,
-    SEARCH: x => `SEARCH_${_(x).pluralize().toUpper()}`,
+    CLEAR_ERRORS: (x : string) => `CLEAR_${_(x).singularize().toUpper()}_ERRORS`,
+    CLEAR_SEARCH_RESULTS: (x : string) => `CLEAR_${_(x).singularize().toUpper()}_SEARCH_RESULTS`,
+    CLEAR_SEARCH: (x : string) => `CLEAR_${_(x).singularize().toUpper()}_SEARCH`,
+    CREATE_ONE: (x : string) => `CREATE_${_(x).singularize().toUpper()}`,
+    CREATE_MANY: (x : string) => `CREATE_${_(x).pluralize().toUpper()}`,
+    COUNT: (x : string) => `COUNT_${_(x).pluralize().toUpper()}`,
+    UPDATE_ONE: (x : string) => `UPDATE_${_(x).singularize().toUpper()}`,
+    DELETE_ONE: (x : string) => `DELETE_${_(x).singularize().toUpper()}`,
+    GET_MANY: (x : string) => `GET_${_(x).pluralize().toUpper()}`,
+    GET_ONE: (x : string) => `GET_${_(x).singularize().toUpper()}`,
+    SET_MANY: (x : string) => `SET_${_(x).pluralize().toUpper()}`,
+    SET_ONE: (x : string) => `SET_${_(x).singularize().toUpper()}`,
+    SET_COUNT: (x : string) => `SET_${_(x).pluralize().toUpper()}_COUNT`,
+    SET_SEARCH_QUERY: (x : string) => `SET_${_(x).singularize().toUpper()}_SEARCH_QUERY`,
+    SET_SEARCH_RESULTS: (x : string) => `SET_${_(x).singularize().toUpper()}_SEARCH_RESULTS`,
+    SET_ERROR: (x : string) => `SET_${_(x).singularize().toUpper()}_ERROR`,
+    SET_ERRORS: (x : string) => `SET_${_(x).singularize().toUpper()}_ERRORS`,
+    SEARCH: (x : string) => `SEARCH_${_(x).pluralize().toUpper()}`,
   },
 
-  addFluxCrud(name) {
+  addFluxCrud(name : string) : void {
     _.each(constants.fluxTemplates, x => constants.add(x(name)));
   },
 
-  add(name) {
+  add(name : string) : void {
     if (constants[name]) {
       throw new Error(`Adding ${name} would overwrite existing constant.`);
     }

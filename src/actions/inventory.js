@@ -1,3 +1,4 @@
+// @flow
 import log from 'loglevel';
 import Constants from 'src/constants';
 import InventoryApi from 'services/inventoryApi';
@@ -6,9 +7,9 @@ import ProductApi from 'services/productApi';
 function getQuantityOnHand({
   dispatch,
   commit
-}, {
+} : Object, {
   productId
-}) {
+} : Object) : void {
   new InventoryApi()
     .getQuantityOnHand(productId)
     .then(q => commit(Constants.SET_QUANTITY_ON_HAND, {
@@ -27,11 +28,11 @@ function getQuantityOnHand({
 function createTransaction({
   dispatch,
   commit
-}, {
+} : Object, {
   transaction,
   redirect,
   toastError = true,
-}) {
+} :Object) : Object {
   return new InventoryApi()
     .create(transaction)
     .then((q) => {
@@ -61,12 +62,12 @@ function createTransaction({
 function bulkReceiveInventory({
   dispatch,
   commit,
-}, {
+} : Object, {
   transactions,
   locationId,
   redirect = null,
   toastError = true,
-}) {
+} : Object) : Promise<Object> {
   const withProducts = transactions.map(x => new ProductApi()
     .singleBySku(x.sku)
     .then((product) => {
@@ -108,9 +109,9 @@ function bulkReceiveInventory({
 function locateInventory({
   dispatch,
   commit
-}, {
+} : Object, {
   productId
-}) {
+} : Object) : void {
   new InventoryApi()
     .locate({
       productId
@@ -128,10 +129,10 @@ function locateInventory({
 function getInventoryLogs({
   dispatch,
   commit
-}, {
+} : Object, {
   skip,
   take
-}) {
+} : Object) : void {
   new InventoryApi()
     .getLogs(skip, take)
     .then((results) => {
@@ -149,9 +150,9 @@ function getInventoryLogs({
 function searchInventoryLogs({
   dispatch,
   commit
-}, {
+} : Object, {
   query
-}) {
+} :Object) : void {
   new InventoryApi()
     .searchLogs(query)
     .then(response => commit(Constants.SET_INVENTORY_TRANSACTION_LOGS, response.results))
@@ -167,7 +168,7 @@ function searchInventoryLogs({
 function countInventoryLogs({
   dispatch,
   commit
-}) {
+} : Object) :void {
   new InventoryApi()
     .countLogs()
     .then(count => commit(Constants.SET_INVENTORY_TRANSACTION_LOG_COUNT, count))
@@ -182,19 +183,19 @@ function countInventoryLogs({
 
 function clearSearch({
   commit
-}) {
+} :Object) : void {
   commit(Constants.CLEAR_INVENTORY_SEARCH);
 }
 
 function setError({
   commit
-}, args) {
+} : Object, args : Object) : void {
   commit(Constants.SET_INVENTORY_ERROR, args);
 }
 
 function clearErrors({
   commit
-}) {
+} : Object) : void {
   commit(Constants.CLEAR_INVENTORY_ERRORS);
 }
 
@@ -258,13 +259,13 @@ const MUTATIONS = {
 };
 
 const GETTERS = {
-  logs(state) {
+  logs(state : Object) : Object {
     return state.inventory.logs;
   },
-  logCount(state) {
+  logCount(state : Object) : Object {
     return state.inventory.logCount;
   },
-  inventoryErrors: state => state.inventory.errors,
+  inventoryErrors: (state : Object) => state.inventory.errors,
   shipped: () => Math.random(30),
   received: () => Math.random(30),
 };

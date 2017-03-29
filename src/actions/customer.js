@@ -1,3 +1,4 @@
+// @flow
 import crud from 'actions/crud';
 import CustomerApi from 'services/customerApi';
 
