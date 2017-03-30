@@ -1,3 +1,9 @@
+const {
+  Configuration,
+} = require('derp-api');
+
+Configuration.apiRoot = 'http://localhost';
+
 // Polyfill fn.bind() for PhantomJS
 /* eslint-disable no-extend-native */
 Function.prototype.bind = require('function-bind');
