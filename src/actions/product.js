@@ -2,7 +2,7 @@
 import _ from 'lodash';
 import log from 'loglevel';
 import Constants from 'src/constants';
-import ProductApi from 'services/productApi';
+import { Product as ProductApi } from 'derp-api';
 import crud from 'actions/crud';
 
 function deleteProductImage({

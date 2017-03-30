@@ -1,6 +1,6 @@
 // @flow
+import { Warehouse as WarehouseApi } from 'derp-api';
 import crud from './crud';
-import WarehouseApi from '../services/warehouseApi';
 
 const BASE = crud('warehouse', WarehouseApi);
 

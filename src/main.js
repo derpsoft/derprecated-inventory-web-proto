@@ -4,6 +4,9 @@ import {
   sync
 } from 'vuex-router-sync';
 import VeeValidate from 'vee-validate';
+import {
+  Configuration
+} from 'derp-api';
 import store from 'stores/store';
 import Constants from 'src/constants';
 import App from 'components/app';
@@ -26,6 +29,19 @@ sync(store, router);
 Directives.map(d => d(Vue));
 Mixins.map(x => x(Vue));
 
+if (store.getters.isAuthenticated) {
+  store.dispatch(Constants.GET_PROFILE);
+}
+
+Configuration.apiRoot = Constants.API_ROOT;
+Configuration.token = store.getters.tokens.idToken;
+
+store.watch(() => store.getters.tokens, ({
+  idToken
+}) => {
+  Configuration.token = idToken;
+});
+
 /* eslint-disable no-new */
 new Vue({
   name: 'derp',
@@ -33,7 +49,3 @@ new Vue({
   router,
   render: h => h(App)
 });
-
-if (store.getters.isAuthenticated) {
-  store.dispatch(Constants.GET_PROFILE);
-}

@@ -4,7 +4,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import Vue from 'vue';
 import Constants from 'src/constants';
-import ReportApi from 'services/reportApi';
+import { Report as ReportApi } from 'derp-api';
 
 function dashboard({
   commit

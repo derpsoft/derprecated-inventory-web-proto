@@ -1,6 +1,6 @@
 // @flow
 import crud from 'actions/crud';
-import UserApi from 'services/userApi';
+import { User as UserApi } from 'derp-api';
 
 const BASE = crud('user', UserApi);
 

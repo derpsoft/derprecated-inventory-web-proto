@@ -39,7 +39,8 @@ textarea.form-control {
 
         <div class="row">
           <div class="col-lg-12">
-            <image-gallery ref="imageGallery" :images="images" :upload-url="uploadUrl" :on-sending="xhrIntercept" :on-delete="deleteImage" :toggle="showImages"></image-gallery>
+            <image-gallery ref="imageGallery" :images="images" :upload-url="uploadUrl" :on-sending="xhrIntercept"
+                :on-delete="deleteImage" :toggle="showImages"></image-gallery>
           </div>
         </div>
 
@@ -52,12 +53,15 @@ textarea.form-control {
     </div>
   </div>
 </div>
+
 </template>
 
 <script>
+import {
+  Product as ProductApi
+} from 'derp-api';
 import Constants from 'src/constants';
 import ImageGallery from 'components/images/gallery';
-import ProductApi from 'services/productApi';
 import ProductForm from './form';
 
 export default {
@@ -88,7 +92,8 @@ export default {
     },
 
     uploadUrl() {
-      return new ProductApi().getImageUploadUrl(this.id);
+      return new ProductApi()
+        .getImageUploadUrl(this.id);
     },
   },
 
@@ -110,7 +115,8 @@ export default {
     },
 
     xhrIntercept(file, xhr) {
-      return new ProductApi().imageUploadIntercept(file, xhr);
+      return new ProductApi()
+        .imageUploadIntercept(file, xhr);
     },
 
     save() {
@@ -160,4 +166,5 @@ export default {
     },
   },
 };
+
 </script>

@@ -1,8 +1,10 @@
 // @flow
 import log from 'loglevel';
+import {
+  Inventory as InventoryApi,
+  Product as ProductApi
+} from 'derp-api';
 import Constants from 'src/constants';
-import InventoryApi from 'services/inventoryApi';
-import ProductApi from 'services/productApi';
 
 function getQuantityOnHand({
   dispatch,

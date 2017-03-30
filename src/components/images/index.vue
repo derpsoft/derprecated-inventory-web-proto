@@ -41,7 +41,7 @@
 <script>
 import Constants from 'src/constants';
 import Search from 'components/search';
-import Api from 'services/imageApi';
+import { Image as Api } from 'derp-api';
 import ImageList from './list';
 import ImageUpload from './upload';
 

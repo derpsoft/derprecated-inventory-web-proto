@@ -3,7 +3,7 @@ import _ from 'lodash';
 import Vue from 'vue';
 import crud from 'actions/crud';
 import Constants from 'src/constants';
-import OrderApi from 'services/orderApi';
+import { Order as OrderApi } from 'derp-api';
 
 const BASE = crud('order', OrderApi);
 
