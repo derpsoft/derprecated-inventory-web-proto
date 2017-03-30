@@ -2,14 +2,12 @@
 import {
   Fetchable
 } from 'derp-api';
-import store from 'stores/store';
-import Constants from 'src/constants';
 
 let singleton: any = null;
 
 class PermissionApi extends Fetchable {
   constructor() {
-    super(Constants.API_ROOT, store);
+    super();
 
     if (singleton) {
       return singleton;
