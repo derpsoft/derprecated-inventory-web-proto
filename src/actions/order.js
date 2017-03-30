@@ -1,9 +1,12 @@
 // @flow
+
 import _ from 'lodash';
 import Vue from 'vue';
 import crud from 'actions/crud';
 import Constants from 'src/constants';
-import { Order as OrderApi } from 'derp-api';
+import {
+  Order as OrderApi
+} from 'derp-api';
 
 const BASE = crud('order', OrderApi);
 
@@ -31,6 +34,7 @@ const Actions = {
     }) => {
       const api = new OrderApi();
       return api.captureBilling(order, token)
+        // $FlowFixMe
         .then(() => dispatch(Constants.GET_ORDER, order));
     },
     [ORDER_STATUS_UPDATE]: ({
@@ -41,6 +45,7 @@ const Actions = {
     }) => {
       const api = new OrderApi();
       return api.updateStatus(order, status)
+        // $FlowFixMe
         .then(() => dispatch(Constants.GET_ORDER, order));
     },
     [GET_ORDER_BY_KEY]: ({
@@ -48,6 +53,7 @@ const Actions = {
     }, args) => {
       const api = new OrderApi();
       return api.getByKey(args)
+        // $FlowFixMe
         .then(order => commit(Constants.SET_ORDER, order));
     },
   },

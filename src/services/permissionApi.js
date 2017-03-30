@@ -1,9 +1,11 @@
 // @flow
-import Fetchable from 'services/fetchable';
+import {
+  Fetchable
+} from 'derp-api';
 import store from 'stores/store';
 import Constants from 'src/constants';
 
-let singleton : any = null;
+let singleton: any = null;
 
 class PermissionApi extends Fetchable {
   constructor() {
@@ -17,7 +19,7 @@ class PermissionApi extends Fetchable {
     return singleton;
   }
 
-  set(user : Object, permissions : Object) : Promise<Object> {
+  set(user: Object, permissions: string[]): Promise < Object > {
     return super.patch(`/api/users/${user.id}/permissions`, {
       body: this.toForm({
         permissions

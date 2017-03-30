@@ -33,6 +33,7 @@ function importProducts({
     _.map(args.products, (single) => {
       return productApi
         .create(single)
+        // $FlowFixMe
         .then(x => commit(Constants.SET_PRODUCT, x))
         .catch(() => {
           dispatch(Constants.SHOW_TOASTR, {
