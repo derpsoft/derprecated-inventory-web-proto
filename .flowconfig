@@ -13,6 +13,9 @@
 flow-typed
 
 [options]
+module.file_ext=.js
+module.file_ext=.vue
+module.name_mapper='.*\([.css|.less]\)' -> 'empty/object'
 module.name_mapper='^root\(.*\)$' -> '<PROJECT_ROOT>/\1'
 module.name_mapper='^src\(.*\)$' -> '<PROJECT_ROOT>/src\1'
 module.name_mapper='^services\(.*\)$' -> '<PROJECT_ROOT>/src/services\1'
