@@ -39,8 +39,7 @@ textarea.form-control {
 
         <div class="row">
           <div class="col-lg-12">
-            <image-gallery ref="imageGallery" :images="images" :upload-url="uploadUrl" :on-sending="xhrIntercept"
-                :on-delete="deleteImage" :toggle="showImages"></image-gallery>
+            <image-gallery ref="imageGallery" :images="images" :upload-url="uploadUrl" :on-sending="xhrIntercept" :on-delete="deleteImage" :toggle="showImages"></image-gallery>
           </div>
         </div>
 
@@ -53,7 +52,6 @@ textarea.form-control {
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
@@ -114,7 +112,7 @@ export default {
       }
     },
 
-    xhrIntercept(file, xhr) {
+    xhrIntercept(file: Object, xhr: Object) {
       return new ProductApi()
         .imageUploadIntercept(file, xhr);
     },
@@ -154,7 +152,7 @@ export default {
       });
     },
 
-    deleteImage(image) {
+    deleteImage(image: Object) {
       /* eslint-disable no-alert */
       if (window.confirm('Are you sure you want to delete?')) {
         this.$store.dispatch(Constants.DELETE_PRODUCT_IMAGE, {
@@ -166,5 +164,4 @@ export default {
     },
   },
 };
-
 </script>

@@ -6,7 +6,6 @@
 </template>
 
 <script>
-// @flow
 import Pace from 'pace-progress';
 import store from 'stores/store';
 import appInsights from 'components/analytics/applicationInsights';

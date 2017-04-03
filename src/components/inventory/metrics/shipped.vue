@@ -7,6 +7,7 @@
 </template>
 
 <script>
+// @flow
 import Achievement from 'shared/achievement';
 import Constants from 'src/constants';
 
@@ -28,8 +29,6 @@ export default {
       id: this.user.id
     });
   },
-  methods: {
-  },
+  methods: {},
 };
-
 </script>

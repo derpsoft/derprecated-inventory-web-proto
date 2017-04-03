@@ -15,6 +15,7 @@
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import OrderForm from './form';
 

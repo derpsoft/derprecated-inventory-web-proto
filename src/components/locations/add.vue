@@ -12,10 +12,10 @@
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import LocationForm from './form';
 
@@ -45,10 +45,9 @@ export default {
     validate() {
       return this.$refs.locationForm.validate();
     },
-    setLocation(v) {
+    setLocation(v: Object) {
       this.location = v;
     },
   }
 };
-
 </script>

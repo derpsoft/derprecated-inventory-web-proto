@@ -14,6 +14,7 @@
 </template>
 
 <script>
+// @flow
 import Autocomplete from 'components/autocomplete-multiple';
 import Constants from 'src/constants';
 
@@ -77,7 +78,7 @@ export default {
           };
         });
     },
-    setProducts(v) {
+    setProducts(v: string[]) {
       this.value.productIds = v;
     }
   }

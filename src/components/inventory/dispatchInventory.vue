@@ -12,10 +12,10 @@
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import InventoryForm from './form';
 
@@ -53,5 +53,4 @@ export default {
     },
   },
 };
-
 </script>

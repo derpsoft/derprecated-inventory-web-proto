@@ -31,10 +31,10 @@
     </div>
   </div>
 </form>
-
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
 import Constants from 'src/constants';
 import CustomerForm from 'components/customers/form';
@@ -176,5 +176,4 @@ export default {
     },
   }
 };
-
 </script>

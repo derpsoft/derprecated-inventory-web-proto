@@ -34,6 +34,7 @@
 </template>
 
 <script>
+// @flow
 import Search from 'components/search';
 import Constants from 'src/constants';
 import LocationList from './list';

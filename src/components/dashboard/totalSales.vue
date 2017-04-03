@@ -2,10 +2,12 @@
 </style>
 
 <template>
-    <achievement :value="report.sales.total" title="Total Sales" by="Month" icon="fa-dollar" brand="warning" :filter="formatMoney"></achievement>
+<achievement :value="report.sales.total" title="Total Sales" by="Month" icon="fa-dollar" brand="warning" :filter="formatMoney">
+</achievement>
 </template>
 
 <script>
+// @flow
 import Achievement from 'shared/achievement';
 
 export default {
@@ -19,7 +21,7 @@ export default {
     },
   },
   methods: {
-    formatMoney(x) {
+    formatMoney(x: number) {
       return Intl
         .NumberFormat('en-US', {
           style: 'currency',

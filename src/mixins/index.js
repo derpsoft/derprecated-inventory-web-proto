@@ -1,3 +1,4 @@
+// @flow
 import focus from './focus';
 import filters from './filters';
 

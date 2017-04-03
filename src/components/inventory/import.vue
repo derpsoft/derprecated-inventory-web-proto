@@ -66,10 +66,10 @@
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
 import Handsontable from 'handsontable/dist/handsontable.full';
 import 'handsontable/dist/handsontable.min.css';
@@ -165,14 +165,14 @@ export default {
       this.$store.dispatch(Constants.CLEAR_INVENTORY_ERRORS);
     },
 
-    csvToTransaction(csv) {
+    csvToTransaction(csv: Object) {
       return {
         sku: csv['Variant SKU'],
         quantity: parseInt(csv['Variant Inventory Qty'], 10),
       };
     },
 
-    bulkImport(value) {
+    bulkImport(value: Object) {
       this.inventory = JSON.parse(JSON.stringify(value));
     },
 
@@ -210,5 +210,4 @@ export default {
     },
   },
 };
-
 </script>

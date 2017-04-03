@@ -34,6 +34,7 @@
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import Search from 'components/search';
 import CategoryList from './list';

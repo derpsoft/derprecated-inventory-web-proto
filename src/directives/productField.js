@@ -1,8 +1,9 @@
+// @flow
 import _ from 'lodash';
 import store from 'stores/store';
 import Constants from 'src/constants';
 
-export default (Vue) => {
+export default (Vue: Object) => {
   /**
    * Inject a product field into the innerText of this element.
    * Sample use:
@@ -11,7 +12,7 @@ export default (Vue) => {
    *   <td>{{title}}</td>
    */
   Vue.directive('productField', {
-    bind: (el, binding) => {
+    bind: (el: Object, binding: Object) => {
       const {
         id,
         field,

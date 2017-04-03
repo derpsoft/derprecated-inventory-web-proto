@@ -10,57 +10,54 @@
 </style>
 <template>
 <div class="order-products">
-  <autocomplete ref="productList" :editable="true" :selected="products" :suggestions="allProducts"
-      :value-selector="(v) => v" :key-selector="(v) => v.title" :display-selector="(v) => `${v.id}: ${v.title}`"
-      :draw-selections="false" :disabled="disabled" @change="setProducts">
-    </autocomplete>
+  <autocomplete ref="productList" :editable="true" :selected="products" :suggestions="allProducts" :value-selector="(v) => v" :key-selector="(v) => v.title" :display-selector="(v) => `${v.id}: ${v.title}`" :draw-selections="false" :disabled="disabled" @change="setProducts">
+  </autocomplete>
 
 
-    <div class="table-responsive">
-      <table class="table table-striped table-hover list">
-        <thead>
-          <tr>
-            <th>SKU</th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(offer, index) in value">
-            <td>{{ product(offer.productId, 'sku') }}</td>
-            <td>{{ product(offer.productId, 'title') | truncate }}</td>
-            <td>
-              <input type="number" class="form-control" min=1 step=1 v-model.number="offer.quantity"
-                  :disabled="disabled"></td>
-            <td>{{ offer | offerPrice | formatCurrency }}</td>
-            <td>
-              <button type="button" class="btn-xs btn-default" @click="removeOffer(index)" v-if="!disabled">X</button>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="3">Subtotal:</td>
-            <td>{{ subtotal | formatCurrency }}</td>
-          </tr>
-          <tr>
-            <td colspan="3">Tax:</td>
-            <td>{{ tax | formatCurrency }}</td>
-          </tr>
-          <tr>
-            <td colspan="3">Total:</td>
-            <td>{{ total | formatCurrency }}</td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover list">
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(offer, index) in value">
+          <td>{{ product(offer.productId, 'sku') }}</td>
+          <td>{{ product(offer.productId, 'title') | truncate }}</td>
+          <td>
+            <input type="number" class="form-control" min=1 step=1 v-model.number="offer.quantity" :disabled="disabled"></td>
+          <td>{{ offer | offerPrice | formatCurrency }}</td>
+          <td>
+            <button type="button" class="btn-xs btn-default" @click="removeOffer(index)" v-if="!disabled">X</button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">Subtotal:</td>
+          <td>{{ subtotal | formatCurrency }}</td>
+        </tr>
+        <tr>
+          <td colspan="3">Tax:</td>
+          <td>{{ tax | formatCurrency }}</td>
+        </tr>
+        <tr>
+          <td colspan="3">Total:</td>
+          <td>{{ total | formatCurrency }}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
 </div>
-
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
 import Autocomplete from 'components/autocomplete-multiple';
 import Constants from 'src/constants';
@@ -96,7 +93,7 @@ export default {
   },
 
   filters: {
-    offerPrice(offer) {
+    offerPrice(offer: Object) {
       if (offer) {
         return offer.price * Math.max(offer.quantity, 1);
       }
@@ -128,7 +125,7 @@ export default {
       return this.$store.getters.products;
     },
     product() {
-      return (productId, field) => {
+      return (productId: number, field: string) => {
         let x = Object.assign({}, this.$store.getters.product(productId));
         if (x && field) {
           x = x[field];
@@ -168,11 +165,11 @@ export default {
       });
     },
 
-    removeOffer(index) {
+    removeOffer(index: number) {
       this.$refs.productList.removeSelected(index);
     },
 
-    setProducts(list) {
+    setProducts(list: Object) {
       const updates = _.map(list, (product) => {
         return {
           product,
@@ -207,5 +204,4 @@ export default {
     },
   },
 };
-
 </script>

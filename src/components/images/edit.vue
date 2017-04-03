@@ -18,10 +18,10 @@
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import ImageForm from './form';
 
@@ -48,7 +48,7 @@ export default {
   },
 
   filters: {
-    toSsl(src) {
+    toSsl(src: string) {
       return src.replace('http:', 'https:');
     },
   },
@@ -97,5 +97,4 @@ export default {
     },
   },
 };
-
 </script>

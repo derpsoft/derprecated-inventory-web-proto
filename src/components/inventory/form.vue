@@ -24,6 +24,7 @@
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
 import Constants from 'src/constants';
 import Autocomplete from 'components/autocomplete';
@@ -76,7 +77,9 @@ export default {
     },
 
     defaultLocation() {
-      return _.find(this.locations, { name: this.defaultLocationName });
+      return _.find(this.locations, {
+        name: this.defaultLocationName
+      });
     },
   },
 
@@ -102,10 +105,10 @@ export default {
           };
         });
     },
-    setProduct(v) {
+    setProduct(v: Object) {
       this.value.productId = v.id;
     },
-    setLocation(v) {
+    setLocation(v: Object) {
       this.value.locationId = v.id;
     },
   }

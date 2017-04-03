@@ -15,13 +15,13 @@
         <td>{{props.record | quantity}} pcs</td>
         <td>{{props.record.shippingAddress.city}}, {{props.record.shippingAddress.state}}</td>
       </tr>
-
 </template>
   </crud-list>
 </div>
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
 import CrudList from 'components/crud/list';
 import Constants from 'src/constants';
@@ -72,10 +72,9 @@ export default {
     refresh() {
       this.value = this.needsShipping;
     },
-    showOrder(id) {
+    showOrder(id: number) {
       this.$router.push(`/orders/edit/${id}`);
     },
   },
 };
-
 </script>

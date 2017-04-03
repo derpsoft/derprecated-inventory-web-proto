@@ -43,6 +43,7 @@
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
 import Chart from 'shared/chart';
 

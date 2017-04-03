@@ -29,6 +29,7 @@
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import Autocomplete from 'components/autocomplete';
 
@@ -100,7 +101,7 @@ export default {
           };
         });
     },
-    setWarehouse(v) {
+    setWarehouse(v: Object) {
       this.value.warehouseId = v.id;
     },
   }

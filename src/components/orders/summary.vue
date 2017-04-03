@@ -48,10 +48,10 @@
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
 import Constants from 'src/constants';
 import AddressSummary from 'components/addresses/summary';
@@ -145,5 +145,4 @@ export default {
     },
   }
 };
-
 </script>

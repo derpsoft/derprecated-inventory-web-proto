@@ -8,7 +8,6 @@
     }
   }
 }
-
 </style>
 
 <template>
@@ -32,10 +31,10 @@
     </div>
   </div>
 </nav>
-
 </template>
 
 <script>
+// @flow
 import {
   version
 } from 'root/package.json';
@@ -54,5 +53,4 @@ export default {
     }
   },
 };
-
 </script>

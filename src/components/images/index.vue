@@ -35,13 +35,15 @@
     </div>
   </div>
 </section>
-
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import Search from 'components/search';
-import { Image as Api } from 'derp-api';
+import {
+  Image as Api
+} from 'derp-api';
 import ImageList from './list';
 import ImageUpload from './upload';
 
@@ -73,7 +75,7 @@ export default {
   },
 
   methods: {
-    xhrIntercept(file, xhr) {
+    xhrIntercept(file: Object, xhr: Object) {
       return this.api.imageUploadIntercept(file, xhr);
     },
     imageUploaded() {
@@ -81,5 +83,4 @@ export default {
     },
   },
 };
-
 </script>

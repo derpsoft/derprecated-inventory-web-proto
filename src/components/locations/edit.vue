@@ -16,6 +16,7 @@
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import LocationForm from './form';
 

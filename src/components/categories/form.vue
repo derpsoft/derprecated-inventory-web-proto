@@ -15,6 +15,7 @@
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
 import Autocomplete from 'components/autocomplete';
 import Constants from 'src/constants';
@@ -77,7 +78,7 @@ export default {
           };
         });
     },
-    setParent(v) {
+    setParent(v: Object) {
       this.value.parentId = v.id;
     }
   }

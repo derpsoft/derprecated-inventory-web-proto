@@ -50,10 +50,10 @@
     </div>
   </div>
 </section>
-
 </template>
 
 <script>
+// @flow
 import Today from 'shared/today';
 import Shipped from './metrics/shipped';
 import Received from './metrics/received';
@@ -72,5 +72,4 @@ export default {
     NeedsShipping,
   },
 };
-
 </script>
