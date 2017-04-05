@@ -86,7 +86,7 @@ export default {
       return this.$store.getters.order(this.orderNumber);
     },
     product() {
-      return (productId, field) => {
+      return (productId: number, field: string) => {
         let x = Object.assign({}, this.$store.getters.product(productId));
         if (x && field) {
           x = x[field];

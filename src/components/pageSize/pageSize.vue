@@ -31,7 +31,7 @@ export default {
     };
   },
   methods: {
-    setPageSize(pageSize) {
+    setPageSize(pageSize: number) {
       this.callback(pageSize);
     }
   }

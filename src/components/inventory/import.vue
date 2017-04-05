@@ -94,7 +94,7 @@ export default {
         data: 'sku',
         type: 'text',
         width: 100,
-        validate: (v, cb) => {
+        validate: (v: string[], cb: Function) => {
           cb(v.length > 0 && v.length < 200);
         },
       }, {
@@ -102,7 +102,7 @@ export default {
         type: 'numeric',
         format: '0',
         width: 100,
-        validate: (v, cb) => {
+        validate: (v: string[], cb: Function) => {
           cb(v > 0);
         },
       }];
@@ -118,7 +118,7 @@ export default {
       return document.querySelector('#hands-on-table');
     },
 
-    error(id) {
+    error(id: number) {
       return this.$getters.inventoryErrors[id];
     },
 

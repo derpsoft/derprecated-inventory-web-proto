@@ -38,7 +38,7 @@ export default {
       return ({
         productId,
         product
-      }, field) => {
+      }: Object, field: string) => {
         let x = Object.assign({}, this.$store.getters.product(productId), product);
         if (x && field) {
           x = x[field];

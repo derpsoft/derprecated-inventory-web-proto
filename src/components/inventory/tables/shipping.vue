@@ -49,7 +49,7 @@ export default {
   filters: {
     quantity({
       offers
-    }) {
+    }: Object) {
       return _.sumBy(offers, ({
         quantity
       }) => quantity);
