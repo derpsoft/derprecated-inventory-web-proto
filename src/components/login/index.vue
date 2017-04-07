@@ -40,6 +40,7 @@
 </template>
 
 <script>
+// @flow
 import loginForm from './form';
 
 export default {

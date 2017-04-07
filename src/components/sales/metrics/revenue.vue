@@ -2,10 +2,8 @@
 </style>
 
 <template>
-<achievement :value="report.total" title="Sales" by="Month" icon="fa-dollar"
-    :brand="report.total > 0 ? 'success' : 'warning'" :filter="formatMoney">
-  </achievement>
-
+<achievement :value="report.total" title="Sales" by="Month" icon="fa-dollar" :brand="report.total > 0 ? 'success' : 'warning'" :filter="formatMoney">
+</achievement>
 </template>
 
 <script>
@@ -35,7 +33,7 @@ export default {
   },
 
   methods: {
-    formatMoney(x) {
+    formatMoney(x: number) {
       return Intl
         .NumberFormat('en-US', {
           style: 'currency',
@@ -46,5 +44,4 @@ export default {
     },
   },
 };
-
 </script>

@@ -91,7 +91,7 @@ export default {
           };
         });
     },
-    setProduct(x) {
+    setProduct(x: Object) {
       this.value.productId = x.id;
       this.value.vendorId = x.vendorId;
     },

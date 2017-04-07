@@ -1,3 +1,4 @@
+// @flow
 import moment from 'moment';
 import _ from 'lodash';
 import config from 'root/config';
@@ -8,7 +9,7 @@ const filters = {
       .local()
       .format('LL');
   },
-  formatDateTime(x) {
+  formatDateTime(x: string): string {
     return moment.utc(x)
       .local()
       .format('lll');
@@ -16,7 +17,8 @@ const filters = {
   formatOrderNumber(x) {
     return `${config.app.orderPrefix}-${x}`;
   },
-  formatCurrency(x) {
+  formatCurrency(x: number) {
+    // $FlowFixMe
     return Intl
       .NumberFormat('en-US', {
         style: 'currency',
@@ -25,17 +27,17 @@ const filters = {
       })
       .format(x);
   },
-  truncate(x, length = 50) {
+  truncate(x: string, length: number = 50) {
     return _.truncate(x, {
       length
     });
   },
-  ago(x) {
+  ago(x: string) {
     return moment.utc(x).fromNow();
   },
 };
 
-export default (Vue) => {
+export default (Vue: Object) => {
   Vue.mixin({
     filters
   });

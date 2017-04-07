@@ -13,10 +13,9 @@
   </div>
 
   <div class="col-md-4" v-for="image in images">
-    <img :src="image.url | toSsl" class="img-responsive center-block img-rounded" v-on:click="edit(image.id)"/>
+    <img :src="image.url | toSsl" class="img-responsive center-block img-rounded" v-on:click="edit(image.id)" />
   </div>
 </div>
-
 </template>
 
 <script>
@@ -26,7 +25,7 @@ export default {
   components: {},
 
   filters: {
-    toSsl(src) {
+    toSsl(src: string) {
       return src.replace('http:', 'https:');
     },
   },
@@ -42,10 +41,10 @@ export default {
   },
 
   methods: {
-    edit(id) {
+    edit(id: number) {
       this.$router.push(`/images/edit/${id}`);
     }
   },
 };
-
 </script>
+// @flow

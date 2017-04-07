@@ -1,7 +1,7 @@
 // @flow
 import _ from 'lodash';
 import inflection from 'lodash-inflection';
-import config from '../config';
+import config from 'root/config';
 
 _.mixin(inflection, {});
 

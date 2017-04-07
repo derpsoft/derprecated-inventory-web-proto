@@ -70,7 +70,7 @@ function bulkReceiveInventory({
   redirect = null,
   toastError = true,
 } : Object) : Promise<Object> {
-  const withProducts = transactions.map(x => new ProductApi()
+  const withProducts: any = transactions.map(x => new ProductApi()
     .singleBySku(x.sku)
     .then((product) => {
       return {
@@ -80,7 +80,7 @@ function bulkReceiveInventory({
       };
     }));
 
-  const receives = Promise.all(withProducts)
+  const receives: any = Promise.all(withProducts)
     .then(results =>
       results.map(transaction => createTransaction({
         commit,

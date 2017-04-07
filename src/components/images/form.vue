@@ -14,6 +14,7 @@
 </template>
 
 <script>
+// @flow
 import Autocomplete from 'components/autocomplete-multiple';
 import Constants from 'src/constants';
 
@@ -51,6 +52,7 @@ export default {
   },
 
   mounted() {
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_PRODUCTS, {
       skip: 0,
       take: 1000
@@ -77,7 +79,7 @@ export default {
           };
         });
     },
-    setProducts(v) {
+    setProducts(v: string[]) {
       this.value.productIds = v;
     }
   }

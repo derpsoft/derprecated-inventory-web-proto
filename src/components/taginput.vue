@@ -5,14 +5,12 @@
   padding: 3px;
   border-radius: 4px;
   height: 34px;
-
   .tag {
     display: inline-block;
     border-radius: 5px;
     border: solid 1px #CCCCCC;
     margin: 0 2px;
     padding: 2px 5px;
-
     .close {
       cursor: pointer;
       color: #666666;
@@ -22,7 +20,6 @@
     height: 100%;
     border: none;
     outline: none;
-
     &:focus {
       border: none;
     }
@@ -36,17 +33,16 @@
     <span class="tag" v-for="(tag, i) in head">
       {{tag}}
       <span class="close" @click.stop="removeTag()">x</span>
-    </span>
+  </span>
   </span>
 
-  <input ref="tagInput" type="text" v-model="newTag" @keyup.space="addTag" @keyup.enter="addTag"
-      @keyup.backspace="deleteTag" @keyup.left="left" @keyup.right="right" :style="{width}" class="form-control">
+  <input ref="tagInput" type="text" v-model="newTag" @keyup.space="addTag" @keyup.enter="addTag" @keyup.backspace="deleteTag" @keyup.left="left" @keyup.right="right" :style="{width}" class="form-control">
 
   <span class="tail">
     <span class="tag" v-for="(tag, i) in tail">
       {{tag}}
       <span @click.stop="removeTag()">x</span>
-    </span>
+  </span>
   </span>
 </div>
 </template>
@@ -125,7 +121,7 @@ export default {
       this.input.focus();
       this.input.selectionEnd = this.input.selectionStart = this.newTag.length;
     },
-    clamp(val, min, max) {
+    clamp(val: number, min: number, max: number) {
       return Math.max(Math.min(val, max), min);
     }
   },

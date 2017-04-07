@@ -7,6 +7,7 @@
 </template>
 
 <script>
+// @flow
 export default {
   name: 'address-summary',
 
@@ -37,5 +38,4 @@ export default {
     }
   },
 };
-
 </script>

@@ -4,6 +4,7 @@
 </template>
 
 <script>
+// @flow
 import appInsights from 'applicationinsights';
 
 export default {

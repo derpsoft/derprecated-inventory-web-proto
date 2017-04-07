@@ -35,13 +35,15 @@
     </div>
   </div>
 </section>
-
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import Search from 'components/search';
-import { Image as Api } from 'derp-api';
+import {
+  Image as Api
+} from 'derp-api';
 import ImageList from './list';
 import ImageUpload from './upload';
 
@@ -56,8 +58,11 @@ export default {
 
   data() {
     return {
+      // $FlowFixMe
       searchAction: Constants.SEARCH_IMAGES,
+      // $FlowFixMe
       listAction: Constants.GET_IMAGES,
+      // $FlowFixMe
       clearAction: Constants.CLEAR_IMAGE_SEARCH,
       showUpload: false,
     };
@@ -73,7 +78,7 @@ export default {
   },
 
   methods: {
-    xhrIntercept(file, xhr) {
+    xhrIntercept(file: Object, xhr: Object) {
       return this.api.imageUploadIntercept(file, xhr);
     },
     imageUploaded() {
@@ -81,5 +86,4 @@ export default {
     },
   },
 };
-
 </script>

@@ -41,6 +41,7 @@ table.location-list {
 </template>
 
 <script>
+// @flow
 export default {
   computed: {
     locations() {
@@ -52,7 +53,7 @@ export default {
     },
   },
   methods: {
-    edit(id) {
+    edit(id: number) {
       this.$router.push(`/locations/edit/${id}`);
     },
   },

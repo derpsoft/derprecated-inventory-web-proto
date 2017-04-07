@@ -3,6 +3,7 @@
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 
 export default {

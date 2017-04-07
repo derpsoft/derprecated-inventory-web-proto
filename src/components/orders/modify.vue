@@ -35,6 +35,7 @@
 </template>
 
 <script>
+// @flow
 import OrderAdd from './add';
 import OrderEdit from './edit';
 

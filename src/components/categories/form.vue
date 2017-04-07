@@ -15,6 +15,7 @@
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
 import Autocomplete from 'components/autocomplete';
 import Constants from 'src/constants';
@@ -51,6 +52,7 @@ export default {
   },
 
   mounted() {
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_CATEGORIES, {
       skip: 0,
       take: 1000
@@ -77,7 +79,7 @@ export default {
           };
         });
     },
-    setParent(v) {
+    setParent(v: Object) {
       this.value.parentId = v.id;
     }
   }

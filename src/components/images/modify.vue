@@ -34,6 +34,7 @@
 </style>
 
 <script>
+// @flow
 import ImageEdit from './edit';
 
 export default {

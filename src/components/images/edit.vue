@@ -18,10 +18,10 @@
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import ImageForm from './form';
 
@@ -48,7 +48,7 @@ export default {
   },
 
   filters: {
-    toSsl(src) {
+    toSsl(src: string) {
       return src.replace('http:', 'https:');
     },
   },
@@ -59,6 +59,7 @@ export default {
 
   methods: {
     load() {
+      // $FlowFixMe
       this.$store.dispatch(Constants.GET_IMAGE, {
         id: this.id,
       });
@@ -74,6 +75,7 @@ export default {
         }) => {
           if (isValid) {
             image.id = this.id;
+            // $FlowFixMe
             this.$store.dispatch(Constants.UPDATE_IMAGE, {
               image
             });
@@ -89,6 +91,7 @@ export default {
     },
 
     delete() {
+      // $FlowFixMe
       this.$store.dispatch(Constants.DELETE_IMAGE, {
         id: this.id,
         rowVersion: this.image.rowVersion,
@@ -97,5 +100,4 @@ export default {
     },
   },
 };
-
 </script>

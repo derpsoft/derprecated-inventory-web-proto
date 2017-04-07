@@ -29,6 +29,7 @@
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import Autocomplete from 'components/autocomplete';
 
@@ -68,6 +69,7 @@ export default {
   },
 
   mounted() {
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_WAREHOUSES, {
       skip: 0,
       take: 1000
@@ -81,6 +83,7 @@ export default {
         this.validate();
       }
       if (this.warehouseId) {
+        // $FlowFixMe
         this.$store.dispatch(Constants.GET_WAREHOUSE, {
           id: this.warehouseId,
           includeDeleted: true,
@@ -100,7 +103,7 @@ export default {
           };
         });
     },
-    setWarehouse(v) {
+    setWarehouse(v: Object) {
       this.value.warehouseId = v.id;
     },
   }
