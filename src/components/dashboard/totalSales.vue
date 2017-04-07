@@ -22,6 +22,7 @@ export default {
   },
   methods: {
     formatMoney(x: number) {
+      // $FlowFixMe
       return Intl
         .NumberFormat('en-US', {
           style: 'currency',

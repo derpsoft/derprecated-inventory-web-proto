@@ -37,6 +37,7 @@ export default (Vue: Object) => {
       el.innerText = getUser(id)[field];
 
       if (load && !store.getters.user(id)) {
+        // $FlowFixMe
         store.dispatch(Constants.GET_USER, {
           id,
           includeDeleted: true,

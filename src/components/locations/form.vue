@@ -69,6 +69,7 @@ export default {
   },
 
   mounted() {
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_WAREHOUSES, {
       skip: 0,
       take: 1000
@@ -82,6 +83,7 @@ export default {
         this.validate();
       }
       if (this.warehouseId) {
+        // $FlowFixMe
         this.$store.dispatch(Constants.GET_WAREHOUSE, {
           id: this.warehouseId,
           includeDeleted: true,

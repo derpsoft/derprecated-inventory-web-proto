@@ -158,6 +158,7 @@ export default {
     load() {
       this.value = this.offers.slice();
       _.forEach(this.offeredProductIds, (productId) => {
+        // $FlowFixMe
         this.$store.dispatch(Constants.GET_PRODUCT, {
           id: productId,
           includeDeleted: true

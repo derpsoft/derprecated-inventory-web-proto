@@ -47,6 +47,7 @@ export default {
         }) => {
           if (isValid) {
             const redirect = this.redirect;
+            // $FlowFixMe
             this.$store.dispatch(Constants.CREATE_CATEGORY, {
               category,
               redirect,

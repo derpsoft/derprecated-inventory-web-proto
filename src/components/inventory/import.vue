@@ -72,6 +72,7 @@
 // @flow
 import _ from 'lodash';
 import Handsontable from 'handsontable/dist/handsontable.full';
+// $FlowFixMe
 import 'handsontable/dist/handsontable.min.css';
 import Constants from 'src/constants';
 import CsvImport from 'components/csvUpload';
@@ -102,7 +103,7 @@ export default {
         type: 'numeric',
         format: '0',
         width: 100,
-        validate: (v: string[], cb: Function) => {
+        validate: (v: number, cb: Function) => {
           cb(v > 0);
         },
       }];
@@ -150,9 +151,11 @@ export default {
 
   mounted() {
     this.reset();
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_LOCATIONS, {
       take: 1000
     });
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_PRODUCTS, {
       skip: 0,
       take: 1000,
@@ -162,6 +165,7 @@ export default {
 
   methods: {
     reset() {
+      // $FlowFixMe
       this.$store.dispatch(Constants.CLEAR_INVENTORY_ERRORS);
     },
 
@@ -197,6 +201,7 @@ export default {
 
     save() {
       const transactions = this.hot.getSourceData();
+      // $FlowFixMe
       this.$store.dispatch(Constants.RECEIVE_INVENTORY_BULK, {
         transactions,
         locationId: this.location.id,

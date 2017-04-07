@@ -125,6 +125,7 @@ export default {
   methods: {
     load() {
       if (this.orderNumber && this.orderKey) {
+        // $FlowFixMe
         this.$store.dispatch(Constants.GET_ORDER_BY_KEY, {
           key: this.orderKey,
           id: this.orderNumber,
@@ -137,6 +138,7 @@ export default {
       _.forEach(this.value.offers, ({
         productId
       }) => {
+        // $FlowFixMe
         this.$store.dispatch(Constants.GET_PRODUCT, {
           id: productId,
           includeDeleted: true

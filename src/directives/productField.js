@@ -37,6 +37,7 @@ export default (Vue: Object) => {
       el.innerText = getProduct(id)[field];
 
       if (load && !store.getters.product(id)) {
+        // $FlowFixMe
         store.dispatch(Constants.GET_PRODUCT, {
           id,
           includeDeleted: true,

@@ -58,8 +58,11 @@ export default {
 
   data() {
     return {
+      // $FlowFixMe
       searchAction: Constants.SEARCH_IMAGES,
+      // $FlowFixMe
       listAction: Constants.GET_IMAGES,
+      // $FlowFixMe
       clearAction: Constants.CLEAR_IMAGE_SEARCH,
       showUpload: false,
     };

@@ -42,6 +42,7 @@ export default {
             const redirect = this.redirect;
 
             order.id = this.id;
+            // $FlowFixMe
             this.$store.dispatch(Constants.CREATE_ORDER, {
               order,
               redirect,

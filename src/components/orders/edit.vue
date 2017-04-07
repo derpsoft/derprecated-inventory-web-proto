@@ -59,12 +59,15 @@ export default {
       return this.isBillable || this.isFulfillable || this.isShippable;
     },
     isBillable() {
+      // $FlowFixMe
       return this.order && this.order.status === Constants.orderStatus.AWAITING_PAYMENT;
     },
     isFulfillable() {
+      // $FlowFixMe
       return this.order && this.order.status === Constants.orderStatus.AWAITING_FULFILLMENT;
     },
     isShippable() {
+      // $FlowFixMe
       return this.order && this.order.status === Constants.orderStatus.AWAITING_SHIPMENT;
     },
   },
@@ -78,6 +81,7 @@ export default {
         }) => {
           if (isValid) {
             order.id = this.id;
+            // $FlowFixMe
             this.$store.dispatch(Constants.UPDATE_ORDER, {
               order
             });
@@ -94,6 +98,7 @@ export default {
     },
 
     delete() {
+      // $FlowFixMe
       this.$store.dispatch(Constants.DELETE_ORDER, {
         id: this.id,
         rowVersion: this.order.rowVersion,
@@ -105,6 +110,7 @@ export default {
       // email,
       token,
     }: Object) {
+      // $FlowFixMe
       this.$store.dispatch(Constants.ORDER_BILLING_CAPTURED, {
         order: this.order,
         token,
@@ -112,6 +118,7 @@ export default {
     },
 
     updateStatus(status: string) {
+      // $FlowFixMe
       this.$store.dispatch(Constants.ORDER_STATUS_UPDATE, {
         order: this.order,
         status,

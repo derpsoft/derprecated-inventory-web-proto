@@ -41,6 +41,7 @@ export default {
 
   computed: {
     needsShipping() {
+      // $FlowFixMe
       const filter = ['status', Constants.orderStatus.AWAITING_SHIPMENT];
       return _.filter(this.$store.getters.orders, filter);
     },
@@ -61,6 +62,7 @@ export default {
   },
 
   mounted() {
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_ORDERS, {
       skip: 0,
       take: 200,

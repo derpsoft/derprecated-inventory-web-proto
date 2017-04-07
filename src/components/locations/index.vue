@@ -48,8 +48,11 @@ export default {
 
   data() {
     return {
+      // $FlowFixMe
       searchAction: Constants.SEARCH_LOCATIONS,
+      // $FlowFixMe
       listAction: Constants.GET_LOCATIONS,
+      // $FlowFixMe
       clearAction: Constants.CLEAR_LOCATION_SEARCH,
     };
   },

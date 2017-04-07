@@ -49,6 +49,7 @@ export default {
 
   methods: {
     load() {
+      // $FlowFixMe
       this.$store.dispatch(Constants.GET_LOCATION, {
         id: this.id,
       });
@@ -59,6 +60,7 @@ export default {
     },
 
     remove() {
+      // $FlowFixMe
       this.$store.dispatch(Constants.DELETE_LOCATION, this.id);
     },
 
@@ -70,6 +72,7 @@ export default {
         }) => {
           if (isValid) {
             location.id = this.id;
+            // $FlowFixMe
             this.$store.dispatch(Constants.UPDATE_LOCATION, {
               location
             });
@@ -85,6 +88,7 @@ export default {
     },
 
     delete() {
+      // $FlowFixMe
       this.$store.dispatch(Constants.DELETE_LOCATION, {
         id: this.id,
         rowVersion: this.location.rowVersion,

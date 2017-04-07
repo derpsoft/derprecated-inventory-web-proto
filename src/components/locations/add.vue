@@ -36,6 +36,7 @@ export default {
           location
         }) => {
           if (isValid) {
+            // $FlowFixMe
             this.$store.dispatch(Constants.CREATE_LOCATION, {
               location
             });

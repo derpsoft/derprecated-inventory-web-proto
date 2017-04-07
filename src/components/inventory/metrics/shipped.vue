@@ -25,6 +25,7 @@ export default {
     }
   },
   mounted() {
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_INVENTORY_SHIPPED_BY_USER, {
       id: this.user.id
     });

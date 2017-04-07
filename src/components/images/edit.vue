@@ -59,6 +59,7 @@ export default {
 
   methods: {
     load() {
+      // $FlowFixMe
       this.$store.dispatch(Constants.GET_IMAGE, {
         id: this.id,
       });
@@ -74,6 +75,7 @@ export default {
         }) => {
           if (isValid) {
             image.id = this.id;
+            // $FlowFixMe
             this.$store.dispatch(Constants.UPDATE_IMAGE, {
               image
             });
@@ -89,6 +91,7 @@ export default {
     },
 
     delete() {
+      // $FlowFixMe
       this.$store.dispatch(Constants.DELETE_IMAGE, {
         id: this.id,
         rowVersion: this.image.rowVersion,

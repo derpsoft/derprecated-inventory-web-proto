@@ -52,6 +52,7 @@ export default {
   },
 
   mounted() {
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_PRODUCTS, {
       skip: 0,
       take: 1000

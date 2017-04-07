@@ -48,8 +48,11 @@ export default {
 
   data() {
     return {
+      // $FlowFixMe
       searchAction: Constants.SEARCH_CATEGORIES,
+      // $FlowFixMe
       listAction: Constants.GET_CATEGORIES,
+      // $FlowFixMe
       clearAction: Constants.CLEAR_CATEGORY_SEARCH,
     };
   },

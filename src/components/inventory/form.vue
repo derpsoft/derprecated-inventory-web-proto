@@ -84,10 +84,12 @@ export default {
   },
 
   mounted() {
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_PRODUCTS, {
       skip: 0,
       take: 1000
     });
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_LOCATIONS, {
       skip: 0,
       take: 1000

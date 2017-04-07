@@ -47,8 +47,11 @@ export default {
 
   data() {
     return {
+      // $FlowFixMe
       searchAction: Constants.SEARCH_ORDERS,
+      // $FlowFixMe
       listAction: Constants.GET_ORDERS,
+      // $FlowFixMe
       clearAction: Constants.CLEAR_ORDER_SEARCH,
     };
   },
