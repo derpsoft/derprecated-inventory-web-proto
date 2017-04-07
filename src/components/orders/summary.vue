@@ -48,10 +48,10 @@
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
 import Constants from 'src/constants';
 import AddressSummary from 'components/addresses/summary';
@@ -86,7 +86,7 @@ export default {
       return this.$store.getters.order(this.orderNumber);
     },
     product() {
-      return (productId, field) => {
+      return (productId: number, field: string) => {
         let x = Object.assign({}, this.$store.getters.product(productId));
         if (x && field) {
           x = x[field];
@@ -125,6 +125,7 @@ export default {
   methods: {
     load() {
       if (this.orderNumber && this.orderKey) {
+        // $FlowFixMe
         this.$store.dispatch(Constants.GET_ORDER_BY_KEY, {
           key: this.orderKey,
           id: this.orderNumber,
@@ -137,6 +138,7 @@ export default {
       _.forEach(this.value.offers, ({
         productId
       }) => {
+        // $FlowFixMe
         this.$store.dispatch(Constants.GET_PRODUCT, {
           id: productId,
           includeDeleted: true
@@ -145,5 +147,4 @@ export default {
     },
   }
 };
-
 </script>

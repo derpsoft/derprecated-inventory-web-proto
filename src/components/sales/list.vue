@@ -17,7 +17,7 @@
         <td>{{props.record.total | formatCurrency}}</td>
         <td>{{props.record.timestamp | formatTimestamp}}</td>
       </tr>
-    </template>
+</template>
   </crud-list>
 </div>
 </template>
@@ -45,10 +45,10 @@ export default {
   },
 
   filters: {
-    formatTimestamp(date) {
+    formatTimestamp(date: Date) {
       return moment(date).format('lll');
     },
-    formatCurrency(x) {
+    formatCurrency(x: number) {
       return Intl
         .NumberFormat('en-US', {
           style: 'currency',

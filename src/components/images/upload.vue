@@ -16,15 +16,13 @@
 
 <template>
 <div class="image-upload">
-  <dropzone ref="dz" id="dropzone" :url="uploadUrl" accepted-file-types="image/*" show-remove-link="false"
-      max-file-size-in-mb="8" auto-process-queue="true" :show-remove-link="false" :max-file-size-in-mb="8"
-      :auto-process-queue="true" @vdropzone-sending="onSending" @vdropzone-success="onSuccess"
-      :use-font-awesome="true"></dropzone>
+  <dropzone ref="dz" id="dropzone" :url="uploadUrl" accepted-file-types="image/*" show-remove-link="false" max-file-size-in-mb="8" auto-process-queue="true" :show-remove-link="false" :max-file-size-in-mb="8" :auto-process-queue="true" @vdropzone-sending="onSending"
+      @vdropzone-success="onSuccess" :use-font-awesome="true"></dropzone>
 </div>
-
 </template>
 
 <script>
+// @flow
 import Dropzone from 'vue2-dropzone';
 
 export default {
@@ -77,11 +75,10 @@ export default {
   },
 
   methods: {
-    onSuccess(file) {
+    onSuccess(file: Object) {
       this.zone.removeFile(file);
       this.$emit('success');
     }
   },
 };
-
 </script>

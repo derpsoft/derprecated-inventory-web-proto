@@ -31,7 +31,7 @@ export default {
     valueSelector: {
       type: Function,
       required: false,
-      default: v => v.id,
+      default: (v: Object) => v.id,
     },
     displaySelector: {
       type: Function,
@@ -103,7 +103,7 @@ export default {
       }
     },
 
-    isActive(index) {
+    isActive(index: number) {
       return index === this.current;
     },
 
@@ -118,7 +118,7 @@ export default {
       this.suggestionClick(this.current);
     },
 
-    suggestionClick(index) {
+    suggestionClick(index: number) {
       const value = this.values[index];
       const display = this.displays[index];
       this.open = false;

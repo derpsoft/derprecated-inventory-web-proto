@@ -35,6 +35,7 @@
 </template>
 
 <script>
+// @flow
 import Search from 'components/search';
 import Constants from 'src/constants';
 import InventoryLog from './list';

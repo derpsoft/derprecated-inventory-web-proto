@@ -16,6 +16,7 @@ module.exports = {
   // required to lint *.vue files
   plugins: [
     'html',
+    'flowtype',
     'flowtype-errors'
   ],
   // check if imports actually resolve
@@ -47,11 +48,12 @@ module.exports = {
     'class-methods-use-this': 0,
     'no-bitwise': 0,
     'new-cap': 0,
+    'quote-props': 0
   },
   globals: {
     'store': true,
     'window': true,
     toastr: true,
-    moment: true,
+    moment: true
   },
 }

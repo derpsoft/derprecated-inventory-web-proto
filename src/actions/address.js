@@ -1,5 +1,7 @@
+// @flow
+
 import crud from 'actions/crud';
-import AddressApi from 'services/addressApi';
+import { Address as AddressApi } from 'derp-api';
 
 const BASE = crud('address', AddressApi);
 

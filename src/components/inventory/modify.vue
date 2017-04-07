@@ -36,6 +36,7 @@
 </template>
 
 <script>
+// @flow
 import ReceiveInventory from './receiveInventory';
 import DispatchInventory from './dispatchInventory';
 import ImportInventory from './import';

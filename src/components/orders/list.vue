@@ -14,12 +14,13 @@
         <td>{{props.record.billingCustomer.name}}</td>
         <td><a :href="`/orders/summary/${props.record.orderKey}/${props.record.orderNumber}`" target="_blank">Invoice</a></td>
       </tr>
-    </template>
+</template>
   </crud-list>
 </div>
 </template>
 
 <script>
+// @flow
 import moment from 'moment';
 import CrudList from 'components/crud/list';
 
@@ -29,7 +30,7 @@ export default {
   },
 
   filters: {
-    formatCreateDate(date) {
+    formatCreateDate(date: Date) {
       return moment.utc(date)
         .local()
         .format('lll');
@@ -47,10 +48,9 @@ export default {
   },
 
   methods: {
-    edit(id) {
+    edit(id: number) {
       this.$router.push(`/orders/edit/${id}`);
     },
   },
 };
-
 </script>

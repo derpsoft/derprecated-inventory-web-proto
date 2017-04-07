@@ -1,5 +1,7 @@
 import Constants from 'src/constants';
-import Api from 'services/imageApi';
+import {
+  Image as Api,
+} from 'derp-api';
 import Images from 'components/images/index';
 
 describe('Images', () => {
@@ -36,7 +38,9 @@ describe('Images', () => {
         imageUploadIntercept: sinon.spy(),
       };
       const file = '1.jpg';
-      const xhr = { some: 'object' };
+      const xhr = {
+        some: 'object',
+      };
 
       spy.imageUploadIntercept.withArgs(file, xhr);
 

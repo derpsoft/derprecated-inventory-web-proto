@@ -29,10 +29,10 @@ table.list {
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
 
 export default {
@@ -45,7 +45,7 @@ export default {
   },
 
   filters: {
-    formatColumnName(x) {
+    formatColumnName(x: Object) {
       const name = typeof x === 'string' ? x : x.displayName;
       return _.startCase(name);
     },
@@ -72,10 +72,9 @@ export default {
   },
 
   methods: {
-    edit(id) {
+    edit(id: number) {
       this.$router.push(`${this.editPath}/${id}`);
     },
   },
 };
-
 </script>

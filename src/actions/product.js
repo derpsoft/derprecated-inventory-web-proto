@@ -1,7 +1,8 @@
+// @flow
 import _ from 'lodash';
 import log from 'loglevel';
 import Constants from 'src/constants';
-import ProductApi from 'services/productApi';
+import { Product as ProductApi } from 'derp-api';
 import crud from 'actions/crud';
 
 function deleteProductImage({
@@ -32,6 +33,7 @@ function importProducts({
     _.map(args.products, (single) => {
       return productApi
         .create(single)
+        // $FlowFixMe
         .then(x => commit(Constants.SET_PRODUCT, x))
         .catch(() => {
           dispatch(Constants.SHOW_TOASTR, {

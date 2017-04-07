@@ -55,9 +55,11 @@ textarea.form-control {
 </template>
 
 <script>
+import {
+  Product as ProductApi
+} from 'derp-api';
 import Constants from 'src/constants';
 import ImageGallery from 'components/images/gallery';
-import ProductApi from 'services/productApi';
 import ProductForm from './form';
 
 export default {
@@ -88,7 +90,8 @@ export default {
     },
 
     uploadUrl() {
-      return new ProductApi().getImageUploadUrl(this.id);
+      return new ProductApi()
+        .getImageUploadUrl(this.id);
     },
   },
 
@@ -109,8 +112,9 @@ export default {
       }
     },
 
-    xhrIntercept(file, xhr) {
-      return new ProductApi().imageUploadIntercept(file, xhr);
+    xhrIntercept(file: Object, xhr: Object) {
+      return new ProductApi()
+        .imageUploadIntercept(file, xhr);
     },
 
     save() {
@@ -148,7 +152,7 @@ export default {
       });
     },
 
-    deleteImage(image) {
+    deleteImage(image: Object) {
       /* eslint-disable no-alert */
       if (window.confirm('Are you sure you want to delete?')) {
         this.$store.dispatch(Constants.DELETE_PRODUCT_IMAGE, {

@@ -24,6 +24,7 @@
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
 import Constants from 'src/constants';
 import Autocomplete from 'components/autocomplete';
@@ -76,15 +77,19 @@ export default {
     },
 
     defaultLocation() {
-      return _.find(this.locations, { name: this.defaultLocationName });
+      return _.find(this.locations, {
+        name: this.defaultLocationName
+      });
     },
   },
 
   mounted() {
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_PRODUCTS, {
       skip: 0,
       take: 1000
     });
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_LOCATIONS, {
       skip: 0,
       take: 1000
@@ -102,10 +107,10 @@ export default {
           };
         });
     },
-    setProduct(v) {
+    setProduct(v: Object) {
       this.value.productId = v.id;
     },
-    setLocation(v) {
+    setLocation(v: Object) {
       this.value.locationId = v.id;
     },
   }

@@ -15,13 +15,13 @@
         <td>{{props.record | quantity}} pcs</td>
         <td>{{props.record.shippingAddress.city}}, {{props.record.shippingAddress.state}}</td>
       </tr>
-
 </template>
   </crud-list>
 </div>
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
 import CrudList from 'components/crud/list';
 import Constants from 'src/constants';
@@ -41,6 +41,7 @@ export default {
 
   computed: {
     needsShipping() {
+      // $FlowFixMe
       const filter = ['status', Constants.orderStatus.AWAITING_SHIPMENT];
       return _.filter(this.$store.getters.orders, filter);
     },
@@ -49,7 +50,7 @@ export default {
   filters: {
     quantity({
       offers
-    }) {
+    }: Object) {
       return _.sumBy(offers, ({
         quantity
       }) => quantity);
@@ -61,6 +62,7 @@ export default {
   },
 
   mounted() {
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_ORDERS, {
       skip: 0,
       take: 200,
@@ -72,10 +74,9 @@ export default {
     refresh() {
       this.value = this.needsShipping;
     },
-    showOrder(id) {
+    showOrder(id: number) {
       this.$router.push(`/orders/edit/${id}`);
     },
   },
 };
-
 </script>

@@ -34,7 +34,7 @@ export default {
     },
   },
   methods: {
-    edit(id) {
+    edit(id: number) {
       this.$router.push(`/warehouses/edit/${id}`);
     },
   },
