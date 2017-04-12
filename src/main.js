@@ -1,3 +1,5 @@
+// @flow
+
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import {
@@ -10,8 +12,8 @@ import {
 import store from 'stores/store';
 import Constants from 'src/constants';
 import App from 'components/app';
-import Directives from 'directives';
-import Mixins from 'mixins';
+import Directives from 'directives/index';
+import Mixins from 'mixins/index';
 import router from 'src/router';
 
 const vvConfig = {
@@ -33,13 +35,27 @@ if (store.getters.isAuthenticated) {
   store.dispatch(Constants.GET_PROFILE);
 }
 
+
 Configuration.apiRoot = Constants.API_ROOT;
 Configuration.token = store.getters.tokens.idToken;
+Configuration.fetch.mode = 'cors';
+Configuration.fetch.credentials = 'omit';
+Configuration.globalErrorHandler = (e, status) => {
+  if (status === 401) {
+    store.dispatch(Constants.LOGOUT);
+  }
+};
 
 store.watch(() => store.getters.tokens, ({
   idToken
 }) => {
   Configuration.token = idToken;
+});
+
+store.watch(() => store.getters.isAuthenticated, (current, previous) => {
+  if (current !== previous) {
+    router.replace(current ? '/' : '/login');
+  }
 });
 
 /* eslint-disable no-new */
