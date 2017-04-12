@@ -13,12 +13,12 @@
         <td>{{props.record.product.title | truncate(40)}}</td>
         <td>{{props.record.createDate | ago}}</td>
       </tr>
-
 </template>
   </crud-list>
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import CrudList from 'components/crud/list';
 
@@ -58,5 +58,4 @@ export default {
     },
   },
 };
-
 </script>

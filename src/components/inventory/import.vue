@@ -66,12 +66,13 @@
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
 import Handsontable from 'handsontable/dist/handsontable.full';
+// $FlowFixMe
 import 'handsontable/dist/handsontable.min.css';
 import Constants from 'src/constants';
 import CsvImport from 'components/csvUpload';
@@ -94,7 +95,7 @@ export default {
         data: 'sku',
         type: 'text',
         width: 100,
-        validate: (v, cb) => {
+        validate: (v: string[], cb: Function) => {
           cb(v.length > 0 && v.length < 200);
         },
       }, {
@@ -102,7 +103,7 @@ export default {
         type: 'numeric',
         format: '0',
         width: 100,
-        validate: (v, cb) => {
+        validate: (v: number, cb: Function) => {
           cb(v > 0);
         },
       }];
@@ -118,7 +119,7 @@ export default {
       return document.querySelector('#hands-on-table');
     },
 
-    error(id) {
+    error(id: number) {
       return this.$getters.inventoryErrors[id];
     },
 
@@ -150,9 +151,11 @@ export default {
 
   mounted() {
     this.reset();
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_LOCATIONS, {
       take: 1000
     });
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_PRODUCTS, {
       skip: 0,
       take: 1000,
@@ -162,17 +165,18 @@ export default {
 
   methods: {
     reset() {
+      // $FlowFixMe
       this.$store.dispatch(Constants.CLEAR_INVENTORY_ERRORS);
     },
 
-    csvToTransaction(csv) {
+    csvToTransaction(csv: Object) {
       return {
         sku: csv['Variant SKU'],
         quantity: parseInt(csv['Variant Inventory Qty'], 10),
       };
     },
 
-    bulkImport(value) {
+    bulkImport(value: Object) {
       this.inventory = JSON.parse(JSON.stringify(value));
     },
 
@@ -197,6 +201,7 @@ export default {
 
     save() {
       const transactions = this.hot.getSourceData();
+      // $FlowFixMe
       this.$store.dispatch(Constants.RECEIVE_INVENTORY_BULK, {
         transactions,
         locationId: this.location.id,
@@ -210,5 +215,4 @@ export default {
     },
   },
 };
-
 </script>

@@ -31,10 +31,10 @@
     </div>
   </div>
 </form>
-
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
 import Constants from 'src/constants';
 import CustomerForm from 'components/customers/form';
@@ -124,10 +124,12 @@ export default {
   methods: {
     load() {
       if (this.id > 0) {
+        // $FlowFixMe
         this.$store.dispatch(Constants.GET_ORDER, {
           id: this.id,
         });
       }
+      // $FlowFixMe
       this.$store.dispatch(Constants.GET_PRODUCTS, {
         skip: 0,
         take: 1000,
@@ -176,5 +178,4 @@ export default {
     },
   }
 };
-
 </script>

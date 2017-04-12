@@ -1,17 +1,18 @@
 <template>
-  <div class="form-inline">
-    <div class="form-group clearfix">
-      <label>Page Size</label>
-      <select class="form-control page-size" v-model="pageSize" v-on:change="setPageSize(pageSize)">
+<div class="form-inline">
+  <div class="form-group clearfix">
+    <label>Page Size</label>
+    <select class="form-control page-size" v-model="pageSize" v-on:change="setPageSize(pageSize)">
         <option  v-for="pageSize in pageSizes">
           {{ pageSize }}
         </option>
       </select>
-    </div>
   </div>
+</div>
 </template>
 
 <script>
+// @flow
 export default {
   name: 'pageSize',
   props: {
@@ -30,7 +31,7 @@ export default {
     };
   },
   methods: {
-    setPageSize(pageSize) {
+    setPageSize(pageSize: number) {
       this.callback(pageSize);
     }
   }

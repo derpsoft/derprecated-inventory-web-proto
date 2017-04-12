@@ -7,6 +7,7 @@
 </template>
 
 <script>
+// @flow
 import Achievement from 'shared/achievement';
 import Constants from 'src/constants';
 
@@ -24,12 +25,11 @@ export default {
     }
   },
   mounted() {
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_INVENTORY_SHIPPED_BY_USER, {
       id: this.user.id
     });
   },
-  methods: {
-  },
+  methods: {},
 };
-
 </script>

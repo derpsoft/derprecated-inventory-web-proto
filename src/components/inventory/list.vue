@@ -12,13 +12,13 @@
         <td>{{product(props.record, 'title') | truncate(100)}}</td>
         <td>{{props.record.createDate | ago}}</td>
       </tr>
-
 </template>
   </crud-list>
 </div>
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import CrudList from 'components/crud/list';
 
@@ -38,7 +38,7 @@ export default {
       return ({
         productId,
         product
-      }, field) => {
+      }: Object, field: string) => {
         let x = Object.assign({}, this.$store.getters.product(productId), product);
         if (x && field) {
           x = x[field];
@@ -56,5 +56,4 @@ export default {
     this.$store.dispatch(Constants.COUNT_INVENTORY_LOGS);
   },
 };
-
 </script>

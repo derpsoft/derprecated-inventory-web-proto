@@ -1,3 +1,4 @@
+// @flow
 /*
  This file contains a generator for default/template actions of CRUD operations.
 
@@ -13,7 +14,7 @@ import {
   FetchError
 } from 'src/errors';
 
-_.mixin(inflection);
+_.mixin(inflection, {});
 
 const t = Constants.fluxTemplates;
 
@@ -21,21 +22,21 @@ function toast({
   dispatch,
   type,
   message
-}) {
+} : Object) : void {
   dispatch(Constants.SHOW_TOASTR, {
     type,
     message
   });
 }
 
-function toastSuccess(args) {
+function toastSuccess(args : Object) : void {
   toast({
     ...args,
     type: 'success',
   });
 }
 
-function toastInfo(args) {
+function toastInfo(args: Object) : void {
   toast({
     ...args,
     type: 'info',
@@ -46,7 +47,7 @@ function createErrorHandler({
   dispatch,
   toastError = false,
   message
-}) {
+} : Object) : Function {
   return (e) => {
     if (toastError) {
       toast({
@@ -59,7 +60,7 @@ function createErrorHandler({
   };
 }
 
-export default function(name, Api) {
+export default function(name : string, Api : any) {
   const one = _(name).singularize().toLower();
   const many = _(one).pluralize();
 
@@ -291,7 +292,7 @@ export default function(name, Api) {
   };
 
   const MUTATORS = {
-    [t.SET_ONE(name)]: (state, x) => {
+    [t.SET_ONE(name)]: (state : Object, x : Object) : void => {
       if (state[many].all[x.id]) {
         state[many].all[x.id] = _.merge({}, state[many].all[x.id], x);
       } else {
@@ -299,41 +300,41 @@ export default function(name, Api) {
       }
     },
 
-    [t.SET_MANY(name)]: (state, x) => {
+    [t.SET_MANY(name)]: (state : Object, x : Object) : void => {
       state[many].all = _.merge({},
         state[many].all,
         _.keyBy(x, xx => xx.id)
       );
     },
 
-    [t.DELETE_ONE(name)]: (state, x) => {
+    [t.DELETE_ONE(name)]: (state : Object, x :Object) : void => {
       delete state[many].all[x];
     },
 
-    [t.SET_SEARCH_QUERY(name)]: (state, x) => {
+    [t.SET_SEARCH_QUERY(name)]: (state : Object, x : Object) : void => {
       state[many].search.query = x;
     },
 
-    [t.SET_SEARCH_RESULTS(name)]: (state, x) => {
+    [t.SET_SEARCH_RESULTS(name)]: (state : Object, x : Object) : void => {
       state[many].search.results = x;
     },
 
-    [t.CLEAR_ERRORS(name)]: (state) => {
+    [t.CLEAR_ERRORS(name)]: (state : Object) : void => {
       state[many].errors = {};
     },
 
-    [t.SET_ERROR(name)]: (state, x) => {
+    [t.SET_ERROR(name)]: (state : Object, x : Object) : void => {
       state[many].errors[x.id] = x;
     },
 
-    [t.SET_ERRORS(name)]: (state, x) => {
+    [t.SET_ERRORS(name)]: (state : Object, x : Object) : void => {
       state[many].errors = _.merge({},
         state[many].errors,
         _.keyBy(x, xx => xx.id)
       );
     },
 
-    [t.CLEAR_SEARCH(name)]: (state) => {
+    [t.CLEAR_SEARCH(name)]: (state : Object) : void => {
       state[many].search.results = [];
       state[many].search.query = '';
     },

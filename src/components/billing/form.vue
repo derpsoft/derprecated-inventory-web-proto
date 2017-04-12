@@ -2,10 +2,10 @@
 <form :class="cssClass">
   <stripe-checkout :stripe-key="stripeKey" :product="product" on-success="broadcast"></stripe-checkout>
 </form>
-
 </template>
 
 <script>
+// @flow
 import config from 'root/config';
 import StripeCheckout from 'vue-stripe';
 
@@ -60,10 +60,9 @@ export default {
   },
 
   methods: {
-    onSuccess(payload) {
+    onSuccess(payload: Object) {
       this.$emit('success', payload);
     }
   },
 };
-
 </script>

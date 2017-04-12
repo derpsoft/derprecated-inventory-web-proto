@@ -7,10 +7,10 @@
 <template>
 <div v-once>
 </div>
-
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 
 export default {
@@ -40,5 +40,4 @@ export default {
     },
   },
 };
-
 </script>

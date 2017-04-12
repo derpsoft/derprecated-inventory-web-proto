@@ -46,6 +46,7 @@
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import Today from 'shared/today';
 import Chart from './chart';

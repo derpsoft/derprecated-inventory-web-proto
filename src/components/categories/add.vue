@@ -15,6 +15,7 @@
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import CategoryForm from './form';
 
@@ -46,6 +47,7 @@ export default {
         }) => {
           if (isValid) {
             const redirect = this.redirect;
+            // $FlowFixMe
             this.$store.dispatch(Constants.CREATE_CATEGORY, {
               category,
               redirect,

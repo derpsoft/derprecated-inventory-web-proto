@@ -66,7 +66,6 @@
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
@@ -176,7 +175,7 @@ export default {
   },
 
   methods: {
-    csvToProduct(csv) {
+    csvToProduct(csv: Object) {
       return {
         title: csv.Title,
         sku: csv['Variant SKU'],
@@ -189,7 +188,7 @@ export default {
       };
     },
 
-    bulkImport(value) {
+    bulkImport(value: Object) {
       this.products = JSON.parse(JSON.stringify(value));
     },
 
@@ -226,5 +225,4 @@ export default {
     },
   },
 };
-
 </script>

@@ -1,3 +1,4 @@
+// @flow
 import _ from 'lodash';
 import Auth0Lock from 'auth0-lock';
 import config from 'root/config';
@@ -49,15 +50,17 @@ const _getUserInfo = _.throttle((lock, {
   for a discussion about structure and explanation of the keys in use.
  */
 class Auth {
+  lock : any;
+
   constructor() {
     this.lock = new Auth0Lock(clientId, domain, options);
   }
 
-  getUserInfo(tokens) {
+  getUserInfo(tokens : Object) : Promise<Object> {
     return _getUserInfo(this.lock, tokens);
   }
 
-  onAuthenticated(callback) {
+  onAuthenticated(callback : Function) : void {
     this.lock.on('authenticated', (authResult) => {
       this.getUserInfo(authResult)
         .then(callback)
@@ -67,27 +70,27 @@ class Auth {
     });
   }
 
-  onAuthorizationError(callback) {
+  onAuthorizationError(callback : Function) : void {
     this.lock.on('authorization_error', callback);
   }
 
-  onUnrecoverableError(callback) {
+  onUnrecoverableError(callback : Function) : void {
     this.lock.on('unrecoverable_error', callback);
   }
 
-  show() {
+  show() : void {
     this.lock.show();
   }
 
-  onShow(callback) {
+  onShow(callback : Function) : void {
     this.lock.on('show', callback);
   }
 
-  hide() {
+  hide() : void {
     this.lock.hide();
   }
 
-  onHide(callback) {
+  onHide(callback : Function) : void {
     this.lock.on('hide', callback);
   }
 }

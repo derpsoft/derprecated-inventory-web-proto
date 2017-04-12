@@ -34,6 +34,7 @@
 </template>
 
 <script>
+// @flow
 import Search from 'components/search';
 import Constants from 'src/constants';
 import LocationList from './list';
@@ -47,8 +48,11 @@ export default {
 
   data() {
     return {
+      // $FlowFixMe
       searchAction: Constants.SEARCH_LOCATIONS,
+      // $FlowFixMe
       listAction: Constants.GET_LOCATIONS,
+      // $FlowFixMe
       clearAction: Constants.CLEAR_LOCATION_SEARCH,
     };
   },

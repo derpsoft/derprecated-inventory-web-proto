@@ -2,15 +2,12 @@
 <div>
   <div class="row control-row">
     <div class="col-md-12">
-      <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-manage-orders
-          v-if="isBillable">Delete</button>
-        <button class="btn btn-primary pull-right" @click="save" v-if="isSaveable">Save Order</button>
-        <button class="btn btn-primary pull-right" @click="fulfilled" v-if="isFulfillable">Mark as Fulfilled</button>
-        <button class="btn btn-primary pull-right" @click="shipped" v-if="isShippable">Mark as Shipped</button>
-        <billing-form ref="billingForm" cssClass="pull-right" :amount="order.price | toCents"
-          :description="`Custom order ${order.orderNumber}`" @success="billingCaptured"
-          v-if="isBillable"></billing-form>
-        <h4>Order Details
+      <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-manage-orders v-if="isBillable">Delete</button>
+      <button class="btn btn-primary pull-right" @click="save" v-if="isSaveable">Save Order</button>
+      <button class="btn btn-primary pull-right" @click="fulfilled" v-if="isFulfillable">Mark as Fulfilled</button>
+      <button class="btn btn-primary pull-right" @click="shipped" v-if="isShippable">Mark as Shipped</button>
+      <billing-form ref="billingForm" cssClass="pull-right" :amount="order.price | toCents" :description="`Custom order ${order.orderNumber}`" @success="billingCaptured" v-if="isBillable"></billing-form>
+      <h4>Order Details
           <small v-if="!isSaveable" class="pull-right">Order has shipped and may not be edited</small>
         </h4>
     </div>
@@ -24,10 +21,10 @@
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import BillingForm from 'components/billing/form';
 import OrderForm from './form';
@@ -46,7 +43,7 @@ export default {
   },
 
   filters: {
-    toCents(dollars) {
+    toCents(dollars: number) {
       return (dollars * 100) >> 0;
     },
   },
@@ -62,12 +59,15 @@ export default {
       return this.isBillable || this.isFulfillable || this.isShippable;
     },
     isBillable() {
+      // $FlowFixMe
       return this.order && this.order.status === Constants.orderStatus.AWAITING_PAYMENT;
     },
     isFulfillable() {
+      // $FlowFixMe
       return this.order && this.order.status === Constants.orderStatus.AWAITING_FULFILLMENT;
     },
     isShippable() {
+      // $FlowFixMe
       return this.order && this.order.status === Constants.orderStatus.AWAITING_SHIPMENT;
     },
   },
@@ -81,6 +81,7 @@ export default {
         }) => {
           if (isValid) {
             order.id = this.id;
+            // $FlowFixMe
             this.$store.dispatch(Constants.UPDATE_ORDER, {
               order
             });
@@ -97,6 +98,7 @@ export default {
     },
 
     delete() {
+      // $FlowFixMe
       this.$store.dispatch(Constants.DELETE_ORDER, {
         id: this.id,
         rowVersion: this.order.rowVersion,
@@ -107,14 +109,16 @@ export default {
     billingCaptured({
       // email,
       token,
-    }) {
+    }: Object) {
+      // $FlowFixMe
       this.$store.dispatch(Constants.ORDER_BILLING_CAPTURED, {
         order: this.order,
         token,
       });
     },
 
-    updateStatus(status) {
+    updateStatus(status: string) {
+      // $FlowFixMe
       this.$store.dispatch(Constants.ORDER_STATUS_UPDATE, {
         order: this.order,
         status,
@@ -130,5 +134,4 @@ export default {
     },
   }
 };
-
 </script>

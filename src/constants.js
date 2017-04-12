@@ -1,8 +1,9 @@
+// @flow
 import _ from 'lodash';
 import inflection from 'lodash-inflection';
-import config from '../config';
+import config from 'root/config';
 
-_.mixin(inflection);
+_.mixin(inflection, {});
 
 const constants = {
   API_ROOT: config.api,
@@ -12,8 +13,10 @@ const constants = {
   CLEAR_PROFILE: 'CLEAR_PROFILE',
   COUNT_INVENTORY_LOGS: 'COUNT_INVENTORY_LOGS',
   CREATE_INVENTORY_TRANSACTION: 'CREATE_INVENTORY_TRANSACTION',
+  DELETE_PRODUCT_IMAGE: 'DELETE_PRODUCT_IMAGE',
   DISPATCH_INVENTORY: 'DISPATCH_INVENTORY',
   GET_DASHBOARD: 'GET_DASHBOARD',
+  GET_INVENTORY_SHIPPED_BY_USER: 'GET_INVENTORY_SHIPPED_BY_USER',
   GET_INVENTORY_TRANSACTION_LOGS: 'GET_INVENTORY_TRANSACTION_LOGS',
   GET_PERMISSIONS: 'GET_PERMISSIONS',
   GET_PROFILE: 'GET_PROFILE',
@@ -26,7 +29,6 @@ const constants = {
   LOGOUT: 'LOGOUT',
   RECEIVE_INVENTORY_BULK: 'RECEIVE_INVENTORY_BULK',
   RECEIVE_INVENTORY: 'RECEIVE_INVENTORY',
-
   SEARCH_INVENTORY_TRANSACTION_LOGS: 'SEARCH_INVENTORY_TRANSACTION_LOGS',
   SET_DASHBOARD_REPORT: 'SET_DASHBOARD_REPORT',
   SET_INVENTORY_ERROR: 'SET_INVENTORY_ERROR',
@@ -34,9 +36,19 @@ const constants = {
   SET_INVENTORY_TRANSACTION_LOGS: 'SET_INVENTORY_TRANSACTION_LOGS',
   SET_PROFILE: 'SET_PROFILE',
   SET_QUANTITY_ON_HAND: 'SET_QUANTITY_ON_HAND',
+  SET_SALES_BY_PRODUCT: 'SET_SALES_BY_PRODUCT',
+  SET_SALES_BY_TOTAL: 'SET_SALES_BY_TOTAL',
+  SET_SALES_BY_VENDOR: 'SET_SALES_BY_VENDOR',
+  GET_SALES_BY_PRODUCT: 'GET_SALES_BY_PRODUCT',
+  GET_SALES_BY_TOTAL: 'GET_SALES_BY_TOTAL',
+  GET_SALES_BY_VENDOR: 'GET_SALES_BY_VENDOR',
   SET_SESSION: 'SET_SESSION',
   SET_TOKENS: 'SET_TOKENS',
+  SET_USER_PERMISSION: 'SET_USER_PERMISSION',
+  SET_USER_PERMISSIONS: 'SET_USER_PERMISSIONS',
   SHOW_TOASTR: 'SHOW_TOASTR',
+  UNSET_USER_PERMISSION: 'UNSET_USER_PERMISSION',
+  UNSET_USER_PERMISSIONS: 'UNSET_USER_PERMISSIONS',
 
   orderStatus: {
     PENDING: 'pending',
@@ -211,42 +223,42 @@ const constants = {
   },
 
   apiTemplates: {
-    COUNT: x => `/api/v1/${_(x).pluralize().toLower()}/count`,
-    CREATE: x => `/api/v1/${_(x).pluralize().toLower()}`,
-    CREATE_MANY: x => `/api/v1/${_(x).pluralize().toLower()}/import`,
-    DELETE: x => `/api/v1/${_(x).pluralize().toLower()}`,
-    LIST: x => `/api/v1/${_(x).pluralize().toLower()}`,
-    SAVE: x => `/api/v1/${_(x).pluralize().toLower()}`,
-    SINGLE: x => `/api/v1/${_(x).pluralize().toLower()}`,
-    TYPEAHEAD: x => `/api/v1/${_(x).pluralize().toLower()}/typeahead`,
+    COUNT: (x : string) => `/api/v1/${_(x).pluralize().toLower()}/count`,
+    CREATE: (x : string) => `/api/v1/${_(x).pluralize().toLower()}`,
+    CREATE_MANY: (x : string) => `/api/v1/${_(x).pluralize().toLower()}/import`,
+    DELETE: (x : string) => `/api/v1/${_(x).pluralize().toLower()}`,
+    LIST: (x : string) => `/api/v1/${_(x).pluralize().toLower()}`,
+    SAVE: (x : string) => `/api/v1/${_(x).pluralize().toLower()}`,
+    SINGLE: (x : string) => `/api/v1/${_(x).pluralize().toLower()}`,
+    TYPEAHEAD: (x : string) => `/api/v1/${_(x).pluralize().toLower()}/typeahead`,
   },
 
   fluxTemplates: {
-    CLEAR_ERRORS: x => `CLEAR_${_(x).singularize().toUpper()}_ERRORS`,
-    CLEAR_SEARCH_RESULTS: x => `CLEAR_${_(x).singularize().toUpper()}_SEARCH_RESULTS`,
-    CLEAR_SEARCH: x => `CLEAR_${_(x).singularize().toUpper()}_SEARCH`,
-    CREATE_ONE: x => `CREATE_${_(x).singularize().toUpper()}`,
-    CREATE_MANY: x => `CREATE_${_(x).pluralize().toUpper()}`,
-    COUNT: x => `COUNT_${_(x).pluralize().toUpper()}`,
-    UPDATE_ONE: x => `UPDATE_${_(x).singularize().toUpper()}`,
-    DELETE_ONE: x => `DELETE_${_(x).singularize().toUpper()}`,
-    GET_MANY: x => `GET_${_(x).pluralize().toUpper()}`,
-    GET_ONE: x => `GET_${_(x).singularize().toUpper()}`,
-    SET_MANY: x => `SET_${_(x).pluralize().toUpper()}`,
-    SET_ONE: x => `SET_${_(x).singularize().toUpper()}`,
-    SET_COUNT: x => `SET_${_(x).pluralize().toUpper()}_COUNT`,
-    SET_SEARCH_QUERY: x => `SET_${_(x).singularize().toUpper()}_SEARCH_QUERY`,
-    SET_SEARCH_RESULTS: x => `SET_${_(x).singularize().toUpper()}_SEARCH_RESULTS`,
-    SET_ERROR: x => `SET_${_(x).singularize().toUpper()}_ERROR`,
-    SET_ERRORS: x => `SET_${_(x).singularize().toUpper()}_ERRORS`,
-    SEARCH: x => `SEARCH_${_(x).pluralize().toUpper()}`,
+    CLEAR_ERRORS: (x : string) => `CLEAR_${_(x).singularize().toUpper()}_ERRORS`,
+    CLEAR_SEARCH_RESULTS: (x : string) => `CLEAR_${_(x).singularize().toUpper()}_SEARCH_RESULTS`,
+    CLEAR_SEARCH: (x : string) => `CLEAR_${_(x).singularize().toUpper()}_SEARCH`,
+    CREATE_ONE: (x : string) => `CREATE_${_(x).singularize().toUpper()}`,
+    CREATE_MANY: (x : string) => `CREATE_${_(x).pluralize().toUpper()}`,
+    COUNT: (x : string) => `COUNT_${_(x).pluralize().toUpper()}`,
+    UPDATE_ONE: (x : string) => `UPDATE_${_(x).singularize().toUpper()}`,
+    DELETE_ONE: (x : string) => `DELETE_${_(x).singularize().toUpper()}`,
+    GET_MANY: (x : string) => `GET_${_(x).pluralize().toUpper()}`,
+    GET_ONE: (x : string) => `GET_${_(x).singularize().toUpper()}`,
+    SET_MANY: (x : string) => `SET_${_(x).pluralize().toUpper()}`,
+    SET_ONE: (x : string) => `SET_${_(x).singularize().toUpper()}`,
+    SET_COUNT: (x : string) => `SET_${_(x).pluralize().toUpper()}_COUNT`,
+    SET_SEARCH_QUERY: (x : string) => `SET_${_(x).singularize().toUpper()}_SEARCH_QUERY`,
+    SET_SEARCH_RESULTS: (x : string) => `SET_${_(x).singularize().toUpper()}_SEARCH_RESULTS`,
+    SET_ERROR: (x : string) => `SET_${_(x).singularize().toUpper()}_ERROR`,
+    SET_ERRORS: (x : string) => `SET_${_(x).singularize().toUpper()}_ERRORS`,
+    SEARCH: (x : string) => `SEARCH_${_(x).pluralize().toUpper()}`,
   },
 
-  addFluxCrud(name) {
+  addFluxCrud(name : string) : void {
     _.each(constants.fluxTemplates, x => constants.add(x(name)));
   },
 
-  add(name) {
+  add(name : string) : void {
     if (constants[name]) {
       throw new Error(`Adding ${name} would overwrite existing constant.`);
     }

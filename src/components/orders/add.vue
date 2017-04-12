@@ -15,6 +15,7 @@
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import OrderForm from './form';
 
@@ -41,6 +42,7 @@ export default {
             const redirect = this.redirect;
 
             order.id = this.id;
+            // $FlowFixMe
             this.$store.dispatch(Constants.CREATE_ORDER, {
               order,
               redirect,

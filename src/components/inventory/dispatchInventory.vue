@@ -12,10 +12,10 @@
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import InventoryForm from './form';
 
@@ -33,6 +33,7 @@ export default {
         }) => {
           if (isValid) {
             const redirect = this.redirect;
+            // $FlowFixMe
             this.$store.dispatch(Constants.CREATE_INVENTORY_TRANSACTION, {
               transaction: {
                 ...transaction,
@@ -53,5 +54,4 @@ export default {
     },
   },
 };
-
 </script>
