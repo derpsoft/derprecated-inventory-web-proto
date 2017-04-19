@@ -1,4 +1,4 @@
-import Constants from 'src/constants';
+// import Constants from 'src/constants';
 import Report from 'components/reports/index';
 
 describe('Report', () => {
