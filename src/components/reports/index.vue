@@ -22,21 +22,21 @@
       <div class="col-md-4">
         <div class="panel">
           <div class="panel-body">
-            <sales-by-total :labels="salesByTotal.labels" :data="salesByTotal.data"></sales-by-total>
+            <!--<sales-by-total :labels="salesByTotal.labels" :data="salesByTotal.data"></sales-by-total>-->
           </div>
         </div>
       </div>
       <div class="col-md-4">
         <div class="panel">
           <div class="panel-body">
-            <sales-by-product :labels="salesByProduct.labels" :data="salesByProduct.data"></sales-by-product>
+            <!--<sales-by-product :labels="salesByProduct.labels" :data="salesByProduct.data"></sales-by-product>-->
           </div>
         </div>
       </div>
       <div class="col-md-4">
         <div class="panel">
           <div class="panel-body">
-            <sales-by-vendor :labels="salesByVendor.labels" :data="salesByVendor.data"></sales-by-vendor>
+            <!--<sales-by-vendor :labels="salesByVendor.labels" :data="salesByVendor.data"></sales-by-vendor>-->
           </div>
         </div>
       </div>
@@ -46,41 +46,41 @@
 </template>
 
 <script>
-import Constants from 'src/constants';
-import SalesByTotal from './salesByTotal';
-import SalesByProduct from './salesByProduct';
-import SalesByVendor from './salesByVendor';
+// import Constants from 'src/constants';
+// import SalesByTotal from './salesByTotal';
+// import SalesByProduct from './salesByProduct';
+// import SalesByVendor from './salesByVendor';
 
 export default {
   name: 'reportView',
   computed: {
-    salesByProduct() {
-      return this.$store.getters.salesByProduct;
-    },
-    salesByVendor() {
-      return this.$store.getters.salesByVendor;
-    },
-    salesByTotal() {
-      return this.$store.getters.salesByTotal;
-    }
+ //   salesByProduct() {
+ //     return this.$store.getters.salesByProduct;
+ //   },
+ //   salesByVendor() {
+ //     return this.$store.getters.salesByVendor;
+ //   },
+ //   salesByTotal() {
+ //     return this.$store.getters.salesByTotal;
+ //   }
   },
   components: {
-    SalesByTotal,
-    SalesByProduct,
-    SalesByVendor,
+ //   SalesByTotal,
+ //   SalesByProduct,
+ //   SalesByVendor,
   },
   mounted() {
-    this.$store.dispatch(Constants.GET_SALES_BY_TOTAL, {
-      groupBy: 'week'
-    });
-    this.$store.dispatch(Constants.GET_SALES_BY_VENDOR, {
-      groupBy: 'week',
-      vendorId: 1,
-    });
-    this.$store.dispatch(Constants.GET_SALES_BY_PRODUCT, {
-      groupBy: 'week',
-      productId: 1,
-    });
+ //   this.$store.dispatch(Constants.GET_SALES_BY_TOTAL, {
+ //     groupBy: 'week'
+ //   });
+ //   this.$store.dispatch(Constants.GET_SALES_BY_VENDOR, {
+ //     groupBy: 'week',
+ //     vendorId: 1,
+ //   });
+ //   this.$store.dispatch(Constants.GET_SALES_BY_PRODUCT, {
+ //     groupBy: 'week',
+ //     productId: 1,
+ //   });
   }
 };
 </script>
