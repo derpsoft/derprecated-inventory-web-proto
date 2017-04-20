@@ -8,6 +8,8 @@ const {
   domain
 } = config.auth0;
 const options = {
+  closable: false,
+  container: 'login-container',
   auth: {
     redirect: true,
     params: {
