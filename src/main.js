@@ -52,12 +52,6 @@ store.watch(() => store.getters.tokens, ({
   Configuration.token = idToken;
 });
 
-store.watch(() => store.getters.isAuthenticated, (current, previous) => {
-  if (current !== previous) {
-    router.replace(current ? '/' : '/login');
-  }
-});
-
 /* eslint-disable no-new */
 new Vue({
   name: 'derp',

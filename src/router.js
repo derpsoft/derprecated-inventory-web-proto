@@ -341,6 +341,13 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && !store.getters.isAuthenticated) {
+    router.replace('/login');
+  }
+  next();
+});
+
 store.watch(() => store.getters.isAuthenticated, (current, previous) => {
   if (current !== previous) {
     router.replace(current ? '/' : '/login');
