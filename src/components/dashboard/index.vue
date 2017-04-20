@@ -35,7 +35,7 @@
         <div class="col-md-12">
           <div class="panel panel-filled">
             <div class="panel-body">
-              <chart></chart>
+              <!-- <chart></chart> -->
             </div>
           </div>
         </div>
