@@ -1,11 +1,32 @@
-<style lang="css" scoped>
-.alert {
-    margin-top: 10px;
+<style lang="css">
+#login-container {
+  margin: 5px 0;
+  background: rgba(90, 90, 90, 0.5);
+  border-radius: 5px;
+
+  .auth0-lock {
+    width: 100%;
+    .auth0-lock-header {
+      display: none;
+    }
+    .auth0-lock-widget {
+      width: 100%;
+    }
+  }
+  .auth0-lock.auth0-lock .auth0-lock-cred-pane {
+    background: transparent;
+  }
+  .auth0-lock-social-button {
+    &+.auth0-lock-social-button {
+      margin-top: 1.3em;
+      opacity: 0.9;
+    }
+  }
 }
 </style>
 
 <template>
-<div v-once>
+<div id="login-container">
 </div>
 </template>
 

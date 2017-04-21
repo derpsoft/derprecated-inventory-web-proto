@@ -13,7 +13,7 @@ module.exports = function(config) {
     // 2. add it to the `browsers` array below.
     // browsers: ['PhantomJS'],
     browsers: ['Chrome'],
-    frameworks: ['mocha', 'sinon-chai'],
+    frameworks: ['mocha', 'sinon-chai', 'fixture'],
     reporters: ['spec', 'coverage'],
     files: [
       '../../node_modules/babel-polyfill/dist/polyfill.js',
