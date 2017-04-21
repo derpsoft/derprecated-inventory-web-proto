@@ -8,6 +8,9 @@ describe('Authentication Service', () => {
     // let stub;
 
     beforeEach(() => {
+      const html = '<div id="fixture"><div id="login-container"></div></div>';
+
+      fixture.set(html);
       // stub = sinon.stub(Auth.prototype, 'constructor');
       auth = new Auth();
     });
