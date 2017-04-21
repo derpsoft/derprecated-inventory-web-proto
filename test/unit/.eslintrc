@@ -12,7 +12,8 @@
   "globals": {
     "expect": true,
     "sinon": true,
-    "assert": true
+    "assert": true,
+    "fixture": true
   },
   "rules": {
     "flowtype-errors/show-errors": 2,
