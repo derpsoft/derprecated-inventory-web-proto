@@ -174,7 +174,9 @@ export default {
             order
           };
         })
-        .catch(e => console.error(e));
+        .catch((e) => {
+          throw e;
+        });
     },
   }
 };

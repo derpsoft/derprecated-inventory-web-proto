@@ -39,6 +39,7 @@ const pro = _.merge({}, base, {
   env: {
     APPINSIGHTS_INSTRUMENTATIONKEY: JSON.stringify('6c7d6219-60d2-44d0-9173-fe8e8e46c2ea'),
   },
+  productionGzip: true,
   stripe: {
     publishableKey: '',
   },
