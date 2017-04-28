@@ -14,7 +14,7 @@
             <div class="pull-right">
               <today></today>
             </div>
-            <h3 class="m-b-xs">Derprecated Dashboard Concept</h3>
+            <h3 class="m-b-xs">Derprecated Dashboard</h3>
             <small>Derp overview</small>
           </div>
         </div>
@@ -28,7 +28,7 @@
           <inventory-received></inventory-received>
         </div>
         <div class="col-lg-4 col-sm-12">
-          <!--<total-sales></total-sales>-->
+        <total-sales></total-sales>
         </div>
       </div>
       <div class="row" v-is-dev>

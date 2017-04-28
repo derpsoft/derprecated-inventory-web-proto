@@ -3,15 +3,21 @@
   &.nav {
     padding-top: 0;
 
-    &:first {
-      padding-top: 15px;
-    }
-
     .nav-category {
       cursor: pointer;
     }
   }
+
+  li:not(.nav-category) {
+    a {
+      &:hover {
+        padding-left: 19px;
+        border-left: 6px solid #56C0E0;
+      }
+    }
+  }
 }
+
 </style>
 
 <template>
@@ -69,19 +75,6 @@
       </template>
     </ul>
 
-    <ul class="nav luna-nav">
-      <li class="nav-category" :class="{dropup: showAccount}" @click="showAccount = !showAccount">
-        <big>Account <span class="caret text-muted"></span></big>
-      </li>
-      <template v-if="showAccount">
-        <li v-is-dev>
-          <router-link :to="{ path: '/profile', activeClass: 'active'}" active-class="active">Profile</router-link>
-        </li>
-        <li>
-          <router-link :to="{ path: '/logout', activeClass: 'active'}" active-class="active">Logout</router-link>
-        </li>
-      </template>
-    </ul>
 
     <ul class="nav luna-nav" v-can-any="{ term: 'or', guards: ['canReadProducts', 'canReadCategories', 'canReadWarehouses', 'canReadLocations', 'canReadVendors', 'canReadUsers'] }">
       <li class="nav-category" :class="{dropup: showAdmin}" @click="showAdmin = !showAdmin">
@@ -111,6 +104,21 @@
         </li>
       </template>
     </ul>
+
+    <ul class="nav luna-nav">
+      <li class="nav-category" :class="{dropup: showAccount}" @click="showAccount = !showAccount">
+        <big>Account <span class="caret text-muted"></span></big>
+      </li>
+      <template v-if="showAccount">
+        <li v-is-dev>
+          <router-link :to="{ path: '/profile', activeClass: 'active'}" active-class="active">Profile</router-link>
+        </li>
+        <li>
+          <router-link :to="{ path: '/logout', activeClass: 'active'}" active-class="active">Logout</router-link>
+        </li>
+      </template>
+    </ul>
+
     <ul class="nav luna-nav">
       <li class="nav-info">
         <i class="pe pe-7s-shield text-accent"></i>

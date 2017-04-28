@@ -8,32 +8,24 @@
       <div class="col-lg-12">
         <div class="view-header">
           <div class="header-icon">
-            <i class="pe page-header-icon pe-7s-shield"></i>
+            <i class="pe page-header-icon pe-7s-global"></i>
           </div>
           <div class="header-title">
             <div class="pull-right">
               <today></today>
             </div>
-            <h3 class="m-b-xs">Inventory Dashboard Concept</h3>
-            <small></small>
+            <h3 class="m-b-xs">Inventory Dashboard</h3>
+            <small>Pass it on</small>
           </div>
         </div>
         <hr>
       </div>
       <div class="row">
-        <h2>Stats</h2>
-        <div class="col-lg-2 col-sm-12">
+        <div class="col-lg-6 col-sm-12">
           <shipped></shipped>
         </div>
-
-        <div class="col-lg-2 col-sm-12">
-          <received></received>
-        </div>
-
-        <div class="col-lg-2 col-sm-12">
-        </div>
-
         <div class="col-lg-6 col-sm-12">
+          <received></received>
         </div>
       </div>
 
@@ -65,7 +57,6 @@ export default {
 
   components: {
     Today,
-    // Tasks,
     Shipped,
     Received,
     Churn,

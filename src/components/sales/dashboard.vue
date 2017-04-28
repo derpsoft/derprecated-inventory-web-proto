@@ -8,34 +8,30 @@
       <div class="col-lg-12">
         <div class="view-header">
           <div class="header-icon">
-            <i class="pe page-header-icon pe-7s-shield"></i>
+            <i class="pe page-header-icon pe-7s-piggy"></i>
           </div>
           <div class="header-title">
             <div class="pull-right">
               <today></today>
             </div>
-            <h3 class="m-b-xs">Sales Dashboard Concept</h3>
-            <small></small>
+            <h3 class="m-b-xs">Sales Dashboard</h3>
+            <small>Who are we helping today?</small>
           </div>
         </div>
         <hr>
       </div>
+
       <div class="row">
-        <h3>My Stats</h3>
-        <div class="col-lg-2 col-sm-12">
+        <div class="col-lg-4 col-sm-12">
           <listings></listings>
         </div>
-        <div class="col-lg-2 col-sm-12">
+        <div class="col-lg-4 col-sm-12">
           <revenue></revenue>
         </div>
-        <div class="col-lg-2 col-sm-12">
+        <div class="col-lg-4 col-sm-12">
           <sales></sales>
         </div>
-        <div class="col-lg-6 col-sm-12">
-
-        </div>
       </div>
-
       <div class="row">
         <div class="col-lg-6">
           <h3>Trending</h3>

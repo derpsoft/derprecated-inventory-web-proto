@@ -1,6 +1,5 @@
 <template>
-<form>
-  <div class="container-fluid">
+  <form>
     <div class="row">
       <div class="col-sm-12 form-group" :class="{'has-error': !this.disabled && errors.has('line1')}">
         <label>Address</label>
@@ -30,8 +29,7 @@
         <span v-show="!this.disabled && errors.has('zip')" class="help-block">{{ errors.first('zip') }}</span>
       </div>
     </div>
-  </div>
-</form>
+  </form>
 </template>
 
 <script>
