@@ -1,3 +1,8 @@
+<style lang="css" scoped>
+.btn-primary {
+  margin-bottom: 20px;
+}
+</style>
 <template>
 <div>
   <div class="row control-row">
