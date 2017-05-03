@@ -33,19 +33,19 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
           <h3>Trending</h3>
           <trending></trending>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-12">
           <h3>New Products</h3>
           <new-products></new-products>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-12">
           <h3>Reduced Price</h3>
           <on-sale></on-sale>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-12">
           <h3>New Inventory</h3>
           <new-inventory></new-inventory>
         </div>
