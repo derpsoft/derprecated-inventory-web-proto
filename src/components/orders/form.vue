@@ -1,3 +1,8 @@
+<style lang="css" scoped>
+.same-as-shipping {
+  margin-top: 11px;
+}
+</style>
 <template>
 <form>
   <div class="container-fluid">
@@ -18,13 +23,11 @@
       </div>
 
       <div class="col-lg-6 col-sm-12">
-        <h4>Billing</h4>
-        <div class="checkbox-inline">
-          <label for="sameAsShipping">
+          <label for="sameAsShipping"  class="pull-right same-as-shipping">
             <input type="checkbox" class="form-input" id="sameAsShipping" v-model="sameAsShipping" :disabled="!isBillable"/>
             Same as Shipping
           </label>
-        </div>
+        <h4>Billing</h4>
         <customer-form ref="billingCustomerForm" :customer="value.billingCustomer" :disabled="sameAsShipping"></customer-form>
         <address-form ref="billingAddressForm" :address="value.billingAddress" :disabled="sameAsShipping"></address-form>
       </div>

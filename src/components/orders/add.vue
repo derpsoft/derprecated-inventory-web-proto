@@ -1,10 +1,13 @@
+<style lang="css" scoped>
+.control-row {
+  margin: 10px 0;
+}
+
+</style>
 <template>
 <div>
-  <div class="row control-row">
-    <div class="col-md-12">
-      <button class="btn btn-primary pull-right" @click="save">Create Order</button>
-      <h4>Order Details</h4>
-    </div>
+  <div class="control-row clearfix">
+      <button class="create-order btn btn-primary" @click="save">Create Order</button>
   </div>
   <div class="panel panel-filled panel-main">
     <div class="panel-body">

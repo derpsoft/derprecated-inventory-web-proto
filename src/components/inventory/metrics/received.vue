@@ -2,7 +2,7 @@
 </style>
 
 <template>
-<achievement :value="report.total" title="Active Listings" by="Month" icon="fa-hashtag">
+<achievement :value="report.total" title="Received" by="Month" icon="fa-truck" brand="info">
 </achievement>
 </template>
 

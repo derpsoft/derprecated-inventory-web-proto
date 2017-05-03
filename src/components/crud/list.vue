@@ -7,8 +7,8 @@ table.list {
 </style>
 
 <template>
-<div>
-  <div class="list-view">
+<div class="panel panel-filled">
+  <div class="panel-body">
     <div class="table-responsive">
       <table class="table table-striped table-hover list">
         <thead>

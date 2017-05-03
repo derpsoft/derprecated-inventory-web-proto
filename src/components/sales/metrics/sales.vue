@@ -2,7 +2,7 @@
 </style>
 
 <template>
-<achievement :value="report.total" title="Closed Sales" by="Month" icon="fa-hashtag" brand="info"></achievement>
+<achievement :value="report.total" title="Closed Sales" by="Month" icon="fa-line-chart" brand="success"></achievement>
 </template>
 
 <script>
