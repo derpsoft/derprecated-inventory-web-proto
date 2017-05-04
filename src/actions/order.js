@@ -4,19 +4,19 @@ import _ from 'lodash';
 import Vue from 'vue';
 import crud from 'actions/crud';
 import Constants from 'src/constants';
-import {
-  Order as OrderApi
-} from 'derp-api';
+import OrderApi from 'services/orderApi';
 
 const BASE = crud('order', OrderApi);
 
 const ORDER_BILLING_CAPTURED = 'ORDER_BILLING_CAPTURED';
 const ORDER_STATUS_UPDATE = 'ORDER_STATUS_UPDATE';
 const GET_ORDER_BY_KEY = 'GET_ORDER_BY_KEY';
+const GET_ORDER_SHIPPED_BY_USER = 'GET_ORDER_SHIPPED_BY_USER';
 
 Constants.add(ORDER_BILLING_CAPTURED);
 Constants.add(ORDER_STATUS_UPDATE);
 Constants.add(GET_ORDER_BY_KEY);
+Constants.add(GET_ORDER_SHIPPED_BY_USER);
 
 const t = Constants.fluxTemplates;
 
