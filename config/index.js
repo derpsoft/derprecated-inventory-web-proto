@@ -62,6 +62,7 @@ const local = _.merge({}, base, {
 
 const dev = _.merge({}, local, {
   api: 'https://inventory-api-dev.azurewebsites.net',
+  index: path.resolve(__dirname, '../dist/index.html'),
 });
 
 const configs = {
