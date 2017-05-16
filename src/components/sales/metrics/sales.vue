@@ -2,7 +2,7 @@
 </style>
 
 <template>
-<achievement :value="report.total" title="Closed Sales" by="Month" icon="fa-line-chart" brand="success"></achievement>
+<achievement :value="report" title="Closed Sales" by="Month" icon="fa-line-chart" brand="success"></achievement>
 </template>
 
 <script>
@@ -16,16 +16,11 @@ export default {
   },
   computed: {
     report() {
-      return this.$store.getters.mySales;
+      return this.$store.getters.salesByUser();
     },
-    user() {
-      return this.$store.getters.profile;
-    }
   },
   mounted() {
-    this.$store.dispatch(Constants.GET_SALES_BY_USER, {
-      id: this.user.id
-    });
+    this.$store.dispatch(Constants.GET_DASHBOARD_SALES_BY_USER);
   },
   methods: {
   },

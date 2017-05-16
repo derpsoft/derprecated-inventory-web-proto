@@ -4,14 +4,16 @@ import moment from 'moment';
 import _ from 'lodash';
 import Vue from 'vue';
 import Constants from 'src/constants';
-import { Report as ReportApi } from 'derp-api';
+import {
+  Report as Api,
+} from 'derp-api';
 
 function dashboard({
   commit
-} : Object, {
+}: Object, {
   timespan
-} : Object) : void {
-  new ReportApi()
+}: Object): void {
+  new Api()
     .dashboard(timespan)
     .then(report => commit(Constants.SET_DASHBOARD_REPORT, report))
     .catch(e => log.error(e));
@@ -19,11 +21,11 @@ function dashboard({
 
 function salesByProduct({
   commit
-} : Object, {
+}: Object, {
   groupBy,
   productId,
-} : Object) : void {
-  new ReportApi()
+}: Object): void {
+  new Api()
     .salesByProduct(groupBy, productId)
     .then((reports) => {
       commit(Constants.SET_SALES_BY_PRODUCT, reports);
@@ -33,10 +35,10 @@ function salesByProduct({
 
 function salesByTotal({
   commit
-} : Object, {
+}: Object, {
   groupBy
-} : Object) : void {
-  new ReportApi()
+}: Object): void {
+  new Api()
     .salesByTotal(groupBy)
     .then((reports) => {
       commit(Constants.SET_SALES_BY_TOTAL, reports);
@@ -46,11 +48,11 @@ function salesByTotal({
 
 function salesByVendor({
   commit
-} : Object, {
+}: Object, {
   groupBy,
   vendorId,
-} : Object) : void {
-  new ReportApi()
+}: Object): void {
+  new Api()
     .salesByVendor(groupBy, vendorId)
     .then((reports) => {
       commit(Constants.SET_SALES_BY_VENDOR, reports);
@@ -58,7 +60,7 @@ function salesByVendor({
     .catch(e => log.error(e));
 }
 
-function toChartData(results : Object) : Object {
+function toChartData(results: Object): Object {
   const dat = {
     labels: [],
     data: [],
@@ -111,10 +113,45 @@ const ACTIONS = {
   [Constants.GET_SALES_BY_TOTAL]: salesByTotal,
   [Constants.GET_SALES_BY_VENDOR]: salesByVendor,
   [Constants.GET_DASHBOARD]: dashboard,
+
+  [Constants.GET_DASHBOARD_SALES_BY_USER]: ({
+    commit
+  }) => {
+    const api = new Api();
+    return api.salesByUser()
+      .then(() => {
+        commit(Constants.SET_DASHBOARD_SALES_BY_USER);
+      });
+  },
+
+  [Constants.GET_DASHBOARD_REVENUE_BY_USER]: ({
+    commit
+  }) => {
+    const api = new Api();
+    return api.revenueByUser()
+      .then(() => {
+        commit(Constants.SET_DASHBOARD_REVENUE_BY_USER);
+      });
+  },
+
+  [Constants.GET_DASHBOARD_LISTINGS_BY_USER]: ({
+    commit
+  }) => {
+    const api = new Api();
+    return api.listingsByUser()
+      .then(() => {
+        commit(Constants.SET_DASHBOARD_LISTINGS_BY_USER);
+      });
+  },
 };
 
 const MUTATIONS = {
-  [Constants.SET_SALES_BY_PRODUCT]: (state : Object, results : Object) : void => {
+
+  [Constants.SET_DASHBOARD_SALES_BY_USER]: () => {},
+  [Constants.SET_DASHBOARD_REVENUE_BY_USER]: () => {},
+  [Constants.SET_DASHBOARD_LISTINGS_BY_USER]: () => {},
+
+  [Constants.SET_SALES_BY_PRODUCT]: (state: Object, results: Object): void => {
     const dat = toChartData(results);
 
     state.reports.salesByTotal = {
@@ -122,7 +159,7 @@ const MUTATIONS = {
       labels: dat.labels,
     };
   },
-  [Constants.SET_SALES_BY_TOTAL]: (state : Object, results : Object) : void => {
+  [Constants.SET_SALES_BY_TOTAL]: (state: Object, results: Object): void => {
     const dat = toChartData(results);
 
     state.reports.salesByTotal = {
@@ -130,7 +167,7 @@ const MUTATIONS = {
       labels: dat.labels,
     };
   },
-  [Constants.SET_SALES_BY_VENDOR]: (state : Object, results : Object) : void => {
+  [Constants.SET_SALES_BY_VENDOR]: (state: Object, results: Object): void => {
     const dat = toChartData(results);
 
     state.reports.salesByTotal = {
@@ -138,7 +175,7 @@ const MUTATIONS = {
       labels: dat.labels,
     };
   },
-  [Constants.SET_DASHBOARD_REPORT]: (state : Object, result : Object) : void => {
+  [Constants.SET_DASHBOARD_REPORT]: (state: Object, result: Object): void => {
     const split = (src) => {
       const pairs = _.chain(src)
         .toPairs()
@@ -161,10 +198,14 @@ const MUTATIONS = {
 };
 
 const GETTERS = {
-  salesByProduct: (state : Object) : Object => state.reports.salesByProduct,
-  salesByTotal: (state : Object) : Object => state.reports.salesByTotal,
-  salesByVendor: (state : Object) : Object => state.reports.salesByVendor,
-  dashboard: (state : Object) : Object => state.reports.dashboard,
+  salesByProduct: (state: Object): Object => state.reports.salesByProduct,
+  salesByTotal: (state: Object): Object => state.reports.salesByTotal,
+  salesByVendor: (state: Object): Object => state.reports.salesByVendor,
+  dashboard: (state: Object): Object => state.reports.dashboard,
+
+  salesByUser: (state: Object) => () : number => state.reports.salesByUser,
+  revenueByUser: (state: Object) => (): number => state.reports.revenueByUser,
+  listingCountByUser: (state: Object) => () : number => state.reports.listingCountByUser,
 };
 
 const ReportActions = {
