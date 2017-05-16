@@ -2,7 +2,7 @@
 </style>
 
 <template>
-<achievement :value="report.total" title="Sales" by="Month" icon="fa-dollar" :brand="report.total > 0 ? 'success' : 'warning'" :filter="formatMoney">
+<achievement :value="report" title="Sales" by="Month" icon="fa-dollar" :brand="report > 0 ? 'success' : 'warning'" :filter="formatMoney">
 </achievement>
 </template>
 
@@ -19,17 +19,12 @@ export default {
 
   computed: {
     report() {
-      return this.$store.getters.myRevenue;
+      return this.$store.getters.revenueByUser();
     },
-    user() {
-      return this.$store.getters.profile;
-    }
   },
 
   mounted() {
-    this.$store.dispatch(Constants.GET_REVENUE_BY_USER, {
-      id: this.user.id
-    });
+    this.$store.dispatch(Constants.GET_DASHBOARD_REVENUE_BY_USER);
   },
 
   methods: {

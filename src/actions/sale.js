@@ -18,9 +18,6 @@ const MUTATIONS = {
 
 const GETTERS = {
   ...BASE.GETTERS,
-  mySales: () : number => Math.random(0, 30),
-  myRevenue: () : number => Math.random(0, 30),
-  activeListings: () : number => Math.random(0, 30),
 };
 
 const SaleActions = {
