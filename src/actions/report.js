@@ -125,8 +125,8 @@ const ACTIONS = {
   }) => {
     const api = new Api();
     return api.inventoryReceivedByUser()
-      .then(() => {
-        commit(Constants.SET_DASHBOARD_INVENTORY_RECEIVED_BY_USER);
+      .then((count) => {
+        commit(Constants.SET_DASHBOARD_INVENTORY_RECEIVED_BY_USER, count);
       });
   },
   [Constants.GET_DASHBOARD_INVENTORY_SHIPPED_BY_USER]: ({
@@ -134,8 +134,8 @@ const ACTIONS = {
   }) => {
     const api = new Api();
     return api.inventoryShippedByUser()
-      .then(() => {
-        commit(Constants.SET_DASHBOARD_INVENTORY_SHIPPED_BY_USER);
+      .then((count) => {
+        commit(Constants.SET_DASHBOARD_INVENTORY_SHIPPED_BY_USER, count);
       });
   },
 
@@ -144,8 +144,8 @@ const ACTIONS = {
   }) => {
     const api = new Api();
     return api.salesByUser()
-      .then(() => {
-        commit(Constants.SET_DASHBOARD_SALES_BY_USER);
+      .then((count) => {
+        commit(Constants.SET_DASHBOARD_SALES_BY_USER, count);
       });
   },
 
@@ -154,8 +154,8 @@ const ACTIONS = {
   }) => {
     const api = new Api();
     return api.revenueByUser()
-      .then(() => {
-        commit(Constants.SET_DASHBOARD_REVENUE_BY_USER);
+      .then((count) => {
+        commit(Constants.SET_DASHBOARD_REVENUE_BY_USER, count);
       });
   },
 
@@ -164,8 +164,8 @@ const ACTIONS = {
   }) => {
     const api = new Api();
     return api.listingsByUser()
-      .then(() => {
-        commit(Constants.SET_DASHBOARD_LISTINGS_BY_USER);
+      .then((count) => {
+        commit(Constants.SET_DASHBOARD_LISTINGS_BY_USER, count);
       });
   },
 };
@@ -173,19 +173,19 @@ const ACTIONS = {
 const MUTATIONS = {
 
   [Constants.SET_DASHBOARD_SALES_BY_USER]: (state: Object, count: number) => {
-    state.salesByUser = count;
+    state.reports.salesByUser = count;
   },
   [Constants.SET_DASHBOARD_REVENUE_BY_USER]: (state: Object, count: number) => {
-    state.revenueByUser = count;
+    state.reports.revenueByUser = count;
   },
   [Constants.SET_DASHBOARD_LISTINGS_BY_USER]: (state: Object, count: number) => {
-    state.listingCountByUser = count;
+    state.reports.listingCountByUser = count;
   },
   [Constants.SET_DASHBOARD_INVENTORY_SHIPPED_BY_USER]: (state: Object, count: number) => {
-    state.inventoryShippedByUser = count;
+    state.reports.inventoryShippedByUser = count;
   },
   [Constants.SET_DASHBOARD_INVENTORY_RECEIVED_BY_USER]: (state: Object, count: number) => {
-    state.inventoryReceivedByUser = count;
+    state.reports.inventoryReceivedByUser = count;
   },
 
   [Constants.SET_SALES_BY_PRODUCT]: (state: Object, results: Object): void => {
