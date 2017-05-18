@@ -26,7 +26,7 @@ export default {
   },
   mounted() {
     // $FlowFixMe
-    this.$store.dispatch(Constants.GET_INVENTORY_RECEIVED_BY_USER, {
+    this.$store.dispatch(Constants.GET_DASHBOARD_INVENTORY_RECEIVED_BY_USER, {
       id: this.user.id
     });
   },
