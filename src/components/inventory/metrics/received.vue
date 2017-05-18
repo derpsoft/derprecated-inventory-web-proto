@@ -2,7 +2,7 @@
 </style>
 
 <template>
-<achievement :value="report.total" title="Received" by="Month" icon="fa-truck" brand="info">
+<achievement :value="report" title="Received" by="Month" icon="fa-truck" brand="info">
 </achievement>
 </template>
 
@@ -18,17 +18,12 @@ export default {
   },
   computed: {
     report() {
-      return this.$store.getters.received;
+      return this.$store.getters.inventoryReceivedByUser();
     },
-    user() {
-      return this.$store.getters.profile;
-    }
   },
   mounted() {
     // $FlowFixMe
-    this.$store.dispatch(Constants.GET_DASHBOARD_INVENTORY_RECEIVED_BY_USER, {
-      id: this.user.id
-    });
+    this.$store.dispatch(Constants.GET_DASHBOARD_INVENTORY_RECEIVED_BY_USER);
   },
   methods: {},
 };

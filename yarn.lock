@@ -2131,9 +2131,9 @@ depd@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.0.tgz#e1bd82c6aab6ced965b97b88b17ed3e528ca18c3"
 
-derp-api@^1.0.24:
-  version "1.0.24"
-  resolved "https://registry.yarnpkg.com/derp-api/-/derp-api-1.0.24.tgz#1f603abd6930956658d72fbc6c6844d4d4bdcce1"
+derp-api@^1.0.25:
+  version "1.0.25"
+  resolved "https://registry.yarnpkg.com/derp-api/-/derp-api-1.0.25.tgz#71284a895891af9cb2c0a1088a2445067285838a"
   dependencies:
     isomorphic-fetch "^2.2.1"
     lodash "^4.17.4"
