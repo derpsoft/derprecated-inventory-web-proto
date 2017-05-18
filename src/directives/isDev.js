@@ -1,7 +1,8 @@
-const hide = (el) => {
+// @flow
+const hide = (el: Object) => {
   el.style.setProperty('display', 'none', 'important');
 };
-export default (Vue) => {
+export default (Vue: Object) => {
   Vue.directive('is-dev', {
     bind: (el) => {
       if (!~['local', 'development'].indexOf(process.env.NODE_ENV)) {

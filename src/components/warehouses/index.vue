@@ -38,6 +38,7 @@ import Search from 'components/search';
 import WarehouseList from './list';
 
 export default {
+  name: 'warehouse',
   components: {
     WarehouseList,
     Search,

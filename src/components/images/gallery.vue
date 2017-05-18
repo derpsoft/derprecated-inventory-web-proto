@@ -54,25 +54,19 @@
   </div>
 
   <div class="image-upload" v-show="toggle">
-    <dropzone id="imageGallery" :url="uploadUrl" accepted-file-types="image/*" show-remove-link="false"
-        max-file-size-in-mb="8" auto-process-queue="true" :show-remove-link="false" :max-file-size-in-mb="8"
-        :auto-process-queue="true" @vdropzone-sending="onSending" @vdropzone-success="onSuccess"
-        :use-font-awesome="true"></dropzone>
+    <dropzone id="imageGallery" :url="uploadUrl" accepted-file-types="image/*" show-remove-link="false" max-file-size-in-mb="8" auto-process-queue="true" :show-remove-link="false" :max-file-size-in-mb="8" :auto-process-queue="true" @vdropzone-sending="onSending"
+        @vdropzone-success="onSuccess" :use-font-awesome="true"></dropzone>
   </div>
 </div>
-
 </template>
 
 
 <script>
+// @flow
 import Dropzone from 'vue2-dropzone';
 
 export default {
   name: 'imageGallery',
-
-  data() {
-    return {};
-  },
 
   components: {
     Dropzone,
@@ -122,16 +116,15 @@ export default {
   },
 
   filter: {
-    toSsl(src) {
+    toSsl(src: string) {
       return src.replace('http:', 'https:');
     },
   },
 
   methods: {
-    onSuccess(file, json) {
+    onSuccess(file: Object, json: Object) {
       this.images.push(json.result);
     },
   },
 };
-
 </script>

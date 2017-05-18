@@ -31,7 +31,7 @@
         <td>{{props.record.upc}}</td>
         <td>{{props.record.sku}}</td>
       </tr>
-    </template>
+</template>
   </crud-list>
 </div>
 </template>
@@ -61,16 +61,15 @@ export default {
   },
 
   filters: {
-    toSsl(src) {
+    toSsl(src: string) {
       return src.replace('http:', 'https:');
     },
   },
 
   methods: {
-    edit(id) {
+    edit(id: number) {
       this.$router.push(`/products/edit/${id}`);
     }
   },
 };
-
 </script>

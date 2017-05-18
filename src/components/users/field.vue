@@ -11,7 +11,7 @@ import Constants from 'src/constants';
  *   <td>{{title}}</td>
  */
 export default {
-  render(createElement) {
+  render(createElement: Function) {
     return createElement(this.tag, {
       domProps: {
         innerText: this.value

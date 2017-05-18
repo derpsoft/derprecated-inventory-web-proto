@@ -8,6 +8,7 @@
 </template>
 
 <script>
+// @flow
 import CrudList from 'components/crud/list';
 
 export default {

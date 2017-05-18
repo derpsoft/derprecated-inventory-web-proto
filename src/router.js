@@ -3,6 +3,8 @@ import VueRouter from 'vue-router';
 import Main from 'components/main';
 import Dashboard from 'components/dashboard/index';
 import NotFound from 'components/errors/notFound';
+import NotAuthorized from 'components/errors/notAuthorized';
+import PrivacyPolicy from 'components/legal/privacy';
 
 import ForgotPassword from 'components/password/forgot';
 import ResetPassword from 'components/password/reset';
@@ -13,11 +15,16 @@ import Login from 'components/login/index';
 import Logout from 'components/logout/index';
 
 import Reports from 'components/reports/index';
+
 import Inventory from 'components/inventory/index';
+import InventoryDashboard from 'components/inventory/dashboard';
 import ModifyInventory from 'components/inventory/modify';
 
 import Products from 'components/products/index';
 import ModifyProducts from 'components/products/modifyProduct';
+
+import Images from 'components/images/index';
+import ModifyImages from 'components/images/modify';
 
 import Warehouses from 'components/warehouses/index';
 import ModifyWarehouses from 'components/warehouses/modifyWarehouses';
@@ -35,7 +42,11 @@ import Vendors from 'components/vendors/index';
 import ModifyVendors from 'components/vendors/modifyVendors';
 
 import Sales from 'components/sales/index';
-import ModifySales from 'components/sales/modify';
+import SalesDashboard from 'components/sales/dashboard';
+
+import Orders from 'components/orders/index';
+import ModifyOrders from 'components/orders/modify';
+import OrderSummary from 'components/orders/summary';
 
 import Constants from './constants';
 // import NotFound from './views/notfound';
@@ -49,7 +60,7 @@ const guard = (g) => {
       return next();
     }
     // do something to tell the user that they're not allowed;
-    return next('/NotFound');
+    return next('/not-found');
   };
 };
 
@@ -69,16 +80,23 @@ const routes = [{
   path: '/logout',
   component: Logout,
 }, {
-  path: '/NotFound',
+  path: '/privacy-policy',
+  component: PrivacyPolicy,
+}, {
+  path: '/not-found',
   component: NotFound,
+}, {
+  path: '/not-authorized',
+  component: NotAuthorized,
+}, {
+  path: '/orders/summary/:orderKey/:orderNumber',
+  component: OrderSummary,
 }, {
   path: '/',
   component: Main,
-  meta: {
-    requiresAuth: true
-  },
   children: [{
-    path: '',
+    path: '/dashboard',
+    alias: '',
     component: Dashboard,
     meta: {
       requiresAuth: true,
@@ -125,7 +143,7 @@ const routes = [{
       requiresAuth: true,
     },
   }, {
-    path: 'products',
+    path: '/products',
     component: Products,
     beforeEnter: guard('canReadProducts'),
     meta: {
@@ -149,6 +167,20 @@ const routes = [{
     path: '/products/import',
     component: ModifyProducts,
     beforeEnter: guard('canUpsertProducts'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/images',
+    component: Images,
+    beforeEnter: guard('canReadImages'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/images/edit/:id',
+    component: ModifyImages,
+    beforeEnter: guard('canUpsertImages'),
     meta: {
       requiresAuth: true,
     },
@@ -213,6 +245,12 @@ const routes = [{
       requiresAuth: true,
     }
   }, {
+    path: '/inventory/dashboard',
+    component: InventoryDashboard,
+    meta: {
+      requiresAuth: true,
+    }
+  }, {
     path: '/inventory/receive',
     component: ModifyInventory,
     beforeEnter: guard('canReceiveInventory'),
@@ -256,15 +294,30 @@ const routes = [{
     },
   }, {
     path: '/sales',
-    component: Sales,
+    alias: '/sales/dashboard',
+    component: SalesDashboard,
     beforeEnter: guard('canReadSales'),
     meta: {
       requiresAuth: true,
     },
   }, {
-    path: '/sales/add',
-    component: ModifySales,
-    beforeEnter: guard('canUpsertSales'),
+    path: '/orders',
+    component: Orders,
+    beforeEnter: guard('canManageOrders'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/orders/add',
+    component: ModifyOrders,
+    beforeEnter: guard('canManageOrders'),
+    meta: {
+      requiresAuth: true,
+    },
+  }, {
+    path: '/orders/edit/:id',
+    component: ModifyOrders,
+    beforeEnter: guard('canManageOrders'),
     meta: {
       requiresAuth: true,
     },
@@ -272,11 +325,10 @@ const routes = [{
     path: '*',
     component: NotFound,
     beforeEnter(to, from, next) {
-      next('/NotFound');
+      next('/not-found');
     }
   }],
-}
-];
+}];
 
 const router = new VueRouter({
   mode: 'history',
@@ -290,14 +342,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = store.getters.isAuthenticated;
-
-  if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
-    next('/login');
-  } else if (to.path.toLowerCase() === '/login' && isAuthenticated) {
-    next('/');
+  if (to.meta.requiresAuth && !store.getters.isAuthenticated) {
+    router.replace('/login');
   }
-
   next();
 });
 
@@ -306,6 +353,5 @@ store.watch(() => store.getters.isAuthenticated, (current, previous) => {
     router.replace(current ? '/' : '/login');
   }
 });
-
 
 module.exports = router;

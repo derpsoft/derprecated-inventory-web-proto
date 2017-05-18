@@ -17,9 +17,8 @@ textarea.form-control {
         <div class="media-body">
           <div class="form-group" :class="{'has-error': errors.has('productTitle')}">
             <label>Product Title</label>
-            <input type="text" class="form-control" placeholder="Enter a title..." name="productTitle"
-                v-model="value.title" v-validate="'required'" v-focus="true">
-              <span v-show="errors.has('productTitle')" class="help-block">Product Title is required.</span>
+            <input type="text" class="form-control" placeholder="Enter a title..." name="productTitle" v-model="value.title" v-validate="'required'" v-focus="true">
+            <span v-show="errors.has('productTitle')" class="help-block">Product Title is required.</span>
           </div>
           <div class="form-group">
             <label>Product Description</label>
@@ -39,10 +38,8 @@ textarea.form-control {
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Category</label>
-                    <autocomplete :suggestions="categories" :selected="category" :key-selector="(v) => `${v.name}`"
-                        :value-selector="(v) => v" :display-selector="(v) => `${v.id}: ${v.name}`"
-                        @change="setCategory">
-                      </autocomplete>
+                    <autocomplete :suggestions="categories" :selected="category" :key-selector="(v) => `${v.name}`" :value-selector="(v) => v" :display-selector="(v) => `${v.id}: ${v.name}`" @change="setCategory">
+                    </autocomplete>
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -78,10 +75,8 @@ textarea.form-control {
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>Vendor</label>
-                    <autocomplete :suggestions="vendors" :selected="vendor" :key-selector="(v) => `${v.name}`"
-                        :value-selector="(v) => v" :display-selector="(v) => `${v.id}: ${v.name}`"
-                        @change="setVendor">
-                      </autocomplete>
+                    <autocomplete :suggestions="vendors" :selected="vendor" :key-selector="(v) => `${v.name}`" :value-selector="(v) => v" :display-selector="(v) => `${v.id}: ${v.name}`" @change="setVendor">
+                    </autocomplete>
                   </div>
                 </div>
               </div>
@@ -92,7 +87,6 @@ textarea.form-control {
     </div>
   </div>
 </form>
-
 </template>
 
 <script>
@@ -178,13 +172,12 @@ export default {
           };
         });
     },
-    setVendor(v) {
+    setVendor(v: Object) {
       this.value.vendorId = v.id;
     },
-    setCategory(v) {
+    setCategory(v: Object) {
       this.value.categoryId = v.id;
     },
   },
 };
-
 </script>

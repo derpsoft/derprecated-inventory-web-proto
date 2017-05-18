@@ -1,16 +1,19 @@
+// @flow
 import log from 'loglevel';
 import moment from 'moment';
 import _ from 'lodash';
 import Vue from 'vue';
 import Constants from 'src/constants';
-import ReportApi from 'services/reportApi';
+import {
+  Report as Api,
+} from 'derp-api';
 
 function dashboard({
   commit
-}, {
+}: Object, {
   timespan
-}) {
-  new ReportApi()
+}: Object): void {
+  new Api()
     .dashboard(timespan)
     .then(report => commit(Constants.SET_DASHBOARD_REPORT, report))
     .catch(e => log.error(e));
@@ -18,11 +21,11 @@ function dashboard({
 
 function salesByProduct({
   commit
-}, {
+}: Object, {
   groupBy,
   productId,
-}) {
-  new ReportApi()
+}: Object): void {
+  new Api()
     .salesByProduct(groupBy, productId)
     .then((reports) => {
       commit(Constants.SET_SALES_BY_PRODUCT, reports);
@@ -32,10 +35,10 @@ function salesByProduct({
 
 function salesByTotal({
   commit
-}, {
+}: Object, {
   groupBy
-}) {
-  new ReportApi()
+}: Object): void {
+  new Api()
     .salesByTotal(groupBy)
     .then((reports) => {
       commit(Constants.SET_SALES_BY_TOTAL, reports);
@@ -45,11 +48,11 @@ function salesByTotal({
 
 function salesByVendor({
   commit
-}, {
+}: Object, {
   groupBy,
   vendorId,
-}) {
-  new ReportApi()
+}: Object): void {
+  new Api()
     .salesByVendor(groupBy, vendorId)
     .then((reports) => {
       commit(Constants.SET_SALES_BY_VENDOR, reports);
@@ -57,7 +60,7 @@ function salesByVendor({
     .catch(e => log.error(e));
 }
 
-function toChartData(results) {
+function toChartData(results: Object): Object {
   const dat = {
     labels: [],
     data: [],
@@ -102,6 +105,12 @@ const INITIAL_STATE = {
         total: 0.00,
       },
     },
+
+    salesByUser: 0,
+    revenueByUser: 0,
+    listingCountByUser: 0,
+    inventoryShippedByUser: 0,
+    inventoryReceivedByUser: 0,
   },
 };
 
@@ -110,10 +119,76 @@ const ACTIONS = {
   [Constants.GET_SALES_BY_TOTAL]: salesByTotal,
   [Constants.GET_SALES_BY_VENDOR]: salesByVendor,
   [Constants.GET_DASHBOARD]: dashboard,
+
+  [Constants.GET_DASHBOARD_INVENTORY_RECEIVED_BY_USER]: ({
+    commit
+  }) => {
+    const api = new Api();
+    return api.inventoryReceivedByUser()
+      .then((count) => {
+        commit(Constants.SET_DASHBOARD_INVENTORY_RECEIVED_BY_USER, count);
+      });
+  },
+  [Constants.GET_DASHBOARD_INVENTORY_SHIPPED_BY_USER]: ({
+    commit
+  }) => {
+    const api = new Api();
+    return api.inventoryShippedByUser()
+      .then((count) => {
+        commit(Constants.SET_DASHBOARD_INVENTORY_SHIPPED_BY_USER, count);
+      });
+  },
+
+  [Constants.GET_DASHBOARD_SALES_BY_USER]: ({
+    commit
+  }) => {
+    const api = new Api();
+    return api.salesByUser()
+      .then((count) => {
+        commit(Constants.SET_DASHBOARD_SALES_BY_USER, count);
+      });
+  },
+
+  [Constants.GET_DASHBOARD_REVENUE_BY_USER]: ({
+    commit
+  }) => {
+    const api = new Api();
+    return api.revenueByUser()
+      .then((count) => {
+        commit(Constants.SET_DASHBOARD_REVENUE_BY_USER, count);
+      });
+  },
+
+  [Constants.GET_DASHBOARD_LISTINGS_BY_USER]: ({
+    commit
+  }) => {
+    const api = new Api();
+    return api.listingsByUser()
+      .then((count) => {
+        commit(Constants.SET_DASHBOARD_LISTINGS_BY_USER, count);
+      });
+  },
 };
 
 const MUTATIONS = {
-  [Constants.SET_SALES_BY_PRODUCT]: (state, results) => {
+
+  [Constants.SET_DASHBOARD_SALES_BY_USER]: (state: Object, count: number) => {
+    state.reports.salesByUser = count;
+  },
+  [Constants.SET_DASHBOARD_REVENUE_BY_USER]: (state: Object, count: number) => {
+    state.reports.revenueByUser = count;
+  },
+  [Constants.SET_DASHBOARD_LISTINGS_BY_USER]: (state: Object, count: number) => {
+    state.reports.listingCountByUser = count;
+  },
+  [Constants.SET_DASHBOARD_INVENTORY_SHIPPED_BY_USER]: (state: Object, count: number) => {
+    state.reports.inventoryShippedByUser = count;
+  },
+  [Constants.SET_DASHBOARD_INVENTORY_RECEIVED_BY_USER]: (state: Object, count: number) => {
+    state.reports.inventoryReceivedByUser = count;
+  },
+
+  [Constants.SET_SALES_BY_PRODUCT]: (state: Object, results: Object): void => {
     const dat = toChartData(results);
 
     state.reports.salesByTotal = {
@@ -121,7 +196,7 @@ const MUTATIONS = {
       labels: dat.labels,
     };
   },
-  [Constants.SET_SALES_BY_TOTAL]: (state, results) => {
+  [Constants.SET_SALES_BY_TOTAL]: (state: Object, results: Object): void => {
     const dat = toChartData(results);
 
     state.reports.salesByTotal = {
@@ -129,7 +204,7 @@ const MUTATIONS = {
       labels: dat.labels,
     };
   },
-  [Constants.SET_SALES_BY_VENDOR]: (state, results) => {
+  [Constants.SET_SALES_BY_VENDOR]: (state: Object, results: Object): void => {
     const dat = toChartData(results);
 
     state.reports.salesByTotal = {
@@ -137,7 +212,7 @@ const MUTATIONS = {
       labels: dat.labels,
     };
   },
-  [Constants.SET_DASHBOARD_REPORT]: (state, result) => {
+  [Constants.SET_DASHBOARD_REPORT]: (state: Object, result: Object): void => {
     const split = (src) => {
       const pairs = _.chain(src)
         .toPairs()
@@ -160,10 +235,18 @@ const MUTATIONS = {
 };
 
 const GETTERS = {
-  salesByProduct: state => state.reports.salesByProduct,
-  salesByTotal: state => state.reports.salesByTotal,
-  salesByVendor: state => state.reports.salesByVendor,
-  dashboard: state => state.reports.dashboard,
+  salesByProduct: (state: Object): Object => state.reports.salesByProduct,
+  salesByTotal: (state: Object): Object => state.reports.salesByTotal,
+  salesByVendor: (state: Object): Object => state.reports.salesByVendor,
+
+  dashboard: (state: Object): Object => state.reports.dashboard,
+
+  salesByUser: (state: Object) => (): number => state.reports.salesByUser,
+  revenueByUser: (state: Object) => (): number => state.reports.revenueByUser,
+  listingCountByUser: (state: Object) => (): number => state.reports.listingCountByUser,
+
+  inventoryShippedByUser: (state: Object) => (): number => state.reports.inventoryShippedByUser,
+  inventoryReceivedByUser: (state: Object) => (): number => state.reports.inventoryReceivedByUser,
 };
 
 const ReportActions = {

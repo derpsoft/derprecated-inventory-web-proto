@@ -1,3 +1,8 @@
+<style lang="css" scoped>
+.btn {
+  margin-bottom: 20px;
+}
+</style>
 <template>
 <div>
   <div class="row control-row">
@@ -13,14 +18,15 @@
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import CategoryForm from './form';
 
 export default {
+  name: 'editCategories',
   components: {
     CategoryForm
   },
@@ -39,6 +45,7 @@ export default {
   },
   methods: {
     load() {
+      // $FlowFixMe
       this.$store.dispatch(Constants.GET_CATEGORY, {
         id: this.id,
       });
@@ -54,6 +61,7 @@ export default {
         }) => {
           if (isValid) {
             category.id = this.id;
+            // $FlowFixMe
             this.$store.dispatch(Constants.UPDATE_CATEGORY, {
               category
             });
@@ -69,6 +77,7 @@ export default {
     },
 
     delete() {
+      // $FlowFixMe
       this.$store.dispatch(Constants.DELETE_CATEGORY, {
         id: this.id,
         rowVersion: this.category.rowVersion,
@@ -86,5 +95,4 @@ export default {
     this.load();
   }
 };
-
 </script>

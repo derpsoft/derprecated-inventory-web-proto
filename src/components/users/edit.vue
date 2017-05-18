@@ -17,7 +17,7 @@
     <div class="row control-row">
       <div class="col-md-12">
         <button class="btn btn-primary pull-right" type="submit">Save User</button>
-        <h4>User Details</h4>
+        <h4>{{value.firstName}} {{value.lastName}}</h4>
       </div>
     </div>
     <div class="panel panel-filled panel-main">
@@ -32,37 +32,10 @@
           <input type="text" class="form-control" placeholder="Username" name="username" v-model="value.userName" v-validate="'required'" v-focus="true">
           <span v-show="errors.has('username')" class="help-block">{{ errors.first('username') }}</span>
         </div>
-        <div class="form-group" :class="{'has-error': errors.has('firstName')}">
-          <label>First Name</label>
-          <input type="text" class="form-control" placeholder="First Name" name="firstName" v-model="value.firstName" v-validate="'required'">
-          <span v-show="errors.has('firstName')" class="help-block">{{ errors.first('firstName') }}</span>
-        </div>
-        <div class="form-group" :class="{'has-error': errors.has('lastName')}">
-          <label>Last Name</label>
-          <input type="text" class="form-control" placeholder="Last Name" v-model="value.lastName" name="lastName" v-validate="'required'">
-          <span v-show="errors.has('lastName')" class="help-block">{{ errors.first('lastName') }}</span>
-        </div>
         <div class="form-group" :class="{'has-error': errors.has('phone')}">
           <label>Phone Number</label>
           <input type="tel" class="form-control" placeholder="Phone Number" v-model="value.phoneNumber" name="phone" v-validate="'required'">
           <span v-show="errors.has('phone')" class="help-block">{{ errors.first('phone') }}</span>
-        </div>
-        <div class="form-group clearfix">
-          <h4>Permissions</h4>
-          <div class="col-md-3 col-xs-12" v-for="p in allPermissions">
-            <div class="checkbox">
-              <label>
-                  <input type="checkbox" v-model="value.permissions" :value="p.key">
-                  {{ p.description }}
-                </label>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="password-reset">
-            <a class="btn btn-danger pull-left reset-btn" @click="resetPassword">Reset Password</a>
-            <span v-if="resetRequested">Password was sent to the user.</span>
-          </div>
         </div>
       </div>
     </div>
@@ -72,30 +45,21 @@
 
 
 <script>
-import _ from 'lodash';
 import Constants from 'src/constants';
 
 export default {
   data() {
     return {
-      value: {
-        permissions: [],
-      },
+      value: {},
     };
   },
   computed: {
     id() {
-      return parseInt(this.$route.params.id, 10);
+      return this.$route.params.id;
     },
     user() {
       return this.$store.getters.user(this.id);
     },
-    allPermissions() {
-      return _.values(Constants.permissions);
-    },
-    resetRequested() {
-      return this.$store.getters.isResetPasswordSuccess;
-    }
   },
   watch: {
     $route: 'load',
@@ -123,24 +87,10 @@ export default {
       this.value = Object.assign({}, this.user);
     },
     load() {
-      this.$store.commit(Constants.SET_PASSWORD_RESET_STATUS, false);
-
       this.$store.dispatch(Constants.GET_USER, {
         id: this.id,
       });
     },
-    resetPassword() {
-      if (this.user.email) {
-        this.$store.dispatch(Constants.FORGOT_PASSWORD, {
-          email: this.user.email,
-        });
-      } else {
-        this.$store.dispatch(Constants.SHOW_TOASTR, {
-          type: 'info',
-          message: 'User does not have an email.'
-        });
-      }
-    }
   },
   mounted() {
     this.load();

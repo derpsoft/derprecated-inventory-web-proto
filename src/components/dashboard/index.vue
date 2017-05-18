@@ -14,7 +14,7 @@
             <div class="pull-right">
               <today></today>
             </div>
-            <h3 class="m-b-xs">Derprecated Dashboard Concept</h3>
+            <h3 class="m-b-xs">Derprecated Dashboard</h3>
             <small>Derp overview</small>
           </div>
         </div>
@@ -28,14 +28,14 @@
           <inventory-received></inventory-received>
         </div>
         <div class="col-lg-4 col-sm-12">
-          <total-sales></total-sales>
+        <total-sales></total-sales>
         </div>
       </div>
       <div class="row" v-is-dev>
         <div class="col-md-12">
           <div class="panel panel-filled">
             <div class="panel-body">
-              <chart></chart>
+              <!-- <chart></chart> -->
             </div>
           </div>
         </div>
@@ -46,17 +46,23 @@
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import Today from 'shared/today';
-import Chart from './chart';
+// import Chart from './chart';
 import TotalSales from './totalSales';
 import InventoryReceived from './inventoryReceived';
 import InventoryDispatched from './inventoryDispatched';
 
 export default {
   name: 'dashboard',
+  data() {
+    return {
+      groupBy: 'month',
+    };
+  },
   components: {
-    Chart,
+  //  Chart,
     Today,
     TotalSales,
     InventoryReceived,

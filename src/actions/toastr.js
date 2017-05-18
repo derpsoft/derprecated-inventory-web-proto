@@ -1,3 +1,4 @@
+// @flow
 import log from 'loglevel';
 import toastr from 'toastr';
 import Constants from 'src/constants';

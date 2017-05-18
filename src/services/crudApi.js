@@ -1,23 +1,23 @@
+// @flow
 import _ from 'lodash';
 import inflection from 'lodash-inflection';
-import Fetchable from 'services/fetchable';
+import {
+  Fetchable
+} from 'derp-api';
 import store from 'stores/store';
 import Constants from 'src/constants';
 
-_.mixin(inflection);
+_.mixin(inflection, {});
 
-const t = {
-  COUNT: x => `/api/v1/${_(x).pluralize().toLower()}/count`,
-  CREATE: x => `/api/v1/${_(x).pluralize().toLower()}`,
-  DELETE: x => `/api/v1/${_(x).pluralize().toLower()}`,
-  LIST: x => `/api/v1/${_(x).pluralize().toLower()}`,
-  SAVE: x => `/api/v1/${_(x).pluralize().toLower()}`,
-  SINGLE: x => `/api/v1/${_(x).pluralize().toLower()}`,
-  TYPEAHEAD: x => `/api/v1/${_(x).pluralize().toLower()}/typeahead`,
-};
+const t = Constants.apiTemplates;
 
 export default class CrudApi extends Fetchable {
-  constructor(name, routes = {}) {
+  routes: Object;
+  name: string;
+  one: string;
+  many: string;
+
+  constructor(name: string, routes: Object = {}) {
     super(Constants.API_ROOT, store);
     this.routes = _.merge(t, routes);
     this.name = name;
@@ -25,50 +25,46 @@ export default class CrudApi extends Fetchable {
     this.many = _(name).pluralize().toLower();
   }
 
-  count(includeDeleted = false) {
-    const body = new URLSearchParams();
+  count(includeDeleted: boolean = false): Promise < Object > {
+    const body: any = new URLSearchParams();
     body.set('includeDeleted', includeDeleted);
 
     return super
       .get(`${this.routes.COUNT(this.name)}?${body}`)
-      .then(res => res.json())
       .then(json => json.result);
   }
 
-  list(skip = 0, take = 25, includeDeleted = false) {
-    const body = new URLSearchParams();
+  list(skip: number = 0, take: number = 25, includeDeleted: boolean = false): Promise < Object > {
+    const body: any = new URLSearchParams();
     body.set('skip', skip);
-    body.set('take', take);
+    // body.set('take', take);
     body.set('includeDeleted', includeDeleted);
 
     return super
       .get(`${this.routes.LIST(this.name)}?${body}`)
-      .then(res => res.json())
       .then(json => json.result || json[this.many]);
   }
 
-  single(id, includeDeleted = false) {
-    const body = new URLSearchParams();
+  single(id: number, includeDeleted: boolean = false): Promise < Object > {
+    const body: any = new URLSearchParams();
     body.set('includeDeleted', includeDeleted);
 
     return super
       .get(`${this.routes.SINGLE(this.name)}/${id}?${body}`)
-      .then(res => res.json())
       .then(json => json.result || json[this.one]);
   }
 
-  typeahead(query, includeDeleted = false) {
-    const body = new URLSearchParams();
+  typeahead(query: string, includeDeleted: boolean = false): Promise < Object > {
+    const body: any = new URLSearchParams();
     body.set('query', query);
     body.set('includeDeleted', includeDeleted);
 
     return super
       .search(`${this.routes.TYPEAHEAD(this.name)}?${body}`)
-      .then(res => res.json())
       .then(json => json.result);
   }
 
-  save(thing) {
+  save(thing: Object): Promise < Object > {
     const id = thing.id;
     const headers = {
       'Content-Type': 'application/json',
@@ -80,11 +76,10 @@ export default class CrudApi extends Fetchable {
         body: this.toJson(thing),
         headers
       })
-      .then(res => res.json())
       .then(json => json.result || json[this.one]);
   }
 
-  create(thing) {
+  create(thing: Object): Promise < Object > {
     const headers = {
       'Content-Type': 'application/json',
     };
@@ -94,22 +89,35 @@ export default class CrudApi extends Fetchable {
         body: this.toJson(thing),
         headers
       })
-      .then(res => res.json())
       .then(json => json.result || json[this.one]);
   }
 
-  delete(id, rowVersion) {
+  createMany(things: Object): Promise < Object > {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    return super
+      .post(this.routes.CREATE_MANY(this.name), {
+        body: this.toJson({
+          [this.many]: things
+        }),
+        headers
+      })
+      .then(json => json.result || json[this.many]);
+  }
+
+  delete(id: number, rowVersion: number): Promise < Object > {
     if (id < 1) {
       throw new Error('id must be >= 1');
     }
     if (rowVersion < 1) {
       throw new Error('rowVersion must be >= 1');
     }
-    const body = new URLSearchParams();
+    const body: any = new URLSearchParams();
     body.set('rowVersion', rowVersion);
     return super
       .delete(`${this.routes.DELETE(this.name)}/${id}?${body}`)
-      .then(res => res.json())
       .then(json => json.result || json[this.one]);
   }
 }

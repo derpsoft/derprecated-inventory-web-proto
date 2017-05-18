@@ -1,58 +1,63 @@
-<style lang="css" scoped>
-.alert {
-    margin-top: 10px;
+<style lang="css">
+#login-container {
+  margin: 5px 0;
+  background: rgba(90, 90, 90, 0.5);
+  border-radius: 5px;
+
+  .auth0-lock {
+    width: 100%;
+    .auth0-lock-header {
+      display: none;
+    }
+    .auth0-lock-widget {
+      width: 100%;
+    }
+  }
+  .auth0-lock.auth0-lock .auth0-lock-cred-pane {
+    background: transparent;
+  }
+  .auth0-lock-social-button {
+    &+.auth0-lock-social-button {
+      margin-top: 1.3em;
+      opacity: 0.9;
+    }
+  }
 }
 </style>
 
 <template>
-<form id="login-form" @submit.prevent="validate">
-  <div class="form-group" :class="{'has-error': errors.has('username')}">
-    <label class="control-label" for="username">Username</label>
-    <input v-model="username" type="text" placeholder="Username" title="User Name" name="username" id="username" class="form-control" v-validate="'required'">
-    <span class="help-block small" v-show="!errors.has('username')">Your unique username to app</span>
-    <span v-show="errors.has('username')" class="help-block">{{ errors.first('username') }}</span>
-  </div>
-  <div class="form-group" :class="{'has-error': errors.has('password')}">
-    <label class="control-label" for="password">Password</label>
-    <input v-model="password" type="password" title="Please enter your password" placeholder="Password" name="password" id="password" class="form-control" v-validate="'required'">
-    <span class="help-block small" v-show="!errors.has('password')">Your strong password</span>
-    <span v-show="errors.has('password')" class="help-block">{{ errors.first('password') }}</span>
-  </div>
-  <div>
-    <button type="submit" class="btn btn-accent">Login</button>
-    <div class="pull-right">
-      <router-link class="btn btn-link" :to="{path: '/register'}">Register</router-link>
-      <router-link class="btn btn-link" :to="{path: '/forgot-password'}">Forgot Password?</router-link>
-    </div>
-  </div>
-</form>
+<div id="login-container">
+</div>
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 
 export default {
   name: 'loginForm',
-  data() {
-    return {
-      username: '',
-      password: '',
-    };
+
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    }
   },
+
+  watch: {
+    isAuthenticated: 'refresh'
+  },
+
+  mounted() {
+    this.refresh();
+  },
+
   methods: {
-    validate() {
-      this.$validator.validateAll().then((success) => {
-        if (!success) {
-          return;
-        }
-        this.login();
-      });
-    },
-    login() {
-      this.$store.dispatch(Constants.LOGIN, {
-        username: this.username,
-        password: this.password
-      });
+    refresh() {
+      if (!this.isAuthenticated) {
+        this.$store.dispatch(Constants.LOGIN);
+      } else {
+        this.$router.go('/');
+      }
     },
   },
 };

@@ -2,7 +2,7 @@
 </style>
 
 <template>
-  <small>
+<small>
     Today is
     <br>
     <span class="c-white">{{ date | formatDate }}</span>
@@ -20,7 +20,7 @@ export default {
     };
   },
   filters: {
-    formatDate(x) {
+    formatDate(x: Object) {
       return x.format('LL');
     },
   },

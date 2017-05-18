@@ -1,9 +1,8 @@
-
 import Vue from 'vue';
 
-function VueComponent(component) {
-  const Component = Vue.extend(component).$mount();
-  const vm = new Component();
+function VueComponent(component, propsData) {
+  const Component = Vue.extend(component);
+  const vm = propsData ? new Component({ propsData }) : new Component();
   return vm.$mount();
 }
 
