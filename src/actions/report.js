@@ -105,6 +105,12 @@ const INITIAL_STATE = {
         total: 0.00,
       },
     },
+
+    salesByUser: 0,
+    revenueByUser: 0,
+    listingCountByUser: 0,
+    inventoryShippedByUser: 0,
+    inventoryReceivedByUser: 0,
   },
 };
 
@@ -113,6 +119,25 @@ const ACTIONS = {
   [Constants.GET_SALES_BY_TOTAL]: salesByTotal,
   [Constants.GET_SALES_BY_VENDOR]: salesByVendor,
   [Constants.GET_DASHBOARD]: dashboard,
+
+  [Constants.GET_DASHBOARD_INVENTORY_RECEIVED_BY_USER]: ({
+    commit
+  }) => {
+    const api = new Api();
+    return api.inventoryReceivedByUser()
+      .then(() => {
+        commit(Constants.SET_DASHBOARD_INVENTORY_RECEIVED_BY_USER);
+      });
+  },
+  [Constants.GET_DASHBOARD_INVENTORY_SHIPPED_BY_USER]: ({
+    commit
+  }) => {
+    const api = new Api();
+    return api.inventoryShippedByUser()
+      .then(() => {
+        commit(Constants.SET_DASHBOARD_INVENTORY_SHIPPED_BY_USER);
+      });
+  },
 
   [Constants.GET_DASHBOARD_SALES_BY_USER]: ({
     commit
@@ -147,9 +172,21 @@ const ACTIONS = {
 
 const MUTATIONS = {
 
-  [Constants.SET_DASHBOARD_SALES_BY_USER]: () => {},
-  [Constants.SET_DASHBOARD_REVENUE_BY_USER]: () => {},
-  [Constants.SET_DASHBOARD_LISTINGS_BY_USER]: () => {},
+  [Constants.SET_DASHBOARD_SALES_BY_USER]: (state: Object, count: number) => {
+    state.salesByUser = count;
+  },
+  [Constants.SET_DASHBOARD_REVENUE_BY_USER]: (state: Object, count: number) => {
+    state.revenueByUser = count;
+  },
+  [Constants.SET_DASHBOARD_LISTINGS_BY_USER]: (state: Object, count: number) => {
+    state.listingCountByUser = count;
+  },
+  [Constants.SET_DASHBOARD_INVENTORY_SHIPPED_BY_USER]: (state: Object, count: number) => {
+    state.inventoryShippedByUser = count;
+  },
+  [Constants.SET_DASHBOARD_INVENTORY_RECEIVED_BY_USER]: (state: Object, count: number) => {
+    state.inventoryReceivedByUser = count;
+  },
 
   [Constants.SET_SALES_BY_PRODUCT]: (state: Object, results: Object): void => {
     const dat = toChartData(results);
@@ -201,11 +238,15 @@ const GETTERS = {
   salesByProduct: (state: Object): Object => state.reports.salesByProduct,
   salesByTotal: (state: Object): Object => state.reports.salesByTotal,
   salesByVendor: (state: Object): Object => state.reports.salesByVendor,
+
   dashboard: (state: Object): Object => state.reports.dashboard,
 
-  salesByUser: (state: Object) => () : number => state.reports.salesByUser,
+  salesByUser: (state: Object) => (): number => state.reports.salesByUser,
   revenueByUser: (state: Object) => (): number => state.reports.revenueByUser,
-  listingCountByUser: (state: Object) => () : number => state.reports.listingCountByUser,
+  listingCountByUser: (state: Object) => (): number => state.reports.listingCountByUser,
+
+  inventoryShippedByUser: (state: Object) => (): number => state.reports.inventoryShippedByUser,
+  inventoryReceivedByUser: (state: Object) => (): number => state.reports.inventoryReceivedByUser,
 };
 
 const ReportActions = {
