@@ -1,4 +1,5 @@
-import SaleApi from 'services/saleApi';
+// @flow
+import { Sale as SaleApi } from 'derp-api';
 import crud from 'actions/crud';
 
 const BASE = crud('sale', SaleApi);

@@ -1,3 +1,4 @@
+// @flow
 import AuthActions from './auth';
 import ProductActions from './product';
 import UserActions from './user';
@@ -10,6 +11,9 @@ import LocationActions from './location';
 import ToastrActions from './toastr';
 import SaleActions from './sale';
 import CategoryActions from './category';
+import ImageActions from './image';
+import OrderActions from './order';
+import CustomerActions from './customer';
 
 module.exports = [
   AuthActions,
@@ -23,5 +27,8 @@ module.exports = [
   LocationActions,
   ToastrActions,
   SaleActions,
-  CategoryActions
+  CategoryActions,
+  ImageActions,
+  OrderActions,
+  CustomerActions
 ];

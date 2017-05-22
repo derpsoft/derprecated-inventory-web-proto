@@ -3,10 +3,11 @@
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 
 export default {
-  name: 'loginView',
+  name: 'logout',
   created() {
     this.$store.dispatch(Constants.LOGOUT);
   }

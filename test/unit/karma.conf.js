@@ -11,9 +11,9 @@ module.exports = function(config) {
     // 1. install corresponding karma launcher
     //    http://karma-runner.github.io/0.13/config/browsers.html
     // 2. add it to the `browsers` array below.
-    browsers: ['PhantomJS'],
-    // browsers: ['Chrome'],
-    frameworks: ['mocha', 'sinon-chai'],
+    // browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
+    frameworks: ['mocha', 'sinon-chai', 'fixture'],
     reporters: ['spec', 'coverage'],
     files: [
       '../../node_modules/babel-polyfill/dist/polyfill.js',
@@ -26,16 +26,25 @@ module.exports = function(config) {
     webpackMiddleware: {
       noInfo: true,
     },
+    specReporter: {
+      maxLogLines: 5,
+      suppressErrorSummary: false,
+      suppressFailed: false,
+      suppressPassed: true,
+      suppressSkipped: false,
+      showSpecTiming: false,
+      failFast: true
+    },
     coverageReporter: {
-      // includeAllSources: true,
       dir: './coverage',
       reporters: [{
-        type: 'lcov',
-        subdir: '.'
-      },
-      {
-        type: 'text-summary'
-      }]
+          type: 'lcov',
+          subdir: '.'
+        },
+        {
+          type: 'text-summary'
+        }
+      ]
     },
   });
 };

@@ -35,11 +35,14 @@
 </template>
 
 <script>
+// @flow
 import Search from 'components/search';
 import Constants from 'src/constants';
 import InventoryLog from './list';
 
 export default {
+  name: 'inventory',
+
   data() {
     return {
       searchAction: Constants.SEARCH_INVENTORY_TRANSACTION_LOGS,

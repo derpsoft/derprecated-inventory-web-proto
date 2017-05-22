@@ -46,6 +46,13 @@
                 </div>
               </div>
               <div class="row bs-example table-wrapper">
+                <div class="col-md-12" v-show="importIsFiltered">
+                  Note:
+
+                  <span>{{inventory.length - tableData.length}} rows(s) were excluded because they reference a SKU that does not exist in the database.</span>
+
+                  <span v-if="!hasUpload">The given CSV does not contain references to any existing products.</span>
+                </div>
                 <div class="col-md-12">
                   <div id="hands-on-table" class="table">
                     <span class="empty">Import CSV...</span>
@@ -59,12 +66,13 @@
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
 import Handsontable from 'handsontable/dist/handsontable.full';
+// $FlowFixMe
 import 'handsontable/dist/handsontable.min.css';
 import Constants from 'src/constants';
 import CsvImport from 'components/csvUpload';
@@ -78,7 +86,6 @@ export default {
     return {
       inventory: [],
       hot: null,
-      hasUpload: false,
     };
   },
 
@@ -87,12 +94,18 @@ export default {
       return [{
         data: 'sku',
         type: 'text',
-        width: 100
+        width: 100,
+        validate: (v: string[], cb: Function) => {
+          cb(v.length > 0 && v.length < 200);
+        },
       }, {
         data: 'quantity',
         type: 'numeric',
         format: '0',
         width: 100,
+        validate: (v: number, cb: Function) => {
+          cb(v > 0);
+        },
       }];
     },
     headers() {
@@ -101,11 +114,12 @@ export default {
         'quantity',
       ];
     },
+
     table() {
       return document.querySelector('#hands-on-table');
     },
 
-    error(id) {
+    error(id: number) {
       return this.$getters.inventoryErrors[id];
     },
 
@@ -114,35 +128,62 @@ export default {
         name: 'Receiving'
       });
     },
+
+    tableData() {
+      return _.filter(
+        this.inventory,
+        x => this.$store.getters.productBySku(x.sku)
+      );
+    },
+
+    importIsFiltered() {
+      return this.tableData.length !== this.inventory.length;
+    },
+
+    hasUpload() {
+      return this.inventory.length && this.tableData.length;
+    },
+  },
+
+  watch: {
+    tableData: 'redrawTable',
   },
 
   mounted() {
     this.reset();
+    // $FlowFixMe
     this.$store.dispatch(Constants.GET_LOCATIONS, {
       take: 1000
+    });
+    // $FlowFixMe
+    this.$store.dispatch(Constants.GET_PRODUCTS, {
+      skip: 0,
+      take: 1000,
+      includeDeleted: true
     });
   },
 
   methods: {
     reset() {
+      // $FlowFixMe
       this.$store.dispatch(Constants.CLEAR_INVENTORY_ERRORS);
     },
 
-    csvToTransaction(csv) {
+    csvToTransaction(csv: Object) {
       return {
-        _id: Symbol(csv['Variant SKU']),
         sku: csv['Variant SKU'],
         quantity: parseInt(csv['Variant Inventory Qty'], 10),
       };
     },
 
-    bulkImport(value) {
-      const data = JSON.parse(JSON.stringify(value));
+    bulkImport(value: Object) {
+      this.inventory = JSON.parse(JSON.stringify(value));
+    },
 
-      this.hasUpload = true;
+    redrawTable() {
       this.hot = new Handsontable(
         this.table, {
-          data,
+          data: this.tableData,
           columns: this.columns,
           colHeaders: this.headers,
           width: '100%',
@@ -160,6 +201,7 @@ export default {
 
     save() {
       const transactions = this.hot.getSourceData();
+      // $FlowFixMe
       this.$store.dispatch(Constants.RECEIVE_INVENTORY_BULK, {
         transactions,
         locationId: this.location.id,
@@ -173,5 +215,4 @@ export default {
     },
   },
 };
-
 </script>

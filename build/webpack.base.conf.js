@@ -4,6 +4,8 @@ var config = require('../config');
 var vueLoaderConfig = require('./vue-loader.conf');
 var eslintFriendlyFormatter = require('eslint-friendly-formatter');
 
+console.log(config);
+
 function resolve(dir) {
   return path.join(__dirname, '..', dir);
 }
@@ -36,7 +38,8 @@ module.exports = {
       'actions': resolve('src/actions'),
       'stores': resolve('src/stores'),
       'unit': resolve('test/unit'),
-      'testUtils': resolve('test/utils')
+      'testUtils': resolve('test/utils'),
+      'root': resolve('/'),
     }
   },
   module: {

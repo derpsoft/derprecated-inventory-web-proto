@@ -27,7 +27,9 @@
   </div>
 </section>
 </template>
+
 <script>
+// @flow
 import LocationAdd from './add';
 import LocationEdit from './edit';
 

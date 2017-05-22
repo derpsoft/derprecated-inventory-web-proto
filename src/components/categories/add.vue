@@ -1,3 +1,9 @@
+<style lang="css" scoped>
+.btn-primary {
+  margin-bottom: 20px;
+}
+
+</style>
 <template>
 <div>
   <div class="row control-row">
@@ -15,10 +21,12 @@
 </template>
 
 <script>
+// @flow
 import Constants from 'src/constants';
 import CategoryForm from './form';
 
 export default {
+  name: 'addCategories',
   components: {
     CategoryForm
   },
@@ -45,6 +53,7 @@ export default {
         }) => {
           if (isValid) {
             const redirect = this.redirect;
+            // $FlowFixMe
             this.$store.dispatch(Constants.CREATE_CATEGORY, {
               category,
               redirect,

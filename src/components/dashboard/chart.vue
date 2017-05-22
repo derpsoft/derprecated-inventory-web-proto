@@ -43,7 +43,9 @@
 </template>
 
 <script>
+// @flow
 import _ from 'lodash';
+import moment from 'moment';
 import Chart from 'shared/chart';
 
 export default {

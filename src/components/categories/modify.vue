@@ -35,6 +35,7 @@
 </style>
 
 <script>
+// @flow
 import CategoryAdd from './add';
 import CategoryEdit from './edit';
 

@@ -1,3 +1,8 @@
+<style lang="css" scoped>
+.btn {
+  margin-bottom: 20px;
+}
+</style>
 <template>
 <div>
   <form id="warehouse-edit-form" @submit.prevent="save">
@@ -25,6 +30,7 @@
 import Constants from 'src/constants';
 
 export default {
+  name: 'editWarehouse',
   data() {
     return {
       warehouse: {},

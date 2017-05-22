@@ -17,6 +17,19 @@ const base = {
   productionGzip: false,
   productionGzipExtensions: ['js', 'css'],
   proxyTable: {},
+  app: {
+    orderPrefix: 'DERP',
+  },
+  auth0: {
+    clientId: 'HgdpKajxywOUlc52Uv6rASdiABMsnYd4',
+    domain: 'derprecated.auth0.com',
+    scope: 'openid user_metadata app_metadata',
+    audience: 'https://inventory.derprecated.com/',
+    userManagementDashboard: 'https://derprecated.us.webtask.io/auth0-delegated-admin/users',
+  },
+  stripe: {
+    publishableKey: 'pk_test_rHkL66ikBDq2X6WT3NYJDx4W',
+  },
 };
 
 const pro = _.merge({}, base, {
@@ -25,6 +38,10 @@ const pro = _.merge({}, base, {
   index: path.resolve(__dirname, '../dist/index.html'),
   env: {
     APPINSIGHTS_INSTRUMENTATIONKEY: JSON.stringify('6c7d6219-60d2-44d0-9173-fe8e8e46c2ea'),
+  },
+  productionGzip: true,
+  stripe: {
+    publishableKey: '',
   },
 });
 
@@ -38,13 +55,14 @@ const sta = _.merge({}, pro, {
 });
 
 const local = _.merge({}, base, {
-  api: 'http://192.168.0.32:5000',
+  api: 'http://0.0.0.0:5000',
   autoOpenBrowser: true,
   cssSourceMap: false,
 });
 
 const dev = _.merge({}, local, {
-  api: '//inventory-api-dev.azurewebsites.net',
+  api: 'https://inventory-api-dev.azurewebsites.net',
+  index: path.resolve(__dirname, '../dist/index.html'),
 });
 
 const configs = {

@@ -1,9 +1,18 @@
+// @flow
 import _ from 'lodash';
 import store from 'stores/store';
 
 const guards = [
   'canReadUsers',
-  'canUpsertUsers',
+  'canManageUsers',
+
+  'canManageInventory',
+  'canManageSales',
+  'canManageProducts',
+  'canManageLocations',
+  'canManageWarehouses',
+  'canManageVendors',
+  'canManageOrders',
 
   'canReadVendors',
   'canUpsertVendors',
@@ -12,6 +21,10 @@ const guards = [
   'canReadProducts',
   'canUpsertProducts',
   'canDeleteProducts',
+
+  'canReadImages',
+  'canUpsertImages',
+  'canDeleteImages',
 
   'canReadWarehouses',
   'canUpsertWarehouses',
@@ -32,11 +45,11 @@ const guards = [
   'canUpsertSales',
 ];
 
-const toggleHide = (el, shown = true) => {
+const toggleHide = (el: Object, shown: boolean = true) => {
   el.classList.toggle('hide', !shown);
 };
 
-export default (Vue) => {
+export default (Vue: Object) => {
   guards.forEach((v) => {
     Vue.directive(v, {
       bind: (el) => {
@@ -47,7 +60,7 @@ export default (Vue) => {
   });
 
   Vue.directive('canAny', {
-    bind: (el, binding) => {
+    bind: (el: Object, binding: Object) => {
       /* eslint-disable no-shadow */
       const {
         term,

@@ -1,7 +1,8 @@
+// @flow
 import _ from 'lodash';
 import log from 'loglevel';
 import Constants from 'src/constants';
-import ProductApi from 'services/productApi';
+import { Product as ProductApi } from 'derp-api';
 import crud from 'actions/crud';
 
 function deleteProductImage({
@@ -29,19 +30,18 @@ function importProducts({
   const productApi = new ProductApi();
 
   return Promise.all(
-      _.map(args.products, (single) => {
-        return productApi
-          .create(single)
-          .then(x => commit(Constants.SET_PRODUCT, x))
-          .catch(() => {
-            console.log('Failed ->');
-            console.log(single);
-            dispatch(Constants.SHOW_TOASTR, {
-              type: 'error',
-              message: 'Import Failed.',
-            });
+    _.map(args.products, (single) => {
+      return productApi
+        .create(single)
+        // $FlowFixMe
+        .then(x => commit(Constants.SET_PRODUCT, x))
+        .catch(() => {
+          dispatch(Constants.SHOW_TOASTR, {
+            type: 'error',
+            message: 'Import Failed.',
           });
-      }));
+        });
+    }));
 }
 
 const BASE = crud('product', ProductApi);
@@ -65,7 +65,10 @@ const MUTATIONS = {
 
 const GETTERS = {
   ...BASE.GETTERS,
-
+  productBySku: state => sku => _.find(
+    state.products.all,
+    x => x.sku.toUpperCase() === sku.toUpperCase()
+  ),
   productImages: state => id => state.products.all[id].images,
 };
 

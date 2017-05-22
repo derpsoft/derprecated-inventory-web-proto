@@ -21,6 +21,8 @@ shell.config.silent = true;
 shell.cp('-R', 'static/*', assetsPath);
 shell.config.silent = false;
 
+console.log(process.env.NODE_ENV);
+
 webpack(webpackConfig, function(err, stats) {
   spinner.stop();
   if (err) {
