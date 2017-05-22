@@ -35,7 +35,7 @@
         <div class="col-md-12">
           <div class="panel panel-filled">
             <div class="panel-body">
-              <!-- <chart></chart> -->
+              <summary-chart></summary-chart>
             </div>
           </div>
         </div>
@@ -49,10 +49,10 @@
 // @flow
 import Constants from 'src/constants';
 import Today from 'shared/today';
-// import Chart from './chart';
 import TotalSales from './totalSales';
 import InventoryReceived from './inventoryReceived';
 import InventoryDispatched from './inventoryDispatched';
+import SummaryChart from './summary-chart';
 
 export default {
   name: 'dashboard',
@@ -62,11 +62,11 @@ export default {
     };
   },
   components: {
-  //  Chart,
     Today,
     TotalSales,
     InventoryReceived,
-    InventoryDispatched
+    InventoryDispatched,
+    SummaryChart,
   },
   mounted() {
     this.$store.dispatch(Constants.GET_DASHBOARD, {
