@@ -69,7 +69,7 @@ function bulkReceiveInventory({
   locationId,
   redirect = null,
   toastError = true,
-} : Object) : Promise<Object> {
+} : Object) : Object {
   const withProducts: any = transactions.map(x => new ProductApi()
     .singleBySku(x.sku)
     .then((product) => {
