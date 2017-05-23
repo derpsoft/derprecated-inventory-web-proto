@@ -119,7 +119,7 @@ export default {
     },
     refocus() {
       this.input.focus();
-      this.input.selectionEnd = this.input.selectionStart = this.newTag.length;
+      this.input.selectionEnd = this.input.selectionStart = this.newTag.length; // eslint-disable-line 
     },
     clamp(val: number, min: number, max: number) {
       return Math.max(Math.min(val, max), min);
