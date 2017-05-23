@@ -6,7 +6,7 @@ import PermissionApi from 'services/permissionApi';
 function setManyPermissions({ commit }, { user, permissions }) {
   new PermissionApi()
     .set(user, permissions)
-    .catch(e => log.errror(e));
+    .catch(e => log.error(e));
 }
 
 function setOnePermission({ commit } : Object, { user, permission } : Object) : void {
