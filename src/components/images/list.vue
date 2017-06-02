@@ -24,12 +24,6 @@ export default {
 
   components: {},
 
-  filters: {
-    toSsl(src: string) {
-      return src.replace('http:', 'https:');
-    },
-  },
-
   computed: {
     images() {
       const results = this.$store.getters.imageSearch;

@@ -12,14 +12,6 @@ describe('Gallery.vue - Image', () => {
     expect(Gallery.props.onSending.default.call()).to.be.undefined;
   });
 
-  it('should filter to SSL', () => {
-    const link = 'http://www.derp.com';
-    const linkSSL = 'https://www.derp.com';
-    const result = Gallery.filter.toSsl.apply(Gallery, [link]);
-
-    expect(result).to.equal(linkSSL);
-  });
-
   it('should load images when data returns from the server', () => {
     const file = {};
     const json = {

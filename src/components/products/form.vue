@@ -17,7 +17,7 @@ textarea.form-control {
         <div class="media-body">
           <div class="form-group" :class="{'has-error': errors.has('productTitle')}">
             <label>Product Title</label>
-            <input type="text" class="form-control" placeholder="Enter a title..." name="productTitle" v-model="value.title" v-validate="'required'" v-focus="true">
+            <input type="text" class="form-control" placeholder="Enter a title..." name="productTitle" v-model="value.title" v-validate="'required'" v-focus.lazy="true">
             <span v-show="errors.has('productTitle')" class="help-block">Product Title is required.</span>
           </div>
           <div class="form-group">
@@ -136,10 +136,14 @@ export default {
         id: this.value.categoryId
       });
     },
+    loaded() {
+      return this.product && this.product.id === this.id;
+    },
   },
 
   watch: {
-    product: 'refresh'
+    product: 'refresh',
+    id: 'refresh',
   },
 
   mounted() {

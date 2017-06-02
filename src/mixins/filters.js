@@ -35,6 +35,9 @@ const filters = {
   ago(x: string) {
     return moment.utc(x).fromNow();
   },
+  toSsl(src: string = '') {
+    return src.replace('http:', 'https:');
+  },
 };
 
 export default (Vue: Object) => {

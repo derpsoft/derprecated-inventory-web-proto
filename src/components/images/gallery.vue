@@ -115,12 +115,6 @@ export default {
     },
   },
 
-  filter: {
-    toSsl(src: string) {
-      return src.replace('http:', 'https:');
-    },
-  },
-
   methods: {
     onSuccess(file: Object, json: Object) {
       this.images.push(json.result);

@@ -25,7 +25,7 @@ textarea.form-control {
 <template>
 <div>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" v-if="loaded">
       <div>
 
         <div class="product-title">
@@ -92,6 +92,10 @@ export default {
     uploadUrl() {
       return new ProductApi()
         .getImageUploadUrl(this.id);
+    },
+
+    loaded() {
+      return this.product && this.product.id === this.id;
     },
   },
 

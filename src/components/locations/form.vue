@@ -7,7 +7,7 @@
   </div>
   <div class="form-group" :class="{'has-error': errors.has('name')}">
     <label>Name</label>
-    <input v-focus="this.warehouseId" type="text" class="form-control" placeholder="Location Name" name="name" v-model="value.name" @change="change">
+    <input type="text" class="form-control" placeholder="Location Name" name="name" v-model="value.name" @change="change">
     <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
   </div>
   <div class="form-group" :class="{'has-error': errors.has('shelf')}">

@@ -55,7 +55,7 @@ const sta = _.merge({}, pro, {
 });
 
 const local = _.merge({}, base, {
-  api: 'http://0.0.0.0:5000',
+  api: 'https://inventory-api-dev.azurewebsites.net',
   autoOpenBrowser: true,
   cssSourceMap: false,
 });

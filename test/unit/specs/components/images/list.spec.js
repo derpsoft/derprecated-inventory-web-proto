@@ -45,15 +45,4 @@ describe('List Images', () => {
       expect(List.$router[0]).to.equal(route);
     });
   });
-
-  describe('filters', () => {
-    it('should convert to ssl', () => {
-      const http = 'http';
-      const src = `${http}://baus.com`;
-
-      const result = List.filters.toSsl.apply(List, [src]);
-
-      expect(result).to.equal(`${http}s://baus.com`);
-    });
-  });
 });

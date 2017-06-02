@@ -47,12 +47,6 @@ export default {
     id: 'load'
   },
 
-  filters: {
-    toSsl(src: string) {
-      return src.replace('http:', 'https:');
-    },
-  },
-
   mounted() {
     this.load();
   },

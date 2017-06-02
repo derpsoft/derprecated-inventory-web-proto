@@ -6,7 +6,7 @@
 
 <template>
 <div class="form-group search">
-  <input type="text" v-model="searchTerm" v-focus="focus" class="form-control" placeholder="Search..."
+  <input type="text" v-model="searchTerm" v-focus.lazy="focus" class="form-control" placeholder="Search..."
       autocomplete="no" tabindex="0">
 </div>
 

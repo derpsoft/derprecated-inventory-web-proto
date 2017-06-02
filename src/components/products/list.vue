@@ -60,12 +60,6 @@ export default {
     },
   },
 
-  filters: {
-    toSsl(src: string) {
-      return src.replace('http:', 'https:');
-    },
-  },
-
   methods: {
     edit(id: number) {
       this.$router.push(`/products/edit/${id}`);

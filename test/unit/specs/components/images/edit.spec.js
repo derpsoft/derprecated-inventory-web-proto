@@ -6,15 +6,6 @@ describe('Edit Image Component', () => {
     expect(Edit.name).to.equal('imageEdit');
   });
 
-  describe('filter', () => {
-    it('should filter', () => {
-      const src = 'http://derp.com';
-      const result = Edit.filters.toSsl.apply(Edit, [src]);
-
-      expect(result).to.equal('https://derp.com');
-    });
-  });
-
   describe('computed', () => {
     it('should return the id', () => {
       Edit.$route = {
