@@ -58,7 +58,6 @@
 
 <script>
 import Today from 'shared/today';
-import Chart from './charts/chart';
 import Sales from './metrics/sales';
 import Revenue from './metrics/revenue';
 import Listings from './metrics/listings';
@@ -71,7 +70,6 @@ export default {
   name: 'sales-dashboard',
 
   components: {
-    Chart,
     Today,
     Sales,
     Revenue,
