@@ -4,7 +4,7 @@
     There are no inventory logs found.
   </div>
 
-  <crud-list :records="logs" :columns="['Quantity', 'Type', 'Title', '']">
+  <crud-list :records="logs" :columns="['Quantity', 'Type', 'Title', '']" v-else>
     <template slot="body-row" scope="props">
       <tr>
         <td>{{props.record.quantity}}</td>

@@ -2,7 +2,7 @@
 </style>
 
 <template>
-<achievement :value="report" title="Shipped" by="Month" icon="fa-ship" brand="success">
+<achievement :value="report" title="Shipped" icon="fa fa-ship" brand="bg-success" link="/inventory">
 </achievement>
 </template>
 

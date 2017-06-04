@@ -1,6 +1,5 @@
 <template>
-<section class="content">
-  <div class="container-fluid">
+  <div class="animated fadeIn">
     <div class="row">
       <div class="col-lg-12">
         <div class="view-header">
@@ -25,7 +24,6 @@
       </div>
     </div>
   </div>
-</section>
 </template>
 <script>
 import WarehouseAdd from './add';

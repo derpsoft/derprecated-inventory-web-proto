@@ -1,33 +1,34 @@
+<style lang="css" scoped>
+.card-actions {
+  .btn {
+    padding: 0.8rem 1rem;
+    width: auto;
+
+    &:hover,
+    &:active {
+      color: #fff;
+      background-color: #333;
+    }
+
+    .fa {
+      margin-right: 0.5rem;
+    }
+  }
+}
+</style>
 <template>
-  <main class="main">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">Home</li>
-    <li class="breadcrumb-item"><a href="#">Inventory</a>
-    </li>
-  </ol>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="view-header">
-          <div class="pull-right">
-            <router-link class="btn btn-warning" :to="{path: '/products/import'}">Bulk Import Products</router-link>
-            <router-link class="btn btn-primary" :to="{path: '/products/add'}">Add New Product</router-link>
-          </div>
-          <div class="header-icon">
-            <i class="pe  page-header-icon pe-7s-search"></i>
-          </div>
-          <div class="header-title">
-            <h3>Product Search</h3>
-            <small>Inventory Search - Search for All Products</small>
-          </div>
-        </div>
-        <hr>
-      </div>
-    </div>
+  <div class="animated fadeIn">
     <div class="row">
       <div class="col-md-12">
-        <div class="panel panel-filled panel-main">
-          <div class="panel-body">
+        <div class="card">
+          <div class="card-header">
+            Products
+            <div class="card-actions">
+              <router-link class="btn" :to="{path: '/products/import'}"><i class="fa fa-upload"></i>Bulk Import Products</router-link>
+              <router-link class="btn" :to="{path: '/products/add'}"><i class="fa fa-plus"></i>Add New Product</router-link>
+            </div>
+          </div>
+          <div class="card-block">
             <search :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
             <product-list></product-list>
           </div>
@@ -35,7 +36,6 @@
       </div>
     </div>
   </div>
-</main>
 </template>
 
 
@@ -61,8 +61,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.add-control {
-  margin-right: -15px;
-}
-</style>

@@ -1,11 +1,4 @@
 <template>
-  <main class="main">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">Home</li>
-    <li class="breadcrumb-item"><a href="#">Inventory</a>
-    </li>
-  </ol>
-  <div class="container-fluid">
     <div class="animated fadeIn">
       <div class="row">
         <div class="col-lg-6 col-sm-12">
@@ -27,8 +20,6 @@
         </div>
       </div>
     </div>
-  </div>
-  </main>
 </template>
 
 <script>

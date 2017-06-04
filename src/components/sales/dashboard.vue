@@ -2,16 +2,7 @@
 </style>
 
 <template>
-  <main class="main">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">Home</li>
-    <li class="breadcrumb-item"><a href="#">Sales</a>
-    </li>
-    <li class="breadcrumb-item active">Sales Dashboard</li>
-  </ol>
-  <div class="container-fluid">
     <div class="animated fadeIn">
-
       <div class="row">
         <div class="col-lg-4 col-12">
           <listings></listings>
@@ -43,9 +34,6 @@
         </div>
       </div>
     </div>
-  </div>
-  </main>
-
 </template>
 
 <script>

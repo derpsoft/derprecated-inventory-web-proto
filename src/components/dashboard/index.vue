@@ -2,16 +2,6 @@
 </style>
 
 <template>
-  <main class="main">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">Home</li>
-      <li class="breadcrumb-item"><a href="#">Admin</a>
-      </li>
-      <li class="breadcrumb-item active">Dashboard</li>
-    </ol>
-
-
-    <div class="container-fluid">
       <div class="animated fadeIn">
         <div class="row">
           <div class="col-12">
@@ -19,31 +9,15 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-6 col-lg-3">
+          <div class="col-4">
             <inventory-dispatched></inventory-dispatched>
           </div>
-
-          <div class="col-6 col-lg-3">
+          <div class="col-4">
             <inventory-received></inventory-received>
           </div>
 
-          <div class="col-6 col-lg-3">
+          <div class="col-4">
             <total-sales></total-sales>
-          </div>
-
-          <div class="col-6 col-lg-3">
-
-            <div class="card">
-              <div class="card-block p-1 clearfix">
-                <i class="fa fa-bell bg-danger p-1 font-2xl mr-1 float-left"></i>
-                <div class="text-uppercase text-muted font-weight-bold font-xs text-right mb-0 mt-h">Account</div>
-                <div class="h5 text-right">$100K</div>
-              </div>
-              <div class="card-footer px-1 py-h">
-                <a class="font-weight-bold font-xs btn-block text-muted" href="#">View More <i class="fa fa-angle-right float-right font-lg"></i></a>
-              </div>
-            </div>
-
           </div>
         </div>
 
@@ -87,8 +61,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </main>
 </template>
 
 <script>

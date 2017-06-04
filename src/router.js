@@ -21,7 +21,7 @@ import InventoryDashboard from 'components/inventory/dashboard';
 import ModifyInventory from 'components/inventory/modify';
 
 import Products from 'components/products/index';
-import ModifyProducts from 'components/products/modifyProduct';
+import ModifyProducts from 'components/products/modify';
 
 import Images from 'components/images/index';
 import ModifyImages from 'components/images/modify';
@@ -66,36 +66,47 @@ const guard = (g) => {
 
 const routes = [{
   path: '/login',
+  name: 'Login',
   component: Login,
 }, {
   path: '/register',
+  name: 'Register',
   component: Register,
 }, {
   path: '/forgot-password',
+  name: 'Forgot Password',
   component: ForgotPassword,
 }, {
   path: '/reset-password/:email/:token',
+  name: 'Reset Password',
   component: ResetPassword,
 }, {
   path: '/logout',
+  name: 'Logout',
   component: Logout,
 }, {
   path: '/privacy-policy',
+  name: 'Privacy Policy',
   component: PrivacyPolicy,
 }, {
   path: '/not-found',
+  name: 'Not Found',
   component: NotFound,
 }, {
   path: '/not-authorized',
+  name: 'Not Authorized',
   component: NotAuthorized,
 }, {
   path: '/orders/summary/:orderKey/:orderNumber',
+  name: 'Order Summary',
   component: OrderSummary,
 }, {
   path: '/',
+  name: 'Home',
   component: Main,
   children: [{
     path: '/dashboard',
+    name: 'Dashboard',
     alias: '',
     component: Dashboard,
     meta: {
@@ -103,6 +114,7 @@ const routes = [{
     },
   }, {
     path: '/users',
+    name: 'Users',
     component: Users,
     beforeEnter: guard('canReadUsers'),
     meta: {
@@ -110,6 +122,7 @@ const routes = [{
     },
   }, {
     path: '/users/add',
+    name: 'Add Users',
     component: ModifyUsers,
     beforeEnter: guard('canUpsertUsers'),
     meta: {
@@ -117,6 +130,7 @@ const routes = [{
     },
   }, {
     path: '/users/edit/:id',
+    name: 'Edit Users',
     component: ModifyUsers,
     beforeEnter: guard('canUpsertUsers'),
     meta: {
@@ -124,12 +138,14 @@ const routes = [{
     },
   }, {
     path: '/categories',
+    name: 'Categories',
     component: Categories,
     meta: {
       requiresAuth: true,
     },
   }, {
     path: '/categories/add',
+    name: 'Add Categories',
     component: ModifyCategories,
     beforeEnter: guard('canUpsertCategories'),
     meta: {
@@ -137,6 +153,7 @@ const routes = [{
     },
   }, {
     path: '/categories/edit/:id',
+    name: 'Modify Categories',
     component: ModifyCategories,
     beforeEnter: guard('canUpsertCategories'),
     meta: {
@@ -144,6 +161,7 @@ const routes = [{
     },
   }, {
     path: '/products',
+    name: 'Products',
     component: Products,
     beforeEnter: guard('canReadProducts'),
     meta: {
@@ -151,6 +169,7 @@ const routes = [{
     },
   }, {
     path: '/products/add',
+    name: 'Add Products',
     component: ModifyProducts,
     beforeEnter: guard('canUpsertProducts'),
     meta: {
@@ -158,6 +177,7 @@ const routes = [{
     },
   }, {
     path: '/products/edit/:id',
+    name: 'Edit Products',
     component: ModifyProducts,
     beforeEnter: guard('canUpsertProducts'),
     meta: {
@@ -165,6 +185,7 @@ const routes = [{
     },
   }, {
     path: '/products/import',
+    name: 'Import Products',
     component: ModifyProducts,
     beforeEnter: guard('canUpsertProducts'),
     meta: {
@@ -172,6 +193,7 @@ const routes = [{
     },
   }, {
     path: '/images',
+    name: 'Images',
     component: Images,
     beforeEnter: guard('canReadImages'),
     meta: {
@@ -179,6 +201,7 @@ const routes = [{
     },
   }, {
     path: '/images/edit/:id',
+    name: 'Edit Images',
     component: ModifyImages,
     beforeEnter: guard('canUpsertImages'),
     meta: {
@@ -186,6 +209,7 @@ const routes = [{
     },
   }, {
     path: '/warehouses',
+    name: 'Warehouses',
     component: Warehouses,
     beforeEnter: guard('canReadWarehouses'),
     meta: {
@@ -193,6 +217,7 @@ const routes = [{
     },
   }, {
     path: '/warehouses/add',
+    name: 'Add Warehouses',
     component: ModifyWarehouses,
     beforeEnter: guard('canUpsertWarehouses'),
     meta: {
@@ -200,6 +225,7 @@ const routes = [{
     },
   }, {
     path: '/warehouses/edit/:id',
+    name: 'Edit Warehouses',
     component: ModifyWarehouses,
     beforeEnter: guard('canUpsertWarehouses'),
     meta: {
@@ -207,18 +233,21 @@ const routes = [{
     },
   }, {
     path: '/profile',
+    name: 'Profile',
     component: Profile,
     meta: {
       requiresAuth: true,
     },
   }, {
     path: '/reports',
+    name: 'Reports',
     component: Reports,
     meta: {
       requiresAuth: true,
     },
   }, {
     path: '/vendors',
+    name: 'Vendors',
     component: Vendors,
     beforeEnter: guard('canReadVendors'),
     meta: {
@@ -226,6 +255,7 @@ const routes = [{
     },
   }, {
     path: '/vendors/add',
+    name: 'Add Vendors',
     component: ModifyVendors,
     beforeEnter: guard('canUpsertVendors'),
     meta: {
@@ -233,6 +263,7 @@ const routes = [{
     },
   }, {
     path: '/vendors/edit/:id',
+    name: 'Edit Vendors',
     component: ModifyVendors,
     beforeEnter: guard('canUpsertVendors'),
     meta: {
@@ -240,18 +271,21 @@ const routes = [{
     },
   }, {
     path: '/inventory',
+    name: 'Inventory',
     component: Inventory,
     meta: {
       requiresAuth: true,
     }
   }, {
     path: '/inventory/dashboard',
+    name: 'Inventory Dashboard',
     component: InventoryDashboard,
     meta: {
       requiresAuth: true,
     }
   }, {
     path: '/inventory/receive',
+    name: 'Receive Inventory',
     component: ModifyInventory,
     beforeEnter: guard('canReceiveInventory'),
     meta: {
@@ -259,6 +293,7 @@ const routes = [{
     }
   }, {
     path: '/inventory/import',
+    name: 'Import Inventory',
     component: ModifyInventory,
     beforeEnter: guard('canReceiveInventory'),
     meta: {
@@ -266,6 +301,7 @@ const routes = [{
     }
   }, {
     path: '/inventory/dispatch',
+    name: 'Dispatch Inventory',
     component: ModifyInventory,
     beforeEnter: guard('canDispatchInventory'),
     meta: {
@@ -273,6 +309,7 @@ const routes = [{
     }
   }, {
     path: '/locations',
+    name: 'Locations',
     component: Locations,
     beforeEnter: guard('canReadLocations'),
     meta: {
@@ -280,6 +317,7 @@ const routes = [{
     },
   }, {
     path: '/locations/add',
+    name: 'Add Locations',
     component: ModifyLocation,
     beforeEnter: guard('canUpsertLocations'),
     meta: {
@@ -287,6 +325,7 @@ const routes = [{
     },
   }, {
     path: '/locations/edit/:id',
+    name: 'Edit Locations',
     component: ModifyLocation,
     beforeEnter: guard('canUpsertLocations'),
     meta: {
@@ -295,6 +334,7 @@ const routes = [{
   }, {
     path: '/sales',
     alias: '/sales/dashboard',
+    name: 'Sales',
     component: SalesDashboard,
     beforeEnter: guard('canReadSales'),
     meta: {
@@ -302,6 +342,7 @@ const routes = [{
     },
   }, {
     path: '/orders',
+    name: 'Orders',
     component: Orders,
     beforeEnter: guard('canManageOrders'),
     meta: {
@@ -309,6 +350,7 @@ const routes = [{
     },
   }, {
     path: '/orders/add',
+    name: 'Add Orders',
     component: ModifyOrders,
     beforeEnter: guard('canManageOrders'),
     meta: {
@@ -316,6 +358,7 @@ const routes = [{
     },
   }, {
     path: '/orders/edit/:id',
+    name: 'Edit Orders',
     component: ModifyOrders,
     beforeEnter: guard('canManageOrders'),
     meta: {

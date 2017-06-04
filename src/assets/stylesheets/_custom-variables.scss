@@ -101,13 +101,13 @@ $sidebar-nav-link-borders: (
         color:                      $border-color
     )
 );
-$sidebar-nav-link-hover-color:      $gray-light;
+$sidebar-nav-link-hover-color:      #fff;
 $sidebar-nav-link-hover-bg:         $gray;
-$sidebar-nav-link-hover-icon-color: $gray-dark !important;
+$sidebar-nav-link-hover-icon-color: #fff !important;
 
 $sidebar-nav-link-hover-borders:    0;
-$sidebar-nav-link-active-color:     $gray-dark;
-$sidebar-nav-link-active-bg:        darken($sidebar-bg, 15%);
+$sidebar-nav-link-active-color:     $gray;
+$sidebar-nav-link-active-bg:        darken($sidebar-bg, 10%);
 $sidebar-nav-link-active-icon-color:$gray-dark;
 
 $sidebar-nav-link-active-borders:   0;

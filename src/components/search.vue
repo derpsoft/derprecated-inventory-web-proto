@@ -1,11 +1,8 @@
 <style lang="css" scoped>
-.search {
-    margin-bottom: 30px;
-}
 </style>
 
 <template>
-<div class="form-group search">
+<div class="form-group search mb-1">
   <input type="text" v-model="searchTerm" v-focus="focus" class="form-control" placeholder="Search..."
       autocomplete="no" tabindex="0">
 </div>

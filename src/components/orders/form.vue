@@ -5,7 +5,6 @@
 </style>
 <template>
 <form>
-  <div class="container-fluid">
     <div class="row">
       <div class="col-sm-12">
         <h4>Order</h4>
@@ -32,7 +31,6 @@
         <address-form ref="billingAddressForm" :address="value.billingAddress" :disabled="sameAsShipping"></address-form>
       </div>
     </div>
-  </div>
 </form>
 </template>
 

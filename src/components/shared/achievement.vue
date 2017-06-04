@@ -4,12 +4,12 @@
 <template>
   <div class="card">
     <div class="card-block p-1 clearfix">
-      <i class="fa fa-cogs bg-primary p-1 font-2xl mr-1 float-left"></i>
+      <i class="p-1 font-2xl mr-1 float-left" :class="[icon, brand]"></i>
       <div class="text-uppercase text-muted font-weight-bold font-xs text-right mb-0 mt-h">{{title}}</div>
       <div class="h5 text-right">{{val}}</div>
     </div>
     <div class="card-footer px-1 py-h">
-      <a class="font-weight-bold font-xs btn-block text-muted" href="#">View More <i class="fa fa-angle-right float-right font-lg"></i></a>
+      <router-link :to="{ path: link}" class="font-weight-bold font-xs btn-block text-muted">View More <i class="fa fa-angle-right float-right font-lg"></i></router-link>
     </div>
   </div>
 </template>
@@ -35,6 +35,18 @@ export default {
     filter: {
       type: Function,
     },
+    link: {
+      type: String,
+      default: '/'
+    },
+    icon: {
+      type: String,
+      default: 'fa fa-cogs'
+    },
+    brand: {
+      type: String,
+      default: 'bg-primary'
+    }
   },
   watch: {
     value: 'format'

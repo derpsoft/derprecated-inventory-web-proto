@@ -2,7 +2,7 @@
 </style>
 
 <template>
-<achievement :value="report" title="Active Listings" by="Month" icon="fa-hashtag">
+<achievement :value="report" title="Active Listings" icon="fa fa-list">
 </achievement>
 </template>
 

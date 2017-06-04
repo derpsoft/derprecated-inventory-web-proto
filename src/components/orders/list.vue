@@ -1,9 +1,9 @@
 <template>
 <div>
-  <div class="col-md-12" v-if="!orders.length">
+  <div v-if="!orders.length">
     There were no orders found. Please add orders or update the filters.
   </div>
-  <crud-list :records="orders" :columns="['Order Number', 'Status', 'Date', 'City', 'State', 'Customer', '']">
+  <crud-list :records="orders" :columns="['Order Number', 'Status', 'Date', 'City', 'State', 'Customer', '']" v-else>
     <template slot="body-row" scope="props">
       <tr class="editable" v-on:click="edit(props.record.id)">
         <td>{{props.record.orderNumber}}</td>
