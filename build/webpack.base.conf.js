@@ -4,8 +4,6 @@ var config = require('../config');
 var vueLoaderConfig = require('./vue-loader.conf');
 var eslintFriendlyFormatter = require('eslint-friendly-formatter');
 
-console.log(config);
-
 function resolve(dir) {
   return path.join(__dirname, '..', dir);
 }

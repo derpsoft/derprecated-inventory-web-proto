@@ -1,37 +1,39 @@
 <template>
-<div class="container-center">
-  <div class="view-header">
-    <div class="header-icon">
-      <i class="pe page-header-icon pe-7s-id"></i>
-    </div>
-    <div class="header-title">
-      <h2>Reset password</h2>
-      <small>
-        Please enter your new password.
-      </small>
+  <div class="app flex-row align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card mx-2">
+            <div class="card-block p-2">
+              <h1>Reset Password</h1>
+              <p class="text-muted">Set your new password</p>
+
+              <form id="reset-password-form" @submit.prevent="validate">
+                <div :class="{'has-error': errors.has('password')}">
+                  <div class="input-group mb-1">
+                    <span class="input-group-addon"><i class="icon-lock"></i></span>
+                    <input type="password" placeholder="Password" title="Please enter your new password" required name="password" id="password" class="form-control" tabindex="0" autocomplete="off" v-model="password">
+                  </div>
+                  <div v-show="errors.has('password')" class="help-block">{{ errors.first('password') }}</div>
+                </div>
+
+                <div :class="{'has-error': errors.has('password-repeat')}">
+                  <div class="input-group mb-1">
+                    <span class="input-group-addon"><i class="icon-lock"></i></span>
+                    <input type="text" class="form-control" placeholder="Email">
+                  </div>
+                  <div v-show="errors.has('password-repeat')" class="help-block">{{ errors.first('password-repeat') }}</div>
+                </div>
+
+                <button type="submit" class="btn btn-block btn-success">Reset Password</button>
+                <router-link class="btn btn-link btn-block" :to="{ path: '/login' }">Cancel</router-link>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="panel panel-filled">
-    <div class="panel-body">
-      <form id="reset-password-form" @submit.prevent="validate">
-        <div class="form-group" :class="{'has-error': errors.has('password')}">
-          <label class="control-label" for="password">New Password</label>
-          <input type="password" placeholder="Password" title="Please enter your new password" required name="password" id="password" class="form-control" tabindex="0" autocomplete="off" v-model="password">
-          <span v-show="errors.has('password')" class="help-block">{{ errors.first('password') }}</span>
-        </div>
-        <div class="form-group" :class="{'has-error': errors.has('password-repeat')}">
-          <label class="control-label" for="email">Repeat New Password</label>
-          <input type="password" placeholder="Repeat" title="Please re-enter your new password" required name="password-repeat" id="password-repeat" class="form-control" tabindex="0" autocomplete="off" v-model="passwordRepeat" v-validate="'required|confirmed:password'">
-            <span v-show="errors.has('password-repeat')" class="help-block">{{ errors.first('password-repeat') }}</span>
-        </div>
-        <div>
-          <button class="btn btn-accent" type="submit">Save password</button>
-          <router-link class="btn btn-default" :to="{ path: '/login' }">Cancel</router-link>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
 </template>
 
 <script>

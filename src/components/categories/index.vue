@@ -1,11 +1,16 @@
 <template>
-<section class="content">
+  <main class="main">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">Home</li>
+    <li class="breadcrumb-item"><a href="#">Inventory</a>
+    </li>
+  </ol>
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
         <div class="view-header">
           <div class="pull-right">
-            <router-link class="btn btn-w-md btn-accent" :to="{path: '/categories/add'}">Add New Category</router-link>
+            <router-link class="btn btn-primary" :to="{path: '/categories/add'}">Add New Category</router-link>
           </div>
           <div class="header-icon">
             <i class="pe page-header-icon pe-7s-culture"></i>
@@ -30,7 +35,7 @@
       </div>
     </div>
   </div>
-</section>
+</main>
 </template>
 
 <script>

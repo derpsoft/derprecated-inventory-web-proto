@@ -1,12 +1,17 @@
 <template>
-<section class="content">
+  <main class="main">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">Home</li>
+    <li class="breadcrumb-item"><a href="#">Inventory</a>
+    </li>
+  </ol>
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
         <div class="view-header">
           <div class="pull-right">
-            <router-link class="btn btn-w-md btn-accent" :to="{path: '/products/import'}">Bulk Import Products</router-link>
-            <router-link class="btn btn-w-md btn-accent add-control" :to="{path: '/products/add'}">Add New Product</router-link>
+            <router-link class="btn btn-warning" :to="{path: '/products/import'}">Bulk Import Products</router-link>
+            <router-link class="btn btn-primary" :to="{path: '/products/add'}">Add New Product</router-link>
           </div>
           <div class="header-icon">
             <i class="pe  page-header-icon pe-7s-search"></i>
@@ -30,7 +35,7 @@
       </div>
     </div>
   </div>
-</section>
+</main>
 </template>
 
 

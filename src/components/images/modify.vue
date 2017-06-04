@@ -1,5 +1,10 @@
 <template>
-<section class="content">
+  <main class="main">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">Home</li>
+    <li class="breadcrumb-item"><a href="#">Inventory</a>
+    </li>
+  </ol>
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
@@ -24,7 +29,7 @@
       </div>
     </div>
   </div>
-</section>
+</main>
 </template>
 
 <style scoped>

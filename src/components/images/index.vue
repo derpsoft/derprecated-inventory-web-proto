@@ -1,11 +1,16 @@
 <template>
-<section class="content">
+  <main class="main">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">Home</li>
+    <li class="breadcrumb-item"><a href="#">Inventory</a>
+    </li>
+  </ol>
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
         <div class="view-header">
           <div class="pull-right">
-            <button class="btn btn-w-md btn-accent" v-can-upsert-images @click="showUpload=!showUpload">Add New Images</button>
+            <button class="btn btn-primary" v-can-upsert-images @click="showUpload=!showUpload">Add New Images</button>
           </div>
           <div class="header-icon">
             <i class="pe page-header-icon pe-7s-culture"></i>
@@ -34,7 +39,7 @@
       </div>
     </div>
   </div>
-</section>
+</main>
 </template>
 
 <script>

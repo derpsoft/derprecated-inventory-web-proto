@@ -1,4 +1,4 @@
-<style lang="less">
+<style lang="css">
 .password-reset {
     .reset-btn {
         margin-right: 10px;

@@ -9,40 +9,38 @@
 </style>
 
 <template>
-<div class="container-center animated slideInDown">
-  <div class="view-header">
-    <div class="header-icon">
-      <i class="pe page-header-icon pe-7s-id"></i>
-    </div>
-    <div class="header-title">
-      <h2>Reset password</h2>
-      <small>
-        Please enter your email to reset your password.
-      </small>
-    </div>
-  </div>
-  <div class="panel panel-filled">
-    <div class="panel-body" v-if="resetRequested">
-      <div class="alert alert-info">
-        You will receive an email shortly with your password reset.
+
+  <div class="app flex-row align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card mx-2">
+            <div class="card-block p-2">
+              <h1>Forgot Password</h1>
+              <p class="text-muted">Please provide your email to reset your password</p>
+
+              <div class="alert alert-info" v-if="resetRequested">
+                You will receive an email shortly with your password reset.
+              </div>
+
+              <form id="forgot-password" @submit.prevent="validate">
+                <div :class="{'has-error': errors.has('password')}">
+                  <div class="input-group mb-1">
+                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    <input type="email" placeholder="example@email.com" title="Please enter you username" name="email" id="email" class="form-control" tabindex="0" autocomplete="off" v-model="email" v-validate="'required|email'">
+                  </div>
+                  <div v-show="errors.has('email')" class="help-block">{{ errors.first('email') }}</div>
+                </div>
+
+                <button type="submit" class="btn btn-block btn-success">Forgot Password</button>
+                <router-link class="btn btn-link btn-block" :to="{ path: '/login' }">Cancel</router-link>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="panel-body" v-if="!resetRequested">
-      <form id="forgot-password" @submit.prevent="validate">
-        <div class="form-group" :class="{'has-error': errors.has('email')}">
-          <label class="control-label" for="email">Email address</label>
-          <input type="email" placeholder="example@email.com" title="Please enter you username" name="email" id="email" class="form-control" tabindex="0" autocomplete="off" v-model="email" v-validate="'required|email'">
-          <span class="help-block small" v-show="!errors.has('email')">Your address email to retrieve new password.</span>
-          <span v-show="errors.has('email')" class="help-block">{{ errors.first('email') }}</span>
-        </div>
-        <div>
-          <button class="btn btn-accent" type="submit">Send new password</button>
-          <router-link class="btn btn-default" :to="{ path: '/login' }">Cancel</router-link>
-        </div>
-      </form>
-    </div>
   </div>
-</div>
 </template>
 
 <script>

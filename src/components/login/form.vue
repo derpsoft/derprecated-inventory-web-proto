@@ -1,9 +1,5 @@
 <style lang="css">
 #login-container {
-  margin: 5px 0;
-  background: rgba(90, 90, 90, 0.5);
-  border-radius: 5px;
-
   .auth0-lock {
     width: 100%;
     .auth0-lock-header {
@@ -12,6 +8,9 @@
     .auth0-lock-widget {
       width: 100%;
     }
+  }
+  .auth0-lock-content {
+    padding: 0;
   }
   .auth0-lock.auth0-lock .auth0-lock-cred-pane {
     background: transparent;

@@ -1,11 +1,16 @@
-<style lang="css">
+<style scoped>
+small {
+  display: block;
+  margin-bottom: 10px;;
+}
+
+
 </style>
 
 <template>
 <small>
     Today is
-    <br>
-    <span class="c-white">{{ date | formatDate }}</span>
+    <span>{{ date | formatDate }}</span>
   </small>
 </template>
 

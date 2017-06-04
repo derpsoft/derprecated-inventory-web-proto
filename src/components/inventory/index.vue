@@ -1,13 +1,18 @@
 <template>
-<section class="content">
+  <main class="main">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">Home</li>
+    <li class="breadcrumb-item"><a href="#">Inventory</a>
+    </li>
+  </ol>
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
         <div class="view-header">
           <div class="pull-right">
-            <router-link class="btn btn-w-md btn-accent" :to="{path: '/inventory/import'}">Import</router-link>
-            <router-link class="btn btn-w-md btn-accent" :to="{path: '/inventory/receive'}">Receive</router-link>
-            <router-link class="btn btn-w-md btn-accent" :to="{path: '/inventory/dispatch'}">Dispatch</router-link>
+            <router-link class="btn btn-primary" :to="{path: '/inventory/import'}">Import</router-link>
+            <router-link class="btn btn-info" :to="{path: '/inventory/receive'}">Receive</router-link>
+            <router-link class="btn btn-warning" :to="{path: '/inventory/dispatch'}">Dispatch</router-link>
           </div>
           <div class="header-icon">
             <i class="pe page-header-icon pe-7s-box2"></i>
@@ -31,7 +36,7 @@
       </div>
     </div>
   </div>
-</section>
+</main>
 </template>
 
 <script>

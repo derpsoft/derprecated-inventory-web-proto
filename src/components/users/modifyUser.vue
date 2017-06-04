@@ -1,11 +1,18 @@
 <template>
-<section class="content">
+  <main class="main">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">Home</li>
+      <li class="breadcrumb-item"><a href="#">Admin</a>
+      </li>
+      <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
         <div class="view-header">
           <div class="pull-right">
-            <router-link class="btn btn-w-md btn-accent btn-return" :to="{path: '/users'}">Back to Users</router-link>
+            <router-link class="btn btn-secondary btn-return" :to="{path: '/users'}">Back to Users</router-link>
           </div>
           <div class="header-icon">
             <i class="pe page-header-icon pe-7s-plus"></i>
@@ -25,7 +32,7 @@
       </div>
     </div>
   </div>
-</section>
+</main>
 </template>
 
 <script>

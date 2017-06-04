@@ -332,6 +332,7 @@ const routes = [{
 
 const router = new VueRouter({
   mode: 'history',
+  linkActiveClass: 'open active',
   scrollBehavior: (to, from, savedPosition) => {
     return savedPosition || {
       x: 0,
