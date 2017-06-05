@@ -1,25 +1,38 @@
 <template>
-    <div class="animated fadeIn">
-      <div class="row">
-        <div class="col-lg-6 col-sm-12">
-          <shipped></shipped>
-        </div>
-        <div class="col-lg-6 col-sm-12">
-          <received></received>
-        </div>
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-lg-6 col-sm-12">
+        <shipped></shipped>
       </div>
-
-      <div class="row">
-        <div class="col-lg-12">
-          <h3>Recent</h3>
-          <churn></churn>
-        </div>
-        <div class="col-lg-12">
-          <h3>Needs Shipping</h3>
-          <needs-shipping></needs-shipping>
-        </div>
+      <div class="col-lg-6 col-sm-12">
+        <received></received>
       </div>
     </div>
+    <div class="card">
+      <div class="card-block">
+        <div class="row">
+          <div class="col-12">
+            <h3 class="card-title">
+              Recent
+            </h3>
+          </div>
+        </div>
+        <churn></churn>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-block">
+        <div class="row">
+          <div class="col-12">
+            <h3 class="card-title">
+              Needs Shipping
+            </h3>
+          </div>
+        </div>
+        <needs-shipping></needs-shipping>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

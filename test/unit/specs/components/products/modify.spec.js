@@ -1,4 +1,4 @@
-import Modify from 'components/products/modifyProduct';
+import Modify from 'components/products/modify';
 
 describe('Modify Inventory', () => {
   it('should have a name', () => {
