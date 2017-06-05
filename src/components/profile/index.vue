@@ -1,6 +1,5 @@
 <template>
-<section class="content">
-  <div class="container-fluid">
+  <div class="animated fadeIn">
     <div class="row m-t-sm">
       <div class="col-md-12">
         <div class="panel panel-filled">
@@ -240,7 +239,6 @@
       </div>
     </div>
   </div>
-</section>
 </template>
 
 <script>

@@ -1,29 +1,17 @@
 <template>
-<section class="content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="view-header">
-          <div class="pull-right">
-            <router-link class="btn btn-w-md btn-accent" :to="{path: '/inventory/import'}">Import</router-link>
-            <router-link class="btn btn-w-md btn-accent" :to="{path: '/inventory/receive'}">Receive</router-link>
-            <router-link class="btn btn-w-md btn-accent" :to="{path: '/inventory/dispatch'}">Dispatch</router-link>
-          </div>
-          <div class="header-icon">
-            <i class="pe page-header-icon pe-7s-box2"></i>
-          </div>
-          <div class="header-title">
-            <h3>Inventory</h3>
-            <small>Manage Inventory</small>
-          </div>
-        </div>
-        <hr>
-      </div>
-    </div>
+  <div class="animated fadeIn">
     <div class="row">
       <div class="col-md-12">
-        <div class="panel panel-filled panel-main">
-          <div class="panel-body">
+        <div class="card">
+          <div class="card-header">
+            Inventory
+            <div class="card-actions">
+              <router-link class="btn" :to="{path: '/inventory/import'}"><i class="fa fa-plus"></i>Import</router-link>
+              <router-link class="btn" :to="{path: '/inventory/receive'}"><i class="fa fa-ship"></i>Receive</router-link>
+              <router-link class="btn" :to="{path: '/inventory/dispatch'}"><i class="fa fa-truck"></i>Dispatch</router-link>
+            </div>
+          </div>
+          <div class="card-block">
             <search :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
             <inventory-log></inventory-log>
           </div>
@@ -31,7 +19,6 @@
       </div>
     </div>
   </div>
-</section>
 </template>
 
 <script>

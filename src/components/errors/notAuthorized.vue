@@ -1,37 +1,40 @@
 <style scoped>
-.content {
-  margin-left: auto;
-  margin-right: auto;
+.btn-secondary,
+.btn-primary {
+  margin-top: 30px;
+  padding: 12px 20px;
+  font-size: 1.2em;
+  margin-right: 10px;
+
+  .fa {
+    margin-right: 10px;
+  }
 }
 </style>
 
 <template>
-<section class="content">
-  <div class="container-center md animated slideInDown">
-    <div class="view-header">
-      <div class="header-icon">
-        <i class="pe page-header-icon pe-7s-close-circle"></i>
-      </div>
-      <div class="header-title">
-        <h3>403</h3>
-        <small>
-        Not Authorized
-      </small>
-      </div>
-    </div>
-
-    <div class="panel panel-filled panel-c-warning">
-      <div class="panel-body text-warning">
-        <h2><i class="fa fa-warning"></i> OH NO!  YOU'VE DERPED. </h2>
-        <p>You're not authorized</p>
-        <p>If you've recently registered, it can take up to 24 hours for your account to be approved.</p>
-
-        <a class="btn btn-primary pull-right" href="/">Retry</a>
-        <a class="btn btn-link pull-right" href="/logout">Logout</a>
+  <div class="app flex-row align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="clearfix">
+            <h1 class="float-left display-3 mr-2">403</h1>
+            <h4 class="pt-1">Not Authorized.</h4>
+            <p class="text-muted">Please try again or login with a different account.</p>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <router-link :to="{path: '/'}" class="btn btn-primary btn-block"><i class="fa fa-refresh"></i> Retry</router-link>
+            </div>
+            <div class="col-6">
+              <router-link :to="{path: '/'}" class="btn btn-secondary btn-block"><i class="fa fa-sign-out"></i> Logout</router-link>
+            </div>
+          </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</section>
 </template>
 
 <script>

@@ -2,7 +2,7 @@
 </style>
 
 <template>
-<achievement :value="report" title="Sales" by="Month" icon="fa-dollar" :brand="report > 0 ? 'success' : 'warning'" :filter="formatMoney">
+<achievement :value="report" title="Sales" icon="fa fa-dollar" :brand="report > 0 ? 'bg-success' : 'bg-warning'" :filter="formatMoney" link="/sales">
 </achievement>
 </template>
 

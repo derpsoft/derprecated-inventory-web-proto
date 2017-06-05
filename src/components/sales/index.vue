@@ -1,6 +1,5 @@
 <template>
-<section class="content">
-  <div class="container-fluid">
+  <div class="animated fadeIn">
     <div class="row">
       <div class="col-lg-12">
         <div class="view-header">
@@ -29,27 +28,26 @@
       </div>
     </div>
   </div>
-</section>
 </template>
 
 <script>
-import Constants from 'src/constants';
-import Search from 'components/search';
-import SaleList from './list';
+  import Constants from 'src/constants';
+  import Search from 'components/search';
+  import SaleList from './list';
 
-export default {
-  name: 'sales',
-  data() {
-    return {
-      searchAction: Constants.SEARCH_SALES,
-      listAction: Constants.GET_SALES,
-      clearAction: Constants.CLEAR_SALE_SEARCH,
-    };
-  },
+  export default {
+    name: 'sales',
+    data() {
+      return {
+        searchAction: Constants.SEARCH_SALES,
+        listAction: Constants.GET_SALES,
+        clearAction: Constants.CLEAR_SALE_SEARCH,
+      };
+    },
 
-  components: {
-    SaleList,
-    Search,
-  },
-};
+    components: {
+      SaleList,
+      Search,
+    },
+  };
 </script>

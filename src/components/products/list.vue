@@ -15,10 +15,10 @@
 
 <template>
 <div>
-  <div v-if="!products.length">
+  <div v-if="!products.length" class="mb-1">
     There are no products found. Please add products or update the filters.
   </div>
-  <crud-list :records="products" :columns="['id', 'title', { name: 'quantityOnHand', displayName: 'Quantity' }, 'category', 'upc', 'sku']">
+  <crud-list :records="products" :columns="['id', 'title', { name: 'quantityOnHand', displayName: 'Quantity' }, 'category', 'upc', 'sku']" v-else>
     <template slot="body-row" scope="props">
       <tr class="editable" v-on:click="edit(props.record.id)">
         <td class="id">{{props.record.id}}</td>

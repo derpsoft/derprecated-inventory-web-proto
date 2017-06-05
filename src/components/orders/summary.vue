@@ -1,5 +1,5 @@
 <template>
-<div class="container-fluid">
+<div class="animated fadeIn">
   <div class="row">
     <div class="col-sm-6">
       <h4>Order Information</h4>

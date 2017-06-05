@@ -1,30 +1,30 @@
-<template>
-<section class="content">
-  <div class="container-center md animated slideInDown">
-    <div class="view-header">
-      <div class="header-icon">
-        <i class="pe page-header-icon pe-7s-close-circle"></i>
-      </div>
-      <div class="header-title">
-        <h3>404</h3>
-        <small>
-        Page Not Found!
-      </small>
-      </div>
-    </div>
+<style scoped>
+.btn-primary {
+  margin-top: 30px;
+  padding: 12px 0;
+  font-size: 1.2em;
 
-    <div class="panel panel-filled panel-c-warning">
-      <div class="panel-body text-warning">
-        <h2><i class="fa fa-warning"></i> OH NO!  YOU'VE DERPED. </h2>
-        <p>This page was not found.</p>
-        <p>Return to safety by clicking the button below.</p>
+  .fa {
+    margin-right: 10px;
+  }
+}
+</style>
+<template>
+  <div class="app flex-row align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="clearfix">
+            <h1 class="float-left display-3 mr-2">404</h1>
+            <h4 class="pt-1">Oops! You're lost.</h4>
+            <p class="text-muted">The page you are looking for was not found.</p>
+          </div>
+              <router-link :to="{path: '/'}" class="btn btn-primary btn-block"><i class="fa fa-reply"></i> Back to app</router-link>
+          </div>
+        </div>
       </div>
-    </div>
-    <div>
-      <router-link :to="{path: '/'}" class="btn btn-accent">Back to app</router-link>
     </div>
   </div>
-</section>
 </template>
 
 <script>
@@ -34,9 +34,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.content {
-  margin-left: auto;
-  margin-right: auto;
-}
-</style>

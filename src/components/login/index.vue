@@ -17,26 +17,28 @@
 }
 </style>
 <template>
-<section class="content" id="login">
-  <div class="container-center">
-    <div class="view-header">
-      <div class="header-icon">
-        <i class="pe page-header-icon pe-7s-unlock"></i>
-      </div>
-      <div class="header-title">
-        <h3>Login</h3>
-        <small>
-            Please enter your credentials to login.
-        </small>
-      </div>
-    </div>
-    <div class="panel panel-filled">
-      <div class="panel-body">
-        <login-form></login-form>
+ <div class="app flex-row align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card-group mb-0">
+            <div class="card p-2">
+              <div class="card-block">
+                <h1>Login</h1>
+                <p class="text-muted">Sign In to your account</p>
+                <div class="row">
+                  <div class="col-12">
+                    <login-form></login-form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</section>
+
 </template>
 
 <script>

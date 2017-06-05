@@ -1,12 +1,12 @@
-<style lang="less" scoped>
+<style lang="css" scoped>
 </style>
 
 <template>
 <div>
-  <div class="col-md-12" v-if="!vendors.length">
+  <div v-if="!vendors.length">
     There were no vendors found. Please add vendors or update the filters.
   </div>
-  <crud-list :records="vendors" :columns="['id', 'name']">
+  <crud-list :records="vendors" :columns="['id', 'name']" v-else>
   </crud-list>
 </div>
 </template>

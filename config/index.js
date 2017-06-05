@@ -55,13 +55,13 @@ const sta = _.merge({}, pro, {
 });
 
 const local = _.merge({}, base, {
-  api: 'http://0.0.0.0:5000',
+  api: 'http://0.0.0.0:8081',
   autoOpenBrowser: true,
   cssSourceMap: false,
 });
 
 const dev = _.merge({}, local, {
-  api: 'https://inventory-api-dev.azurewebsites.net',
+  api: 'https://inventory-api-dev-wb45gu.herokuapp.com',
   index: path.resolve(__dirname, '../dist/index.html'),
 });
 

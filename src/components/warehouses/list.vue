@@ -1,4 +1,4 @@
-<style lang="less" scoped>
+<style lang="css" scoped>
 table.warehouse-list {
     tr {
         cursor: pointer;

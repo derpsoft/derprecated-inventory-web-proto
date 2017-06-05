@@ -5,13 +5,12 @@
 </style>
 
 <template>
-<section class="content">
-  <div class="container-fluid">
+  <div class="animated fadeIn">
     <div class="row">
       <div class="col-lg-12">
         <div class="view-header">
           <div class="pull-right">
-            <router-link class="btn btn-w-md btn-accent btn-return" :to="{path: '/vendors'}">Back to Vendors</router-link>
+            <router-link class="btn btn-secondary btn-return" :to="{path: '/vendors'}">Back to Vendors</router-link>
           </div>
           <div class="header-icon">
             <i class="pe page-header-icon pe-7s-plus"></i>
@@ -31,7 +30,6 @@
       </div>
     </div>
   </div>
-</section>
 </template>
 
 <script>

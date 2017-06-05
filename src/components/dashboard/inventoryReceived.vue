@@ -2,7 +2,7 @@
 </style>
 
 <template>
-<achievement :value="report.received.total" title="Inventory Received" by="Month" icon="fa-plus" brand="info">
+<achievement :value="report.received.total" title="Inventory Received" link="/inventory/dashboard" icon="fa fa-ship">
 </achievement>
 </template>
 
@@ -14,8 +14,7 @@ export default {
   name: 'total-sales',
   data() {
     return {
-      title: 'Inventory Received',
-      groupBy: 'Month'
+      title: 'Inventory Received'
     };
   },
   components: {

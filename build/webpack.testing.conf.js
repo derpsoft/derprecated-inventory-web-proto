@@ -10,7 +10,7 @@ var webpackConfig = merge(baseConfig, {
   // use inline sourcemap for karma-sourcemap-loader
   module: {
     rules: [{
-      test: /\.less$/,
+      test: /\.scss$/,
       loader: 'ignore-loader',
     }].concat(utils.styleLoaders())
   },

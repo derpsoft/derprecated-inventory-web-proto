@@ -8,36 +8,41 @@ table.location-list {
 
 <template>
 <div>
-  <div v-if="!locations.length" class="col-md-12">
+  <div v-if="!locations.length">
     There are no locations found. Please add locations or update the filters.
   </div>
-  <div class="list-view">
-    <div class="col-md-12">
-      <div class="table-responsive">
-        <table class="table table-striped table-hover location-list">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Shelf</th>
-              <th>Rack</th>
-              <th>Bin</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="location in locations" @click.prevent="edit(location.id)">
-              <td>{{location.id}}</td>
-              <td>{{location.name}}</td>
-              <td>{{location.shelf}}</td>
-              <td>{{location.rack}}</td>
-              <td>{{location.bin}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+
+  <table class="table table-bordered table-striped table-condensed" v-else>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Shelf</th>
+        <th>Rack</th>
+        <th>Bin</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="location in locations" @click.prevent="edit(location.id)">
+        <td>{{location.id}}</td>
+        <td>{{location.name}}</td>
+        <td>{{location.shelf}}</td>
+        <td>{{location.rack}}</td>
+        <td>{{location.bin}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <!--<ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+    <li class="page-item active">
+      <a class="page-link" href="#">1</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">4</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>-->
   </div>
-</div>
 </template>
 
 <script>
