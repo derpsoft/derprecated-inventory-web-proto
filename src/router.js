@@ -150,6 +150,10 @@ const routes = [{
     beforeEnter: guard('canUpsertCategories'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/categories',
+        name: 'Categories'
+      }
     },
   }, {
     path: '/categories/edit/:id',
@@ -158,6 +162,10 @@ const routes = [{
     beforeEnter: guard('canUpsertCategories'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/categories',
+        name: 'Categories'
+      },
     },
   }, {
     path: '/products',
@@ -174,6 +182,10 @@ const routes = [{
     beforeEnter: guard('canUpsertProducts'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/products',
+        name: 'Products'
+      },
     },
   }, {
     path: '/products/edit/:id',
@@ -182,6 +194,10 @@ const routes = [{
     beforeEnter: guard('canUpsertProducts'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/products',
+        name: 'Products'
+      },
     },
   }, {
     path: '/products/import',
@@ -190,6 +206,10 @@ const routes = [{
     beforeEnter: guard('canUpsertProducts'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/products',
+        name: 'Products'
+      },
     },
   }, {
     path: '/images',
@@ -206,6 +226,10 @@ const routes = [{
     beforeEnter: guard('canUpsertImages'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/images',
+        name: 'Images'
+      },
     },
   }, {
     path: '/warehouses',
@@ -214,6 +238,10 @@ const routes = [{
     beforeEnter: guard('canReadWarehouses'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/warehouses',
+        name: 'Warehouses'
+      },
     },
   }, {
     path: '/warehouses/add',
@@ -222,6 +250,10 @@ const routes = [{
     beforeEnter: guard('canUpsertWarehouses'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/warehouses',
+        name: 'Warehouses'
+      },
     },
   }, {
     path: '/warehouses/edit/:id',
@@ -230,6 +262,10 @@ const routes = [{
     beforeEnter: guard('canUpsertWarehouses'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/warehouses',
+        name: 'Warehouses'
+      },
     },
   }, {
     path: '/profile',
@@ -260,6 +296,10 @@ const routes = [{
     beforeEnter: guard('canUpsertVendors'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/vendors',
+        name: 'Vendors'
+      },
     },
   }, {
     path: '/vendors/edit/:id',
@@ -268,6 +308,10 @@ const routes = [{
     beforeEnter: guard('canUpsertVendors'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/vendors',
+        name: 'Vendors'
+      },
     },
   }, {
     path: '/inventory',
@@ -275,6 +319,10 @@ const routes = [{
     component: Inventory,
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/inventory',
+        name: 'Inventory'
+      },
     }
   }, {
     path: '/inventory/dashboard',
@@ -282,6 +330,10 @@ const routes = [{
     component: InventoryDashboard,
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/inventory',
+        name: 'Inventory'
+      },
     }
   }, {
     path: '/inventory/receive',
@@ -290,6 +342,10 @@ const routes = [{
     beforeEnter: guard('canReceiveInventory'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/inventory',
+        name: 'Inventory'
+      },
     }
   }, {
     path: '/inventory/import',
@@ -298,6 +354,10 @@ const routes = [{
     beforeEnter: guard('canReceiveInventory'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/inventory',
+        name: 'Inventory'
+      },
     }
   }, {
     path: '/inventory/dispatch',
@@ -306,6 +366,10 @@ const routes = [{
     beforeEnter: guard('canDispatchInventory'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/inventory',
+        name: 'Inventory'
+      },
     }
   }, {
     path: '/locations',
@@ -322,6 +386,10 @@ const routes = [{
     beforeEnter: guard('canUpsertLocations'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/locations',
+        name: 'Locations'
+      },
     },
   }, {
     path: '/locations/edit/:id',
@@ -330,6 +398,10 @@ const routes = [{
     beforeEnter: guard('canUpsertLocations'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/locations',
+        name: 'Locations'
+      },
     },
   }, {
     path: '/sales',
@@ -355,6 +427,10 @@ const routes = [{
     beforeEnter: guard('canManageOrders'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/orders',
+        name: 'Orders'
+      },
     },
   }, {
     path: '/orders/edit/:id',
@@ -363,6 +439,10 @@ const routes = [{
     beforeEnter: guard('canManageOrders'),
     meta: {
       requiresAuth: true,
+      parent: {
+        path: '/orders',
+        name: 'Orders'
+      },
     },
   }, {
     path: '*',
