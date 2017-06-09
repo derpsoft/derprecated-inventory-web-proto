@@ -24,12 +24,12 @@
               </div>
 
               <form id="forgot-password" @submit.prevent="validate">
-                <div :class="{'has-error': errors.has('password')}">
+                <div :class="{'has-danger': errors.has('password')}">
                   <div class="input-group mb-1">
                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                    <input type="email" placeholder="example@email.com" title="Please enter you username" name="email" id="email" class="form-control" tabindex="0" autocomplete="off" v-model="email" v-validate="'required|email'">
+                    <input type="email" placeholder="example@email.com" title="Please enter you username" name="email" id="email" class="form-control" tabindex="0" autocomplete="off" v-model="email" v-validate="'required|email'" :class="{'form-control-danger': errors.has('email') }">
                   </div>
-                  <div v-show="errors.has('email')" class="help-block">{{ errors.first('email') }}</div>
+                  <div v-show="errors.has('email')" class="form-control-feedback">{{ errors.first('email') }}</div>
                 </div>
 
                 <button type="submit" class="btn btn-block btn-success">Forgot Password</button>

@@ -18,7 +18,7 @@
                 </div>
               </div>
               <div class="col-md-3">
-                <table class="table small m-t-sm">
+                <table class="table small m-t-sm ">
                   <tbody>
                     <tr>
                       <td>

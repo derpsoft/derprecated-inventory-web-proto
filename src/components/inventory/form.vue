@@ -5,13 +5,13 @@
       <autocomplete :focus="true" :suggestions="products" :value-selector="(v) => v" :key-selector="(v) => `${v.sku} ${v.title} ${v.description} ${v.color}`" :display-selector="(v) => `${v.sku}: ${v.title}`" @change="setProduct">
       </autocomplete>
     </div>
-    <div class="form-group" :class="{'has-error': errors.has('quantity')}">
-      <label>Quantity</label>
-      <input type="number" name="quantity" class="form-control" placeholder="Quantity" v-model.number="value.quantity" v-validate="'required|numeric|between:1, 9999'">
-      <span v-show="errors.has('quantity')" class="help-block">{{ errors.first('quantity') }}</span>
+    <div class="form-group" :class="{'has-danger': errors.has('quantity')}">
+      <label class="form-control-label">Quantity</label>
+      <input type="number" name="quantity" class="form-control" placeholder="Quantity" v-model.number="value.quantity" v-validate="'required|numeric|between:1, 9999'" :class="{'form-control-danger': errors.has('quantity') }">
+      <span v-show="errors.has('quantity')" class="form-control-feedback">{{ errors.first('quantity') }}</span>
     </div>
-    <div class="form-group" :class="{'has-error': errors.has('location')}">
-      <label>Location</label>
+    <div class="form-group" :class="{'has-danger': errors.has('location')}">
+      <label class="form-control-label">Location</label>
       <autocomplete :selected="defaultLocation" :suggestions="locations" :value-selector="(v) => v" :key-selector="(v) => `${v.name}`" :display-selector="(v) => `${v.id}: ${v.name}`" @change="setLocation">
       </autocomplete>
     </div>

@@ -25,20 +25,20 @@
               </div>
             </div>
             <div class="card-block">
-              <div class="form-group" :class="{'has-error': errors.has('email')}">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control" placeholder="Email" v-model="value.email" disabled v-validate="'required|email'">
-                <span v-show="errors.has('email')" class="help-block">{{ errors.first('email') }}</span>
+              <div class="form-group" :class="{'has-danger': errors.has('email')}">
+                <label class="form-control-label">Email</label>
+                <input type="email" name="email" class="form-control" placeholder="Email" v-model="value.email" disabled v-validate="'required|email'" :class="{'form-control-danger': errors.has('email') }">
+                <span v-show="errors.has('email')" class="form-control-feedback">{{ errors.first('email') }}</span>
               </div>
-              <div class="form-group" :class="{'has-error': errors.has('username')}">
-                <label>Username</label>
-                <input type="text" class="form-control" placeholder="Username" name="username" v-model="value.userName" v-validate="'required'" v-focus="true">
-                <span v-show="errors.has('username')" class="help-block">{{ errors.first('username') }}</span>
+              <div class="form-group" :class="{'has-danger': errors.has('username')}">
+                <label class="form-control-label">Username</label>
+                <input type="text" class="form-control" placeholder="Username" name="username" v-model="value.userName" v-validate="'required'" :class="{'form-control-danger': errors.has('username') }">
+                <span v-show="errors.has('username')" class="form-control-feedback">{{ errors.first('username') }}</span>
               </div>
-              <div class="form-group" :class="{'has-error': errors.has('phone')}">
-                <label>Phone Number</label>
-                <input type="tel" class="form-control" placeholder="Phone Number" v-model="value.phoneNumber" name="phone" v-validate="'required'">
-                <span v-show="errors.has('phone')" class="help-block">{{ errors.first('phone') }}</span>
+              <div class="form-group" :class="{'has-danger': errors.has('phone')}">
+                <label class="form-control-label">Phone Number</label>
+                <input type="tel" class="form-control" placeholder="Phone Number" v-model="value.phoneNumber" name="phone" v-validate="'required'" :class="{'form-control-danger': errors.has('phone') }">
+                <span v-show="errors.has('phone')" class="form-control-feedback">{{ errors.first('phone') }}</span>
               </div>
             </div>
           </div>
@@ -46,7 +46,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 

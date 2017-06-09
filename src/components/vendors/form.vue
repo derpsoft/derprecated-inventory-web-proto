@@ -1,29 +1,29 @@
 <template>
 <form>
-  <div class="form-group" :class="{'has-error': errors.has('name')}">
-    <label>Name</label>
-    <input type="text" class="form-control" placeholder="Vendor Name" name="name" v-model="value.name" v-validate="'required'">
-    <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
+  <div class="form-group" :class="{'has-danger': errors.has('name')}">
+    <label class="form-control-label">Name</label>
+    <input type="text" class="form-control" placeholder="Vendor Name" name="name" v-model="value.name" v-validate="'required'" :class="{'form-control-danger': errors.has('name') }">
+    <span v-show="errors.has('name')" class="form-control-feedback">{{ errors.first('name') }}</span>
   </div>
-  <div class="form-group" :class="{'has-error': errors.has('contactName')}">
-    <label>Contact Name</label>
-    <input type="text" class="form-control" placeholder="Contact Name" name="contactName" v-model="value.contactName" v-validate="'required'">
-    <span v-show="errors.has('contactName')" class="help-block">{{ errors.first('contactName') }}</span>
+  <div class="form-group" :class="{'has-danger': errors.has('contactName')}">
+    <label class="form-control-label">Contact Name</label>
+    <input type="text" class="form-control" placeholder="Contact Name" name="contactName" v-model="value.contactName" v-validate="'required'" :class="{'form-control-danger': errors.has('contactName') }">
+    <span v-show="errors.has('contactName')" class="form-control-feedback">{{ errors.first('contactName') }}</span>
   </div>
-  <div class="form-group" :class="{'has-error': errors.has('contactEmail')}">
-    <label>Contact Email</label>
-    <input type="email" class="form-control" placeholder="Contact Email" name="contactEmail" v-model="value.contactEmail" v-validate="'required|email'">
-    <span v-show="errors.has('contactEmail')" class="help-block">{{ errors.first('contactEmail') }}</span>
+  <div class="form-group" :class="{'has-danger': errors.has('contactEmail')}">
+    <label class="form-control-label">Contact Email</label>
+    <input type="email" class="form-control" placeholder="Contact Email" name="contactEmail" v-model="value.contactEmail" v-validate="'required|email'" :class="{'form-control-danger': errors.has('contactAddress') }">
+    <span v-show="errors.has('contactEmail')" class="form-control-feedback">{{ errors.first('contactEmail') }}</span>
   </div>
-  <div class="form-group" :class="{'has-error': errors.has('contactAddress')}">
-    <label>Contact Address</label>
+  <div class="form-group" :class="{'has-danger': errors.has('contactAddress')}">
+    <label class="form-control-label">Contact Address</label>
     <textarea class="form-control" name="contactAddress" placeholder="Contact Address" v-model="value.contactAddress" v-validate="'required'"></textarea>
-    <span v-show="errors.has('contactAddress')" class="help-block">{{ errors.first('contactAddress') }}</span>
+    <span v-show="errors.has('contactAddress')" class="form-control-feedback">{{ errors.first('contactAddress') }}</span>
   </div>
-  <div class="form-group" :class="{'has-error': errors.has('contactPhone')}">
-    <label>Contact Phone</label>
-    <input type="tel" class="form-control" placeholder="Contact Phone" name="contactPhone" v-model="value.contactPhone" v-validate="'required'">
-    <span v-show="errors.has('contactPhone')" class="help-block">{{ errors.first('contactPhone') }}</span>
+  <div class="form-group" :class="{'has-danger': errors.has('contactPhone')}">
+    <label class="form-control-label">Contact Phone</label>
+    <input type="tel" class="form-control" placeholder="Contact Phone" name="contactPhone" v-model="value.contactPhone" v-validate="'required'" :class="{'form-control-danger': errors.has('contactPhone') }">
+    <span v-show="errors.has('contactPhone')" class="form-control-feedback">{{ errors.first('contactPhone') }}</span>
   </div>
 </form>
 </template>

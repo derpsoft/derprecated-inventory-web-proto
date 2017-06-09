@@ -9,16 +9,16 @@
             <div class="card-header">
               Edit Warehouses
               <div class="card-actions">
-                <router-link class="btn btn-w-md btn-accent btn-return" :to="{path: '/warehouses'}">Back to Warehouses</router-link>
+                <router-link class="btn" :to="{path: '/warehouses'}">Back to Warehouses</router-link>
                 <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-delete-warehouses>Delete</button>
-                <button class="btn btn-primary pull-right" type="submit">Save Warehouse</button>
+                <button class="btn" type="submit">Save Warehouse</button>
               </div>
             </div>
             <div class="card-block">
-              <div class="form-group" :class="{'has-error': errors.has('warehouseName')}">
-                <label>Name</label>
-                <input type="text" class="form-control" placeholder="Name" name="warehouseName" v-model="warehouse.name" v-validate="'required'" v-focus="true">
-                <span v-show="errors.has('warehouseName')" class="help-block">{{ errors.first('warehouseName') }}</span>
+              <div class="form-group" :class="{'has-danger': errors.has('warehouseName')}">
+                <label class="form-control-label">Name</label>
+                <input type="text" class="form-control" placeholder="Name" name="warehouseName" v-model="warehouse.name" v-validate="'required'" :class="{ 'form-control-danger': errors.has('warehouseName') }">
+                <span v-show="errors.has('warehouseName')" class="form-control-feedback">{{ errors.first('warehouseName') }}</span>
               </div>
             </div>
           </div>

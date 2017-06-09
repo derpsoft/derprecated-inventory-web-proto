@@ -1,8 +1,4 @@
 <style lang="css" scoped>
-.control-row {
-  margin: 10px 0;
-}
-
 </style>
 <template>
   <div class="animated fadeIn">

@@ -158,7 +158,6 @@
     position: absolute;
     top: 0;
     right: 0;
-    //height: inherit;
 
     a, button {
       display: block;
@@ -190,6 +189,23 @@
       i.r180 {
         -webkit-transform: rotate(180deg);
         transform: rotate(180deg);
+      }
+    }
+
+    // Action Buttons on Pages
+    .btn {
+      padding: 0.8rem 1rem;
+      width: auto;
+      cursor: pointer;
+
+      &:hover,
+      &:active {
+        color: #fff;
+        background-color: #333;
+      }
+
+      .fa {
+        margin-right: 0.5rem;
       }
     }
 

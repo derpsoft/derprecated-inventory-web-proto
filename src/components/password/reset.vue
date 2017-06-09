@@ -9,20 +9,20 @@
               <p class="text-muted">Set your new password</p>
 
               <form id="reset-password-form" @submit.prevent="validate">
-                <div :class="{'has-error': errors.has('password')}">
+                <div :class="{'has-danger': errors.has('password')}">
                   <div class="input-group mb-1">
                     <span class="input-group-addon"><i class="icon-lock"></i></span>
-                    <input type="password" placeholder="Password" title="Please enter your new password" required name="password" id="password" class="form-control" tabindex="0" autocomplete="off" v-model="password">
+                    <input type="password" placeholder="Password" title="Please enter your new password" required name="password" id="password" class="form-control" tabindex="0" autocomplete="off" v-model="password" :class="{'form-control-danger': errors.has('password') }">
                   </div>
-                  <div v-show="errors.has('password')" class="help-block">{{ errors.first('password') }}</div>
+                  <div v-show="errors.has('password')" class="form-control-feedback">{{ errors.first('password') }}</div>
                 </div>
 
-                <div :class="{'has-error': errors.has('password-repeat')}">
+                <div :class="{'has-danger': errors.has('password-repeat')}">
                   <div class="input-group mb-1">
                     <span class="input-group-addon"><i class="icon-lock"></i></span>
-                    <input type="text" class="form-control" placeholder="Email">
+                    <input type="text" class="form-control" name="password-repeat" placeholder="Email" :class="{'form-control-danger': errors.has('password-repeat') }">
                   </div>
-                  <div v-show="errors.has('password-repeat')" class="help-block">{{ errors.first('password-repeat') }}</div>
+                  <div v-show="errors.has('password-repeat')" class="form-control-feedback">{{ errors.first('password-repeat') }}</div>
                 </div>
 
                 <button type="submit" class="btn btn-block btn-success">Reset Password</button>

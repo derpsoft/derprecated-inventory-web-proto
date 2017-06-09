@@ -28,7 +28,7 @@
       <div class="col-sm-12">
         <h4>Items Ordered</h4>
         <div class="table-responsive">
-          <table class="table table-striped">
+          <table class="table table-striped table-hover">
             <thead>
               <tr>
                 <th>Quantity</th>

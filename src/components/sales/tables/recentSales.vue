@@ -1,6 +1,6 @@
 <template>
 <div>
-  <table class="table">
+  <table class="table table-hover table-striped">
     <thead>
       <tr>
         <th>Item</th>

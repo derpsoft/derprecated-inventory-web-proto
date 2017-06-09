@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            Image Details
+            Edit Images
             <div class="card-actions">
               <router-link class="btn btn-w-md btn-accent btn-return" :to="{path: '/images'}">Back to Images</router-link>
               <button class="btn btn-danger" @click="deleteConfirm" v-can-delete-images>Delete</button>

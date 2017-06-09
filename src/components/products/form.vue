@@ -12,10 +12,10 @@ textarea.form-control {
   <form id="product-form" @submit.prevent="validate">
     <div class="media">
       <div class="media-body">
-        <div class="form-group" :class="{'has-error': errors.has('productTitle')}">
-          <label>Product Title</label>
-          <input type="text" class="form-control" placeholder="Enter a title..." name="productTitle" v-model="value.title" v-validate="'required'">
-          <span v-show="errors.has('productTitle')" class="help-block">Product Title is required.</span>
+        <div class="form-group" :class="{'has-danger': errors.has('productTitle')}">
+          <label class="form-control-label">Product Title</label>
+          <input type="text" class="form-control" placeholder="Enter a title..." name="productTitle" v-model="value.title" v-validate="'required'" :class="{'form-control-danger': errors.has('productTitle') }">
+          <span v-show="errors.has('productTitle')" class="form-control-feedback">Product Title is required.</span>
         </div>
         <div class="form-group">
           <label>Product Description</label>

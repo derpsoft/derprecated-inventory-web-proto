@@ -1,6 +1,6 @@
 <template>
   <div class="table-responsive">
-    <table class="table table-striped list">
+    <table class="table table-striped list table-hover">
       <thead>
         <tr>
           <th>Number</th>

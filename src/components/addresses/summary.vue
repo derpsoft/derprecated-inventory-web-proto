@@ -1,9 +1,7 @@
 <template>
-<div class="container-fluid">
   <div class="row">
     <p>{{value.city}}, {{value.state}}</p>
   </div>
-</div>
 </template>
 
 <script>
