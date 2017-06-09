@@ -2,8 +2,8 @@
 </style>
 
 <template>
-<achievement :value="report" title="Received" icon="fa fa-truck" brand="bg-primary" link="/inventory">
-</achievement>
+  <achievement :value="report" title="Received" icon="fa fa-truck" brand="bg-primary" link="/inventory">
+  </achievement>
 </template>
 
 <script>

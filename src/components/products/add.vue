@@ -1,22 +1,18 @@
 <style lang="css" scoped>
-.btn-primary {
-  margin-bottom: 20px;
-}
 </style>
 <template>
-<div>
-  <div class="row control-row">
-    <div class="col-md-12">
-      <button class="btn btn-primary pull-right" @click="save">Create Product</button>
-      <h4>Product Details</h4>
+  <div class="card">
+    <div class="card-header">
+      Add Products
+      <div class="card-actions">
+        <button class="btn btn-primary pull-right" @click="save">Create Product</button>
+        <router-link class="btn btn-secondary btn-return" :to="{path: '/products'}">Back to Products</router-link>
+      </div>
     </div>
-  </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
+    <div class="card-block">
       <product-form ref="productForm"></product-form>
     </div>
   </div>
-</div>
 </template>
 
 <script>

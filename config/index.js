@@ -55,7 +55,8 @@ const sta = _.merge({}, pro, {
 });
 
 const local = _.merge({}, base, {
-  api: 'http://0.0.0.0:8081',
+  // api: 'http://0.0.0.0:8081',
+  api: 'https://inventory-api-dev-wb45gu.herokuapp.com',
   autoOpenBrowser: true,
   cssSourceMap: false,
 });

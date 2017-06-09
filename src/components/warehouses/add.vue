@@ -1,28 +1,28 @@
 <style lang="css" scoped>
-.btn-primary {
-  margin-bottom: 20px;
-}
 </style>
 <template>
-<div>
-  <form id="warehouse-add-form" @submit.prevent="save">
-    <div class="row control-row">
+  <div class="animated fadeIn">
+    <div class="row">
       <div class="col-md-12">
-        <button class="btn btn-primary pull-right" type="submit">Create Warehouse</button>
-        <h4>Warehouse Details</h4>
-      </div>
-    </div>
-    <div class="panel panel-filled panel-main">
-      <div class="panel-body">
-        <div class="form-group" :class="{'has-error': errors.has('warehouseName')}">
-          <label>Name</label>
-          <input type="text" class="form-control" placeholder="Name" name="warehouseName" v-model="warehouse.name" v-validate="'required'" v-focus="true">
-          <span v-show="errors.has('warehouseName')" class="help-block">{{ errors.first('warehouseName') }}</span>
+        <div class="card">
+          <div class="card-header">
+            Add Warehouses
+            <div class="card-actions">
+              <router-link class="btn btn-w-md btn-accent btn-return" :to="{path: '/warehouses'}">Back to Warehouses</router-link>
+              <button class="btn btn-primary pull-right" type="submit">Create Warehouse</button>
+            </div>
+          </div>
+          <div class="card-block">
+            <div class="form-group" :class="{'has-error': errors.has('warehouseName')}">
+              <label>Name</label>
+              <input type="text" class="form-control" placeholder="Name" name="warehouseName" v-model="warehouse.name" v-validate="'required'" v-focus="true">
+              <span v-show="errors.has('warehouseName')" class="help-block">{{ errors.first('warehouseName') }}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </form>
-</div>
+  </div>
 </template>
 
 <script>

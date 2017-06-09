@@ -9,78 +9,69 @@ textarea.form-control {
 </style>
 
 <template>
-<form id="product-form" @submit.prevent="validate">
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-
-      <div class="media">
-        <div class="media-body">
-          <div class="form-group" :class="{'has-error': errors.has('productTitle')}">
-            <label>Product Title</label>
-            <input type="text" class="form-control" placeholder="Enter a title..." name="productTitle" v-model="value.title" v-validate="'required'" v-focus="true">
-            <span v-show="errors.has('productTitle')" class="help-block">Product Title is required.</span>
-          </div>
-          <div class="form-group">
-            <label>Product Description</label>
-            <textarea class="form-control" placeholder="Enter a description..." v-model="value.description"></textarea>
-          </div>
+  <form id="product-form" @submit.prevent="validate">
+    <div class="media">
+      <div class="media-body">
+        <div class="form-group" :class="{'has-error': errors.has('productTitle')}">
+          <label>Product Title</label>
+          <input type="text" class="form-control" placeholder="Enter a title..." name="productTitle" v-model="value.title" v-validate="'required'">
+          <span v-show="errors.has('productTitle')" class="help-block">Product Title is required.</span>
+        </div>
+        <div class="form-group">
+          <label>Product Description</label>
+          <textarea class="form-control" placeholder="Enter a description..." v-model="value.description"></textarea>
         </div>
       </div>
+    </div>
 
-      <div class="row">
-        <div class="col-md-12">
-          <div class="clearfix">
-            <div class="panel panel-filled">
-              <div class="panel-heading">
-                Specifications
-              </div>
-              <div class="panel-body">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Category</label>
-                    <autocomplete :suggestions="categories" :selected="category" :key-selector="(v) => `${v.name}`" :value-selector="(v) => v" :display-selector="(v) => `${v.id}: ${v.name}`" @change="setCategory">
-                    </autocomplete>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Tags</label>
-                    <tag-input></tag-input>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Price (USD)</label>
-                    <input type="text" class="form-control" placeholder="Price" tabindex="0" v-model="value.price">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>SKU</label>
-                    <input type="text" class="form-control" placeholder="SKU" tabindex="0" v-model="value.sku">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Weight (Unit: {{ value.weightUnit || 'lb' }})</label>
-                    <input type="number" class="form-control" placeholder="Weight" tabindex="0" v-model="value.weight">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Vendor</label>
-                    <autocomplete :suggestions="vendors" :selected="vendor" :key-selector="(v) => `${v.name}`" :value-selector="(v) => v" :display-selector="(v) => `${v.id}: ${v.name}`" @change="setVendor">
-                    </autocomplete>
-                  </div>
-                </div>
-              </div>
+    <div class="card">
+      <div class="card-header">
+        Specifications
+      </div>
+      <div class="card-block">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Category</label>
+              <autocomplete :suggestions="categories" :selected="category" :key-selector="(v) => `${v.name}`" :value-selector="(v) => v" :display-selector="(v) => `${v.id}: ${v.name}`" @change="setCategory">
+              </autocomplete>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Tags</label>
+              <tag-input></tag-input>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Price (USD)</label>
+              <input type="text" class="form-control" placeholder="Price" tabindex="0" v-model="value.price">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>SKU</label>
+              <input type="text" class="form-control" placeholder="SKU" tabindex="0" v-model="value.sku">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Weight (Unit: {{ value.weightUnit || 'lb' }})</label>
+              <input type="number" class="form-control" placeholder="Weight" tabindex="0" v-model="value.weight">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Vendor</label>
+              <autocomplete :suggestions="vendors" :selected="vendor" :key-selector="(v) => `${v.name}`" :value-selector="(v) => v" :display-selector="(v) => `${v.id}: ${v.name}`" @change="setVendor">
+              </autocomplete>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</form>
+  </form>
 </template>
 
 <script>

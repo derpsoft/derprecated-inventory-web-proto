@@ -2,7 +2,7 @@
 <form @submit.prevent="validate">
   <div class="form-group" :class="{'has-error': errors.has('name')}">
     <label>Name</label>
-    <input type="text" class="form-control" placeholder="Category Name" name="name" v-model="value.name" v-validate="'required'" v-focus="true">
+    <input type="text" class="form-control" placeholder="Category Name" name="name" v-model="value.name" v-validate="'required'">
     <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
   </div>
   <div class="form-group">

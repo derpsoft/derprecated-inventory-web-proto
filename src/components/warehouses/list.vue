@@ -8,10 +8,10 @@ table.warehouse-list {
 
 <template>
 <div>
-  <div class="col-md-12" v-if="!warehouses.length">
+  <div v-if="!warehouses.length">
     There are no warehouses found. Please add warehouses or update the filters.
   </div>
-  <crud-list :records="warehouses" :columns="['id', 'name']">
+  <crud-list :records="warehouses" :columns="['id', 'name']" v-else>
   </crud-list>
 </div>
 </template>

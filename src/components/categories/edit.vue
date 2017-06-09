@@ -1,23 +1,25 @@
 <style lang="css" scoped>
-.btn {
-  margin-bottom: 20px;
-}
 </style>
 <template>
-<div>
-  <div class="row control-row">
-    <div class="col-md-12">
-      <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-delete-categories>Delete</button>
-      <button class="btn btn-primary pull-right" @click="save">Save Category</button>
-      <h4>Category Details</h4>
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Add Categories
+            <div class="card-actions">
+              <router-link class="btn btn-w-md btn-accent btn-return" :to="{path: '/categories'}">Back to Categories</router-link>
+              <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-delete-categories>Delete</button>
+              <button class="btn btn-primary pull-right" @click="save">Save Category</button>
+            </div>
+          </div>
+          <div class="card-block">
+            <category-form ref="categoryForm" :category="category"></category-form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-      <category-form ref="categoryForm" :category="category"></category-form>
-    </div>
-  </div>
-</div>
 </template>
 
 <script>

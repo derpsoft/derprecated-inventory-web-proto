@@ -1,18 +1,23 @@
 <template>
-<div>
-  <div class="row control-row">
-    <div class="col-md-12">
-      <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-delete-locations>Delete</button>
-      <button class="btn btn-primary pull-right" type="submit" @click="save">Save</button>
-      <h4>Location Details</h4>
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Add Locations
+            <div class="card-actions">
+              <router-link class="btn btn-secondary btn-return" :to="{path: '/locations'}">Back to Locations</router-link>
+              <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-delete-locations>Delete</button>
+              <button class="btn btn-primary pull-right" type="submit" @click="save">Save</button>
+            </div>
+          </div>
+          <div class="card-block">
+            <location-form ref="locationForm" :location="location"></location-form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-      <location-form ref="locationForm" :location="location"></location-form>
-    </div>
-  </div>
-</div>
 </template>
 
 <script>

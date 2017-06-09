@@ -1,63 +1,44 @@
 <style lang="css" scoped>
-.panel-main {
-    min-height: 600px;
-}
-.panel-controls {
-    padding: 5px 0 10px;
-}
-
-.table-wrapper {
-    margin: 5px 0;
-    width: 100%;
-    height: 100%;
-    min-height: 500px;
-
-    .empty {
-        line-height: 600px;
-        display: block;
-        text-align: center;
-        font-size: 50px;
-        color: rgba(255, 255, 255, 0.3);
-    }
-}
+  .empty {
+      line-height: 600px;
+      display: block;
+      text-align: center;
+      font-size: 50px;
+      color: rgba(255, 255, 255, 0.3);
+  }
 .table {
     margin: 20px 0;
 }
 </style>
 
 <template>
-<div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="product-title clearfix">
-        <h4>Bulk Receive Inventory</h4>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="panel panel-filled panel-main">
-            <div class="panel-body">
-              <div class="row panel-controls">
-                <div class="col-md-6">
-                  <csv-import ref="csvImport" :transform="csvToTransaction" @done="bulkImport"></csv-import>
-                </div>
-                <div class="col-md-6 text-right">
-                  <a class="btn btn-info" href="/static/docs/inventory-receive-import-template.csv">Download CSV Template</a>
-                  <button type="submit" class="btn btn-warning" @click="save" v-if="hasUpload" v-can-receive-inventory>Import Inventory</button>
-                </div>
-              </div>
-              <div class="row bs-example table-wrapper">
-                <div class="col-md-12" v-show="importIsFiltered">
-                  Note:
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Bulk Receive Inventory
+            <div class="card-actions">
+            <router-link class="btn btn-w-md btn-accent btn-return" :to="{path: '/inventory'}">Back to Inventory</router-link>
+              <a class="btn btn-info" href="/static/docs/inventory-receive-import-template.csv">Download CSV Template</a>
+              <button type="submit" class="btn btn-warning" @click="save" v-if="hasUpload" v-can-receive-inventory>Import Inventory</button>
+            </div>
+          </div>
+          <div class="card-block">
+            <csv-import ref="csvImport" :transform="csvToTransaction" @done="bulkImport"></csv-import>
+          </div>
 
-                  <span>{{inventory.length - tableData.length}} rows(s) were excluded because they reference a SKU that does not exist in the database.</span>
+          <div class="card-block">
+            <div class="col-md-12" v-show="importIsFiltered">
+              Note:
 
-                  <span v-if="!hasUpload">The given CSV does not contain references to any existing products.</span>
-                </div>
-                <div class="col-md-12">
-                  <div id="hands-on-table" class="table">
-                    <span class="empty">Import CSV...</span>
-                  </div>
-                </div>
+              <span>{{inventory.length - tableData.length}} rows(s) were excluded because they reference a SKU that does not exist in the database.</span>
+
+              <span v-if="!hasUpload">The given CSV does not contain references to any existing products.</span>
+            </div>
+            <div class="col-md-12">
+              <div id="hands-on-table" class="table">
+                <span class="empty">Import CSV...</span>
               </div>
             </div>
           </div>
@@ -65,7 +46,8 @@
       </div>
     </div>
   </div>
-</div>
+  </div>
+
 </template>
 
 <script>

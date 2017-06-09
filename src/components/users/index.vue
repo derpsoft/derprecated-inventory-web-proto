@@ -1,24 +1,15 @@
 <template>
-<section class="content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="view-header">
-          <div class="header-icon">
-            <i class="pe page-header-icon pe-7s-users"></i>
-          </div>
-          <div class="header-title">
-            <h3>Users</h3>
-            <small>Find all users</small>
-          </div>
-        </div>
-        <hr>
-      </div>
-    </div>
+  <div class="animated fadeIn">
     <div class="row">
       <div class="col-md-12">
-        <div class="panel panel-filled panel-main">
-          <div class="panel-body">
+        <div class="card">
+          <div class="card-header">
+           Users
+            <div class="card-actions">
+              <router-link class="btn" :to="{path: '/orders/add'}"><i class="fa fa-plus"></i>Add</router-link>
+            </div>
+          </div>
+          <div class="card-block">
             <search :searchActionName="searchAction" :listActionName="listAction" :clearActionName="clearAction"></search>
             <user-list></user-list>
           </div>
@@ -26,7 +17,6 @@
       </div>
     </div>
   </div>
-</section>
 </template>
 
 <script>

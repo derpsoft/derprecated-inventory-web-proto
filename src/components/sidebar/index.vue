@@ -11,7 +11,6 @@
       <li class="nav-item">
         <router-link :to="{ path: '/dashboard'}" class="nav-link" exact><i class="icon-speedometer"></i> Dashboard</router-link>
       </li>
-
       <li class="nav-item nav-dropdown">
         <a class="nav-link nav-dropdown-toggle" @click="handleClick"><i class="icon-wallet"></i> Sales</a>
         <ul class="nav-dropdown-items">

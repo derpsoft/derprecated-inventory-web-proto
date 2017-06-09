@@ -1,19 +1,23 @@
 <template>
-<div>
-  <div class="row control-row">
-    <div class="col-md-12">
-      <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-delete-vendors>Delete</button>
-      <button class="btn btn-primary pull-right" @click="save">Save Vendor</button>
-      <h4>Vendor Details</h4>
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Add Vendors
+            <div class="card-actions">
+              <router-link class="btn btn-secondary btn-return" :to="{path: '/vendors'}">Back to Vendors</router-link>
+              <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-delete-vendors>Delete</button>
+              <button class="btn btn-primary pull-right" @click="save">Save Vendor</button>
+            </div>
+          </div>
+          <div class="card-block">
+            <vendor-form ref="vendorForm" :id="id"></vendor-form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-      <vendor-form ref="vendorForm" :id="id"></vendor-form>
-    </div>
-  </div>
-</div>
-
 </template>
 
 <script>

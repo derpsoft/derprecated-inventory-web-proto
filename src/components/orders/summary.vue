@@ -1,53 +1,53 @@
 <template>
-<div class="animated fadeIn">
-  <div class="row">
-    <div class="col-sm-6">
-      <h4>Order Information</h4>
-      <p>Order Placed: {{value.createDate | formatDate}}</p>
-      <p>Order Number: {{value.orderNumber | formatOrderNumber}}</p>
-      <p>Order Total: {{value.price | formatCurrency}}</p>
-      <p>Order Status: {{value.status}}</p>
-    </div>
-    <div class="col-sm-6" v-if="isBilled">
-      <h4>Payment Information</h4>
-      <p>Card: {{value.paymentMethod}}, last digits {{value.paymentMethodId}}</p>
-      <p>Transaction Date: {{value.billDate | formatDate}}</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-6" v-if="isBilled">
-      <h4>Billing Address</h4>
-      <address-summary :address="value.billingAddress"></address-summary>
-    </div>
-    <div class="col-sm-6" v-if="isShipped">
-      <h4>Shipping Address</h4>
-      <address-summary :address="value.shippingAddress"></address-summary>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <h4>Items Ordered</h4>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Quantity</th>
-              <th>SKU</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(offer, index) in value.offers">
-              <td>{{offer.quantity}}</td>
-              <td>{{product(offer.productId, 'sku')}}</td>
-              <td>{{product(offer.productId, 'title')}}</td>
-            </tr>
-          </tbody>
-        </table>
+  <div>
+    <div class="row">
+      <div class="col-sm-6">
+        <h4>Order Information</h4>
+        <p>Order Placed: {{value.createDate | formatDate}}</p>
+        <p>Order Number: {{value.orderNumber | formatOrderNumber}}</p>
+        <p>Order Total: {{value.price | formatCurrency}}</p>
+        <p>Order Status: {{value.status}}</p>
+      </div>
+      <div class="col-sm-6" v-if="isBilled">
+        <h4>Payment Information</h4>
+        <p>Card: {{value.paymentMethod}}, last digits {{value.paymentMethodId}}</p>
+        <p>Transaction Date: {{value.billDate | formatDate}}</p>
       </div>
     </div>
-  </div>
-</div>
+    <div class="row">
+      <div class="col-sm-6" v-if="isBilled">
+        <h4>Billing Address</h4>
+        <address-summary :address="value.billingAddress"></address-summary>
+      </div>
+      <div class="col-sm-6" v-if="isShipped">
+        <h4>Shipping Address</h4>
+        <address-summary :address="value.shippingAddress"></address-summary>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <h4>Items Ordered</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Quantity</th>
+                <th>SKU</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(offer, index) in value.offers">
+                <td>{{offer.quantity}}</td>
+                <td>{{product(offer.productId, 'sku')}}</td>
+                <td>{{product(offer.productId, 'title')}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    </div>
 </template>
 
 <script>

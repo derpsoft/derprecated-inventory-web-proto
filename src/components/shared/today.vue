@@ -1,10 +1,8 @@
 <style scoped>
-small {
-  display: block;
-  margin-bottom: 10px;;
-}
-
-
+  small {
+    display: block;
+    margin-bottom: 10px;;
+  }
 </style>
 
 <template>

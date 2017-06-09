@@ -1,22 +1,24 @@
 <template>
-<div class="table-responsive">
-  <table class="table table-striped list">
-    <thead>
-      <tr>
-        <th>Number</th>
-        <th>Status</th>
-        <th>Invoice</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{value.orderNumber}}</td>
-        <td>{{value.status}}</td>
-        <td><a :href="`/orders/summary/${value.orderKey}/${value.orderNumber}`" target="_blank">Invoice</a></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div class="table-responsive">
+    <table class="table table-striped list">
+      <thead>
+        <tr>
+          <th>Number</th>
+          <th>Status</th>
+          <th>Invoice</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{value.orderNumber}}</td>
+          <td>{{value.status}}</td>
+          <td>
+            <a :href="`/orders/summary/${value.orderKey}/${value.orderNumber}`" target="_blank">Invoice</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
 </template>
 
 <script>

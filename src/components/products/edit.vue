@@ -4,18 +4,6 @@
         margin: 0 auto;
     }
 }
-.product-title {
-    margin-bottom: 25px;
-}
-.product-controls {
-    margin-top: -8px;
-    button {
-        margin-left: 10px;
-    }
-}
-.panel-main {
-    padding-top: 15px;
-}
 textarea.form-control {
     resize: none;
     height: 152px;
@@ -23,35 +11,24 @@ textarea.form-control {
 </style>
 
 <template>
-<div>
-  <div class="row">
-    <div class="col-md-12">
-      <div>
-
-        <div class="product-title">
-          <div class="pull-right product-controls">
-            <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-delete-products>Delete Product</button>
-            <button type="button" class="btn btn-warning" @click="showImages = !showImages">{{ !showImages ? 'Show Upload' : 'Hide Upload'}}</button>
-            <button type="submit" class="btn btn-primary" @click="save" v-can-upsert-products>Save Product</button>
-          </div>
-          <h4>{{ product.title }}</h4>
+  <div>
+    <div class="card">
+      <div class="card-header">
+        Edit Products
+        <div class="card-actions">
+          <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-delete-products>Delete Product</button>
+          <button type="button" class="btn btn-warning" @click="showImages = !showImages">{{ !showImages ? 'Show Upload' : 'Hide Upload'}}</button>
+          <button type="submit" class="btn btn-primary" @click="save" v-can-upsert-products>Save Product</button>
+          <router-link class="btn btn-secondary btn-return" :to="{path: '/products'}">Back to Products</router-link>
         </div>
+      </div>
 
-        <div class="row">
-          <div class="col-lg-12">
-            <image-gallery ref="imageGallery" :images="images" :upload-url="uploadUrl" :on-sending="xhrIntercept" :on-delete="deleteImage" :toggle="showImages"></image-gallery>
-          </div>
-        </div>
-
-        <div class="panel panel-filled panel-main">
-          <div class="panel-body">
-            <product-form ref="productForm" :id="id"></product-form>
-          </div>
-        </div>
+      <div class="card-block">
+        <image-gallery ref="imageGallery" :upload-url="uploadUrl" :on-sending="xhrIntercept" :on-delete="deleteImage" :toggle="showImages" :image="images"></image-gallery>
+        <product-form ref="productForm" :id="id"></product-form>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -80,15 +57,12 @@ export default {
     id() {
       return parseInt(this.$route.params.id, 10);
     },
-
     product() {
       return this.$store.getters.product(this.id);
     },
-
     images() {
       return this.$store.getters.productImages(this.id);
     },
-
     uploadUrl() {
       return new ProductApi()
         .getImageUploadUrl(this.id);

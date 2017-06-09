@@ -4,34 +4,29 @@
 }
 </style>
 <template>
-<form>
+  <form>
     <div class="row">
       <div class="col-sm-12">
         <h4>Order</h4>
-
         <div class="form-group">
           <order-form-products ref="productForm" :offers="value.offers" :disabled="!isBillable"></order-form-products>
         </div>
-
       </div>
-
       <div class="col-lg-6 col-sm-12">
         <h4>Shipping</h4>
         <customer-form ref="shippingCustomerForm" :customer="value.shippingCustomer"></customer-form>
         <address-form ref="shippingAddressForm" :address="value.shippingAddress"></address-form>
       </div>
-
       <div class="col-lg-6 col-sm-12">
-          <label for="sameAsShipping"  class="pull-right same-as-shipping">
-            <input type="checkbox" class="form-input" id="sameAsShipping" v-model="sameAsShipping" :disabled="!isBillable"/>
-            Same as Shipping
-          </label>
+        <label for="sameAsShipping" class="pull-right same-as-shipping">
+          <input type="checkbox" class="form-input" id="sameAsShipping" v-model="sameAsShipping" :disabled="!isBillable" /> Same as Shipping
+        </label>
         <h4>Billing</h4>
         <customer-form ref="billingCustomerForm" :customer="value.billingCustomer" :disabled="sameAsShipping"></customer-form>
         <address-form ref="billingAddressForm" :address="value.billingAddress" :disabled="sameAsShipping"></address-form>
       </div>
     </div>
-</form>
+  </form>
 </template>
 
 <script>

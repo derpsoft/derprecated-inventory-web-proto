@@ -2,24 +2,24 @@
 </style>
 
 <template>
-<div>
-  <div class="col-md-12" v-if="!sales.length">
-    There were no sales found. Please add sales or update the filters.
-  </div>
+  <div>
+    <div v-if="!sales.length">
+      There were no sales found. Please add sales or update the filters.
+    </div>
 
-  <crud-list :records="sales" :columns="['id', 'product', 'user', 'vendor', 'total', 'timestamp']">
-    <template slot="body-row" scope="props">
-      <tr>
-        <td>{{props.record.id}}</td>
-        <product-field tag="td" :id="props.record.productId" field="title" :defaultValue="props.record.productId"></product-field>
-        <user-field tag="td" :id="props.record.userAuthId" field="userName" :defaultValue="props.record.userAuthId"></user-field>
-        <td>{{props.record.vendorId}}</td>
-        <td>{{props.record.total | formatCurrency}}</td>
-        <td>{{props.record.timestamp | formatTimestamp}}</td>
-      </tr>
-</template>
-  </crud-list>
-</div>
+    <crud-list :records="sales" :columns="['id', 'product', 'user', 'vendor', 'total', 'timestamp']" v-else>
+      <template slot="body-row" scope="props">
+        <tr>
+          <td>{{props.record.id}}</td>
+          <product-field tag="td" :id="props.record.productId" field="title" :defaultValue="props.record.productId"></product-field>
+          <user-field tag="td" :id="props.record.userAuthId" field="userName" :defaultValue="props.record.userAuthId"></user-field>
+          <td>{{props.record.vendorId}}</td>
+          <td>{{props.record.total | formatCurrency}}</td>
+          <td>{{props.record.timestamp | formatTimestamp}}</td>
+        </tr>
+      </template>
+    </crud-list>
+  </div>
 </template>
 
 <script>

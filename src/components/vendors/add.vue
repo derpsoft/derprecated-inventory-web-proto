@@ -1,17 +1,22 @@
 <template>
-<div>
-  <div class="row control-row">
-    <div class="col-md-12">
-      <button class="btn btn-primary pull-right" @click="save">Create Vendor</button>
-      <h4>Vendor Details</h4>
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Add Vendors
+            <div class="card-actions">
+              <router-link class="btn btn-secondary btn-return" :to="{path: '/vendors'}">Back to Vendors</router-link>
+              <button class="btn btn-primary pull-right" @click="save">Create Vendor</button>
+            </div>
+          </div>
+          <div class="card-block">
+            <vendor-form ref="vendorForm"></vendor-form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-      <vendor-form ref="vendorForm"></vendor-form>
-    </div>
-  </div>
-</div>
 </template>
 
 <script>
