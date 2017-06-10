@@ -14,12 +14,19 @@ var webpackConfig = require('./webpack.' + process.env.NODE_ENV + '.conf');
 var spinner = ora('building for ' + process.env.NODE_ENV + '...')
 spinner.start();
 
+console.log(chalk.cyan(`Building the ${process.env.NODE_ENV} environment \n`));
+
 var assetsPath = path.join(config.assetsRoot, config.assetsSubDirectory);
 shell.rm('-rf', assetsPath);
 shell.mkdir('-p', assetsPath);
 shell.config.silent = true;
 shell.cp('-R', 'static/*', assetsPath);
 shell.config.silent = false;
+
+if (process.env.NODE_ENV !== 'local') {
+  console.log(chalk.cyan(' Running Flow Typed... \n'));
+  shell.exec('yarn run flow-typed install');
+}
 
 
 webpack(webpackConfig, function(err, stats) {
