@@ -1,12 +1,10 @@
 <style lang="css" scoped>
   .empty {
-      line-height: 600px;
-      display: block;
+      line-height: 500px;
       text-align: center;
       font-size: 50px;
       color: rgba(102, 102, 102, 0.3);
   }
-
 </style>
 
 <template>
@@ -15,25 +13,25 @@
       Bulk Import Products
       <div class="card-actions">
         <a class="btn btn-info" href="/static/docs/product-import-template.csv">Download CSV Template</a>
-        <button type="submit" class="btn btn-warning" @click="save" v-if="hasUpload" v-can-upsert-products>Import Products</button>
       </div>
     </div>
     <div class="card-block">
-
-      <div class="card">
-        <div class="card-header">
-          Table
-
-          <div class="card-actions">
-            <csv-import ref="csvImport" :transform="csvToProduct" @done="bulkImport"></csv-import>
-          </div>
+      <h3>Import</h3>
+      <div class="mt-1 mb-1 clearfix">
+        <div class="pull-right">
+          <button type="submit" class="btn btn-warning mr-1" @click="save" v-if="hasUpload" v-can-upsert-products>Import Products</button>
+          <csv-import ref="csvImport" :transform="csvToProduct" @done="bulkImport"></csv-import>
         </div>
-        <div class="card-block">
+        <div v-show="importIsFiltered">
           Note:
           <span>{{products.length - tableData.length}} product(s) were excluded because they reference a SKU that already exists in the database.</span>
           <span v-if="!hasUpload">The given CSV does not contain any new products.</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-block">
           <div id="hands-on-table" class="table">
-            <span class="empty">Import CSV...</span>
+            <div class="empty" @click="importFile">Import CSV...</div>
           </div>
         </div>
       </div>
@@ -159,6 +157,10 @@ export default {
         tags: csv.Tags,
         description: csv['Body (HTML)'],
       };
+    },
+
+    importFile() {
+      document.querySelector('input[type=file]').click();
     },
 
     bulkImport(value: Object) {
