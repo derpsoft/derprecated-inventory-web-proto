@@ -1,6 +1,6 @@
 <template>
-<crud-list :records="value" :columns="['', '', '', '']">
-  <template slot="body-row" scope="props">
+  <crud-list :records="value" :columns="['', '', '', '']">
+    <template slot="body-row" scope="props">
       <tr>
         <td>
           <big>
@@ -13,7 +13,7 @@
         <td>{{props.record.product.title | truncate(40)}}</td>
         <td>{{props.record.createDate | ago}}</td>
       </tr>
-</template>
+    </template>
   </crud-list>
 </template>
 

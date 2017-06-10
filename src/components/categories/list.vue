@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="mb-1" v-if="!categories.length">
+  <div v-if="!categories.length">
     There were no categories found. Please add categories or update the filters.
   </div>
   <crud-list :records="categories" :columns="['id', 'name']" v-else></crud-list>

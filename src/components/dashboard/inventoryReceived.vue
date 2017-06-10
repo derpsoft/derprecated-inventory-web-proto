@@ -2,8 +2,8 @@
 </style>
 
 <template>
-<achievement :value="report.received.total" title="Inventory Received" link="/inventory/dashboard" icon="fa fa-ship">
-</achievement>
+  <achievement :value="report.received.total" title="Inventory Received" link="/inventory/dashboard" icon="fa fa-ship">
+  </achievement>
 </template>
 
 <script>

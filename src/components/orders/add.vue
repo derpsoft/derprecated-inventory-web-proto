@@ -1,20 +1,24 @@
 <style lang="css" scoped>
-.control-row {
-  margin: 10px 0;
-}
-
 </style>
 <template>
-<div>
-  <div class="control-row clearfix">
-      <button class="create-order btn btn-primary" @click="save">Create Order</button>
-  </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-      <order-form ref="orderForm"></order-form>
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Add Order
+            <div class="card-actions">
+              <router-link class="btn btn-primary btn-return" :to="{path: '/orders'}">Back to Orders</router-link>
+              <button class="create-order btn btn-primary" @click="save">Create Order</button>
+            </div>
+          </div>
+          <div class="card-block">
+            <order-form ref="orderForm"></order-form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>

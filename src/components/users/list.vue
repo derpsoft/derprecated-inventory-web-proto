@@ -1,10 +1,9 @@
 <template>
 <div>
-  <div v-if="!users.length" class="col-md-12">
+  <div v-if="!users.length">
     There are no users found. Please add users or update the filters.
   </div>
-
-  <crud-list :records="users" :columns="['id', 'email', 'firstName', 'lastName', 'phoneNumber']"></crud-list>
+  <crud-list :records="users" :columns="['id', 'email', 'firstName', 'lastName', 'phoneNumber']" v-else></crud-list>
 </div>
 
 </template>

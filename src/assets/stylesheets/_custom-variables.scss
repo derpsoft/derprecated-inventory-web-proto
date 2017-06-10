@@ -48,7 +48,7 @@ $navbar-border: (
 );
 $navbar-brand-width:                220px;
 $navbar-brand-bg:                   darken($gray-dark,10%);
-$navbar-brand-logo:                 url('../images/avatar.png');
+$navbar-brand-logo:                 url('/static/img/logo.png');
 $navbar-brand-logo-size:            90px auto;
 $navbar-brand-border: (
     bottom: (
@@ -103,7 +103,7 @@ $sidebar-nav-link-borders: (
 );
 $sidebar-nav-link-hover-color:      #fff;
 $sidebar-nav-link-hover-bg:         $gray;
-$sidebar-nav-link-hover-icon-color: #fff !important;
+$sidebar-nav-link-hover-icon-color: #333 !important;
 
 $sidebar-nav-link-hover-borders:    0;
 $sidebar-nav-link-active-color:     $gray;

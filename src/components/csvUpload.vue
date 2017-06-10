@@ -3,7 +3,7 @@
   <div>
     <button class="btn btn-primary" @click="prompt">Upload</button>
   </div>
-  <input type="file" class="hide" accept="text/csv" multiple="false" @change="readFile">
+  <input type="file" class="hidden-xs-up" accept="text/csv" multiple="false" @change="readFile">
 </div>
 </template>
 

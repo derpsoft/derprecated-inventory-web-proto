@@ -1,23 +1,31 @@
 <template>
-<div>
-  <div class="row control-row">
-    <div class="col-md-12">
-      <button class="btn btn-danger" @click="deleteConfirm" v-can-delete-images>Delete</button>
-      <button class="btn btn-primary pull-right" @click="save">Save Image</button>
-      <h4>Image Details</h4>
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Edit Images
+            <div class="card-actions">
+              <router-link class="btn btn-w-md btn-accent btn-return" :to="{path: '/images'}">Back to Images</router-link>
+              <button class="btn btn-danger" @click="deleteConfirm" v-can-delete-images>Delete</button>
+              <button class="btn btn-primary pull-right" @click="save">Save Image</button>
+            </div>
+          </div>
+          <div class="card-block">
+            <div class="row">
+
+              <div class="col-md-3">
+                <img :src="image.url | toSsl" class="img-responsive center-block img-rounded" />
+              </div>
+              <div class="col-md-9">
+                <image-form ref="imageForm" :image="image"></image-form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-      <div class="col-md-3">
-        <img :src="image.url | toSsl" class="img-responsive center-block img-rounded" />
-      </div>
-      <div class="col-md-9">
-        <image-form ref="imageForm" :image="image"></image-form>
-      </div>
-    </div>
-  </div>
-</div>
 </template>
 
 <script>

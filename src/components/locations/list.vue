@@ -1,8 +1,8 @@
 <style lang="css" scoped>
-table.location-list {
-    tr {
-        cursor: pointer;
-    }
+.table {
+  tr{
+    cursor: pointer;
+  }
 }
 </style>
 
@@ -12,7 +12,7 @@ table.location-list {
     There are no locations found. Please add locations or update the filters.
   </div>
 
-  <table class="table table-bordered table-striped table-condensed" v-else>
+  <table class="table table-bordered table-striped table-condensed table-hover" v-else>
     <thead>
       <tr>
         <th>ID</th>

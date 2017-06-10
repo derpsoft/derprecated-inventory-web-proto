@@ -2,8 +2,8 @@
 </style>
 
 <template>
-<achievement :value="report.sales.total" title="Total Sales" icon="fa fa-dollar" brand="bg-success" link="/sales/dashboard" :filter="formatMoney">
-</achievement>
+  <achievement :value="report.sales.total" title="Total Sales" icon="fa fa-dollar" brand="bg-success" link="/sales/dashboard" :filter="formatMoney">
+  </achievement>
 </template>
 
 <script>

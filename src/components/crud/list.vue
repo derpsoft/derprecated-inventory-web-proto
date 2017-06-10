@@ -1,6 +1,6 @@
 <style lang="css" scoped>
-table.list {
-  tr.editable {
+.table {
+  tr{
     cursor: pointer;
   }
 }
@@ -8,7 +8,7 @@ table.list {
 
 <template>
 <div>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-striped table-condensed table-hover">
     <thead>
       <tr>
         <slot name="header-row">

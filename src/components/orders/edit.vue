@@ -1,26 +1,32 @@
 <template>
-<div>
-  <div class="row control-row">
-    <div class="col-md-12">
-      <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-manage-orders v-if="isBillable">Delete</button>
-      <button class="btn btn-primary pull-right" @click="save" v-if="isSaveable">Save Order</button>
-      <button class="btn btn-primary pull-right" @click="fulfilled" v-if="isFulfillable">Mark as Fulfilled</button>
-      <button class="btn btn-primary pull-right" @click="shipped" v-if="isShippable">Mark as Shipped</button>
-      <billing-form ref="billingForm" cssClass="pull-right" :amount="order.price | toCents" :description="`Custom order ${order.orderNumber}`" @success="billingCaptured" v-if="isBillable"></billing-form>
-      <h4>Order Details
-          <small v-if="!isSaveable" class="pull-right">Order has shipped and may not be edited</small>
-        </h4>
-    </div>
-    <div class="col-md-12">
-      <order-status :id="id"></order-status>
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Edit Order
+            <div class="card-actions">
+              <router-link class="btn btn-primary btn-return" :to="{path: '/orders'}">Back to Orders</router-link>
+              <button type="button" class="btn btn-danger" @click="deleteConfirm" v-can-manage-orders v-if="isBillable">Delete</button>
+              <button class="btn btn-primary pull-right" @click="save" v-if="isSaveable">Save Order</button>
+              <button class="btn btn-primary pull-right" @click="fulfilled" v-if="isFulfillable">Mark as Fulfilled</button>
+              <button class="btn btn-primary pull-right" @click="shipped" v-if="isShippable">Mark as Shipped</button>
+            </div>
+          </div>
+          <div class="card-block">
+            <small v-if="!isSaveable" class="pull-right">Order has shipped and may not be edited</small>
+          </div>
+          <div class="card-block">
+            <billing-form ref="billingForm" cssClass="pull-right" :amount="order.price | toCents" :description="`Custom order ${order.orderNumber}`" @success="billingCaptured" v-if="isBillable"></billing-form>
+          </div>
+          <div class="card-block">
+            <order-status :id="id"></order-status>
+            <order-form ref="orderForm" :id="id"></order-form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-      <order-form ref="orderForm" :id="id"></order-form>
-    </div>
-  </div>
-</div>
 </template>
 
 <script>

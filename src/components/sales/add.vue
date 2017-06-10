@@ -1,17 +1,22 @@
 <template>
-<div>
-  <div class="row control-row">
-    <div class="col-md-12">
-      <button class="btn btn-primary pull-right" @click="save">Save</button>
-      <h4>Sale Details</h4>
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Add Sales
+            <div class="card-actions">
+              <router-link class="btn btn-w-md btn-accent btn-return" :to="{path: '/sales'}">Back to Sales</router-link>
+              <button class="btn btn-primary pull-right" @click="save">Save</button>
+            </div>
+          </div>
+          <div class="card-block">
+            <sale-form ref="saleForm"></sale-form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-      <sale-form ref="saleForm"></sale-form>
-    </div>
-  </div>
-</div>
 </template>
 
 <script>

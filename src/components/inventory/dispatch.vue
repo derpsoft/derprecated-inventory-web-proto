@@ -1,23 +1,24 @@
 <style lang="css" scoped>
-.btn-primary {
-  margin-bottom: 20px;
-}
-
 </style>
 <template>
-<div>
-  <div class="row control-row">
-    <div class="col-md-12">
-      <button type="submit" class="btn btn-primary pull-right" @click="save">Dispatch</button>
-      <h4>Dispatch Inventory</h4>
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Dispatch Inventory
+            <div class="card-actions">
+            <router-link class="btn btn-w-md btn-accent btn-return" :to="{path: '/inventory'}">Back to Inventory</router-link>
+              <button type="submit" class="btn btn-primary pull-right" @click="save">Dispatch</button>
+            </div>
+          </div>
+          <div class="card-block">
+            <inventory-form ref="inventoryForm" default-location-name="Shipping"></inventory-form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="panel panel-filled panel-main">
-    <div class="panel-body">
-      <inventory-form ref="inventoryForm" default-location-name="Shipping"></inventory-form>
-    </div>
-  </div>
-</div>
 </template>
 
 <script>

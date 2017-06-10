@@ -1,9 +1,9 @@
 <template>
 <form @submit.prevent="validate">
-  <div class="form-group" :class="{'has-error': errors.has('name')}">
-    <label>Name</label>
-    <input type="text" class="form-control" placeholder="Category Name" name="name" v-model="value.name" v-validate="'required'" v-focus="true">
-    <span v-show="errors.has('name')" class="help-block">{{ errors.first('name') }}</span>
+  <div class="form-group" :class="{'has-danger': errors.has('name')}">
+    <label class="form-control-label">Name</label>
+    <input type="text" class="form-control" placeholder="Category Name" name="name" v-model="value.name" v-validate="'required'" :class="{'form-control-danger': errors.has('name') }">
+    <span v-show="errors.has('name')" class="form-control-feedback">{{ errors.first('name') }}</span>
   </div>
   <div class="form-group">
     <label>Parent Category</label>
