@@ -1,4 +1,4 @@
-import ReceiveInventory from 'components/inventory/receiveInventory';
+import ReceiveInventory from 'components/inventory/receive';
 
 describe('Receive Inventory - Component', () => {
   describe('methods', () => {
