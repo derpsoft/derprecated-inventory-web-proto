@@ -1,4 +1,4 @@
-import DispatchInventory from 'components/inventory/dispatchInventory';
+import DispatchInventory from 'components/inventory/dispatch';
 
 describe('Dispatch Inventory - Component', () => {
   describe('methods', () => {
