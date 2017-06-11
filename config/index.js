@@ -26,6 +26,7 @@ const base = {
     scope: 'openid user_metadata app_metadata',
     audience: 'https://inventory.derprecated.com/',
     userManagementDashboard: 'https://derprecated.us.webtask.io/auth0-delegated-admin/users',
+    userManagement: 'https://manage.auth0.com',
   },
   stripe: {
     publishableKey: 'pk_test_rHkL66ikBDq2X6WT3NYJDx4W',

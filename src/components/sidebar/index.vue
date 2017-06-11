@@ -11,7 +11,7 @@
       <li class="nav-item">
         <router-link :to="{ path: '/dashboard'}" class="nav-link" exact><i class="icon-speedometer"></i> Dashboard</router-link>
       </li>
-      <li class="nav-item nav-dropdown">
+      <li class="nav-item nav-dropdown" v-can-manage-sales>
         <a class="nav-link nav-dropdown-toggle" @click="handleClick"><i class="icon-wallet"></i> Sales</a>
         <ul class="nav-dropdown-items">
           <li class="nav-item">
@@ -34,7 +34,7 @@
           </li>
         </ul>
       </li>
-      <li class="nav-item nav-dropdown">
+      <li class="nav-item nav-dropdown" v-can-manage-inventory>
         <a class="nav-link nav-dropdown-toggle" @click="handleClick"><i class="icon-compass"></i> Logistics</a>
         <ul class="nav-dropdown-items">
           <li class="nav-item">
@@ -54,7 +54,8 @@
           </li>
         </ul>
       </li>
-      <li class="nav-item nav-dropdown">
+      <li class="nav-item nav-dropdown" v-can-any="{ term: 'or', guards: ['canReadProducts', 'canReadCategories', 'canReadWarehouses', 'canReadLocations', 'canReadVendors', 'canReadUsers'] }">
+      <li class="nav-category"
         <a class="nav-link nav-dropdown-toggle" @click="handleClick"><i class="icon-settings"></i> Admin</a>
         <ul class="nav-dropdown-items">
           <li class="nav-item">
@@ -76,22 +77,21 @@
             <router-link :to="{ path: '/vendors'}" class="nav-link" exact><i class="icon-organization"></i>Vendors</router-link>
           </li>
           <li class="nav-item">
-            <a :href="userManagementDashboard" target="_blank" class="nav-link" exact><i class="icon-people"></i>Users</a>
+            <a :href="userManagement" target="_blank" class="nav-link" exact><i class="icon-organization"></i>Authentication</a>
+          </li>
+          <li class="nav-item">
+            <a :href="userManagementDashboard" target="_blank" class="nav-link" exact><i class="icon-people"></i>User Dashboard</a>
           </li>
         </ul>
       </li>
       <li class="nav-item nav-dropdown">
         <a class="nav-link nav-dropdown-toggle" @click="handleClick"><i class="icon-user"></i> Account</a>
         <ul class="nav-dropdown-items">
-          <!-- <li class="nav-item"> -->
-          <!--   <router-link :to="{ path: '/profile'}" class="nav-link" exact><i class="icon-puzzle"></i>Profile</router-link> -->
-          <!-- </li> -->
           <li class="nav-item">
             <router-link :to="{ path: '/logout'}" class="nav-link" exact><i class="icon-logout"></i>Logout</router-link>
           </li>
         </ul>
       </li>
-
     </ul>
   </nav>
 </div>
@@ -106,6 +106,7 @@
     data() {
       return {
         userManagementDashboard: config.auth0.userManagementDashboard,
+        userManagement: config.auth0.userManagement,
         showAccount: true,
         showAdmin: true,
         showGeneral: true,
