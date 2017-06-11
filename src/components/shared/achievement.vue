@@ -41,6 +41,7 @@ export default {
     },
     icon: {
       type: String,
+      required: true,
       default: 'fa fa-cogs'
     },
     brand: {

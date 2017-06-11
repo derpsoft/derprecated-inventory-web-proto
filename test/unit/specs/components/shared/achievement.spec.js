@@ -35,12 +35,6 @@ describe('Achievement Component', () => {
       expect(props.filter.type).to.equal(Function);
     });
 
-    it('should have by', () => {
-      expect(props.by).to.be.defined;
-      expect(props.by.type).to.equal(String);
-      expect(props.by.required).to.be.ok;
-    });
-
     it('should have icon', () => {
       expect(props.icon).to.be.defined;
       expect(props.icon.type).to.equal(String);
@@ -49,8 +43,7 @@ describe('Achievement Component', () => {
     it('should have brand', () => {
       expect(props.brand).to.be.defined;
       expect(props.brand.type).to.equal(String);
-      expect(props.brand.default).to.equal('info');
-      expect(props.brand.required).to.be.false;
+      expect(props.brand.default).to.equal('bg-primary');
     });
   });
 

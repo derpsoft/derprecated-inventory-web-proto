@@ -4,7 +4,6 @@ describe('Inventory Dispatched Widget', () => {
   it('should return data', () => {
     const data = InventoryDispatched.data();
     expect(data.title).to.equal('Inventory Dispatched');
-    expect(data.groupBy).to.equal('Month');
   });
 
   describe('computed', () => {

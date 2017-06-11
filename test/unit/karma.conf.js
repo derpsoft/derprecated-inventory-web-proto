@@ -33,7 +33,7 @@ module.exports = function(config) {
       suppressPassed: true,
       suppressSkipped: false,
       showSpecTiming: false,
-      failFast: true
+      failFast: false,
     },
     coverageReporter: {
       dir: './coverage',
