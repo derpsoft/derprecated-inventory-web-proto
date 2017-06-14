@@ -24,7 +24,7 @@ textarea.form-control {
       </div>
 
       <div class="card-block">
-        <image-gallery ref="imageGallery" :upload-url="uploadUrl" :on-sending="xhrIntercept" :on-delete="deleteImage" :toggle="showImages" :image="images"></image-gallery>
+        <!--<image-gallery ref="imageGallery" :upload-url="uploadUrl" :on-sending="xhrIntercept" :on-delete="deleteImage" :toggle="showImages" :image="images"></image-gallery>-->
         <product-form ref="productForm" :id="id"></product-form>
       </div>
     </div>

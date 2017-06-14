@@ -1,40 +1,100 @@
-<style lang="css" scoped>
-.dropdown-menu {
-  position: absolute;
-  top: 30px;
-}
-.selection-list {
-  a {
-    display: inline-block;
-    padding: 3px;
-    cursor: pointer;
+<style lang="css" >
+.tags {
+  position: relative;
+
+  .tags-control {
+    width: 100%;
+    font-size: 0.875rem;
+    background-color: #fff;
+    border: 1px solid #e9ebec;
+    padding: 0.22rem 0.2rem;
+
+  }
+
+  .tag-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    .tag-item {
+      line-height: 25px;
+      float: left;
+      display: inline-block;
+      font-size: 0.875rem;
+      background: #fff;
+      color: #9fabb8;
+      border: 1px solid #e9ebec;
+      border-radius: 5px;
+      padding: 0 0.5rem;
+    }
+
+    .remove-tag {
+      cursor: pointer;
+    }
+  }
+
+  .tag-input {
+    display: block;
+    float: left;
+    color: #9fabb8;
+    margin: 0 0 0 0.5rem;
+    outline: 0;
+    border: 0;
+    line-height: 25px;
+  }
+
+  .autocomplete {
+    position: absolute;
+    width: 100%;
+    max-height: 300px;
+    z-index: 100;
+    list-style-type: none;
+    padding: 0;
+    margin: 3px 0 0 0;
+
+
+    .selection {
+      padding: 10px;
+      background: #f9f9f9;
+      border: 1px solid #f1f1f1;
+      cursor: pointer;
+      
+      &:hover {
+        background: #9fabb8;
+        color: #fff;
+      }
+    }
+
   }
 }
+
 </style>
 
 <template>
-<div style="position:relative" :class="{'open':openSuggestion}" v-if="!disabled">
-  <input class="form-control" type="text" v-model="query" v-focus.lazy="focus" @keydown.enter="enter" @keydown.down="down" @keydown.up="up" @input="change" />
-  <slot name="selection-list" :selectionList="selectionList" :selectionValues="selectionValues">
-    <ul class="selection-list" v-if="drawSelections">
-      <li v-for="(selection, index) in selectionList">
-        {{ selection }}<a @click="removeSelected(index)">X</a>
+  <div class="tags">
+    <div class="tags-control clearfix" :class="{'open':openSuggestion}" v-if="!disabled">
+      <slot name="tag-list" :selectionList="selectionList" :selectionValues="selectionValues">
+        <ul class="tag-list" v-if="drawSelections">
+          <li v-for="(selection, index) in selectionList" class="tag-item">
+            <span>{{ selection }}</span>
+            <a class="remove-tag" @click="removeSelected(index)">x</a>
+          </li>
+        </ul>
+      </slot>
+      <input type="text" class="tag-input" v-model="query" v-focus.lazy="focus" @keydown.enter="enter" @keydown.down="down" @keydown.up="up" @input="change" :placeholder="placeholder" />
+    </div>
+    <ul class="autocomplete" v-show="open">
+      <li class="selection" v-for="(suggestion, index) in displays" :class="{'active': isActive(index)}" @click="suggestionClick(index)">
+        <a>{{ suggestion }}</a>
       </li>
     </ul>
-  </slot>
-  <ul class="dropdown-menu" style="width:100%">
-    <li v-for="(suggestion, index) in displays" :class="{'active': isActive(index)}" @click="suggestionClick(index)">
-      <a>{{ suggestion }}</a>
-    </li>
-  </ul>
-</div>
+  </div>
 </template>
 
 <script>
 import _ from 'lodash';
 
 export default {
-
   data() {
     return {
       open: false,
@@ -89,6 +149,10 @@ export default {
       required: false,
       default: false
     },
+    placeholder: {
+      type: String,
+      required: false
+    }
   },
 
   watch: {
