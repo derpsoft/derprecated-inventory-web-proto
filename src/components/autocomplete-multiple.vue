@@ -72,7 +72,7 @@
 
 <template>
   <div class="tags">
-    <div class="tags-control clearfix" :class="{'open':openSuggestion}" v-if="!disabled">
+    <div class="tags-control clearfix" v-if="!disabled">
       <slot name="tag-list" :selectionList="selectionList" :selectionValues="selectionValues">
         <ul class="tag-list" v-if="drawSelections">
           <li v-for="(selection, index) in selectionList" class="tag-item">
@@ -225,8 +225,11 @@ export default {
     },
 
     change() {
-      if (!this.open && this.query.length) {
+      if (this.query.length) {
         this.open = true;
+        this.current = 0;
+      } else {
+        this.open = false;
         this.current = 0;
       }
     },
