@@ -149,7 +149,7 @@ describe('Autocomplete Multiple', () => {
         Autocomplete.methods.change.apply(Autocomplete);
 
         expect(Autocomplete.open).to.not.be.ok;
-        expect(Autocomplete.current).to.equal(-1);
+        expect(Autocomplete.current).to.equal(0);
       });
     });
 

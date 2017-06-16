@@ -40,7 +40,7 @@ textarea.form-control {
           <div class="col-md-6">
             <div class="form-group">
               <label>Tags</label>
-              <tag-input></tag-input>
+              <autocomplete-multiple :suggestions="vendors" :selected="vendor" :key-selector="(v) => `${v.name}`" :value-selector="(v) => v" :display-selector="(v) => `${v.id}: ${v.name}`" @change="setVendor" placeholder="Add a tag"></autocomplete-multiple>
             </div>
           </div>
           <div class="col-md-4">
@@ -78,14 +78,14 @@ textarea.form-control {
 import _ from 'lodash';
 import Constants from 'src/constants';
 import Autocomplete from 'components/autocomplete';
-import TagInput from 'components/taginput';
+import AutocompleteMultiple from 'components/autocomplete-multiple';
 
 export default {
   name: 'productForm',
 
   components: {
     Autocomplete,
-    TagInput,
+    AutocompleteMultiple
   },
 
   data() {
@@ -93,6 +93,7 @@ export default {
       toggle: false,
       value: {},
       displayImage: {},
+      tags: ['Test', 'Apple', 'Orange', 'Grape']
     };
   },
 
